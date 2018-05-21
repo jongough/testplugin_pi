@@ -383,10 +383,6 @@ void testplugin_pi::SetCursorLatLon(double lat, double lon)
     if(m_tpControlDialogImpl->IsShown()) {
         m_cursor_lat = lat;
         m_cursor_lon = lon;
-        DEBUGST("SetCursorLatLon, Lat: ");
-        DEBUGCONT(lat);
-        DEBUGCONT(", Lon: ");
-        DEBUGEND(lon);
     }
 }
 
@@ -465,7 +461,11 @@ void testplugin_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCross
 
 bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP)
 {
-    return (*m_pODCreateBoundaryPoint)(pCBP);
+    wxString l_GUID;
+    l_GUID.Append((*m_pODCreateBoundaryPoint)(pCBP));
+    DEBUGST("Boundary Point GUID: ");
+    DEBUGEND(l_GUID);
+    return true;
 }
 
 bool testplugin_pi::CreateBoundary(CreateBoundary_t* pCB)
@@ -475,6 +475,10 @@ bool testplugin_pi::CreateBoundary(CreateBoundary_t* pCB)
 
 bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
 {
-    return (*m_pODCreateTextPoint)(pCTP);
+    wxString l_GUID;
+    l_GUID.Append((*m_pODCreateTextPoint)(pCTP));
+    DEBUGST("Text Point GUID: ");
+    DEBUGEND(l_GUID);
+    return true;
 }
 
