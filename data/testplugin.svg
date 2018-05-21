@@ -29,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.2"
-     inkscape:cx="-26.733155"
+     inkscape:cx="14.424965"
      inkscape:cy="28.155679"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -43,7 +43,7 @@
      inkscape:guide-bbox="true"
      inkscape:window-width="1920"
      inkscape:window-height="1053"
-     inkscape:window-x="1920"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
@@ -70,27 +70,21 @@
        height="31.875"
        x="2.8571429"
        y="1020.398" />
-    <text
-       xml:space="preserve"
+    <g
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.76987839px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="14.181932"
-       y="1033.7727"
-       id="text4146"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4148"
-         x="14.181932"
-         y="1033.7727">T</tspan></text>
-    <text
-       xml:space="preserve"
+       id="text4146">
+      <path
+         d="m 17.001768,1033.7727 0,-0.7645 1.377464,0 0,-9.1446 -3.166004,0 0,1.6804 -0.887058,0 0,-2.5386 9.562919,0 0,2.5386 -0.887058,0 0,-1.6804 -3.166004,0 0,9.1446 1.377464,0 0,0.7645 -4.211723,0 z"
+         style=""
+         id="path5361" />
+    </g>
+    <g
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.99520588px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="14.690207"
-       y="1049.9335"
-       id="text4150"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4152"
-         x="14.690207"
-         y="1049.9335">P</tspan></text>
+       id="text4150">
+      <path
+         d="m 18.395077,1044.3688 1.932975,0 q 1.09096,0 1.662067,-0.5857 0.571106,-0.5931 0.571106,-1.706 0,-1.1203 -0.571106,-1.706 -0.571107,-0.5858 -1.662067,-0.5858 l -1.932975,0 0,4.5835 z m -2.877498,5.5647 0,-0.7761 1.391157,0 0,-9.3721 -1.391157,0 0,-0.7834 5.169246,0 q 1.6401,0 2.599266,0.8347 0.959166,0.8274 0.959166,2.2405 0,1.4058 -0.959166,2.2405 -0.959166,0.8347 -2.599266,0.8347 l -2.291748,0 0,4.0051 1.691354,0 0,0.7761 -4.568852,0 z"
+         style=""
+         id="path5364" />
+    </g>
   </g>
 </svg>

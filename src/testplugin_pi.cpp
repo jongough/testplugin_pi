@@ -52,6 +52,9 @@
 #include "tpicons.h"
 #include "tpControlDialogImpl.h"
 
+#include "wx/jsonwriter.h"
+
+
 //#include "pluginmanager.h"
 
 #ifndef DECL_EXP
@@ -69,7 +72,6 @@ static const long long lNaN = 0xfff8000000000000;
 
 testplugin_pi           *g_testplugin_pi;
 //PlugInManager           *g_tp_pi_manager;
-//tpPropertiesDialogImpl  *g_ptpPropDialog;
 wxString                *g_PrivateDataDir;
 
 wxString                *g_pHome_Locn;
@@ -93,6 +95,8 @@ wxFont                  *g_pFontData;
 wxFont                  *g_pFontLabel;
 wxFont                  *g_pFontSmall;
 
+wxString                g_ReceivedODAPIMessage;
+wxJSONValue             g_ReceivedODAPIJSONMsg;
 
 
 // the class factories, used to create and destroy instances of the PlugIn
@@ -178,6 +182,10 @@ int testplugin_pi::Init(void)
     g_tplocale = NULL;
     m_btpDialog = false;
     m_tpControlDialogImpl = NULL;
+    m_cursor_lat = 0.0;
+    m_cursor_lon = 0.0;
+    m_click_lat = 0.0;
+    m_click_lon = 0.0;
     
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
@@ -195,13 +203,13 @@ int testplugin_pi::Init(void)
     g_ptpJSON = new tpJSON;
     
     
-    #ifdef TESTPLUGIN_USE_SVG
+#ifdef TESTPLUGIN_USE_SVG
     m_testplugin_button_id  = InsertPlugInToolSVG(_("Test Plugin"), m_ptpicons->m_s_testplugin_grey_pi, m_ptpicons->m_s_testplugin_pi, m_ptpicons->m_s_testplugin_toggled_pi, wxITEM_CHECK,
                                                   _("Test Plugin"), wxS(""), NULL, testplugin_POSITION, 0, this);
-    #else
+#else
     m_testplugin_button_id  = InsertPlugInTool(_("Test Plugin"), &m_ptpicons->m_bm_testplugin_grey_pi, &m_ptpicons->m_bm_testplugin_pi, wxITEM_CHECK,
                                              _("Test Plugin"), wxS(""), NULL, testplugin_POSITION, 0, this);
-    #endif
+#endif
     
     //    In order to avoid an ASSERT on msw debug builds,
     //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
@@ -221,8 +229,11 @@ int testplugin_pi::Init(void)
     wxColour l_fontcolour = GetFontColour_PlugIn( wxS("tp_Label") );
     l_fontcolour = GetFontColour_PlugIn( wxS("tp_Data") );
     
+    m_pOD_FindPointInAnyBoundary = NULL;
+    m_pODFindClosestBoundaryLineCrossing = NULL;
     
     return (
+        WANTS_CURSOR_LATLON       |
         WANTS_TOOLBAR_CALLBACK    |
         INSTALLS_TOOLBAR_TOOL     |
 //        WANTS_CONFIG              |
@@ -234,7 +245,7 @@ int testplugin_pi::Init(void)
 //        WANTS_PREFERENCES         |
         //    WANTS_ONPAINT_VIEWPORT      |
         WANTS_PLUGIN_MESSAGING    |
-//        WANTS_MOUSE_EVENTS        |
+        WANTS_MOUSE_EVENTS        |
         WANTS_KEYBOARD_EVENTS
     );
 }
@@ -315,7 +326,8 @@ void testplugin_pi::ShowPreferencesDialog( wxWindow* parent )
 
 void testplugin_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
 {
-
+    g_ptpJSON->ProcessMessage(message_id, message_body);
+    return;
 }
 
 bool testplugin_pi::KeyboardEventHook( wxKeyEvent &event )
@@ -344,6 +356,40 @@ bool testplugin_pi::KeyboardEventHook( wxKeyEvent &event )
     return bret;
 }
 
+bool testplugin_pi::MouseEventHook( wxMouseEvent &event )
+{
+    bool bret = FALSE;
+    
+    if(m_tpControlDialogImpl->IsVisible()) {
+        DEBUGSL("ControlDIalogImpl");
+        if(event.LeftDown()) {
+            DEBUGSL("LeftDown");
+            m_click_lat = m_cursor_lat;
+            m_click_lon = m_cursor_lon;
+            m_tpControlDialogImpl->SetLatLon( m_cursor_lat, m_cursor_lon );
+            bret = TRUE;
+        }
+        
+        if(event.LeftUp()) {
+            bret = TRUE;
+        }
+    }
+    
+    return bret;
+}                        
+
+void testplugin_pi::SetCursorLatLon(double lat, double lon)
+{
+    if(m_tpControlDialogImpl->IsShown()) {
+        m_cursor_lat = lat;
+        m_cursor_lon = lon;
+        DEBUGST("SetCursorLatLon, Lat: ");
+        DEBUGCONT(lat);
+        DEBUGCONT(", Lon: ");
+        DEBUGEND(lon);
+    }
+}
+
 wxBitmap *testplugin_pi::GetPlugInBitmap()
 {
     return &m_ptpicons->m_bm_testplugin_pi;
@@ -369,3 +415,66 @@ void testplugin_pi::ToggleToolbarIcon( void )
         m_tpControlDialogImpl->Show();
     }
 }
+
+void testplugin_pi::GetODAPI()
+{
+    wxJSONValue jMsg;
+    wxJSONWriter writer;
+    wxString    MsgString;
+    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Type")] = wxT("Request");
+    jMsg[wxT("Msg")] = wxS("GetAPIAddresses");
+    jMsg[wxT("MsgId")] = wxS("GetAPIAddresses");
+    writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("GetAPIAddresses")) {
+        wxString sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindPointInAnyBoundary")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pOD_FindPointInAnyBoundary);
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindClosestBoundaryLineCrossing")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODFindClosestBoundaryLineCrossing);
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindFirstBoundaryLineCrossing")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODFindFirstBoundaryLineCrossing);
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateBoundary")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateBoundary);
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateBoundaryPoint")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateBoundaryPoint);
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateTextPoint")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateTextPoint);
+        }
+    }
+}
+
+void testplugin_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPBLC)
+{
+    if((*m_pODFindClosestBoundaryLineCrossing)(pFCPBLC)) {
+        delete pFCPBLC;
+    }
+    delete pFCPBLC;
+}
+
+bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP)
+{
+    return (*m_pODCreateBoundaryPoint)(pCBP);
+}
+
+bool testplugin_pi::CreateBoundary(CreateBoundary_t* pCB)
+{
+    return false;
+}
+
+bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
+{
+    return (*m_pODCreateTextPoint)(pCTP);
+}
+

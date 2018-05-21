@@ -42,8 +42,12 @@
 
 #include <stdio.h>
 
+extern testplugin_pi        *g_testplugin_pi;
 extern ODAPI                *g_pODAPI;
 extern double               g_dVar;
+extern wxString             g_ReceivedODAPIMessage;
+extern wxJSONValue          g_ReceivedODAPIJSONMsg;
+
 
 tpJSON::tpJSON()
 {
@@ -136,6 +140,10 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             writer.Write( jMsg, MsgString );
             SendPluginMessage( root[wxS("Source")].AsString(), MsgString );
             
+        } else if(root[wxS("Msg")].AsString() == wxS("GetAPIAddresses") ) {
+            g_ReceivedODAPIJSONMsg = root;
+            g_ReceivedODAPIMessage = message_body;
+            
         } else if(!bFail && root[wxS("Msg")].AsString() == wxS("CreateBoundary")) {
             if(!root.HasMember( wxS("BoundaryName"))) {
                 wxLogMessage( wxS("No BoundaryName found in message") );
@@ -159,28 +167,31 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             }
         }
         
+    } else if(message_id == _T("OCPN_DRAW_PI_READY_FOR_REQUESTS")) {
+        g_testplugin_pi->GetODAPI();
     } else if(message_id == _T("WMM_VARIATION_BOAT")) {
-
-    // construct the JSON root object
+        
+        // construct the JSON root object
         wxJSONValue  root;
-    // construct a JSON parser
+        // construct a JSON parser
         wxJSONReader reader;
-
-    // now read the JSON text and store it in the 'root' structure
-    // check for errors before retreiving values...
+        
+        // now read the JSON text and store it in the 'root' structure
+        // check for errors before retreiving values...
         int numErrors = reader.Parse( message_body, &root );
         if ( numErrors > 0 )  {
-//              const wxArrayString& errors = reader.GetErrors();
+            //              const wxArrayString& errors = reader.GetErrors();
             return;
         }
-
+        
         // get the DECL value from the JSON message
         wxString decl = root[_T("Decl")].AsString();
         double decl_val;
         decl.ToDouble(&decl_val);
-
+        
         g_dVar = decl_val;
     }
+    
     
     return;
 }

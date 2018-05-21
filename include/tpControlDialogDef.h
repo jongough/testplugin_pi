@@ -25,11 +25,12 @@
 #include <wx/button.h>
 #include <wx/sizer.h>
 #include <wx/textctrl.h>
-#include <wx/combobox.h>
+#include <wx/choice.h>
 #include <wx/checkbox.h>
 #include <wx/clrpicker.h>
 #include <wx/checklst.h>
-#include <wx/choice.h>
+#include <wx/slider.h>
+#include <wx/radiobox.h>
 #include <wx/notebook.h>
 #include <wx/dialog.h>
 
@@ -61,45 +62,79 @@ class tpControlDialogDef : public wxDialog
 		wxStaticText* m_staticBoundaryName;
 		wxTextCtrl* m_textCtrlName;
 		wxStaticText* m_staticTextType;
-		wxComboBox* m_comboBoxType;
-		wxCheckBox* m_checkBoxPathActive;
-		wxCheckBox* m_checkBoxVisible;
+		wxChoice* m_choiceType;
+		wxCheckBox* m_checkBoxBoundaryActive;
+		wxCheckBox* m_checkBoxBoundaryVisible;
 		wxStaticText* m_staticTextLineColour;
 		wxColourPickerCtrl* m_colourPickerLineColour;
 		wxStaticText* m_staticTextFillColour;
 		wxColourPickerCtrl* m_colourPickerFillColour;
 		wxStaticText* m_staticTextBoundaryPointsList;
 		wxCheckListBox* m_checkListBoundaryPointList;
+		wxButton* m_buttonCreateBoundary;
 		wxPanel* m_panelODAPICreateBoundaryPoint;
 		wxStaticText* m_staticTextBPName;
 		wxTextCtrl* m_textCtrlBoundaryPointName;
+		wxStaticText* m_staticTextBoundaryPointType;
+		wxChoice* m_choiceBoundaryPointType;
+		wxStaticText* m_staticTextIconName;
+		wxTextCtrl* m_textCtrlBoundaryPointIconName;
 		wxStaticText* m_staticTextLat;
 		wxTextCtrl* m_textCtrlLatitude;
 		wxStaticText* m_staticTextLon;
 		wxTextCtrl* m_textCtrlLongitude;
-		wxCheckBox* m_checkBoxBoundaryPointActive;
 		wxCheckBox* m_checkBoxBoundaryPointVisible;
 		wxCheckBox* m_checkBoxRingsVisible;
 		wxStaticText* m_staticText10;
-		wxChoice* m_choiceRingNumber;
+		wxChoice* m_choiceBoundaryPointRingNumber;
 		wxStaticText* m_staticText1RingStep;
-		wxTextCtrl* m_textCtrlRingStep;
+		wxTextCtrl* m_textCtrlBoundaryPointRingStep;
 		wxStaticText* m_staticTextRinUnits;
-		wxChoice* m_choiceRingUnits;
+		wxChoice* m_choiceBoundaryPointRingUnits;
 		wxStaticText* m_staticTextRingColour;
-		wxColourPickerCtrl* m_colourPickerRingColour;
-		wxButton* m_buttonOK;
+		wxColourPickerCtrl* m_colourPickerBoundaryPointRingColour;
+		wxButton* m_buttonCreateBoundaryPoint;
+		wxPanel* m_panelODAPICreateTextPoint;
+		wxFlexGridSizer* m_fgSizerTextPoint;
+		wxStaticText* m_staticTextTextPointName;
+		wxTextCtrl* m_textCtrlTextPointName;
+		wxStaticText* m_staticTextTextPointIconName;
+		wxTextCtrl* m_textCtrlTextPointIconName;
+		wxStaticText* m_staticTextTextPointLat;
+		wxTextCtrl* m_textCtrlTextPointLatitude;
+		wxStaticText* m_staticTextTextPointLon;
+		wxTextCtrl* m_textCtrlTextPointLongitude;
+		wxCheckBox* m_checkBoxTextPointVisible;
+		wxStaticText* m_staticTextTextPointText;
+		wxTextCtrl* m_textCtrlTextPointTextToDisplay;
+		wxStaticText* m_staticTextTextPointTextPosition;
+		wxChoice* m_choiceTextPointTextPosition;
+		wxStaticText* m_staticTextTextPointTextColour;
+		wxColourPickerCtrl* m_colourPickerTextPointTextColour;
+		wxStaticText* m_staticTextTextPointBackgroundColour;
+		wxColourPickerCtrl* m_colourPickerTextPointTextBackgroundColour;
+		wxStaticText* m_staticTextTextPointBackgroundTransparancy;
+		wxSlider* m_sliderTextPointBackgroundTransparency;
+		wxFlexGridSizer* m_fgSizerDisplayText;
+		wxStaticText* m_staticTextTextPointFont;
+		wxStaticText* m_staticTextTextPointTextFontExample;
+		wxButton* m_buttonTextPointFonts;
+		wxRadioBox* m_radioBoxTextPointTextDisplay;
+		wxButton* m_buttonCreateTextPoint;
 		wxButton* Cancel;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void tpControlOnClickProcessJSON( wxCommandEvent& event ) { event.Skip(); }
-		virtual void tpControlOKClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickCreateBoundary( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickCreateBoundaryPoint( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickFonts( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickCreateTextPoint( wxCommandEvent& event ) { event.Skip(); }
 		virtual void tpControlCancelClick( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
 		
-		tpControlDialogDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Test Plugin Control Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 403,410 ), long style = wxCAPTION|wxCLOSE_BOX|wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP ); 
+		tpControlDialogDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Test Plugin Control Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 399,716 ), long style = wxCAPTION|wxCLOSE_BOX|wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP ); 
 		~tpControlDialogDef();
 	
 };

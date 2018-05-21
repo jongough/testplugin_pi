@@ -134,6 +134,8 @@ std::cout << x  << std::endl ; } while (0)
 #include <wx/fileconf.h>
 #include <wx/dynarray.h>
 
+#include "ODAPI.h"
+
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
@@ -201,15 +203,24 @@ public:
     void shutdown(bool menu);
     
     bool KeyboardEventHook( wxKeyEvent &event );
+    bool MouseEventHook( wxMouseEvent &event );
+    void SetCursorLatLon(double lat, double lon);
     
     // OD Methods
-    void    ProcessTimerEvent(wxTimerEvent& ev);
-    void    PopupMenuHandler(wxCommandEvent& ev);
+    void ProcessTimerEvent(wxTimerEvent& ev);
+    void PopupMenuHandler(wxCommandEvent& ev);
     
-    void    SaveConfig( void );
+    void SaveConfig( void );
     
-    void    SetToolbarTool( void );
-    void    ToggleToolbarIcon( void);
+    void SetToolbarTool( void );
+    void ToggleToolbarIcon( void);
+    
+    void    GetODAPI( void );
+    
+    void FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPIAB);
+    bool CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP);
+    bool CreateBoundary(CreateBoundary_t *pCB);
+    bool CreateTextPoint(CreateTextPoint_t *pCTP);
     
     
     wxGLContext     *m_pcontext;
@@ -245,8 +256,16 @@ private:
     bool            show;
     int             m_config_button_id;
     
-    
-    
+    double      m_cursor_lat;
+    double      m_cursor_lon;
+    double      m_click_lat;
+    double      m_click_lon;
+    OD_FindPointInAnyBoundary           m_pOD_FindPointInAnyBoundary;
+    OD_FindClosestBoundaryLineCrossing  m_pODFindClosestBoundaryLineCrossing;
+    OD_FindFirstBoundaryLineCrossing    m_pODFindFirstBoundaryLineCrossing;
+    OD_CreateBoundary                   m_pODCreateBoundary;
+    OD_CreateBoundaryPoint              m_pODCreateBoundaryPoint;
+    OD_CreateTextPoint                  m_pODCreateTextPoint;
 };
 
 #endif

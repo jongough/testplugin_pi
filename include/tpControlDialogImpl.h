@@ -33,32 +33,39 @@
  */
 
 #include "tpControlDialogDef.h"
+#include "ODAPI.h"
 
 //    Constants for buttons
-enum
-{
-    ID_ODNEWPOINTDIALOGBUTTON_BOUNDARY = 0,
-    ID_ODNEWPOINTDIALOGBUTTON_TEXT,
     
-    ID_ODNEWPOINTDIALOGBUTTON_LAST
-};
-    
+// forward class definition    
+class wxFontDialog;
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class NewODPoint
+/// Class tpControlDialogImpl
 ///////////////////////////////////////////////////////////////////////////////
 class tpControlDialogImpl : public tpControlDialogDef 
 {
 	private:
-
+        double  m_dBoundaryPointRangeRingSteps;
+        bool    m_bCreateBoundaryPointHasFocus;
+        bool    m_bCreateBoundaryHasFocus;
+        wxFontDialog  *m_pfdDialog;
+        wxFont  m_DisplayTextFont;
+        
 	protected:
         // Handlers for ODNewODPointDialogDef events.
         void tpControlOnClickProcessJSON( wxCommandEvent& event );
         void tpControlOKClick( wxCommandEvent& event );
         void tpControlCancelClick( wxCommandEvent& event );
+        void OnButtonClickFonts( wxCommandEvent& event );
+        void OnButtonClickCreateBoundary( wxCommandEvent& event );
+        void OnButtonClickCreateBoundaryPoint( wxCommandEvent& event );
+        void OnButtonClickCreateTextPoint( wxCommandEvent& event );
         
 	public:
         tpControlDialogImpl( wxWindow *parent );
+        void SetDialogSize( void );
+        void SetLatLon( double lat, double lon );
         
         bool m_bOK;
         int  m_iSelection;
