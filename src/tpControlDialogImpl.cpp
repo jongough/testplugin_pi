@@ -62,7 +62,214 @@ tpControlDialogImpl::tpControlDialogImpl( wxWindow* parent ) : tpControlDialogDe
 
 void tpControlDialogImpl::OnButtonClickCreateBoundary( wxCommandEvent& event )
 {
+    CreateBoundaryPoint_t *pCBP = new CreateBoundaryPoint_t;
+    CreateBoundaryPoint_t *pCBP1 = new CreateBoundaryPoint_t;
+    CreateBoundaryPoint_t *pCBP2 = new CreateBoundaryPoint_t;
+    CreateBoundaryPoint_t *pCBP3 = new CreateBoundaryPoint_t;
+    CreateBoundaryPoint_t *pCBP4 = new CreateBoundaryPoint_t;
+    CreateBoundaryPoint_t *pCBP5 = new CreateBoundaryPoint_t;
+    CreateBoundaryPoint_t *pCBP6 = new CreateBoundaryPoint_t;
     
+    if(m_textCtrlCornerLat->IsEmpty() || m_textCtrlCornerLon->IsEmpty()) {
+        return;
+    }
+    
+    double l_lat;
+    double l_lon;
+    
+    CreateBoundary_t *pCB = new CreateBoundary_t;
+    pCB->name = m_textCtrlBoundaryName->GetValue();
+    pCB->type = m_choiceBoundaryType->GetSelection();
+    pCB->pathIsActive = m_checkBoxBoundaryActive->GetValue();
+    pCB->visible = m_checkBoxBoundaryVisible->GetValue();
+    pCB->lineColour = m_colourPickerBoundaryLineColour->GetColour();
+    pCB->fillColour = m_colourPickerBoundaryFillColour->GetColour();
+    //pCB->BoundaryPointsList.insert()
+    
+    pCB->BoundaryPointsList.clear();
+    pCBP->name = _T("Corner");
+    pCBP->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+    pCBP->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+    pCBP->type = m_choiceBoundaryType->GetSelection();
+    pCBP->visible = pCB->visible;
+    pCBP->ringsvisible = true;
+    pCBP->ringsnumber = 1;
+    pCBP->ringssteps = 0.5;
+    pCBP->ringsunits = 0;
+    pCBP->defaultRingColour = false;
+    pCBP->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+    pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP);
+    int i = m_choiceNumberOfPoints->GetSelection() + 3;
+    int l_iPointNum = 1;
+    if(i == 3) {
+        pCBP1->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP1->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        pCBP1->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP1->visible = pCB->visible;
+        pCBP1->ringsvisible = false;
+        pCBP1->ringsnumber = 1;
+        pCBP1->ringssteps = 1;
+        pCBP1->ringsunits = 0;
+        pCBP1->defaultRingColour = true;
+        pCBP1->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP1);
+        pCBP2->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP2->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        pCBP2->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        pCBP2->type = m_choiceBoundaryType->GetSelection();
+        pCBP2->visible = pCB->visible;
+        pCBP2->ringsvisible = false;
+        pCBP2->ringsnumber = 0;
+        pCBP2->ringssteps = 1;
+        pCBP2->ringsunits = 0;
+        pCBP2->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP2);
+    } else if(i == 4) {
+        pCBP1->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP1->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        pCBP1->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP1->visible = pCB->visible;
+        pCBP1->ringsvisible = false;
+        pCBP1->ringsnumber = 1;
+        pCBP1->ringssteps = 1;
+        pCBP1->ringsunits = 0;
+        pCBP1->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP1);
+        pCBP2->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP2->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        pCBP2->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP2->type = m_choiceBoundaryType->GetSelection();
+        pCBP2->visible = pCB->visible;
+        pCBP2->ringsvisible = false;
+        pCBP2->ringsnumber = 0;
+        pCBP2->ringssteps = 1;
+        pCBP2->ringsunits = 0;
+        pCBP2->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP2);
+        pCBP3->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP3->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        pCBP3->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        pCBP3->type = m_choiceBoundaryType->GetSelection();
+        pCBP3->visible = pCB->visible;
+        pCBP3->ringsvisible = false;
+        pCBP3->ringsnumber = 0;
+        pCBP3->ringssteps = 1;
+        pCBP3->ringsunits = 0;
+        pCBP3->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP3);
+    } else if(i == 5) {
+        pCBP1->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP1->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        pCBP1->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP1->visible = pCB->visible;
+        pCBP1->ringsvisible = false;
+        pCBP1->ringsnumber = 1;
+        pCBP1->ringssteps = 1;
+        pCBP1->ringsunits = 0;
+        pCBP1->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP1);
+        pCBP2->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP2->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.00835;
+        pCBP2->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        pCBP2->type = m_choiceBoundaryType->GetSelection();
+        pCBP2->visible = pCB->visible;
+        pCBP2->ringsvisible = false;
+        pCBP2->ringsnumber = 0;
+        pCBP2->ringssteps = 1;
+        pCBP2->ringsunits = 0;
+        pCBP2->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP2);
+        pCBP3->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP3->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        pCBP3->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP3->type = m_choiceBoundaryType->GetSelection();
+        pCBP3->visible = pCB->visible;
+        pCBP3->ringsvisible = false;
+        pCBP3->ringsnumber = 0;
+        pCBP3->ringssteps = 1;
+        pCBP3->ringsunits = 0;
+        pCBP3->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP3);
+        pCBP4->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP4->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        pCBP4->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        pCBP4->type = m_choiceBoundaryType->GetSelection();
+        pCBP4->visible = pCB->visible;
+        pCBP4->ringsvisible = false;
+        pCBP4->ringsnumber = 0;
+        pCBP4->ringssteps = 1;
+        pCBP4->ringsunits = 0;
+        pCBP4->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP4);
+    } else if(i == 6) {
+        pCBP1->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP1->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        pCBP1->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP1->visible = pCB->visible;
+        pCBP1->ringsvisible = false;
+        pCBP1->ringsnumber = 1;
+        pCBP1->ringssteps = 1;
+        pCBP1->ringsunits = 0;
+        pCBP1->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP1);
+        pCBP2->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP2->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.00835;
+        pCBP2->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        pCBP2->type = m_choiceBoundaryType->GetSelection();
+        pCBP2->visible = pCB->visible;
+        pCBP2->ringsvisible = false;
+        pCBP2->ringsnumber = 0;
+        pCBP2->ringssteps = 1;
+        pCBP2->ringsunits = 0;
+        pCBP2->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP2);
+        pCBP3->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP3->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        pCBP3->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP3->type = m_choiceBoundaryType->GetSelection();
+        pCBP3->visible = pCB->visible;
+        pCBP3->ringsvisible = false;
+        pCBP3->ringsnumber = 0;
+        pCBP3->ringssteps = 1;
+        pCBP3->ringsunits = 0;
+        pCBP3->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP3);
+        pCBP4->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP4->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        pCBP4->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        pCBP4->type = m_choiceBoundaryType->GetSelection();
+        pCBP4->visible = pCB->visible;
+        pCBP4->ringsvisible = false;
+        pCBP4->ringsnumber = 0;
+        pCBP4->ringssteps = 1;
+        pCBP4->ringsunits = 0;
+        pCBP4->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP4);
+        pCBP5->name.Printf(_T("id %i"), l_iPointNum++);
+        pCBP5->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.00835;
+        pCBP5->lon = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        pCBP5->type = m_choiceBoundaryType->GetSelection();
+        pCBP5->visible = pCB->visible;
+        pCBP5->ringsvisible = false;
+        pCBP5->ringsnumber = 0;
+        pCBP5->ringssteps = 1;
+        pCBP5->ringsunits = 0;
+        pCBP5->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP5);
+    }
+    
+    g_testplugin_pi->CreateBoundary(pCB);
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
+    delete pCBP1;
+    delete pCBP2;
+    delete pCBP3;
+    delete pCBP4;
+    delete pCBP5;
+    delete pCBP6;
+    
+    delete pCBP;
+    delete pCB;
 }
 
 void tpControlDialogImpl::OnButtonClickCreateBoundaryPoint( wxCommandEvent& event )
@@ -127,6 +334,8 @@ void tpControlDialogImpl::tpControlOnClickProcessJSON( wxCommandEvent& event )
 
 void tpControlDialogImpl::SetLatLon( double lat, double lon )
 {
+    m_textCtrlCornerLat->SetValue( toSDMM_PlugIn(1, lat));
+    m_textCtrlCornerLon->SetValue( toSDMM_PlugIn(1, lon));
     m_textCtrlLatitude->SetValue( toSDMM_PlugIn( 1, lat ) );
     m_textCtrlLongitude->SetValue( toSDMM_PlugIn( 1, lon ) );
     m_textCtrlTextPointLatitude->SetValue( toSDMM_PlugIn( 1, lat ) );

@@ -67,18 +67,18 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_staticBoundaryName->Wrap( -1 );
 	fgSizer5->Add( m_staticBoundaryName, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
-	m_textCtrlName = new wxTextCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer5->Add( m_textCtrlName, 1, wxALIGN_RIGHT|wxALL, 5 );
+	m_textCtrlBoundaryName = new wxTextCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer5->Add( m_textCtrlBoundaryName, 1, wxALIGN_RIGHT|wxALL, 5 );
 	
 	m_staticTextType = new wxStaticText( m_panelODAPICreateBoundary, wxID_ANY, _("Type"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticTextType->Wrap( -1 );
 	fgSizer5->Add( m_staticTextType, 0, wxALL, 5 );
 	
-	wxString m_choiceTypeChoices[] = { _("Exclusion"), _("Inclusion"), _("Neither") };
-	int m_choiceTypeNChoices = sizeof( m_choiceTypeChoices ) / sizeof( wxString );
-	m_choiceType = new wxChoice( m_panelODAPICreateBoundary, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceTypeNChoices, m_choiceTypeChoices, 0 );
-	m_choiceType->SetSelection( 0 );
-	fgSizer5->Add( m_choiceType, 1, wxALIGN_RIGHT|wxALL, 5 );
+	wxString m_choiceBoundaryTypeChoices[] = { _("Exclusion"), _("Inclusion"), _("Neither") };
+	int m_choiceBoundaryTypeNChoices = sizeof( m_choiceBoundaryTypeChoices ) / sizeof( wxString );
+	m_choiceBoundaryType = new wxChoice( m_panelODAPICreateBoundary, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceBoundaryTypeNChoices, m_choiceBoundaryTypeChoices, 0 );
+	m_choiceBoundaryType->SetSelection( 0 );
+	fgSizer5->Add( m_choiceBoundaryType, 1, wxALIGN_RIGHT|wxALL, 5 );
 	
 	m_checkBoxBoundaryActive = new wxCheckBox( m_panelODAPICreateBoundary, wxID_ANY, _("Active"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
 	m_checkBoxBoundaryActive->SetValue(true); 
@@ -97,8 +97,8 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_staticTextLineColour->Wrap( -1 );
 	fgSizer6->Add( m_staticTextLineColour, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
-	m_colourPickerLineColour = new wxColourPickerCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxColour( 255, 0, 0 ), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
-	fgSizer6->Add( m_colourPickerLineColour, 0, wxALL, 5 );
+	m_colourPickerBoundaryLineColour = new wxColourPickerCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxColour( 255, 0, 0 ), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
+	fgSizer6->Add( m_colourPickerBoundaryLineColour, 0, wxALL, 5 );
 	
 	
 	fgSizer5->Add( fgSizer6, 1, wxEXPAND, 5 );
@@ -112,8 +112,8 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_staticTextFillColour->Wrap( -1 );
 	fgSizer7->Add( m_staticTextFillColour, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
-	m_colourPickerFillColour = new wxColourPickerCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxColour( 255, 0, 0 ), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
-	fgSizer7->Add( m_colourPickerFillColour, 1, wxALIGN_RIGHT|wxALL, 5 );
+	m_colourPickerBoundaryFillColour = new wxColourPickerCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxColour( 255, 0, 0 ), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
+	fgSizer7->Add( m_colourPickerBoundaryFillColour, 1, wxALIGN_RIGHT|wxALL, 5 );
 	
 	
 	fgSizer5->Add( fgSizer7, 1, wxEXPAND, 5 );
@@ -122,9 +122,48 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_staticTextBoundaryPointsList->Wrap( -1 );
 	fgSizer5->Add( m_staticTextBoundaryPointsList, 0, wxALL, 5 );
 	
-	wxArrayString m_checkListBoundaryPointListChoices;
-	m_checkListBoundaryPointList = new wxCheckListBox( m_panelODAPICreateBoundary, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_checkListBoundaryPointListChoices, 0 );
-	fgSizer5->Add( m_checkListBoundaryPointList, 1, wxALL, 5 );
+	
+	fgSizer5->Add( 0, 0, 1, wxEXPAND, 5 );
+	
+	wxFlexGridSizer* fgSizer24;
+	fgSizer24 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer24->SetFlexibleDirection( wxBOTH );
+	fgSizer24->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_staticTextCornetLat = new wxStaticText( m_panelODAPICreateBoundary, wxID_ANY, _("Corner Lat"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticTextCornetLat->Wrap( -1 );
+	fgSizer24->Add( m_staticTextCornetLat, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_textCtrlCornerLat = new wxTextCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer24->Add( m_textCtrlCornerLat, 0, wxALIGN_RIGHT|wxALL, 5 );
+	
+	
+	fgSizer5->Add( fgSizer24, 1, wxEXPAND, 5 );
+	
+	wxFlexGridSizer* fgSizer25;
+	fgSizer25 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer25->SetFlexibleDirection( wxBOTH );
+	fgSizer25->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+	
+	m_staticTextCornerLon = new wxStaticText( m_panelODAPICreateBoundary, wxID_ANY, _("Corner Lon"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticTextCornerLon->Wrap( -1 );
+	fgSizer25->Add( m_staticTextCornerLon, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_textCtrlCornerLon = new wxTextCtrl( m_panelODAPICreateBoundary, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer25->Add( m_textCtrlCornerLon, 0, wxALIGN_RIGHT|wxALL, 5 );
+	
+	
+	fgSizer5->Add( fgSizer25, 1, wxEXPAND, 5 );
+	
+	m_staticTextNumPoints = new wxStaticText( m_panelODAPICreateBoundary, wxID_ANY, _("Number of Points"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticTextNumPoints->Wrap( -1 );
+	fgSizer5->Add( m_staticTextNumPoints, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	wxString m_choiceNumberOfPointsChoices[] = { _("3"), _("4"), _("5"), _("6") };
+	int m_choiceNumberOfPointsNChoices = sizeof( m_choiceNumberOfPointsChoices ) / sizeof( wxString );
+	m_choiceNumberOfPoints = new wxChoice( m_panelODAPICreateBoundary, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceNumberOfPointsNChoices, m_choiceNumberOfPointsChoices, 0 );
+	m_choiceNumberOfPoints->SetSelection( 0 );
+	fgSizer5->Add( m_choiceNumberOfPoints, 0, wxALIGN_RIGHT|wxALL, 5 );
 	
 	m_buttonCreateBoundary = new wxButton( m_panelODAPICreateBoundary, wxID_ANY, _("Create"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer5->Add( m_buttonCreateBoundary, 0, wxALL, 5 );
@@ -133,7 +172,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelODAPICreateBoundary->SetSizer( fgSizer5 );
 	m_panelODAPICreateBoundary->Layout();
 	fgSizer5->Fit( m_panelODAPICreateBoundary );
-	m_notebookODAPI->AddPage( m_panelODAPICreateBoundary, _("Create Boundary"), false );
+	m_notebookODAPI->AddPage( m_panelODAPICreateBoundary, _("Create Boundary"), true );
 	m_panelODAPICreateBoundaryPoint = new wxPanel( m_notebookODAPI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer8;
 	fgSizer8 = new wxFlexGridSizer( 0, 1, 0, 0 );
@@ -315,7 +354,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelODAPICreateBoundaryPoint->SetSizer( fgSizer8 );
 	m_panelODAPICreateBoundaryPoint->Layout();
 	fgSizer8->Fit( m_panelODAPICreateBoundaryPoint );
-	m_notebookODAPI->AddPage( m_panelODAPICreateBoundaryPoint, _("Create Boundary Point"), true );
+	m_notebookODAPI->AddPage( m_panelODAPICreateBoundaryPoint, _("Create Boundary Point"), false );
 	m_panelODAPICreateTextPoint = new wxPanel( m_notebookODAPI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	m_fgSizerTextPoint = new wxFlexGridSizer( 0, 1, 0, 0 );
 	m_fgSizerTextPoint->AddGrowableCol( 0 );

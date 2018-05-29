@@ -28,7 +28,6 @@
 #include <wx/choice.h>
 #include <wx/checkbox.h>
 #include <wx/clrpicker.h>
-#include <wx/checklst.h>
 #include <wx/slider.h>
 #include <wx/radiobox.h>
 #include <wx/notebook.h>
@@ -60,17 +59,22 @@ class tpControlDialogDef : public wxDialog
 		wxNotebook* m_notebookODAPI;
 		wxPanel* m_panelODAPICreateBoundary;
 		wxStaticText* m_staticBoundaryName;
-		wxTextCtrl* m_textCtrlName;
+		wxTextCtrl* m_textCtrlBoundaryName;
 		wxStaticText* m_staticTextType;
-		wxChoice* m_choiceType;
+		wxChoice* m_choiceBoundaryType;
 		wxCheckBox* m_checkBoxBoundaryActive;
 		wxCheckBox* m_checkBoxBoundaryVisible;
 		wxStaticText* m_staticTextLineColour;
-		wxColourPickerCtrl* m_colourPickerLineColour;
+		wxColourPickerCtrl* m_colourPickerBoundaryLineColour;
 		wxStaticText* m_staticTextFillColour;
-		wxColourPickerCtrl* m_colourPickerFillColour;
+		wxColourPickerCtrl* m_colourPickerBoundaryFillColour;
 		wxStaticText* m_staticTextBoundaryPointsList;
-		wxCheckListBox* m_checkListBoundaryPointList;
+		wxStaticText* m_staticTextCornetLat;
+		wxTextCtrl* m_textCtrlCornerLat;
+		wxStaticText* m_staticTextCornerLon;
+		wxTextCtrl* m_textCtrlCornerLon;
+		wxStaticText* m_staticTextNumPoints;
+		wxChoice* m_choiceNumberOfPoints;
 		wxButton* m_buttonCreateBoundary;
 		wxPanel* m_panelODAPICreateBoundaryPoint;
 		wxStaticText* m_staticTextBPName;

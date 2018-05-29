@@ -361,9 +361,7 @@ bool testplugin_pi::MouseEventHook( wxMouseEvent &event )
     bool bret = FALSE;
     
     if(m_tpControlDialogImpl->IsVisible()) {
-        DEBUGSL("ControlDIalogImpl");
         if(event.LeftDown()) {
-            DEBUGSL("LeftDown");
             m_click_lat = m_cursor_lat;
             m_click_lon = m_cursor_lon;
             m_tpControlDialogImpl->SetLatLon( m_cursor_lat, m_cursor_lon );
@@ -462,7 +460,7 @@ void testplugin_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCross
 bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP)
 {
     wxString l_GUID;
-    l_GUID.Append((*m_pODCreateBoundaryPoint)(pCBP));
+    bool l_bRet = (*m_pODCreateBoundaryPoint)(pCBP);
     DEBUGST("Boundary Point GUID: ");
     DEBUGEND(l_GUID);
     return true;
@@ -470,13 +468,17 @@ bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP)
 
 bool testplugin_pi::CreateBoundary(CreateBoundary_t* pCB)
 {
-    return false;
+    wxString l_GUID;
+    bool l_bRet = (*m_pODCreateBoundary)(pCB);
+    DEBUGST("Boundary GUID: ");
+    DEBUGEND(pCB->GUID);
+    return true;
 }
 
 bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
 {
     wxString l_GUID;
-    l_GUID.Append((*m_pODCreateTextPoint)(pCTP));
+    bool l_bRet = (*m_pODCreateTextPoint)(pCTP);
     DEBUGST("Text Point GUID: ");
     DEBUGEND(l_GUID);
     return true;
