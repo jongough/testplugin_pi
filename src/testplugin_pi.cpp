@@ -98,6 +98,9 @@ wxFont                  *g_pFontSmall;
 wxString                g_ReceivedODAPIMessage;
 wxJSONValue             g_ReceivedODAPIJSONMsg;
 
+// Needed for ocpndc.cpp to compile. Normally would be in glChartCanvas.cpp
+float g_GLMinSymbolLineWidth;
+
 
 // the class factories, used to create and destroy instances of the PlugIn
 
