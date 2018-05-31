@@ -183,12 +183,31 @@ testplugin_pi::~testplugin_pi()
 int testplugin_pi::Init(void)
 {
     g_tplocale = NULL;
+    m_bReadyForRequests = false;
+    m_bDoneODAPIVersionCall = false;
     m_btpDialog = false;
     m_tpControlDialogImpl = NULL;
     m_cursor_lat = 0.0;
     m_cursor_lon = 0.0;
     m_click_lat = 0.0;
     m_click_lon = 0.0;
+    m_bOD_FindPointInAnyBoundary = false;
+    m_bODFindClosestBoundaryLineCrossing = false;
+    m_bODFindFirstBoundaryLineCrossing = false;
+    m_bODCreateBoundary = false;
+    m_bODCreateBoundaryPoint = false;
+    m_bODCreateTextPoint = false;
+    m_pOD_FindPointInAnyBoundary = NULL;
+    m_pODFindClosestBoundaryLineCrossing = NULL;
+    m_pODFindFirstBoundaryLineCrossing = NULL;
+    m_pODFindFirstBoundaryLineCrossing = NULL;
+    m_pODCreateBoundary = NULL;
+    m_pODCreateBoundaryPoint = NULL;
+    m_pODCreateTextPoint = NULL;
+    m_iODAPIVersionMajor = 0;
+    m_iODAPIVersionMinor = 0;
+    m_iODAPIVersionPatch = 0;
+    
     
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
@@ -248,9 +267,17 @@ int testplugin_pi::Init(void)
 //        WANTS_PREFERENCES         |
         //    WANTS_ONPAINT_VIEWPORT      |
         WANTS_PLUGIN_MESSAGING    |
+        WANTS_LATE_INIT           |
         WANTS_MOUSE_EVENTS        |
         WANTS_KEYBOARD_EVENTS
     );
+}
+
+void testplugin_pi::LateInit(void)
+{
+    SendPluginMessage(wxS("TESTPLUGIN_PI_READY_FOR_REQUESTS"), wxS("TRUE"));
+    m_bReadyForRequests = true;
+    return;
 }
 
 bool testplugin_pi::DeInit(void)
@@ -409,6 +436,8 @@ void testplugin_pi::ToggleToolbarIcon( void )
     } else {
         m_btpDialog = true;
         SetToolbarItemState( m_testplugin_button_id, true  );
+        if(!m_bDoneODAPIVersionCall) GetODAPI();
+        m_tpControlDialogImpl->SetPanels();
         m_tpControlDialogImpl->Show();
     }
 }
@@ -418,38 +447,88 @@ void testplugin_pi::GetODAPI()
     wxJSONValue jMsg;
     wxJSONWriter writer;
     wxString    MsgString;
+
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
-    jMsg[wxT("Msg")] = wxS("GetAPIAddresses");
-    jMsg[wxT("MsgId")] = wxS("GetAPIAddresses");
+    jMsg[wxT("Msg")] = wxS("Version");
+    jMsg[wxT("MsgId")] = wxS("Version");
     writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("Version")) {
+        m_iODAPIVersionMajor = g_ReceivedODAPIJSONMsg[wxS("Major")].AsInt();
+        m_iODAPIVersionMinor = g_ReceivedODAPIJSONMsg[wxS("Minor")].AsInt();
+        m_iODAPIVersionPatch = g_ReceivedODAPIJSONMsg[wxS("Patch")].AsInt();
+    }
+    m_bDoneODAPIVersionCall = true;
+    
+    wxJSONValue jMsg1;
+    jMsg1[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg1[wxT("Type")] = wxT("Request");
+    jMsg1[wxT("Msg")] = wxS("GetAPIAddresses");
+    jMsg1[wxT("MsgId")] = wxS("GetAPIAddresses");
+    writer.Write( jMsg1, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("GetAPIAddresses")) {
         wxString sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindPointInAnyBoundary")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pOD_FindPointInAnyBoundary);
+            m_bOD_FindPointInAnyBoundary = true;
         }
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindClosestBoundaryLineCrossing")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODFindClosestBoundaryLineCrossing);
+            m_bODFindClosestBoundaryLineCrossing = true;
         }
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindFirstBoundaryLineCrossing")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODFindFirstBoundaryLineCrossing);
+            m_bODFindFirstBoundaryLineCrossing = true;
         }
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateBoundary")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateBoundary);
+            m_bODCreateBoundary = true;
         }
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateBoundaryPoint")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateBoundaryPoint);
+            m_bODCreateBoundaryPoint = true;
         }
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateTextPoint")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateTextPoint);
+            m_bODCreateTextPoint = true;
         }
     }
+    
+    wxString l_msg;
+    wxString l_avail;
+    wxString l_notavail;
+    l_msg.Printf(_("ODAPI Version: Major: %i, Minor: %i, Patch: %i\n"), m_iODAPIVersionMajor, m_iODAPIVersionMinor, m_iODAPIVersionPatch);
+    if(m_bOD_FindPointInAnyBoundary) l_avail.Append(_("OD_FindPointInAnyBoundary\n"));
+    if(m_bODFindClosestBoundaryLineCrossing) l_avail.Append(_("ODFindClosestBoundaryLineCrossing\n"));
+    if(m_bODFindFirstBoundaryLineCrossing) l_avail.Append(_("ODFindFirstBoundaryLineCrossing\n"));
+    if(m_bODCreateBoundary) l_avail.Append(_("ODCreateBoundary\n"));
+    if(m_bODCreateBoundaryPoint) l_avail.Append(_("ODCreateBoundaryPoint\n"));
+    if(m_bODCreateTextPoint) l_avail.Append(_("ODCreateTextPoint\n"));
+    if(l_avail.Length() > 0) {
+        l_msg.Append(_("The following ODAPI's are available: \n"));
+        l_msg.Append(l_avail);
+    }
+    
+    if(!m_bOD_FindPointInAnyBoundary) l_notavail.Append(_("OD_FindPointInAnyBoundary\n"));
+    if(!m_bODFindClosestBoundaryLineCrossing) l_notavail.Append(_("ODFindClosestBoundaryLineCrossing\n"));
+    if(!m_bODFindFirstBoundaryLineCrossing) l_notavail.Append(_("ODFindFirstBoundaryLineCrossing\n"));
+    if(!m_bODCreateBoundary) l_notavail.Append(_("ODCreateBoundary\n"));
+    if(!m_bODCreateBoundaryPoint) l_notavail.Append(_("ODCreateBoundaryPoint\n"));
+    if(!m_bODCreateTextPoint) l_notavail.Append(_("ODCreateTextPoint\n"));
+    if(l_notavail.Length() > 0) {
+        l_msg.Append(_("The following ODAPI's are not available:\m"));
+        l_msg.Append(l_avail);
+    }
+    
+    OCPNMessageBox_PlugIn( m_parent_window, l_msg, _("TESTPLUGIN"), (long) wxYES );
+    
 }
 
 void testplugin_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPBLC)

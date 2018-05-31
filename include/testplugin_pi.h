@@ -201,7 +201,7 @@ public:
     void loadLayouts(wxWindow * parent);
 //    void startLogbook();
     void shutdown(bool menu);
-    
+    void LateInit(void);
     bool KeyboardEventHook( wxKeyEvent &event );
     bool MouseEventHook( wxMouseEvent &event );
     void SetCursorLatLon(double lat, double lon);
@@ -231,13 +231,24 @@ public:
     
     void    appendOSDirSlash(wxString* pString);  
     
-    tpicons     *m_ptpicons;
+    tpicons *m_ptpicons;
     tpControlDialogImpl    *m_tpControlDialogImpl;
     
-    bool            eventsEnabled;
-    int             m_iCallerId;
-    bool            m_btpDialog;
-    int             m_testplugin_button_id;
+    bool    eventsEnabled;
+    bool    m_bReadyForRequests;
+    bool    m_bDoneODAPIVersionCall;
+    int     m_iCallerId;
+    bool    m_btpDialog;
+    int     m_testplugin_button_id;
+    int     m_iODAPIVersionMajor;
+    int     m_iODAPIVersionMinor;
+    int     m_iODAPIVersionPatch;
+    bool    m_bOD_FindPointInAnyBoundary;
+    bool    m_bODFindClosestBoundaryLineCrossing;
+    bool    m_bODFindFirstBoundaryLineCrossing;
+    bool    m_bODCreateBoundary;
+    bool    m_bODCreateBoundaryPoint;
+    bool    m_bODCreateTextPoint;
     
     
 private:
@@ -250,16 +261,17 @@ private:
     void    FindSelectedObject( void )    ;
     
     PlugIn_ViewPort m_VP;
+
+    int     m_show_id;
+    int     m_hide_id;
+    bool    show;
+    int     m_config_button_id;
     
-    int             m_show_id;
-    int             m_hide_id;
-    bool            show;
-    int             m_config_button_id;
+    double  m_cursor_lat;
+    double  m_cursor_lon;
+    double  m_click_lat;
+    double  m_click_lon;
     
-    double      m_cursor_lat;
-    double      m_cursor_lon;
-    double      m_click_lat;
-    double      m_click_lon;
     OD_FindPointInAnyBoundary           m_pOD_FindPointInAnyBoundary;
     OD_FindClosestBoundaryLineCrossing  m_pODFindClosestBoundaryLineCrossing;
     OD_FindFirstBoundaryLineCrossing    m_pODFindFirstBoundaryLineCrossing;

@@ -66,6 +66,7 @@ class tpControlDialogImpl : public tpControlDialogDef
         tpControlDialogImpl( wxWindow *parent );
         void SetDialogSize( void );
         void SetLatLon( double lat, double lon );
+        void SetPanels(void);
         
         bool m_bOK;
         int  m_iSelection;

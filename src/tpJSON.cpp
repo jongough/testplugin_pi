@@ -84,7 +84,14 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
     int         l_BoundaryState;
     bool        bFail = false;
     
-    if(message_id == wxS("TESTPLUGIN_PI")) {
+    if(message_id != _T("TESTPLUGIN_PI")) {
+        if(message_id == _T("OCPN_DRAW_PI_READY_FOR_REQUESTS")) {
+            if(message_body == _T("TRUE")) {
+                if(g_testplugin_pi->m_bReadyForRequests)
+                    g_testplugin_pi->GetODAPI();
+            }
+        } 
+    } else if(message_id == wxS("TESTPLUGIN_PI")) {
         // now read the JSON text and store it in the 'root' structure
         // check for errors before retreiving values...
         int numErrors = reader.Parse( message_body, &root );
@@ -103,7 +110,6 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             }
             return;
         }
-        
         if(!root.HasMember( wxS("Source"))) {
             // Originator
             wxLogMessage( wxS("No Source found in message") );
@@ -128,7 +134,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             bFail = true;
         }
 
-        if(!bFail && root[wxS("Msg")].AsString() == wxS("Version")) {
+        if(!bFail && root[wxS("Msg")].AsString() == wxS("Version") && root[wxS("Type")].AsString() == wxS("Request")) {
             jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
             jMsg[wxT("Msg")] = root[wxT("Msg")];
             jMsg[wxT("Type")] = wxT("Response");
@@ -139,7 +145,9 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             jMsg[wxS("Date")] = PLUGIN_VERSION_DATE;
             writer.Write( jMsg, MsgString );
             SendPluginMessage( root[wxS("Source")].AsString(), MsgString );
-            
+        } else if(!bFail && root[wxS("Msg")].AsString() == wxS("Version") && root[wxS("Type")].AsString() == wxS("Response")) {
+            g_ReceivedODAPIJSONMsg = root;
+            g_ReceivedODAPIMessage = message_body;
         } else if(root[wxS("Msg")].AsString() == wxS("GetAPIAddresses") ) {
             g_ReceivedODAPIJSONMsg = root;
             g_ReceivedODAPIMessage = message_body;
@@ -167,8 +175,6 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             }
         }
         
-    } else if(message_id == _T("OCPN_DRAW_PI_READY_FOR_REQUESTS")) {
-        g_testplugin_pi->GetODAPI();
     } else if(message_id == _T("WMM_VARIATION_BOAT")) {
         
         // construct the JSON root object

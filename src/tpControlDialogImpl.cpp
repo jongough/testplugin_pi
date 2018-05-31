@@ -28,6 +28,7 @@
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
 #endif
+#include <wx/ffile.h>
 
 #include "tpControlDialogImpl.h"
 #include "testplugin_pi.h"
@@ -57,6 +58,10 @@ tpControlDialogImpl::tpControlDialogImpl( wxWindow* parent ) : tpControlDialogDe
     m_bCreateBoundaryHasFocus = FALSE;
     m_bCreateBoundaryPointHasFocus = FALSE;
     m_pfdDialog = NULL;
+    
+    if(!g_testplugin_pi->m_bODCreateBoundary) m_panelODAPICreateBoundary->Disable();
+    if(!g_testplugin_pi->m_bODCreateBoundaryPoint) m_panelODAPICreateBoundaryPoint->Disable();
+    if(!g_testplugin_pi->m_bODCreateTextPoint) m_panelODAPICreateTextPoint->Disable();
     
 }
 
@@ -329,7 +334,18 @@ void tpControlDialogImpl::tpControlCancelClick( wxCommandEvent& event )
  
 void tpControlDialogImpl::tpControlOnClickProcessJSON( wxCommandEvent& event )
 {
+    wxFileName l_FileName = m_filePickerJSON->GetPath();
+    if(!l_FileName.IsOk()) {
+        OCPNMessageBox_PlugIn( NULL, l_FileName.GetFullPath(), _("File not found"), wxICON_EXCLAMATION | wxCANCEL );
+        return;
+    }
+    wxString l_file = l_FileName.GetFullPath();
+    wxFFile *l_ffFile  = new wxFFile(l_FileName.GetFullPath());
+    wxString l_jString;
+    //l_ffFile->Open(l_FileName.GetFullPath());
+    l_ffFile->ReadAll(&l_jString);
     
+    wxString l_name = l_FileName.GetFullName();
 }
 
 void tpControlDialogImpl::SetLatLon( double lat, double lon )
@@ -381,5 +397,15 @@ void tpControlDialogImpl::SetDialogSize( void )
     m_SizerControl->Layout();
     this->GetSizer()->Fit( this );
     this->Layout();
+}
+
+void tpControlDialogImpl::SetPanels()
+{
+    if(g_testplugin_pi->m_bODCreateBoundary) m_panelODAPICreateBoundary->Enable();
+    else m_panelODAPICreateBoundary->Disable();
+    if(g_testplugin_pi->m_bODCreateBoundaryPoint) m_panelODAPICreateBoundaryPoint->Enable();
+    else m_panelODAPICreateBoundaryPoint->Disable();
+    if(g_testplugin_pi->m_bODCreateTextPoint) m_panelODAPICreateTextPoint->Enable();
+    else m_panelODAPICreateTextPoint->Disable();
 }
 

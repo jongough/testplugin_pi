@@ -13,5 +13,4 @@ Only ODAPI is working at the moment. JSON is being developed now.
 3. then click create. 
 4. The object 'should' be created. T
 
-NOTE the Boundary works, but may initially crash opencpn, until the initialization has taken.
-Try selecting the number of boundary points first.
+NOTE this is currently a work in progress and should be considered 'Alpha/Beta'. It may have issues at times as new functionality is added. It is a test tool not a production plugin.
