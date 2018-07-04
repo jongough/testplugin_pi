@@ -585,9 +585,6 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     }
         
     writer.Write( jMsg, MsgString );
-    DEBUGSL("Hmmmm");
-    DEBUGST("MsgString: ");
-    DEBUGEND(MsgString);
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
     }
