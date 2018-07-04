@@ -41,8 +41,13 @@
 
 #include <wx/fontdlg.h>
 
+#include "wx/jsonwriter.h"
 
-extern testplugin_pi  *g_testplugin_pi;
+extern testplugin_pi    *g_testplugin_pi;
+extern bool             g_bSaveJSONOnStartup;
+extern wxString         g_ReceivedJSONMessage;
+extern wxJSONValue      g_ReceivedJSONJSONMsg;
+
 
 tpControlDialogImpl::tpControlDialogImpl( wxWindow* parent ) : tpControlDialogDef( parent )
 {
@@ -59,13 +64,13 @@ tpControlDialogImpl::tpControlDialogImpl( wxWindow* parent ) : tpControlDialogDe
     m_bCreateBoundaryPointHasFocus = FALSE;
     m_pfdDialog = NULL;
     
-    if(!g_testplugin_pi->m_bODCreateBoundary) m_panelODAPICreateBoundary->Disable();
-    if(!g_testplugin_pi->m_bODCreateBoundaryPoint) m_panelODAPICreateBoundaryPoint->Disable();
-    if(!g_testplugin_pi->m_bODCreateTextPoint) m_panelODAPICreateTextPoint->Disable();
+    if(!g_testplugin_pi->m_bODCreateBoundary) m_panelUICreateBoundary->Disable();
+    if(!g_testplugin_pi->m_bODCreateBoundaryPoint) m_panelUICreateBoundaryPoint->Disable();
+    if(!g_testplugin_pi->m_bODCreateTextPoint) m_panelUICreateTextPoint->Disable();
     
 }
 
-void tpControlDialogImpl::OnButtonClickCreateBoundary( wxCommandEvent& event )
+void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& event )
 {
     CreateBoundaryPoint_t *pCBP = new CreateBoundaryPoint_t;
     CreateBoundaryPoint_t *pCBP1 = new CreateBoundaryPoint_t;
@@ -277,7 +282,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundary( wxCommandEvent& event )
     delete pCB;
 }
 
-void tpControlDialogImpl::OnButtonClickCreateBoundaryPoint( wxCommandEvent& event )
+void tpControlDialogImpl::OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event )
 {
     m_bOK = true;
     
@@ -298,7 +303,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPoint( wxCommandEvent& even
     Show(false);
 }
 
-void tpControlDialogImpl::OnButtonClickCreateTextPoint( wxCommandEvent& event )
+void tpControlDialogImpl::OnButtonClickCreateTextPointODAPI( wxCommandEvent& event )
 {
     m_bOK = true;
     CreateTextPoint_t *pCTP = new CreateTextPoint_t;
@@ -324,6 +329,339 @@ void tpControlDialogImpl::OnButtonClickCreateTextPoint( wxCommandEvent& event )
     Show(false);
 }
 
+void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event )
+{
+    if(m_textCtrlCornerLat->IsEmpty() || m_textCtrlCornerLon->IsEmpty()) {
+        return;
+    }
+    
+    double l_lat;
+    double l_lon;
+    wxJSONValue jMsg;
+    wxJSONValue jMsgBP;
+    wxJSONValue jMsgBP1;
+    wxJSONValue jMsgBP2;
+    wxJSONValue jMsgBP3;
+    wxJSONValue jMsgBP4;
+    wxJSONValue jMsgBP5;
+    wxJSONWriter writer;
+    wxString    MsgString;
+    wxString    l_sname;
+    
+    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Type")] = wxT("Request");
+    jMsg[wxT("Msg")] = wxS("CreateBoundary");
+    srand((unsigned)time(0));
+    int l_rand = (rand()%10000) + 1;
+    jMsg[wxT("MsgId")] = wxPrintf("%i", l_rand);
+    
+    wxString l_name = m_textCtrlBoundaryName->GetValue();
+    if(l_name.Length() < 1) l_name = wxEmptyString;
+    jMsg[wxT("BoundaryName")] = l_name;
+    jMsg[wxT("Lat")] = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
+    jMsg[wxT("Lon")] = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
+    jMsg[wxT("BoundaryType")] = m_choiceBoundaryType->GetSelection();
+    jMsg[wxT("Active")] = m_checkBoxBoundaryActive->GetValue();
+    if(m_checkBoxBoundaryVisible->IsChecked()) jMsg[wxT("visible")] = true;
+    else jMsg[wxT("visible")] = false;
+    jMsg[wxT("lineColour")] = m_colourPickerBoundaryLineColour->GetColour().GetAsString();
+    jMsg[wxT("fillColour")] = m_colourPickerBoundaryFillColour->GetColour().GetAsString();
+    
+
+    jMsgBP[wxT("Name")] = _T("Corner");
+    jMsgBP[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+    jMsgBP[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+    jMsgBP[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+    if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP[wxT("visible")] = true;
+    else jMsgBP[wxT("visible")] = false;
+    if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP[wxT("ringsvisible")] = true;
+    else jMsgBP[wxT("ringsvisible")] = false;
+    jMsgBP[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+    jMsgBP[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+    jMsgBP[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+    jMsgBP[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+    jMsg[wxT("BoundaryPoints")].Item(0) = jMsgBP;
+    
+    int i = m_choiceNumberOfPoints->GetSelection() + 3;
+    int l_iPointNum = 1;
+    if(i == 3) {
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP1[wxT("Name")] = l_sname;
+        jMsgBP1[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        jMsgBP1[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP1[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP1[wxT("visible")] = true;
+        else jMsgBP1[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP1[wxT("ringsvisible")] = true;
+        else jMsgBP1[wxT("ringsvisible")] = false;
+        jMsgBP1[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP1[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP1[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP1[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP1;
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP2[wxT("Name")] = l_sname;
+        jMsgBP2[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        jMsgBP2[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        jMsgBP2[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP2[wxT("visible")] = true;
+        else jMsgBP2[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP2[wxT("ringsvisible")] = true;
+        else jMsgBP2[wxT("ringsvisible")] = false;
+        jMsgBP2[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP2[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP2[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP2[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP2;
+    } else if(i == 4) {
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP1[wxT("Name")] = l_sname;
+        jMsgBP1[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        jMsgBP1[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP1[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP1[wxT("visible")] = true;
+        else jMsgBP1[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP1[wxT("ringsvisible")] = true;
+        else jMsgBP1[wxT("ringsvisible")] = false;
+        jMsgBP1[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP1[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP1[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP1[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP1;
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP2[wxT("Name")] = l_sname;
+        jMsgBP2[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        jMsgBP2[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP2[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP2[wxT("visible")] = true;
+        else jMsgBP2[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP2[wxT("ringsvisible")] = true;
+        else jMsgBP2[wxT("ringsvisible")] = false;
+        jMsgBP2[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP2[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP2[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP2[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP2;
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP3[wxT("Name")] = l_sname;
+        jMsgBP3[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        jMsgBP3[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        jMsgBP3[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP3[wxT("visible")] = true;
+        else jMsgBP3[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP3[wxT("ringsvisible")] = true;
+        else jMsgBP3[wxT("ringsvisible")] = false;
+        jMsgBP3[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP3[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP3[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP3[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsgBP3[wxT("ringscolour")] = m_colourPickerBoundaryLineColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP3;
+    } else if(i == 5) {
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP1[wxT("Name")] = l_sname;
+        jMsgBP1[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        jMsgBP1[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP1[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP1[wxT("visible")] = true;
+        else jMsgBP1[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP1[wxT("ringsvisible")] = true;
+        else jMsgBP1[wxT("ringsvisible")] = false;
+        jMsgBP1[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP1[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP1[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP1[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP1;
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP2[wxT("Name")] = l_sname;
+        jMsgBP2[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.00835;
+        jMsgBP2[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        jMsgBP2[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP2[wxT("visible")] = true;
+        else jMsgBP2[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP2[wxT("ringsvisible")] = true;
+        else jMsgBP2[wxT("ringsvisible")] = false;
+        jMsgBP2[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP2[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP2[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP2[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP2;
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP3[wxT("Name")] = l_sname;
+        jMsgBP3[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        jMsgBP3[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP3[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP3[wxT("visible")] = true;
+        else jMsgBP3[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP3[wxT("ringsvisible")] = true;
+        else jMsgBP3[wxT("ringsvisible")] = false;
+        jMsgBP3[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP3[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP3[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP3[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP3;
+        jMsgBP4[wxT("Name")] = l_sname;
+        jMsgBP4[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        jMsgBP4[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        jMsgBP4[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryBoundaryPointVisible->IsChecked()) jMsgBP4[wxT("visible")] = true;
+        else jMsgBP4[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP4[wxT("ringsvisible")] = true;
+        else jMsgBP4[wxT("ringsvisible")] = false;
+        jMsgBP4[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP4[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP4[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP4[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP4;
+    } else if(i == 6) {
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP1[wxT("Name")] = l_sname;
+        jMsgBP1[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        jMsgBP1[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP1[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP1[wxT("visible")] = true;
+        else jMsgBP1[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP1[wxT("ringsvisible")] = true;
+        else jMsgBP1[wxT("ringsvisible")] = false;
+        jMsgBP1[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP1[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP1[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP1[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP1;
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP2[wxT("Name")] = l_sname;
+        jMsgBP2[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.00835;
+        jMsgBP2[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        jMsgBP2[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP2[wxT("visible")] = true;
+        else jMsgBP2[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP2[wxT("ringsvisible")] = true;
+        else jMsgBP2[wxT("ringsvisible")] = false;
+        jMsgBP2[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP2[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP2[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP2[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP2;
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP3[wxT("Name")] = l_sname;
+        jMsgBP3[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        jMsgBP3[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP3[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP3[wxT("visible")] = true;
+        else jMsgBP3[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP3[wxT("ringsvisible")] = true;
+        else jMsgBP3[wxT("ringsvisible")] = false;
+        jMsgBP3[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP3[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP3[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP3[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP3;
+        jMsgBP4[wxT("Name")] = l_sname;
+        jMsgBP4[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
+        jMsgBP4[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue());
+        jMsgBP4[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP4[wxT("visible")] = true;
+        else jMsgBP4[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP4[wxT("ringsvisible")] = true;
+        else jMsgBP4[wxT("ringsvisible")] = false;
+        jMsgBP4[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP4[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP4[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP4[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP4;
+        jMsgBP5[wxT("Name")] = l_sname;
+        jMsgBP5[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.00835;
+        jMsgBP5[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;;
+        jMsgBP5[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP5[wxT("visible")] = true;
+        else jMsgBP5[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP5[wxT("ringsvisible")] = true;
+        else jMsgBP5[wxT("ringsvisible")] = false;
+        jMsgBP5[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP5[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP5[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP5[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP5;
+    }
+        
+    writer.Write( jMsg, MsgString );
+    DEBUGSL("Hmmmm");
+    DEBUGST("MsgString: ");
+    DEBUGEND(MsgString);
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
+    }
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
+}
+
+void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& event )
+{
+    m_bOK = true;
+    wxJSONValue jMsg;
+    wxJSONWriter writer;
+    wxString    MsgString;
+    
+    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Type")] = wxT("Request");
+    jMsg[wxT("Msg")] = wxS("CreateBoundaryPoint");
+    srand((unsigned)time(0));
+    int l_rand = (rand()%10000) + 1;
+    jMsg[wxT("MsgId")] = wxPrintf("%i", l_rand);
+    
+    wxString l_name = m_textCtrlBoundaryPointName->GetValue();
+    if(l_name.Length() < 1) l_name = wxEmptyString;
+    jMsg[wxT("BoundaryPointName")] = l_name;
+    jMsg[wxT("IconName")] = m_textCtrlBoundaryPointIconName->GetValue();
+    jMsg[wxT("Lat")] = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
+    jMsg[wxT("Lon")] = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
+    jMsg[wxT("BoundaryPointType")] = m_choiceBoundaryPointType->GetSelection();
+    jMsg[wxT("visible")] = m_checkBoxBoundaryPointVisible->GetValue();
+    jMsg[wxT("ringsvisible")] = m_checkBoxRingsVisible->GetValue();
+    jMsg[wxT("ringsnumber")] = m_choiceBoundaryPointRingNumber->GetSelection();
+    jMsg[wxT("ringssteps")] = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
+    jMsg[wxT("ringsunits")] = m_choiceBoundaryPointRingUnits->GetSelection();
+    jMsg[wxT("ringscolour")] = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
+    
+    writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
+    }
+    
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
+}
+
+void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& event )
+{
+    m_bOK = true;
+    CreateTextPoint_t *pCTP = new CreateTextPoint_t;
+    pCTP->name = m_textCtrlTextPointName->GetValue();
+    pCTP->iconname = m_textCtrlTextPointIconName->GetValue();
+    pCTP->lat = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
+    pCTP->lon = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
+    pCTP->Visible = m_checkBoxTextPointVisible->GetValue();
+    pCTP->TextToDisplay = m_textCtrlTextPointTextToDisplay->GetValue();
+    pCTP->TextPosition = m_choiceTextPointTextPosition->GetSelection();
+    pCTP->TextColour = m_colourPickerTextPointTextColour->GetColour().GetAsString();
+    pCTP->BackgroundColour = m_colourPickerTextPointTextBackgroundColour->GetColour().GetAsString();
+    pCTP->BackgroundTransparancy = m_sliderTextPointBackgroundTransparency->GetValue();
+    pCTP->TextFont = m_staticTextTextPointTextFontExample->GetFont();
+    pCTP->TextPointDisplayTextWhen = m_radioBoxTextPointTextDisplay->GetSelection();
+    //        pCTP->ringsvisible = m_checkBoxTextRingsVisible->GetValue();
+    //        pCTP->ringsnumber = m_choiceTextPointRingNumber->GetSelection();
+    //        pCTP->ringssteps = atof(m_textCtrlTextPointRingStep->GetValue().mb_str());
+    //        pCTP->ringsunits = m_choiceTextPointRingUnits->GetSelection();
+    //        pCTP->ringscolour = m_colourPickerTextPointRingColour->GetColour().GetAsString();
+    g_testplugin_pi->CreateTextPoint(pCTP);
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
+}
+
+void tpControlDialogImpl::OnCheckBoxSaveJSONOnStartup(wxCommandEvent& event)
+{
+}
+
 void tpControlDialogImpl::tpControlCancelClick( wxCommandEvent& event )
 {
     m_bOK = false;
@@ -334,18 +672,27 @@ void tpControlDialogImpl::tpControlCancelClick( wxCommandEvent& event )
  
 void tpControlDialogImpl::tpControlOnClickProcessJSON( wxCommandEvent& event )
 {
-    wxFileName l_FileName = m_filePickerJSON->GetPath();
-    if(!l_FileName.IsOk()) {
-        OCPNMessageBox_PlugIn( NULL, l_FileName.GetFullPath(), _("File not found"), wxICON_EXCLAMATION | wxCANCEL );
+    if(m_checkBoxSaveJSON->IsChecked()) {
+        if(!m_filePickerOutputJSON->GetPath()) {
+            OCPNMessageBox_PlugIn(NULL, _("No file specified for output"), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
+            return;
+        }
+        g_testplugin_pi->m_fnOutputJSON = m_filePickerOutputJSON->GetPath();
+        g_testplugin_pi->m_bSaveIncommingJSONMessages = true;
+    } else {
+        g_testplugin_pi->m_fnOutputJSON = wxEmptyString;
+        g_testplugin_pi->m_bSaveIncommingJSONMessages = false;
+    }
+
+    if(!m_filePickerJSON->GetPath()) {
+        OCPNMessageBox_PlugIn( NULL, _("No file specified for input"), _("File not found"), wxICON_EXCLAMATION | wxCANCEL );
         return;
     }
-    wxString l_file = l_FileName.GetFullPath();
-    wxFFile *l_ffFile  = new wxFFile(l_FileName.GetFullPath());
-    wxString l_jString;
-    //l_ffFile->Open(l_FileName.GetFullPath());
-    l_ffFile->ReadAll(&l_jString);
-    
-    wxString l_name = l_FileName.GetFullName();
+    g_testplugin_pi->m_fnInputJSON = m_filePickerJSON->GetPath();
+
+    g_testplugin_pi->ProcessJSONFile();
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
 }
 
 void tpControlDialogImpl::SetLatLon( double lat, double lon )
@@ -401,11 +748,26 @@ void tpControlDialogImpl::SetDialogSize( void )
 
 void tpControlDialogImpl::SetPanels()
 {
-    if(g_testplugin_pi->m_bODCreateBoundary) m_panelODAPICreateBoundary->Enable();
-    else m_panelODAPICreateBoundary->Disable();
-    if(g_testplugin_pi->m_bODCreateBoundaryPoint) m_panelODAPICreateBoundaryPoint->Enable();
-    else m_panelODAPICreateBoundaryPoint->Disable();
-    if(g_testplugin_pi->m_bODCreateTextPoint) m_panelODAPICreateTextPoint->Enable();
-    else m_panelODAPICreateTextPoint->Disable();
+    if(g_testplugin_pi->m_bODCreateBoundary) m_panelUICreateBoundary->Enable();
+    else m_panelUICreateBoundary->Disable();
+    if(g_testplugin_pi->m_bODCreateBoundaryPoint) m_panelUICreateBoundaryPoint->Enable();
+    else m_panelUICreateBoundaryPoint->Disable();
+    if(g_testplugin_pi->m_bODCreateTextPoint) m_panelUICreateTextPoint->Enable();
+    else m_panelUICreateTextPoint->Disable();
 }
+
+wxString tpControlDialogImpl::GetJSONSaveFile( void )
+{
+    wxString l_OutputFile = m_filePickerOutputJSON->GetPath();
+    if(!m_filePickerOutputJSON->GetPath()) {
+        return wxEmptyString;
+    } else return m_filePickerOutputJSON->GetPath();
+    
+}
+
+void tpControlDialogImpl::SetJSONSaveFile(wxString SaveFile)
+{
+    m_filePickerOutputJSON->SetPath( SaveFile );
+}
+
 

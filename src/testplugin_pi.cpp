@@ -40,6 +40,9 @@
 #include <wx/msgdlg.h>
 #include <wx/listbook.h>
 #include <wx/panel.h>
+#include <wx/ffile.h>
+#include <wx/wfstream.h>
+#include <wx/txtstrm.h>
 
 #include <wx/aui/aui.h>
 
@@ -89,6 +92,7 @@ ODAPI                   *g_ptpAPI;
 double                  g_dVar;
 int                     g_iLocaleDepth;
 wxString                *g_tpLocale;
+bool                    g_bSaveJSONOnStartup;
 
 wxFont                  *g_pFontTitle;
 wxFont                  *g_pFontData;
@@ -97,6 +101,8 @@ wxFont                  *g_pFontSmall;
 
 wxString                g_ReceivedODAPIMessage;
 wxJSONValue             g_ReceivedODAPIJSONMsg;
+wxString                g_ReceivedJSONMessage;
+wxJSONValue             g_ReceivedJSONJSONMsg;
 
 // Needed for ocpndc.cpp to compile. Normally would be in glChartCanvas.cpp
 float g_GLMinSymbolLineWidth;
@@ -207,7 +213,7 @@ int testplugin_pi::Init(void)
     m_iODAPIVersionMajor = 0;
     m_iODAPIVersionMinor = 0;
     m_iODAPIVersionPatch = 0;
-    
+    m_bSaveIncommingJSONMessages = false;
     
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
@@ -442,6 +448,55 @@ void testplugin_pi::ToggleToolbarIcon( void )
     }
 }
 
+void testplugin_pi::SaveConfig()
+{
+    #ifndef __WXMSW__
+    wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
+    #if wxCHECK_VERSION(3,0,0)  && !defined(_WXMSW_)       
+    //#if wxCHECK_VERSION(3,0,0)       
+    wxSetlocale(LC_NUMERIC, "C");
+    #else
+    setlocale(LC_NUMERIC, "C");
+    #endif
+    #endif
+    
+    wxFileConfig *pConf = m_pODConfig;
+    
+    if(pConf) {
+        pConf->SetPath( wxS( "/Settings/testplugin_pi" ) );
+        if(m_bRecreateConfig) {
+            pConf->DeleteGroup( "/Settings/testplugin_pi" );
+        } else {
+            pConf->Write( wxS( "SaveJSONOnStartup" ), g_bSaveJSONOnStartup );
+            pConf->Write( wxS( "JSONSaveFile" ), m_tpControlDialogImpl->GetJSONSaveFile());
+        }
+    }
+}
+
+void testplugin_pi::LoadConfig()
+{
+    #ifndef __WXMSW__
+    wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
+    #if wxCHECK_VERSION(3,0,0)        
+    wxSetlocale(LC_NUMERIC, "C");
+    #else
+    setlocale(LC_NUMERIC, "C");
+    #endif
+    #endif
+    
+    wxFileConfig *pConf = (wxFileConfig *)m_pODConfig;
+    
+    if(pConf)
+    {
+        wxString val;
+        pConf->SetPath( wxS( "/Settings/testplugin_pi" ) );
+        wxString  l_wxsColour;
+        pConf->Read( wxS( "SaveJSONOnStartup"), &g_bSaveJSONOnStartup, false );
+        wxString l_sSaveFile;
+        pConf->Read( wxS("JSONSaveFile"), &l_sSaveFile, *wxEmptyString);
+        if(l_sSaveFile != wxEmptyString) m_tpControlDialogImpl->SetJSONSaveFile(l_sSaveFile);
+    }
+}
 void testplugin_pi::GetODAPI()
 {
     wxJSONValue jMsg;
@@ -506,22 +561,22 @@ void testplugin_pi::GetODAPI()
     wxString l_notavail;
     l_msg.Printf(_("ODAPI Version: Major: %i, Minor: %i, Patch: %i\n"), m_iODAPIVersionMajor, m_iODAPIVersionMinor, m_iODAPIVersionPatch);
     if(m_bOD_FindPointInAnyBoundary) l_avail.Append(_("OD_FindPointInAnyBoundary\n"));
-    if(m_bODFindClosestBoundaryLineCrossing) l_avail.Append(_("ODFindClosestBoundaryLineCrossing\n"));
-    if(m_bODFindFirstBoundaryLineCrossing) l_avail.Append(_("ODFindFirstBoundaryLineCrossing\n"));
-    if(m_bODCreateBoundary) l_avail.Append(_("ODCreateBoundary\n"));
-    if(m_bODCreateBoundaryPoint) l_avail.Append(_("ODCreateBoundaryPoint\n"));
-    if(m_bODCreateTextPoint) l_avail.Append(_("ODCreateTextPoint\n"));
+    if(m_bODFindClosestBoundaryLineCrossing) l_avail.Append(_("OD_FindClosestBoundaryLineCrossing\n"));
+    if(m_bODFindFirstBoundaryLineCrossing) l_avail.Append(_("OD_FindFirstBoundaryLineCrossing\n"));
+    if(m_bODCreateBoundary) l_avail.Append(_("OD_CreateBoundary\n"));
+    if(m_bODCreateBoundaryPoint) l_avail.Append(_("OD_CreateBoundaryPoint\n"));
+    if(m_bODCreateTextPoint) l_avail.Append(_("OD_CreateTextPoint\n"));
     if(l_avail.Length() > 0) {
         l_msg.Append(_("The following ODAPI's are available: \n"));
         l_msg.Append(l_avail);
     }
     
     if(!m_bOD_FindPointInAnyBoundary) l_notavail.Append(_("OD_FindPointInAnyBoundary\n"));
-    if(!m_bODFindClosestBoundaryLineCrossing) l_notavail.Append(_("ODFindClosestBoundaryLineCrossing\n"));
-    if(!m_bODFindFirstBoundaryLineCrossing) l_notavail.Append(_("ODFindFirstBoundaryLineCrossing\n"));
-    if(!m_bODCreateBoundary) l_notavail.Append(_("ODCreateBoundary\n"));
-    if(!m_bODCreateBoundaryPoint) l_notavail.Append(_("ODCreateBoundaryPoint\n"));
-    if(!m_bODCreateTextPoint) l_notavail.Append(_("ODCreateTextPoint\n"));
+    if(!m_bODFindClosestBoundaryLineCrossing) l_notavail.Append(_("OD_FindClosestBoundaryLineCrossing\n"));
+    if(!m_bODFindFirstBoundaryLineCrossing) l_notavail.Append(_("OD_FindFirstBoundaryLineCrossing\n"));
+    if(!m_bODCreateBoundary) l_notavail.Append(_("OD_CreateBoundary\n"));
+    if(!m_bODCreateBoundaryPoint) l_notavail.Append(_("OD_CreateBoundaryPoint\n"));
+    if(!m_bODCreateTextPoint) l_notavail.Append(_("OD_CreateTextPoint\n"));
     if(l_notavail.Length() > 0) {
         l_msg.Append(_("The following ODAPI's are not available:\m"));
         l_msg.Append(l_avail);
@@ -566,3 +621,26 @@ bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
     return true;
 }
 
+bool testplugin_pi::ProcessJSONFile()
+{
+    wxFFile l_ffile;
+    l_ffile.Open(m_fnInputJSON.GetFullPath(), "r");
+    if(!l_ffile.IsOpened()) {
+        OCPNMessageBox_PlugIn(NULL, m_fnInputJSON.GetFullPath(), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
+        return false;
+    }
+    wxString l_str;
+    l_ffile.ReadAll(&l_str);
+    wxFileInputStream l_input( m_fnInputJSON.GetFullPath() );
+    wxTextInputStream l_text( l_input );
+    for(size_t i = 0; i < l_str.Length();) {
+        //wxString l_ext = l_str.Mid(i, l_str_find)
+        //wxStringTokenizer tokenizer("first:second:third:fourth", ":");
+    }
+    wxJSONValue jMsg;
+    wxJSONWriter writer;
+    wxString    MsgString;
+    
+    writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+}

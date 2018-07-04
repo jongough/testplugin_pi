@@ -38,6 +38,7 @@ class tpJSON
     protected:
         
     private:
+        wxFFile *m_ffOutputFile;
 };
 
 #endif // tpJSON_H

@@ -210,8 +210,6 @@ public:
     void ProcessTimerEvent(wxTimerEvent& ev);
     void PopupMenuHandler(wxCommandEvent& ev);
     
-    void SaveConfig( void );
-    
     void SetToolbarTool( void );
     void ToggleToolbarIcon( void);
     
@@ -221,6 +219,7 @@ public:
     bool CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP);
     bool CreateBoundary(CreateBoundary_t *pCB);
     bool CreateTextPoint(CreateTextPoint_t *pCTP);
+    bool ProcessJSONFile(void);
     
     
     wxGLContext     *m_pcontext;
@@ -249,16 +248,21 @@ public:
     bool    m_bODCreateBoundary;
     bool    m_bODCreateBoundaryPoint;
     bool    m_bODCreateTextPoint;
+    wxFileName  m_fnInputJSON;
+    wxFileName  m_fnOutputJSON;
+    bool    m_bSaveIncommingJSONMessages;
+    bool    m_bRecreateConfig;
     
     
 private:
     void    OnTimer(wxTimerEvent& ev);
 
+    void    SaveConfig( void );
     void    LoadConfig();
 
     void    MenuPrepend( wxMenu *menu, int id, wxString label);
     void    MenuAppend( wxMenu *menu, int id, wxString label);
-    void    FindSelectedObject( void )    ;
+    void    FindSelectedObject( void );
     
     PlugIn_ViewPort m_VP;
 

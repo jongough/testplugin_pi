@@ -58,15 +58,21 @@ class tpControlDialogImpl : public tpControlDialogDef
         void tpControlOKClick( wxCommandEvent& event );
         void tpControlCancelClick( wxCommandEvent& event );
         void OnButtonClickFonts( wxCommandEvent& event );
-        void OnButtonClickCreateBoundary( wxCommandEvent& event );
-        void OnButtonClickCreateBoundaryPoint( wxCommandEvent& event );
-        void OnButtonClickCreateTextPoint( wxCommandEvent& event );
+        void OnButtonClickCreateBoundaryODAPI( wxCommandEvent& event );
+        void OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event );
+        void OnButtonClickCreateTextPointODAPI( wxCommandEvent& event );
+        void OnButtonClickCreateBoundaryJSON( wxCommandEvent& event );
+        void OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& event );
+        void OnButtonClickCreateTextPointJSON( wxCommandEvent& event );
+        void OnCheckBoxSaveJSONOnStartup( wxCommandEvent& event );
         
 	public:
         tpControlDialogImpl( wxWindow *parent );
-        void SetDialogSize( void );
-        void SetLatLon( double lat, double lon );
-        void SetPanels(void);
+        void        SetDialogSize( void );
+        void        SetLatLon( double lat, double lon );
+        void        SetPanels(void);
+        wxString    GetJSONSaveFile( void );
+        void        SetJSONSaveFile( wxString SaveFile );
         
         bool m_bOK;
         int  m_iSelection;

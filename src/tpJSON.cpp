@@ -34,6 +34,7 @@
 #endif //precompiled headers
 #include <wx/jsonreader.h>
 #include "wx/jsonwriter.h"
+#include <wx/ffile.h>
 
 #include "testplugin_pi.h"
 #include "tpJSON.h"
@@ -47,16 +48,25 @@ extern ODAPI                *g_pODAPI;
 extern double               g_dVar;
 extern wxString             g_ReceivedODAPIMessage;
 extern wxJSONValue          g_ReceivedODAPIJSONMsg;
-
+extern wxString             g_ReceivedJSONMessage;
+extern wxJSONValue          g_ReceivedJSONJSONMsg;
 
 tpJSON::tpJSON()
 {
     // ctor
+    m_ffOutputFile = NULL;
 }
 
 tpJSON::~tpJSON()
 {
     // dtor
+    if(m_ffOutputFile) {
+        if(m_ffOutputFile->IsOpened()) {
+            m_ffOutputFile->Flush();
+            m_ffOutputFile->Close();
+        }
+        delete m_ffOutputFile;
+    }
 }
 
 void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
@@ -83,6 +93,21 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
     int         l_BoundaryType;
     int         l_BoundaryState;
     bool        bFail = false;
+    
+    if(g_testplugin_pi->m_bSaveIncommingJSONMessages) {
+        if(!m_ffOutputFile) {
+            m_ffOutputFile  = new wxFFile(g_testplugin_pi->m_fnOutputJSON.GetFullPath(), "w");
+            if(!m_ffOutputFile->IsOpened()) {
+                g_testplugin_pi->m_bSaveIncommingJSONMessages = false;
+                OCPNMessageBox_PlugIn(NULL, g_testplugin_pi->m_fnOutputJSON.GetPath(), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
+            }
+        }
+        m_ffOutputFile->SeekEnd();
+        wxString l_str;
+        l_str.Printf("%s: %s\n", message_id, message_body);
+        m_ffOutputFile->Write(l_str);
+        
+    }
     
     if(message_id != _T("TESTPLUGIN_PI")) {
         if(message_id == _T("OCPN_DRAW_PI_READY_FOR_REQUESTS")) {
@@ -173,6 +198,9 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
                     return;
                 }
             }
+        } else if(!bFail && root[wxS("Msg")].AsString() == wxS("CreateBoundaryPoint") && root[wxS("Type")].AsString() == wxS("Response")) {
+            g_ReceivedJSONJSONMsg = root;
+            g_ReceivedJSONMessage = message_body;
         }
         
     } else if(message_id == _T("WMM_VARIATION_BOAT")) {
