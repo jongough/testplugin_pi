@@ -50,13 +50,16 @@ class tpControlDialogDef : public wxDialog
 		wxNotebook* m_notebookControl;
 		wxPanel* m_panelGeneral;
 		wxCheckBox* m_checkBoxSaveJSONOnStartup;
+		wxCheckBox* m_checkBoxRecreateConfig;
 		wxPanel* m_panelFileInput;
 		wxFlexGridSizer* m_fgSizerJSON;
 		wxStaticText* m_staticTextJSONFile;
-		wxFilePickerCtrl* m_filePickerJSON;
+		wxFilePickerCtrl* m_filePickerInputJSON;
 		wxCheckBox* m_checkBoxSaveJSON;
 		wxFilePickerCtrl* m_filePickerOutputJSON;
-		wxButton* m_buttonProcessJSON;
+		wxCheckBox* m_checkBoxCloseAferWrite;
+		wxCheckBox* m_checkBoxAppendToFile;
+		wxButton* m_buttonImportJSON;
 		wxPanel* m_panelUserInput;
 		wxFlexGridSizer* m_fgSizerUI;
 		wxNotebook* m_notebookUI;
@@ -141,11 +144,17 @@ class tpControlDialogDef : public wxDialog
 		wxRadioBox* m_radioBoxTextPointTextDisplay;
 		wxButton* m_buttonCreateTextPointJSON;
 		wxButton* m_buttonCreateTextPointODAPI;
-		wxButton* Cancel;
+		wxButton* m_buttonClose;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnCheckBoxSaveJSONOnStartup( wxCommandEvent& event ) { event.Skip(); }
-		virtual void tpControlOnClickProcessJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCheckBoxDeleteFromConfig( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnFileChangeInputJSON( wxFileDirPickerEvent& event ) { event.Skip(); }
+		virtual void OnCheckBoxSaveJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnFileChangeOutputJSON( wxFileDirPickerEvent& event ) { event.Skip(); }
+		virtual void OnCheckBoxCloseSaveFileAfterEachWrite( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCheckBoxAppendToFile( wxCommandEvent& event ) { event.Skip(); }
+		virtual void tpControlOnClickImportJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event ) { event.Skip(); }
@@ -153,7 +162,7 @@ class tpControlDialogDef : public wxDialog
 		virtual void OnButtonClickFonts( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointODAPI( wxCommandEvent& event ) { event.Skip(); }
-		virtual void tpControlCancelClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void tpControlCloseClick( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:

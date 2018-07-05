@@ -34,6 +34,7 @@ class tpJSON
         tpJSON();
         virtual ~tpJSON();
         void ProcessMessage(wxString &message_id, wxString &message_body);
+        void CloseJSONOutputFile(void);
         
     protected:
         

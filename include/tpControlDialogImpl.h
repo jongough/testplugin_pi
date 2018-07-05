@@ -54,9 +54,9 @@ class tpControlDialogImpl : public tpControlDialogDef
         
 	protected:
         // Handlers for ODNewODPointDialogDef events.
-        void tpControlOnClickProcessJSON( wxCommandEvent& event );
+        void tpControlOnClickImportJSON( wxCommandEvent& event );
         void tpControlOKClick( wxCommandEvent& event );
-        void tpControlCancelClick( wxCommandEvent& event );
+        void tpControlCloseClick( wxCommandEvent& event );
         void OnButtonClickFonts( wxCommandEvent& event );
         void OnButtonClickCreateBoundaryODAPI( wxCommandEvent& event );
         void OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event );
@@ -65,6 +65,13 @@ class tpControlDialogImpl : public tpControlDialogDef
         void OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& event );
         void OnButtonClickCreateTextPointJSON( wxCommandEvent& event );
         void OnCheckBoxSaveJSONOnStartup( wxCommandEvent& event );
+        void OnFileChangeInputJSON( wxFileDirPickerEvent& event );
+        void OnFileChangeOutputJSON( wxFileDirPickerEvent& event );
+        void OnCheckBoxSaveJSON( wxCommandEvent& event );
+        void OnCheckBoxCloseSaveFileAfterEachWrite( wxCommandEvent& event );
+        void OnCheckBoxAppendToFile( wxCommandEvent& event );
+        void OnCheckBoxDeleteFromConfig( wxCommandEvent& event );
+        
         
 	public:
         tpControlDialogImpl( wxWindow *parent );
@@ -73,6 +80,12 @@ class tpControlDialogImpl : public tpControlDialogDef
         void        SetPanels(void);
         wxString    GetJSONSaveFile( void );
         void        SetJSONSaveFile( wxString SaveFile );
+        wxString    GetJSONInputFile( void );
+        void        SetJSONInputFile( wxString InputFile );
+        void        SetSaveJSONOnStartup(bool SaveJSONOnStartup);
+        void        SetIncommingJSONMessages(bool IncommingJSONMessages);
+        void        SetAppendToSaveFile(bool AppendToSaveFile);
+        void        SetCloseFileAfterEachWrite(bool CloseFileAfterEachWrite);
         
         bool m_bOK;
         int  m_iSelection;

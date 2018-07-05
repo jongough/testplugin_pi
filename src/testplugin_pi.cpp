@@ -214,6 +214,11 @@ int testplugin_pi::Init(void)
     m_iODAPIVersionMinor = 0;
     m_iODAPIVersionPatch = 0;
     m_bSaveIncommingJSONMessages = false;
+    m_fnOutputJSON = wxEmptyString;
+    m_fnInputJSON = wxEmptyString;
+    m_bCloseSaveFileAfterEachWrite = true;
+    m_bAppendToSaveFile = true;
+    m_bRecreateConfig = false;
     
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
@@ -222,11 +227,13 @@ int testplugin_pi::Init(void)
     
     // Get a pointer to the opencpn display canvas, to use as a parent for windows created
     m_parent_window = GetOCPNCanvasWindow();
+    m_pTPConfig = GetOCPNConfigObject();
     
     m_tpControlDialogImpl = new tpControlDialogImpl(m_parent_window);
     m_tpControlDialogImpl->Fit();
     m_tpControlDialogImpl->Layout();
     m_tpControlDialogImpl->Hide();
+    LoadConfig();
     
     g_ptpJSON = new tpJSON;
     
@@ -289,11 +296,12 @@ void testplugin_pi::LateInit(void)
 bool testplugin_pi::DeInit(void)
 {
     if(m_tpControlDialogImpl)
-      {
-          m_tpControlDialogImpl->Close();
-//          m_ptestplugin_window->Destroy(); //Gives a Segmentation fault
-      }
-      return true;
+    {
+        m_tpControlDialogImpl->Close();
+    }
+    if(m_pTPConfig) SaveConfig();
+    
+    return true;
 }
 
 int testplugin_pi::GetAPIVersionMajor()
@@ -460,7 +468,7 @@ void testplugin_pi::SaveConfig()
     #endif
     #endif
     
-    wxFileConfig *pConf = m_pODConfig;
+    wxFileConfig *pConf = m_pTPConfig;
     
     if(pConf) {
         pConf->SetPath( wxS( "/Settings/testplugin_pi" ) );
@@ -468,7 +476,11 @@ void testplugin_pi::SaveConfig()
             pConf->DeleteGroup( "/Settings/testplugin_pi" );
         } else {
             pConf->Write( wxS( "SaveJSONOnStartup" ), g_bSaveJSONOnStartup );
-            pConf->Write( wxS( "JSONSaveFile" ), m_tpControlDialogImpl->GetJSONSaveFile());
+            pConf->Write( wxS( "JSONSaveFile" ), m_fnOutputJSON.GetFullPath());
+            pConf->Write( wxS( "JSONInputFile" ), m_fnInputJSON.GetFullPath());
+            pConf->Write( wxS( "CloseSaveFileAferEachWrite" ), m_bCloseSaveFileAfterEachWrite);
+            pConf->Write( wxS( "AppendToSaveFile" ), m_bAppendToSaveFile);
+            pConf->Write( wxS( "SaveIncommingJSONMessages" ), m_bSaveIncommingJSONMessages);
         }
     }
 }
@@ -484,7 +496,7 @@ void testplugin_pi::LoadConfig()
     #endif
     #endif
     
-    wxFileConfig *pConf = (wxFileConfig *)m_pODConfig;
+    wxFileConfig *pConf = m_pTPConfig;
     
     if(pConf)
     {
@@ -492,9 +504,20 @@ void testplugin_pi::LoadConfig()
         pConf->SetPath( wxS( "/Settings/testplugin_pi" ) );
         wxString  l_wxsColour;
         pConf->Read( wxS( "SaveJSONOnStartup"), &g_bSaveJSONOnStartup, false );
-        wxString l_sSaveFile;
-        pConf->Read( wxS("JSONSaveFile"), &l_sSaveFile, *wxEmptyString);
-        if(l_sSaveFile != wxEmptyString) m_tpControlDialogImpl->SetJSONSaveFile(l_sSaveFile);
+        if(g_bSaveJSONOnStartup) m_tpControlDialogImpl->SetSaveJSONOnStartup(g_bSaveJSONOnStartup);
+        wxString l_filepath;
+        pConf->Read( wxS("JSONSaveFile"), &l_filepath, wxEmptyString);
+        m_fnOutputJSON.Assign(l_filepath);
+        if(m_fnOutputJSON != wxEmptyString) m_tpControlDialogImpl->SetJSONSaveFile(m_fnOutputJSON.GetFullPath());
+        pConf->Read( wxS( "JSONInputFile" ), &l_filepath, wxEmptyString);
+        m_fnInputJSON.Assign(l_filepath);
+        if(m_fnInputJSON != wxEmptyString) m_tpControlDialogImpl->SetJSONInputFile(m_fnInputJSON.GetFullPath());
+        pConf->Read( wxS( "CloseSaveFileAferEachWrite" ), &m_bCloseSaveFileAfterEachWrite, true);
+        m_tpControlDialogImpl->SetCloseFileAfterEachWrite(m_bCloseSaveFileAfterEachWrite);
+        pConf->Read( wxS( "AppendToSaveFile" ), &m_bAppendToSaveFile, true);
+        m_tpControlDialogImpl->SetAppendToSaveFile(m_bAppendToSaveFile);
+        pConf->Read( wxS( "SaveIncommingJSONMessages" ), &m_bSaveIncommingJSONMessages, false);
+        m_tpControlDialogImpl->SetIncommingJSONMessages(m_bSaveIncommingJSONMessages);
     }
 }
 void testplugin_pi::GetODAPI()
@@ -621,7 +644,7 @@ bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
     return true;
 }
 
-bool testplugin_pi::ProcessJSONFile()
+bool testplugin_pi::ImportJSONFile()
 {
     wxFFile l_ffile;
     l_ffile.Open(m_fnInputJSON.GetFullPath(), "r");
@@ -633,14 +656,29 @@ bool testplugin_pi::ProcessJSONFile()
     l_ffile.ReadAll(&l_str);
     wxFileInputStream l_input( m_fnInputJSON.GetFullPath() );
     wxTextInputStream l_text( l_input );
-    for(size_t i = 0; i < l_str.Length();) {
+/*    for(size_t i = 0; i < l_str.Length();) {
         //wxString l_ext = l_str.Mid(i, l_str_find)
         //wxStringTokenizer tokenizer("first:second:third:fourth", ":");
     }
+*/    
     wxJSONValue jMsg;
     wxJSONWriter writer;
     wxString    MsgString;
     
     writer.Write( jMsg, MsgString );
-    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), l_str );
+}
+
+void testplugin_pi::UpdateCloseAfterSave(bool bCloseAfterSave)
+{
+    if(m_bCloseSaveFileAfterEachWrite != bCloseAfterSave) {
+        m_bCloseSaveFileAfterEachWrite = bCloseAfterSave;
+        if(bCloseAfterSave) {
+            g_ptpJSON->CloseJSONOutputFile();
+        }
+    }
+}
+
+void testplugin_pi::UpdateAppendToFile(bool bAppendToFile)
+{
 }

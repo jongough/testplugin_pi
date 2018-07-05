@@ -166,7 +166,7 @@ public:
     ~testplugin_pi();
 
     wxWindow            *m_parent_window;
-    wxFileConfig        *m_pODConfig;
+    wxFileConfig        *m_pTPConfig;
     wxTimer             *m_timer;
     
 
@@ -219,8 +219,9 @@ public:
     bool CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP);
     bool CreateBoundary(CreateBoundary_t *pCB);
     bool CreateTextPoint(CreateTextPoint_t *pCTP);
-    bool ProcessJSONFile(void);
-    
+    bool ImportJSONFile(void);
+    void UpdateCloseAfterSave(bool bCloseAfterSave);
+    void UpdateAppendToFile(bool bAppendToFile);
     
     wxGLContext     *m_pcontext;
     wxMemoryDC      *pmdc;
@@ -252,6 +253,8 @@ public:
     wxFileName  m_fnOutputJSON;
     bool    m_bSaveIncommingJSONMessages;
     bool    m_bRecreateConfig;
+    bool    m_bCloseSaveFileAfterEachWrite;
+    bool    m_bAppendToSaveFile;
     
     
 private:

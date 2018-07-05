@@ -32,6 +32,9 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_checkBoxSaveJSONOnStartup = new wxCheckBox( m_panelGeneral, wxID_ANY, _("Save JSON on startup"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
 	fgSizer26->Add( m_checkBoxSaveJSONOnStartup, 0, wxALL, 5 );
 	
+	m_checkBoxRecreateConfig = new wxCheckBox( m_panelGeneral, wxID_ANY, _("Delete config from conf\non shutdown"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
+	fgSizer26->Add( m_checkBoxRecreateConfig, 0, wxALL, 5 );
+	
 	
 	m_panelGeneral->SetSizer( fgSizer26 );
 	m_panelGeneral->Layout();
@@ -47,23 +50,31 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_staticTextJSONFile->Wrap( -1 );
 	m_fgSizerJSON->Add( m_staticTextJSONFile, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
-	m_filePickerJSON = new wxFilePickerCtrl( m_panelFileInput, wxID_ANY, wxEmptyString, _("Select a JSON file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE );
-	m_fgSizerJSON->Add( m_filePickerJSON, 0, wxALL|wxEXPAND, 5 );
+	m_filePickerInputJSON = new wxFilePickerCtrl( m_panelFileInput, wxID_ANY, wxEmptyString, _("Select a JSON file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE );
+	m_fgSizerJSON->Add( m_filePickerInputJSON, 0, wxALL|wxEXPAND, 5 );
 	
 	m_checkBoxSaveJSON = new wxCheckBox( m_panelFileInput, wxID_ANY, _("Save incoming JSON\nmessages"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
 	m_fgSizerJSON->Add( m_checkBoxSaveJSON, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
-	m_filePickerOutputJSON = new wxFilePickerCtrl( m_panelFileInput, wxID_ANY, wxEmptyString, _("Select a file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_filePickerOutputJSON = new wxFilePickerCtrl( m_panelFileInput, wxID_ANY, wxEmptyString, _("Select a file"), wxT("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_SAVE|wxFLP_SMALL|wxFLP_USE_TEXTCTRL );
 	m_fgSizerJSON->Add( m_filePickerOutputJSON, 0, wxALL|wxEXPAND, 5 );
 	
-	m_buttonProcessJSON = new wxButton( m_panelFileInput, wxID_ANY, _("Process JSON"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_fgSizerJSON->Add( m_buttonProcessJSON, 0, wxALL, 5 );
+	m_checkBoxCloseAferWrite = new wxCheckBox( m_panelFileInput, wxID_ANY, _("Close save file after\neach write"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
+	m_checkBoxCloseAferWrite->SetValue(true); 
+	m_fgSizerJSON->Add( m_checkBoxCloseAferWrite, 0, wxALL, 5 );
+	
+	m_checkBoxAppendToFile = new wxCheckBox( m_panelFileInput, wxID_ANY, _("Append to file"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT );
+	m_checkBoxAppendToFile->SetValue(true); 
+	m_fgSizerJSON->Add( m_checkBoxAppendToFile, 0, wxALL, 5 );
+	
+	m_buttonImportJSON = new wxButton( m_panelFileInput, wxID_ANY, _("Import JSON"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_fgSizerJSON->Add( m_buttonImportJSON, 0, wxALL, 5 );
 	
 	
 	m_panelFileInput->SetSizer( m_fgSizerJSON );
 	m_panelFileInput->Layout();
 	m_fgSizerJSON->Fit( m_panelFileInput );
-	m_notebookControl->AddPage( m_panelFileInput, _("File Input"), false );
+	m_notebookControl->AddPage( m_panelFileInput, _("File Input"), true );
 	m_panelUserInput = new wxPanel( m_notebookControl, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	m_fgSizerUI = new wxFlexGridSizer( 0, 0, 0, 0 );
 	m_fgSizerUI->AddGrowableCol( 0 );
@@ -623,7 +634,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUserInput->SetSizer( m_fgSizerUI );
 	m_panelUserInput->Layout();
 	m_fgSizerUI->Fit( m_panelUserInput );
-	m_notebookControl->AddPage( m_panelUserInput, _("User Input"), true );
+	m_notebookControl->AddPage( m_panelUserInput, _("User Input"), false );
 	
 	fgSizer3->Add( m_notebookControl, 0, wxEXPAND | wxALL, 5 );
 	
@@ -635,8 +646,8 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	wxBoxSizer* bSizerOKCancel;
 	bSizerOKCancel = new wxBoxSizer( wxHORIZONTAL );
 	
-	Cancel = new wxButton( this, wxID_ANY, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizerOKCancel->Add( Cancel, 0, wxALL, 5 );
+	m_buttonClose = new wxButton( this, wxID_ANY, _("&Close"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizerOKCancel->Add( m_buttonClose, 0, wxALL, 5 );
 	
 	
 	fgSizer4->Add( bSizerOKCancel, 1, wxEXPAND, 5 );
@@ -655,7 +666,13 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	
 	// Connect Events
 	m_checkBoxSaveJSONOnStartup->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxSaveJSONOnStartup ), NULL, this );
-	m_buttonProcessJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlOnClickProcessJSON ), NULL, this );
+	m_checkBoxRecreateConfig->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxDeleteFromConfig ), NULL, this );
+	m_filePickerInputJSON->Connect( wxEVT_COMMAND_FILEPICKER_CHANGED, wxFileDirPickerEventHandler( tpControlDialogDef::OnFileChangeInputJSON ), NULL, this );
+	m_checkBoxSaveJSON->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxSaveJSON ), NULL, this );
+	m_filePickerOutputJSON->Connect( wxEVT_COMMAND_FILEPICKER_CHANGED, wxFileDirPickerEventHandler( tpControlDialogDef::OnFileChangeOutputJSON ), NULL, this );
+	m_checkBoxCloseAferWrite->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxCloseSaveFileAfterEachWrite ), NULL, this );
+	m_checkBoxAppendToFile->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxAppendToFile ), NULL, this );
+	m_buttonImportJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlOnClickImportJSON ), NULL, this );
 	m_buttonCreateBoundaryODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryODAPI ), NULL, this );
 	m_buttonCreateBoundaryJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryJSON ), NULL, this );
 	m_buttonCreateBoundaryPointODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointODAPI ), NULL, this );
@@ -663,14 +680,20 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_buttonTextPointFonts->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickFonts ), NULL, this );
 	m_buttonCreateTextPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
 	m_buttonCreateTextPointODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointODAPI ), NULL, this );
-	Cancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCancelClick ), NULL, this );
+	m_buttonClose->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCloseClick ), NULL, this );
 }
 
 tpControlDialogDef::~tpControlDialogDef()
 {
 	// Disconnect Events
 	m_checkBoxSaveJSONOnStartup->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxSaveJSONOnStartup ), NULL, this );
-	m_buttonProcessJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlOnClickProcessJSON ), NULL, this );
+	m_checkBoxRecreateConfig->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxDeleteFromConfig ), NULL, this );
+	m_filePickerInputJSON->Disconnect( wxEVT_COMMAND_FILEPICKER_CHANGED, wxFileDirPickerEventHandler( tpControlDialogDef::OnFileChangeInputJSON ), NULL, this );
+	m_checkBoxSaveJSON->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxSaveJSON ), NULL, this );
+	m_filePickerOutputJSON->Disconnect( wxEVT_COMMAND_FILEPICKER_CHANGED, wxFileDirPickerEventHandler( tpControlDialogDef::OnFileChangeOutputJSON ), NULL, this );
+	m_checkBoxCloseAferWrite->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxCloseSaveFileAfterEachWrite ), NULL, this );
+	m_checkBoxAppendToFile->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnCheckBoxAppendToFile ), NULL, this );
+	m_buttonImportJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlOnClickImportJSON ), NULL, this );
 	m_buttonCreateBoundaryODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryODAPI ), NULL, this );
 	m_buttonCreateBoundaryJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryJSON ), NULL, this );
 	m_buttonCreateBoundaryPointODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointODAPI ), NULL, this );
@@ -678,6 +701,6 @@ tpControlDialogDef::~tpControlDialogDef()
 	m_buttonTextPointFonts->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickFonts ), NULL, this );
 	m_buttonCreateTextPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
 	m_buttonCreateTextPointODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointODAPI ), NULL, this );
-	Cancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCancelClick ), NULL, this );
+	m_buttonClose->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCloseClick ), NULL, this );
 	
 }

@@ -96,7 +96,10 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
     
     if(g_testplugin_pi->m_bSaveIncommingJSONMessages) {
         if(!m_ffOutputFile) {
-            m_ffOutputFile  = new wxFFile(g_testplugin_pi->m_fnOutputJSON.GetFullPath(), "w");
+            wxString l_mode;
+            if(g_testplugin_pi->m_bAppendToSaveFile) l_mode = "a";
+            else l_mode = "w";
+            m_ffOutputFile  = new wxFFile(g_testplugin_pi->m_fnOutputJSON.GetFullPath(), l_mode);
             if(!m_ffOutputFile->IsOpened()) {
                 g_testplugin_pi->m_bSaveIncommingJSONMessages = false;
                 OCPNMessageBox_PlugIn(NULL, g_testplugin_pi->m_fnOutputJSON.GetPath(), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
@@ -104,11 +107,16 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
         }
         m_ffOutputFile->SeekEnd();
         wxString l_str;
-        l_str.Printf("%s: %s\n", message_id, message_body);
+        l_str.Printf("%s:\n%s\n", message_id, message_body);
         m_ffOutputFile->Write(l_str);
+        if(g_testplugin_pi->m_bCloseSaveFileAfterEachWrite) {
+            m_ffOutputFile->Flush();
+            m_ffOutputFile->Close();
+            delete m_ffOutputFile;
+            m_ffOutputFile = NULL;
+        }
         
     }
-    
     if(message_id != _T("TESTPLUGIN_PI")) {
         if(message_id == _T("OCPN_DRAW_PI_READY_FOR_REQUESTS")) {
             if(message_body == _T("TRUE")) {
@@ -229,4 +237,13 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
     
     return;
 }
+
+void tpJSON::CloseJSONOutputFile()
+{
+    m_ffOutputFile->Flush();
+    m_ffOutputFile->Close();
+    delete m_ffOutputFile;
+    m_ffOutputFile = NULL;
+}
+
 

@@ -67,7 +67,8 @@ tpControlDialogImpl::tpControlDialogImpl( wxWindow* parent ) : tpControlDialogDe
     if(!g_testplugin_pi->m_bODCreateBoundary) m_panelUICreateBoundary->Disable();
     if(!g_testplugin_pi->m_bODCreateBoundaryPoint) m_panelUICreateBoundaryPoint->Disable();
     if(!g_testplugin_pi->m_bODCreateTextPoint) m_panelUICreateTextPoint->Disable();
-    
+    if(g_testplugin_pi->m_fnOutputJSON == wxEmptyString) m_checkBoxSaveJSON->Disable();
+    else m_checkBoxSaveJSON->Enable();
 }
 
 void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& event )
@@ -657,9 +658,10 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
 
 void tpControlDialogImpl::OnCheckBoxSaveJSONOnStartup(wxCommandEvent& event)
 {
+    g_bSaveJSONOnStartup = m_checkBoxSaveJSONOnStartup->IsChecked();
 }
 
-void tpControlDialogImpl::tpControlCancelClick( wxCommandEvent& event )
+void tpControlDialogImpl::tpControlCloseClick( wxCommandEvent& event )
 {
     m_bOK = false;
     g_testplugin_pi->ToggleToolbarIcon();
@@ -667,27 +669,26 @@ void tpControlDialogImpl::tpControlCancelClick( wxCommandEvent& event )
     Show(false);
 }
  
-void tpControlDialogImpl::tpControlOnClickProcessJSON( wxCommandEvent& event )
+void tpControlDialogImpl::tpControlOnClickImportJSON( wxCommandEvent& event )
 {
+    
     if(m_checkBoxSaveJSON->IsChecked()) {
         if(!m_filePickerOutputJSON->GetPath()) {
             OCPNMessageBox_PlugIn(NULL, _("No file specified for output"), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
             return;
         }
         g_testplugin_pi->m_fnOutputJSON = m_filePickerOutputJSON->GetPath();
-        g_testplugin_pi->m_bSaveIncommingJSONMessages = true;
     } else {
         g_testplugin_pi->m_fnOutputJSON = wxEmptyString;
-        g_testplugin_pi->m_bSaveIncommingJSONMessages = false;
     }
 
-    if(!m_filePickerJSON->GetPath()) {
+    if(g_testplugin_pi->m_fnInputJSON.GetFullPath() == wxEmptyString) {
         OCPNMessageBox_PlugIn( NULL, _("No file specified for input"), _("File not found"), wxICON_EXCLAMATION | wxCANCEL );
         return;
     }
-    g_testplugin_pi->m_fnInputJSON = m_filePickerJSON->GetPath();
+    g_testplugin_pi->m_fnInputJSON = m_filePickerInputJSON->GetPath();
 
-    g_testplugin_pi->ProcessJSONFile();
+    g_testplugin_pi->ImportJSONFile();
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }
@@ -759,12 +760,81 @@ wxString tpControlDialogImpl::GetJSONSaveFile( void )
     if(!m_filePickerOutputJSON->GetPath()) {
         return wxEmptyString;
     } else return m_filePickerOutputJSON->GetPath();
-    
 }
 
 void tpControlDialogImpl::SetJSONSaveFile(wxString SaveFile)
 {
     m_filePickerOutputJSON->SetPath( SaveFile );
+    m_checkBoxSaveJSON->Enable();
+    m_checkBoxSaveJSON->SetValue(true);
 }
 
+wxString tpControlDialogImpl::GetJSONInputFile()
+{
+    wxString l_InputFile = m_filePickerInputJSON->GetPath();
+    if(!m_filePickerInputJSON->GetPath()) {
+        return wxEmptyString;
+    } else return m_filePickerInputJSON->GetPath();
+}
 
+void tpControlDialogImpl::SetJSONInputFile(wxString InputFile)
+{
+    m_filePickerInputJSON->SetPath( InputFile );
+}
+
+void tpControlDialogImpl::OnFileChangeInputJSON(wxFileDirPickerEvent& event)
+{
+    g_testplugin_pi->m_fnInputJSON = m_filePickerInputJSON->GetPath();
+}
+
+void tpControlDialogImpl::OnFileChangeOutputJSON(wxFileDirPickerEvent& event)
+{
+    g_testplugin_pi->m_fnOutputJSON = m_filePickerOutputJSON->GetPath();
+    if(m_filePickerOutputJSON->GetPath() != wxEmptyString) m_checkBoxSaveJSON->Enable();
+    else m_checkBoxSaveJSON->Disable();
+}
+
+void tpControlDialogImpl::OnCheckBoxSaveJSON(wxCommandEvent& event)
+{
+    if(m_checkBoxSaveJSON->IsChecked()) g_testplugin_pi->m_bSaveIncommingJSONMessages = true;
+    else g_testplugin_pi->m_bSaveIncommingJSONMessages = false;
+}
+
+void tpControlDialogImpl::OnCheckBoxCloseSaveFileAfterEachWrite( wxCommandEvent& event )
+{
+    g_testplugin_pi->UpdateCloseAfterSave(m_checkBoxCloseAferWrite->IsChecked());
+    if(m_checkBoxCloseAferWrite->IsChecked()) g_testplugin_pi->m_bCloseSaveFileAfterEachWrite = true;
+    else g_testplugin_pi->m_bCloseSaveFileAfterEachWrite = false;
+}
+
+void tpControlDialogImpl::OnCheckBoxAppendToFile(wxCommandEvent& event)
+{
+    g_testplugin_pi->UpdateAppendToFile(m_checkBoxAppendToFile->IsChecked());
+    if(m_checkBoxAppendToFile->IsChecked()) g_testplugin_pi->m_bAppendToSaveFile = true;
+    else g_testplugin_pi->m_bAppendToSaveFile = false;
+}
+
+void tpControlDialogImpl::OnCheckBoxDeleteFromConfig(wxCommandEvent& event)
+{
+    g_testplugin_pi->m_bRecreateConfig = m_checkBoxRecreateConfig->IsChecked();
+}
+
+void tpControlDialogImpl::SetSaveJSONOnStartup(bool SaveJSONOnStartup)
+{
+    m_checkBoxSaveJSONOnStartup->SetValue(SaveJSONOnStartup);
+}
+
+void tpControlDialogImpl::SetAppendToSaveFile(bool AppendToSaveFile)
+{
+    m_checkBoxAppendToFile->SetValue(AppendToSaveFile);
+}
+
+void tpControlDialogImpl::SetCloseFileAfterEachWrite(bool CloseFileAfterEachWrite)
+{
+    m_checkBoxCloseAferWrite->SetValue(CloseFileAfterEachWrite);
+}
+
+void tpControlDialogImpl::SetIncommingJSONMessages(bool IncommingJSONMessages)
+{
+    m_checkBoxSaveJSON->SetValue(IncommingJSONMessages);
+}
