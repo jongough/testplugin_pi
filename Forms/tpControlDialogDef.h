@@ -142,8 +142,8 @@ class tpControlDialogDef : public wxDialog
 		wxStaticText* m_staticTextTextPointTextFontExample;
 		wxButton* m_buttonTextPointFonts;
 		wxRadioBox* m_radioBoxTextPointTextDisplay;
-		wxButton* m_buttonCreateTextPointJSON;
 		wxButton* m_buttonCreateTextPointODAPI;
+		wxButton* m_buttonCreateTextPointJSON;
 		wxButton* m_buttonClose;
 		
 		// Virtual event handlers, overide them in your derived class
@@ -160,8 +160,8 @@ class tpControlDialogDef : public wxDialog
 		virtual void OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickFonts( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnButtonClickCreateTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointODAPI( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickCreateTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void tpControlCloseClick( wxCommandEvent& event ) { event.Skip(); }
 		
 	

@@ -28,6 +28,7 @@
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
 #endif
+
 #include <wx/ffile.h>
 
 #include "tpControlDialogImpl.h"
@@ -361,7 +362,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     jMsg[wxT("BoundaryName")] = l_name;
     jMsg[wxT("Lat")] = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
     jMsg[wxT("Lon")] = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
-    jMsg[wxT("BoundaryType")] = m_choiceBoundaryType->GetSelection();
+    jMsg[wxT("BoundaryType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
     jMsg[wxT("Active")] = m_checkBoxBoundaryActive->GetValue();
     if(m_checkBoxBoundaryVisible->IsChecked()) jMsg[wxT("visible")] = true;
     else jMsg[wxT("visible")] = false;
@@ -383,9 +384,24 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     jMsgBP[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
     jMsg[wxT("BoundaryPoints")].Item(0) = jMsgBP;
     
-    int i = m_choiceNumberOfPoints->GetSelection() + 3;
+    int i = wxAtoi( m_choiceNumberOfPoints->GetStringSelection());
     int l_iPointNum = 1;
-    if(i == 3) {
+    if(i == 2) {
+        l_sname.Printf(_T("id %i"), l_iPointNum);
+        jMsgBP1[wxT("Name")] = l_sname;
+        jMsgBP1[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
+        jMsgBP1[wxT("Lon")] = fromDMM_Plugin(m_textCtrlCornerLon->GetValue()) + 0.0167;
+        jMsgBP1[wxT("BoundaryPointType")] = m_choiceBoundaryType->GetString(m_choiceBoundaryType->GetSelection());
+        if(m_checkBoxBoundaryPointVisible->IsChecked()) jMsgBP1[wxT("visible")] = true;
+        else jMsgBP1[wxT("visible")] = false;
+        if(m_checkBoxBoundaryPointRangeRingsVisible->IsChecked()) jMsgBP1[wxT("ringsvisible")] = true;
+        else jMsgBP1[wxT("ringsvisible")] = false;
+        jMsgBP1[wxT("ringsnumber")] = m_choiceBoundaryBoundaryPointRingNumber->GetSelection();
+        jMsgBP1[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
+        jMsgBP1[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
+        jMsgBP1[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+        jMsg[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP1;
+    } else if(i == 3) {
         l_sname.Printf(_T("id %i"), l_iPointNum);
         jMsgBP1[wxT("Name")] = l_sname;
         jMsgBP1[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
@@ -613,7 +629,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& 
     jMsg[wxT("IconName")] = m_textCtrlBoundaryPointIconName->GetValue();
     jMsg[wxT("Lat")] = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
     jMsg[wxT("Lon")] = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
-    jMsg[wxT("BoundaryPointType")] = m_choiceBoundaryPointType->GetSelection();
+    jMsg[wxT("BoundaryPointType")] = m_choiceBoundaryPointType->GetString(m_choiceBoundaryPointType->GetSelection());
     jMsg[wxT("visible")] = m_checkBoxBoundaryPointVisible->GetValue();
     jMsg[wxT("ringsvisible")] = m_checkBoxRingsVisible->GetValue();
     jMsg[wxT("ringsnumber")] = m_choiceBoundaryPointRingNumber->GetSelection();
@@ -633,25 +649,42 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& 
 void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& event )
 {
     m_bOK = true;
-    CreateTextPoint_t *pCTP = new CreateTextPoint_t;
-    pCTP->name = m_textCtrlTextPointName->GetValue();
-    pCTP->iconname = m_textCtrlTextPointIconName->GetValue();
-    pCTP->lat = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
-    pCTP->lon = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
-    pCTP->Visible = m_checkBoxTextPointVisible->GetValue();
-    pCTP->TextToDisplay = m_textCtrlTextPointTextToDisplay->GetValue();
-    pCTP->TextPosition = m_choiceTextPointTextPosition->GetSelection();
-    pCTP->TextColour = m_colourPickerTextPointTextColour->GetColour().GetAsString();
-    pCTP->BackgroundColour = m_colourPickerTextPointTextBackgroundColour->GetColour().GetAsString();
-    pCTP->BackgroundTransparancy = m_sliderTextPointBackgroundTransparency->GetValue();
-    pCTP->TextFont = m_staticTextTextPointTextFontExample->GetFont();
-    pCTP->TextPointDisplayTextWhen = m_radioBoxTextPointTextDisplay->GetSelection();
-    //        pCTP->ringsvisible = m_checkBoxTextRingsVisible->GetValue();
-    //        pCTP->ringsnumber = m_choiceTextPointRingNumber->GetSelection();
-    //        pCTP->ringssteps = atof(m_textCtrlTextPointRingStep->GetValue().mb_str());
-    //        pCTP->ringsunits = m_choiceTextPointRingUnits->GetSelection();
-    //        pCTP->ringscolour = m_colourPickerTextPointRingColour->GetColour().GetAsString();
-    g_testplugin_pi->CreateTextPoint(pCTP);
+    wxJSONValue jMsg;
+    wxJSONWriter writer;
+    wxString    MsgString;
+    
+    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Type")] = wxT("Request");
+    jMsg[wxT("Msg")] = wxS("CreateTextPoint");
+    srand((unsigned)time(0));
+    int l_rand = (rand()%10000) + 1;
+    jMsg[wxT("MsgId")] = wxPrintf("%i", l_rand);
+    
+    wxString l_name = m_textCtrlBoundaryPointName->GetValue();
+    if(l_name.Length() < 1) l_name = wxEmptyString;
+    jMsg[wxT("TextPointName")] = l_name;
+    jMsg[wxT("IconName")] = m_textCtrlBoundaryPointIconName->GetValue();
+    jMsg[wxT("Lat")] = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
+    jMsg[wxT("Lon")] = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
+    jMsg[wxT("visible")] = m_checkBoxBoundaryPointVisible->GetValue();
+    jMsg[wxT("TextToDisplay")] = m_textCtrlTextPointTextToDisplay->GetValue();
+    jMsg[wxT("TextPosition")] = m_choiceTextPointTextPosition->GetSelection();
+    jMsg[wxT("TextColour")] = m_colourPickerTextPointTextColour->GetColour().GetAsString();
+    jMsg[wxT("BackgroundColour")] = m_colourPickerTextPointTextBackgroundColour->GetColour().GetAsString();
+    jMsg[wxT("BackgroundTransparancy")] = m_sliderTextPointBackgroundTransparency->GetValue();
+    jMsg[wxT("TextFont")] = m_staticTextTextPointTextFontExample->GetFont().GetNativeFontInfoDesc();
+    jMsg[wxT("TextPointDisplayTextWhen")] = m_radioBoxTextPointTextDisplay->GetStringSelection();
+    jMsg[wxT("ringsvisible")] = m_checkBoxRingsVisible->GetValue();
+    jMsg[wxT("ringsnumber")] = m_choiceBoundaryPointRingNumber->GetSelection();
+    jMsg[wxT("ringssteps")] = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
+    jMsg[wxT("ringsunits")] = m_choiceBoundaryPointRingUnits->GetSelection();
+    jMsg[wxT("ringscolour")] = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
+    
+    writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
+    }
+    
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }

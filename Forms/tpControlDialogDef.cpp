@@ -74,7 +74,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelFileInput->SetSizer( m_fgSizerJSON );
 	m_panelFileInput->Layout();
 	m_fgSizerJSON->Fit( m_panelFileInput );
-	m_notebookControl->AddPage( m_panelFileInput, _("File Input"), true );
+	m_notebookControl->AddPage( m_panelFileInput, _("File Input"), false );
 	m_panelUserInput = new wxPanel( m_notebookControl, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	m_fgSizerUI = new wxFlexGridSizer( 0, 0, 0, 0 );
 	m_fgSizerUI->AddGrowableCol( 0 );
@@ -186,7 +186,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_staticTextNumPoints->Wrap( -1 );
 	fgSizer5->Add( m_staticTextNumPoints, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
-	wxString m_choiceNumberOfPointsChoices[] = { _("3"), _("4"), _("5"), _("6") };
+	wxString m_choiceNumberOfPointsChoices[] = { _("3"), _("4"), _("5"), _("6"), _("2") };
 	int m_choiceNumberOfPointsNChoices = sizeof( m_choiceNumberOfPointsChoices ) / sizeof( wxString );
 	m_choiceNumberOfPoints = new wxChoice( m_panelUICreateBoundary, wxID_ANY, wxDefaultPosition, wxDefaultSize, m_choiceNumberOfPointsNChoices, m_choiceNumberOfPointsChoices, 0 );
 	m_choiceNumberOfPoints->SetSelection( 0 );
@@ -283,7 +283,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUICreateBoundary->SetSizer( fgSizer5 );
 	m_panelUICreateBoundary->Layout();
 	fgSizer5->Fit( m_panelUICreateBoundary );
-	m_notebookUI->AddPage( m_panelUICreateBoundary, _("Create Boundary"), true );
+	m_notebookUI->AddPage( m_panelUICreateBoundary, _("Create Boundary"), false );
 	m_panelUICreateBoundaryPoint = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer8;
 	fgSizer8 = new wxFlexGridSizer( 0, 1, 0, 0 );
@@ -613,11 +613,11 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	fgSizer27->SetFlexibleDirection( wxBOTH );
 	fgSizer27->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
-	m_buttonCreateTextPointJSON = new wxButton( m_panelUICreateTextPoint, wxID_ANY, _("Create JSON"), wxDefaultPosition, wxDefaultSize, 0 );
-	fgSizer27->Add( m_buttonCreateTextPointJSON, 0, wxALL, 5 );
-	
 	m_buttonCreateTextPointODAPI = new wxButton( m_panelUICreateTextPoint, wxID_ANY, _("Create ODAPI"), wxDefaultPosition, wxDefaultSize, 0 );
 	fgSizer27->Add( m_buttonCreateTextPointODAPI, 0, wxALL, 5 );
+	
+	m_buttonCreateTextPointJSON = new wxButton( m_panelUICreateTextPoint, wxID_ANY, _("Create JSON"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer27->Add( m_buttonCreateTextPointJSON, 0, wxALL, 5 );
 	
 	
 	m_fgSizerTextPoint->Add( fgSizer27, 1, wxEXPAND, 5 );
@@ -626,7 +626,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUICreateTextPoint->SetSizer( m_fgSizerTextPoint );
 	m_panelUICreateTextPoint->Layout();
 	m_fgSizerTextPoint->Fit( m_panelUICreateTextPoint );
-	m_notebookUI->AddPage( m_panelUICreateTextPoint, _("Create Text Point"), false );
+	m_notebookUI->AddPage( m_panelUICreateTextPoint, _("Create Text Point"), true );
 	
 	m_fgSizerUI->Add( m_notebookUI, 1, wxEXPAND | wxALL, 5 );
 	
@@ -634,7 +634,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUserInput->SetSizer( m_fgSizerUI );
 	m_panelUserInput->Layout();
 	m_fgSizerUI->Fit( m_panelUserInput );
-	m_notebookControl->AddPage( m_panelUserInput, _("User Input"), false );
+	m_notebookControl->AddPage( m_panelUserInput, _("User Input"), true );
 	
 	fgSizer3->Add( m_notebookControl, 0, wxEXPAND | wxALL, 5 );
 	
@@ -678,8 +678,8 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_buttonCreateBoundaryPointODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointODAPI ), NULL, this );
 	m_buttonCreateBoundaryPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointJSON ), NULL, this );
 	m_buttonTextPointFonts->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickFonts ), NULL, this );
-	m_buttonCreateTextPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
 	m_buttonCreateTextPointODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointODAPI ), NULL, this );
+	m_buttonCreateTextPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
 	m_buttonClose->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCloseClick ), NULL, this );
 }
 
@@ -699,8 +699,8 @@ tpControlDialogDef::~tpControlDialogDef()
 	m_buttonCreateBoundaryPointODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointODAPI ), NULL, this );
 	m_buttonCreateBoundaryPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointJSON ), NULL, this );
 	m_buttonTextPointFonts->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickFonts ), NULL, this );
-	m_buttonCreateTextPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
 	m_buttonCreateTextPointODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointODAPI ), NULL, this );
+	m_buttonCreateTextPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
 	m_buttonClose->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCloseClick ), NULL, this );
 	
 }
