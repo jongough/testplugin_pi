@@ -528,8 +528,8 @@ void testplugin_pi::GetODAPI()
 
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
-    jMsg[wxT("Msg")] = wxS("Version");
-    jMsg[wxT("MsgId")] = wxS("Version");
+    jMsg[wxT("Msg")] = wxT("Version");
+    jMsg[wxT("MsgId")] = wxT("Version");
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("Version")) {

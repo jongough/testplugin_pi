@@ -185,27 +185,9 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             g_ReceivedODAPIJSONMsg = root;
             g_ReceivedODAPIMessage = message_body;
             
-        } else if(!bFail && root[wxS("Msg")].AsString() == wxS("CreateBoundary")) {
-            if(!root.HasMember( wxS("BoundaryName"))) {
-                wxLogMessage( wxS("No BoundaryName found in message") );
-                bFail = true;
-            }
-            
-            if(!root.HasMember( wxS("BoundaryType"))) {
-                wxLogMessage( wxS("No BoundaryType type found in message") );
-                bFail = true;
-            }
-            
-            if(!root.HasMember( wxS("BoundaryPoints"))) {
-                wxLogMessage( wxS("No BoundaryPoints type found in message") );
-                bFail = true;
-            }
-            
-            if(!bFail) {
-                if(root[wxS("Type")].AsString() == _T("Response")) {
-                    return;
-                }
-            }
+        } else if(!bFail && root[wxS("Msg")].AsString() == wxS("CreateBoundary") && root[wxS("Type")].AsString() == wxS("Response")) {
+            g_ReceivedJSONJSONMsg = root;
+            g_ReceivedJSONMessage = message_body;
         } else if(!bFail && root[wxS("Msg")].AsString() == wxS("CreateBoundaryPoint") && root[wxS("Type")].AsString() == wxS("Response")) {
             g_ReceivedJSONJSONMsg = root;
             g_ReceivedJSONMessage = message_body;
