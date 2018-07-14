@@ -601,8 +601,8 @@ void testplugin_pi::GetODAPI()
     if(!m_bODCreateBoundaryPoint) l_notavail.Append(_("OD_CreateBoundaryPoint\n"));
     if(!m_bODCreateTextPoint) l_notavail.Append(_("OD_CreateTextPoint\n"));
     if(l_notavail.Length() > 0) {
-        l_msg.Append(_("The following ODAPI's are not available:\m"));
-        l_msg.Append(l_avail);
+        l_msg.Append(_("The following ODAPI's are not available:\n"));
+        l_msg.Append(l_notavail);
     }
     
     OCPNMessageBox_PlugIn( m_parent_window, l_msg, _("TESTPLUGIN"), (long) wxYES );
