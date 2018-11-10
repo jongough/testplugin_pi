@@ -48,7 +48,10 @@ enum {
 enum {
     TEXTPOINT_DISPLAY_TEXT_SHOW_ALWAYS = 0,
     TEXTPOINT_DISPLAY_TEXT_SHOW_ON_ROLLOVER,
-    TEXTPOINT_DISPLAY_TEXT_SHOW_NEVER
+    TEXTPOINT_DISPLAY_TEXT_SHOW_NEVER,
+    TEXTPOINT_DISPLAY_TEXT_SHOW_DEFAULT,
+    
+    TEXTPOINT_DISPLAY_TEXT_SHOW_LAST
 };
 
 enum {
@@ -59,8 +62,19 @@ enum {
     TEXT_CENTRE,
     TEXT_RIGHT,
     TEXT_LEFT,
+    TEXT_DEFAULT,
     
     TEXT_POSTION_LAST
+};
+
+enum {
+    TEXTPOINT_TEXT_BACKGROUND_TRANSPARANCY_DEFAULT = -1
+};
+
+struct HyperLinkList_t {
+    wxString    sDescription;
+    wxString    sLink;
+    wxString    sType;
 };
 
 struct FindPointInAnyBoundary_t {
@@ -104,6 +118,7 @@ struct CreateBoundaryPoint_t {
     bool        defaultRingColour;
     wxColour    ringscolour;
     wxString    GUID;
+    std::list   <HyperLinkList_t *> BoundaryPointHyperLinkList;
 };
 
 struct CreateBoundary_t {
@@ -116,6 +131,7 @@ struct CreateBoundary_t {
     bool        defaultFillColour;
     wxColour    fillColour;
     wxString    GUID;
+    bool        temporary;
     std::list   <CreateBoundaryPoint_t *> BoundaryPointsList;
 };
 
@@ -128,9 +144,10 @@ struct CreateTextPoint_t {
     wxString    TextToDisplay;
     bool        Visible;
     int         TextPosition;
-    wxColour    TextColour;
-    wxColour    BackgroundColour;
+    wxString    TextColour;
+    wxString    BackgroundColour;
     int         BackgroundTransparancy;
+    bool        defaultFont;
     wxFont      TextFont;
     int         TextPointDisplayTextWhen;
     bool        ringsvisible;
@@ -138,7 +155,15 @@ struct CreateTextPoint_t {
     double      ringssteps;
     int         ringsunits;
     bool        defaultRingColour;
-    wxColour    ringscolour;
+    wxString    ringscolour;
+    wxString    GUID;
+    wxString    URL;
+    wxString    URLDescription;
+    std::list   <HyperLinkList_t *> TextPointHyperLinkList;
+    bool        temporary;
+};
+
+struct DeleteTextPoint_t {
     wxString    GUID;
 };
 
@@ -154,6 +179,7 @@ public:
     static bool OD_CreateBoundary( CreateBoundary_t *pCB );
     static bool OD_CreateBoundaryPoint( CreateBoundaryPoint_t *pCBP );
     static bool OD_CreateTextPoint( CreateTextPoint_t *pCTP );
+    static bool OD_DeleteTextPoint( DeleteTextPoint_t *pDTP );
     
 protected:
     
@@ -168,6 +194,7 @@ typedef bool (*OD_FindFirstBoundaryLineCrossing) (FindClosestBoundaryLineCrossin
 typedef bool (*OD_CreateBoundary) (CreateBoundary_t *);
 typedef bool (*OD_CreateBoundaryPoint) (CreateBoundaryPoint_t *);
 typedef bool (*OD_CreateTextPoint) (CreateTextPoint_t *);
+typedef bool (*OD_DeleteTextPoint) (DeleteTextPoint_t *);
 
 
 #endif //_ODAPI_H_

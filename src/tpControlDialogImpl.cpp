@@ -96,6 +96,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
     pCB->visible = m_checkBoxBoundaryVisible->GetValue();
     pCB->lineColour = m_colourPickerBoundaryLineColour->GetColour();
     pCB->fillColour = m_colourPickerBoundaryFillColour->GetColour();
+    pCB->temporary = false;
     //pCB->BoundaryPointsList.insert()
     
     pCB->BoundaryPointsList.clear();
@@ -110,6 +111,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
     pCBP->ringsunits = 0;
     pCBP->defaultRingColour = false;
     pCBP->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+    pCBP->BoundaryPointHyperLinkList.clear();
     pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP);
     int i = m_choiceNumberOfPoints->GetSelection() + 3;
     int l_iPointNum = 1;
@@ -124,6 +126,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
         pCBP1->ringsunits = 0;
         pCBP1->defaultRingColour = true;
         pCBP1->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCBP1->BoundaryPointHyperLinkList.clear();
         pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP1);
         pCBP2->name.Printf(_T("id %i"), l_iPointNum++);
         pCBP2->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue()) + 0.0167;
@@ -135,6 +138,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
         pCBP2->ringssteps = 1;
         pCBP2->ringsunits = 0;
         pCBP2->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
+        pCBP2->BoundaryPointHyperLinkList.clear();
         pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP2);
     } else if(i == 4) {
         pCBP1->name.Printf(_T("id %i"), l_iPointNum++);
@@ -314,6 +318,7 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointODAPI( wxCommandEvent& eve
     pCTP->lat = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
     pCTP->lon = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
     pCTP->Visible = m_checkBoxTextPointVisible->GetValue();
+    pCTP->temporary = false;
     pCTP->TextToDisplay = m_textCtrlTextPointTextToDisplay->GetValue();
     pCTP->TextPosition = m_choiceTextPointTextPosition->GetSelection();
     pCTP->TextColour = m_colourPickerTextPointTextColour->GetColour().GetAsString();
@@ -347,6 +352,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     wxJSONValue jMsgBP3;
     wxJSONValue jMsgBP4;
     wxJSONValue jMsgBP5;
+    wxJSONValue jMsgBPHL;
     wxJSONWriter writer;
     wxString    MsgString;
     wxString    l_sname;
@@ -381,6 +387,9 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     jMsgBP[wxT("ringssteps")] = atof(m_textCtrlBoundaryBoundaryPointRingStep->GetValue().mb_str());
     jMsgBP[wxT("ringsunits")] = m_choiceBoundaryBoundaryPointRingUnits->GetSelection();
     jMsgBP[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
+    jMsgBPHL[wxT("LinkDescription")] = _("Test Link");
+    jMsgBPHL[wxT("LinkURL")] = wxT("http://opencpn.org");
+    jMsgBP[wxT("HyperLinks")].Item(0) = jMsgBPHL;
     jMsgB[wxT("BoundaryPoints")].Item(0) = jMsgBP;
     DEBUGSL(jMsgB.AsString());
     int i = wxAtoi( m_choiceNumberOfPoints->GetStringSelection());
@@ -658,6 +667,7 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
     m_bOK = true;
     wxJSONValue jMsg;
     wxJSONValue jMsgTP;
+    wxJSONValue jMsgTPHL;
     wxJSONWriter writer;
     wxString    MsgString;
     
@@ -687,11 +697,17 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
     jMsgTP[wxT("ringssteps")] = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
     jMsgTP[wxT("ringsunits")] = m_choiceBoundaryPointRingUnits->GetSelection();
     jMsgTP[wxT("ringscolour")] = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
+    jMsgTPHL[wxT("LinkDescription")] = _("Test Link 1");
+    jMsgTPHL[wxT("LinkURL")] = wxT("http://opencpn.org");
+    jMsgTP[wxT("HyperLinks")].Item(0) = jMsgTPHL;
+    jMsgTPHL[wxT("LinkDescription")] = _("Test Link 2");
+    jMsgTPHL[wxT("LinkURL")] = wxT("http://google.com");
+    jMsgTP[wxT("HyperLinks")].Item(1) = jMsgTPHL;
     
     jMsg[wxT("TextPoint")] = jMsgTP;
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
-    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
+    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateTextPoint")) {
     }
     
     g_testplugin_pi->ToggleToolbarIcon();
