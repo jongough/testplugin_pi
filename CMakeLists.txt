@@ -21,8 +21,8 @@ SET(CPACK_PACKAGE_CONTACT "Jon Gough")
 
 SET(VERSION_MAJOR "1")
 SET(VERSION_MINOR "0")
-SET(VERSION_PATCH "10")
-SET(VERSION_DATE "10/11/2018")
+SET(VERSION_PATCH "11")
+SET(VERSION_DATE "07/12/2018")
 
 SET(BUNDLE_DATA FALSE)
 SET( CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" )
@@ -117,10 +117,12 @@ SET(OCPNSRC
     ocpnsrc/wxJSON/jsonreader.cpp
     ocpnsrc/wxJSON/jsonval.cpp
     ocpnsrc/wxJSON/jsonwriter.cpp
+    ocpnsrc/TexFont.cpp
 )
 SET(OCPNHDRS
     ocpninclude/ocpn_plugin.h
     ocpninclude/pluginmanager.h
+    ocpninclude/TexFont.h
     src/nmea0183/LatLong.hpp
     src/nmea0183/nmea0183.h
     src/nmea0183/nmea0183.hpp
