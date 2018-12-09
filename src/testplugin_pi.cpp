@@ -667,6 +667,7 @@ bool testplugin_pi::ImportJSONFile()
     
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), l_str );
+    return true;
 }
 
 void testplugin_pi::UpdateCloseAfterSave(bool bCloseAfterSave)

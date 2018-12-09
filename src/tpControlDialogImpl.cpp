@@ -326,11 +326,7 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointODAPI( wxCommandEvent& eve
     pCTP->BackgroundTransparancy = m_sliderTextPointBackgroundTransparency->GetValue();
     pCTP->TextFont = m_staticTextTextPointTextFontExample->GetFont();
     pCTP->TextPointDisplayTextWhen = m_radioBoxTextPointTextDisplay->GetSelection();
-    //        pCTP->ringsvisible = m_checkBoxTextRingsVisible->GetValue();
-    //        pCTP->ringsnumber = m_choiceTextPointRingNumber->GetSelection();
-    //        pCTP->ringssteps = atof(m_textCtrlTextPointRingStep->GetValue().mb_str());
-    //        pCTP->ringsunits = m_choiceTextPointRingUnits->GetSelection();
-    //        pCTP->ringscolour = m_colourPickerTextPointRingColour->GetColour().GetAsString();
+    pCTP->defaultRangeRings = true;
     g_testplugin_pi->CreateTextPoint(pCTP);
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
@@ -692,6 +688,7 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
     jMsgTP[wxT("BackgroundTransparancy")] = m_sliderTextPointBackgroundTransparency->GetValue();
     jMsgTP[wxT("TextFont")] = m_staticTextTextPointTextFontExample->GetFont().GetNativeFontInfoDesc();
     jMsgTP[wxT("TextPointDisplayTextWhen")] = m_radioBoxTextPointTextDisplay->GetStringSelection();
+    jMsgTP[wxT("defaultRangeRings")] = true;
     jMsgTP[wxT("ringsvisible")] = m_checkBoxRingsVisible->GetValue();
     jMsgTP[wxT("ringsnumber")] = m_choiceBoundaryPointRingNumber->GetSelection();
     jMsgTP[wxT("ringssteps")] = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
@@ -754,11 +751,11 @@ void tpControlDialogImpl::tpControlOnClickImportJSON( wxCommandEvent& event )
 void tpControlDialogImpl::SetLatLon( double lat, double lon )
 {
     m_textCtrlCornerLat->SetValue( toSDMM_PlugIn(1, lat));
-    m_textCtrlCornerLon->SetValue( toSDMM_PlugIn(1, lon));
+    m_textCtrlCornerLon->SetValue( toSDMM_PlugIn(2, lon));
     m_textCtrlLatitude->SetValue( toSDMM_PlugIn( 1, lat ) );
-    m_textCtrlLongitude->SetValue( toSDMM_PlugIn( 1, lon ) );
+    m_textCtrlLongitude->SetValue( toSDMM_PlugIn( 2, lon ) );
     m_textCtrlTextPointLatitude->SetValue( toSDMM_PlugIn( 1, lat ) );
-    m_textCtrlTextPointLongitude->SetValue( toSDMM_PlugIn( 1, lon ) );
+    m_textCtrlTextPointLongitude->SetValue( toSDMM_PlugIn( 2, lon ) );
 }
 
 void tpControlDialogImpl::OnButtonClickFonts( wxCommandEvent& event )
