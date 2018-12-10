@@ -203,6 +203,8 @@ int testplugin_pi::Init(void)
     m_bODCreateBoundary = false;
     m_bODCreateBoundaryPoint = false;
     m_bODCreateTextPoint = false;
+    m_bODAddPointIcon = false;
+    m_bODDeletePointIcon = false;
     m_pOD_FindPointInAnyBoundary = NULL;
     m_pODFindClosestBoundaryLineCrossing = NULL;
     m_pODFindFirstBoundaryLineCrossing = NULL;
@@ -210,6 +212,8 @@ int testplugin_pi::Init(void)
     m_pODCreateBoundary = NULL;
     m_pODCreateBoundaryPoint = NULL;
     m_pODCreateTextPoint = NULL;
+    m_pODAddPointIcon = NULL;
+    m_pODDeletePointIcon = NULL;
     m_iODAPIVersionMajor = 0;
     m_iODAPIVersionMinor = 0;
     m_iODAPIVersionPatch = 0;
@@ -577,6 +581,16 @@ void testplugin_pi::GetODAPI()
             sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateTextPoint);
             m_bODCreateTextPoint = true;
         }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_AddPointIcon")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODAddPointIcon);
+            m_bODAddPointIcon = true;
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeletePointIcon")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeletePointIcon);
+            m_bODDeletePointIcon = true;
+        }
     }
     
     wxString l_msg;
@@ -589,6 +603,8 @@ void testplugin_pi::GetODAPI()
     if(m_bODCreateBoundary) l_avail.Append(_("OD_CreateBoundary\n"));
     if(m_bODCreateBoundaryPoint) l_avail.Append(_("OD_CreateBoundaryPoint\n"));
     if(m_bODCreateTextPoint) l_avail.Append(_("OD_CreateTextPoint\n"));
+    if(m_bODAddPointIcon) l_avail.Append(_("OD_AddPointIcon\n"));
+    if(m_bODDeletePointIcon) l_avail.Append(_("OD_DeletePointIcon\n"));
     if(l_avail.Length() > 0) {
         l_msg.Append(_("The following ODAPI's are available: \n"));
         l_msg.Append(l_avail);
@@ -600,6 +616,8 @@ void testplugin_pi::GetODAPI()
     if(!m_bODCreateBoundary) l_notavail.Append(_("OD_CreateBoundary\n"));
     if(!m_bODCreateBoundaryPoint) l_notavail.Append(_("OD_CreateBoundaryPoint\n"));
     if(!m_bODCreateTextPoint) l_notavail.Append(_("OD_CreateTextPoint\n"));
+    if(!m_bODAddPointIcon) l_notavail.Append(_("OD_AddPointIcon\n"));
+    if(!m_bODDeletePointIcon) l_notavail.Append(_("OD_DeletePointIcon\n"));
     if(l_notavail.Length() > 0) {
         l_msg.Append(_("The following ODAPI's are not available:\n"));
         l_msg.Append(l_notavail);
@@ -642,6 +660,18 @@ bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
     DEBUGST("Text Point GUID: ");
     DEBUGEND(l_GUID);
     return true;
+}
+
+void testplugin_pi::AddPointIcon(AddPointIcon_t* pAPI)
+{
+    (*m_pODAddPointIcon)(pAPI);
+    return;
+}
+
+void testplugin_pi::DeletePointIcon(DeletePointIcon_t* pDPI)
+{
+    (*m_pODDeletePointIcon)(pDPI);
+    return;
 }
 
 bool testplugin_pi::ImportJSONFile()

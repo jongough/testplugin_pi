@@ -1,12 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Feb 16 2016)
+// C++ code generated with wxFormBuilder (version Oct 26 2018)
 // http://www.wxformbuilder.org/
 //
-// PLEASE DO "NOT" EDIT THIS FILE!
+// PLEASE DO *NOT* EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#ifndef __TPCONTROLDIALOGDEF_H__
-#define __TPCONTROLDIALOGDEF_H__
+#pragma once
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
@@ -41,10 +40,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 /// Class tpControlDialogDef
 ///////////////////////////////////////////////////////////////////////////////
-class tpControlDialogDef : public wxDialog 
+class tpControlDialogDef : public wxDialog
 {
 	private:
-	
+
 	protected:
 		wxBoxSizer* m_SizerControl;
 		wxNotebook* m_notebookControl;
@@ -144,8 +143,12 @@ class tpControlDialogDef : public wxDialog
 		wxRadioBox* m_radioBoxTextPointTextDisplay;
 		wxButton* m_buttonCreateTextPointODAPI;
 		wxButton* m_buttonCreateTextPointJSON;
+		wxPanel* m_panelPointIcon;
+		wxRadioBox* m_radioBoxPointIcon;
+		wxButton* m_buttonPointIconODAPI;
+		wxButton* m_buttonPointIconJSON;
 		wxButton* m_buttonClose;
-		
+
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnCheckBoxSaveJSONOnStartup( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCheckBoxDeleteFromConfig( wxCommandEvent& event ) { event.Skip(); }
@@ -162,14 +165,15 @@ class tpControlDialogDef : public wxDialog
 		virtual void OnButtonClickFonts( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickPointIconODAPI( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickPointIconJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void tpControlCloseClick( wxCommandEvent& event ) { event.Skip(); }
-		
-	
+
+
 	public:
-		
-		tpControlDialogDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Test Plugin Control Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 421,716 ), long style = wxCAPTION|wxCLOSE_BOX|wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP ); 
+
+		tpControlDialogDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Test Plugin Control Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 527,716 ), long style = wxCAPTION|wxCLOSE_BOX|wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP );
 		~tpControlDialogDef();
-	
+
 };
 
-#endif //__TPCONTROLDIALOGDEF_H__

@@ -219,6 +219,8 @@ public:
     bool CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP);
     bool CreateBoundary(CreateBoundary_t *pCB);
     bool CreateTextPoint(CreateTextPoint_t *pCTP);
+    void AddPointIcon(AddPointIcon_t *API);
+    void DeletePointIcon(DeletePointIcon_t *p_DPI);
     bool ImportJSONFile(void);
     void UpdateCloseAfterSave(bool bCloseAfterSave);
     void UpdateAppendToFile(bool bAppendToFile);
@@ -249,6 +251,8 @@ public:
     bool    m_bODCreateBoundary;
     bool    m_bODCreateBoundaryPoint;
     bool    m_bODCreateTextPoint;
+    bool    m_bODAddPointIcon;
+    bool    m_bODDeletePointIcon;
     wxFileName  m_fnInputJSON;
     wxFileName  m_fnOutputJSON;
     bool    m_bSaveIncommingJSONMessages;
@@ -285,6 +289,8 @@ private:
     OD_CreateBoundary                   m_pODCreateBoundary;
     OD_CreateBoundaryPoint              m_pODCreateBoundaryPoint;
     OD_CreateTextPoint                  m_pODCreateTextPoint;
+    OD_AddPointIcon                     m_pODAddPointIcon;
+    OD_DeletePointIcon                  m_pODDeletePointIcon;
 };
 
 #endif

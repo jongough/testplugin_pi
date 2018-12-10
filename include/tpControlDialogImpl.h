@@ -61,9 +61,11 @@ class tpControlDialogImpl : public tpControlDialogDef
         void OnButtonClickCreateBoundaryODAPI( wxCommandEvent& event );
         void OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event );
         void OnButtonClickCreateTextPointODAPI( wxCommandEvent& event );
+        void OnButtonClickPointIconODAPI( wxCommandEvent& event );
         void OnButtonClickCreateBoundaryJSON( wxCommandEvent& event );
         void OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& event );
         void OnButtonClickCreateTextPointJSON( wxCommandEvent& event );
+        void OnButtonClickPointIconJSON( wxCommandEvent& event );
         void OnCheckBoxSaveJSONOnStartup( wxCommandEvent& event );
         void OnFileChangeInputJSON( wxFileDirPickerEvent& event );
         void OnFileChangeOutputJSON( wxFileDirPickerEvent& event );
