@@ -214,9 +214,11 @@ int testplugin_pi::Init(void)
     m_pODCreateTextPoint = NULL;
     m_pODAddPointIcon = NULL;
     m_pODDeletePointIcon = NULL;
+    m_iODVersionMajor = 0;
+    m_iODVersionMinor = 0;
+    m_iODVersionPatch = 0;
     m_iODAPIVersionMajor = 0;
     m_iODAPIVersionMinor = 0;
-    m_iODAPIVersionPatch = 0;
     m_bSaveIncommingJSONMessages = false;
     m_fnOutputJSON = wxEmptyString;
     m_fnInputJSON = wxEmptyString;
@@ -537,9 +539,9 @@ void testplugin_pi::GetODAPI()
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("Version")) {
-        m_iODAPIVersionMajor = g_ReceivedODAPIJSONMsg[wxS("Major")].AsInt();
-        m_iODAPIVersionMinor = g_ReceivedODAPIJSONMsg[wxS("Minor")].AsInt();
-        m_iODAPIVersionPatch = g_ReceivedODAPIJSONMsg[wxS("Patch")].AsInt();
+        m_iODVersionMajor = g_ReceivedODAPIJSONMsg[wxS("Major")].AsInt();
+        m_iODVersionMinor = g_ReceivedODAPIJSONMsg[wxS("Minor")].AsInt();
+        m_iODVersionPatch = g_ReceivedODAPIJSONMsg[wxS("Patch")].AsInt();
     }
     m_bDoneODAPIVersionCall = true;
     
@@ -551,11 +553,15 @@ void testplugin_pi::GetODAPI()
     writer.Write( jMsg1, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("GetAPIAddresses")) {
+        m_iODAPIVersionMajor = g_ReceivedODAPIJSONMsg[_T("ODAPIVersionMajor")].AsInt();
+        m_iODAPIVersionMinor = g_ReceivedODAPIJSONMsg[_T("ODAPIVersionMinor")].AsInt();
+        
         wxString sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindPointInAnyBoundary")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pOD_FindPointInAnyBoundary);
             m_bOD_FindPointInAnyBoundary = true;
         }
+        
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindClosestBoundaryLineCrossing")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODFindClosestBoundaryLineCrossing);
@@ -596,7 +602,7 @@ void testplugin_pi::GetODAPI()
     wxString l_msg;
     wxString l_avail;
     wxString l_notavail;
-    l_msg.Printf(_("ODAPI Version: Major: %i, Minor: %i, Patch: %i\n"), m_iODAPIVersionMajor, m_iODAPIVersionMinor, m_iODAPIVersionPatch);
+    l_msg.Printf(_("OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, Minor: %i\n"), m_iODVersionMajor, m_iODVersionMinor, m_iODVersionPatch, m_iODAPIVersionMajor, m_iODAPIVersionMinor);
     if(m_bOD_FindPointInAnyBoundary) l_avail.Append(_("OD_FindPointInAnyBoundary\n"));
     if(m_bODFindClosestBoundaryLineCrossing) l_avail.Append(_("OD_FindClosestBoundaryLineCrossing\n"));
     if(m_bODFindFirstBoundaryLineCrossing) l_avail.Append(_("OD_FindFirstBoundaryLineCrossing\n"));
@@ -637,10 +643,9 @@ void testplugin_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCross
 
 bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP)
 {
-    wxString l_GUID;
     bool l_bRet = (*m_pODCreateBoundaryPoint)(pCBP);
-    DEBUGST("Boundary Point GUID: ");
-    DEBUGEND(l_GUID);
+    DEBUGST("Boundary Point created: ");
+    DEBUGEND(l_bRet);
     return true;
 }
 

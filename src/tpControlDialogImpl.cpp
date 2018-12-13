@@ -306,7 +306,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent&
     pCBP->ringssteps = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
     pCBP->ringsunits = m_choiceBoundaryPointRingUnits->GetSelection();
     pCBP->ringscolour = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
-    g_testplugin_pi->CreateBoundaryPoint(pCBP);
+    bool ret = g_testplugin_pi->CreateBoundaryPoint(pCBP);
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }

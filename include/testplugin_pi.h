@@ -242,9 +242,11 @@ public:
     int     m_iCallerId;
     bool    m_btpDialog;
     int     m_testplugin_button_id;
+    int     m_iODVersionMajor;
+    int     m_iODVersionMinor;
+    int     m_iODVersionPatch;
     int     m_iODAPIVersionMajor;
     int     m_iODAPIVersionMinor;
-    int     m_iODAPIVersionPatch;
     bool    m_bOD_FindPointInAnyBoundary;
     bool    m_bODFindClosestBoundaryLineCrossing;
     bool    m_bODFindFirstBoundaryLineCrossing;
