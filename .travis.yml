@@ -74,12 +74,12 @@ deploy:
       # Deploy only when tag is not specified
       tags: false
       # or this branch
-      branch: master_1.5
+      branch: master
       # and only when API token is set
       # condition: ""${#OAUTH_ACCESS_TOKEN} != 0 && $BUILD_TYPE = Release
       condition: "${#OAUTH_ACCESS_TOKEN} != 0"
   - provider: launchpad
-    slug: "~jonsgough/opencpn-plugin-testplugin/+git/master"
+    slug: "~jonsgough/opencpn-plugin-testplugin/+git/testplugin_pi"
     oauth_token_secret:
       secure: IfEUz16VPprAn/N00bPI08Nm8JCJ17IVbQzm9L1Vm+LEI/ZCuk40gRyeAxLkQm0X8YFgPJbm5mUocDIgAmdzQYSOpCIaz+WRUNMuKJF8TaiuxBmz7vMLq8NTYMNyNnDR47l8McWOGI24VWCZDpSIwqr3vsa6r/6B2d1OnNlGJK38EdIokR+FeOv1MH7UBQJINgpirC1Jwb9Pbnu1i1/88pXhNuSGOKJq26wSNCOzqDDHTof2TtfJoDQXZg1HwV4xnHl28uAtFyZUc/JcoQmaGamHQhIISvL45uUISots0ulyMHW5SbsIDuOU0/bQKyf0mpfd9V0GDuSj1AdIImhTTtkOgIK7kDPTU1uv9NW2SsuoBHZzUc6MS8uRLWcleOMO4PW7L1xt/RxBxV6c/1QOJoXMqqCgLIu36WmLoGK9OQm5ixAgouL48iGDZgyNBqLDw7STnT2R70PzKfe08QAEuKn9V9vvAHR6hEk9oVs9lQIqp3jXkPpTUi9ikIIYOvbh6wZ0bU/Ca5NHCkbZl04xwCGlwEv1zlHjQTEXty6zlAWeEN3htfckkoRUhGhFAe4ZJsA7qEyl0aLreyqEj+yUIDxb0yOrMU+yB140H4wgU2IZAKfXWXbRninDNdtyXtUZDtnG7o+5DdBr+OAlz/3UpxLuEizTU7R4xamyqrfOaCU=
     oauth_token:
@@ -92,7 +92,6 @@ deploy:
       #branches:
       #   only:
       #     - master
-      #     - master_1.5
       all_branches: true
       condition: "$TRAVIS_OS_NAME = linux"
       repo: jongough/testplugin_pi
