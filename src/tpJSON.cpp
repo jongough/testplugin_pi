@@ -43,6 +43,12 @@
 
 #include <stdio.h>
 
+#ifdef TP_JSON_SCHEMA_VALIDATOR 
+#include "json-schema.hpp"
+using nlohmann::json;
+using nlohmann::json_schema::json_validator;
+#endif
+
 extern testplugin_pi        *g_testplugin_pi;
 extern ODAPI                *g_pODAPI;
 extern double               g_dVar;

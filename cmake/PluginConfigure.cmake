@@ -84,6 +84,14 @@ ELSE(OPENGL_GLU_FOUND)
     MESSAGE (STATUS "OpenGL not found..." )
 ENDIF(OPENGL_GLU_FOUND)
 
+# testing
+SET(EXTINCLUDE
+    ${EXTINCLUDE}
+    extinclude/nlohmann/json.hpp
+)
+INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+#testing 
+
 SET(BUILD_SHARED_LIBS TRUE)
 
 FIND_PACKAGE(Gettext REQUIRED)
