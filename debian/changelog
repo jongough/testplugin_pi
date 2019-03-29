@@ -1,0 +1,5 @@
+opencpn-plugin-testplugin (1.0-26) unstable; urgency=medium
+
+  * Release for O5 using CI
+
+ -- Jon Gough <jon.gough@eclipsesystems.com.au>  29/03/2019 15:17:01

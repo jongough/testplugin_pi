@@ -1,0 +1,5 @@
+opencpn-plugin-testplugin (${VERSION_MAJOR}.${VERSION_MINOR}-${VERSION_PATCH}) unstable; urgency=medium
+
+${TP_COMMENT}
+
+ -- Jon Gough <jon.gough@eclipsesystems.com.au>  ${CURRENT_DATE_TIME}
