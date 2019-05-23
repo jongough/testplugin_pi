@@ -290,6 +290,38 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
     delete pCB;
 }
 
+void tpControlDialogImpl::OnButtonClickDeleteBoundaryODAPI(wxCommandEvent& event)
+{
+    DeleteBoundary_t *pDB = new DeleteBoundary_t;
+    pDB->GUID = m_textCtrDeleteBoundaryGUID->GetValue();
+    g_testplugin_pi->DeleteBoundary(pDB);
+}
+
+void tpControlDialogImpl::OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event )
+{
+    m_bOK = true;
+    wxJSONWriter writer;
+    wxJSONValue jMsg;
+    wxString    MsgString;
+    
+    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Type")] = wxT("Request");
+    jMsg[wxT("Msg")] = wxS("DeleteBoundary");
+    srand((unsigned)time(0));
+    int l_rand = (rand()%10000) + 1;
+    jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
+    
+    jMsg[wxT("GUID")] = m_textCtrDeleteBoundaryGUID->GetValue();;
+    
+    writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteBoundary")) {
+    }
+    
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
+}
+
 void tpControlDialogImpl::OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event )
 {
     m_bOK = true;
@@ -307,6 +339,38 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent&
     pCBP->ringsunits = m_choiceBoundaryPointRingUnits->GetSelection();
     pCBP->ringscolour = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
     bool ret = g_testplugin_pi->CreateBoundaryPoint(pCBP);
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
+}
+
+void tpControlDialogImpl::OnButtonClickDeleteBoundaryPointODAPI(wxCommandEvent& event)
+{
+    DeleteBoundaryPoint_t *pDBP = new DeleteBoundaryPoint_t;
+    pDBP->GUID = m_textCtrDeleteBoundaryPointGUID->GetValue();
+    g_testplugin_pi->DeleteBoundaryPoint(pDBP);
+}
+
+void tpControlDialogImpl::OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& event )
+{
+    m_bOK = true;
+    wxJSONWriter writer;
+    wxJSONValue jMsg;
+    wxString    MsgString;
+    
+    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Type")] = wxT("Request");
+    jMsg[wxT("Msg")] = wxS("DeleteBoundaryPoint");
+    srand((unsigned)time(0));
+    int l_rand = (rand()%10000) + 1;
+    jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
+    
+    jMsg[wxT("GUID")] = m_textCtrDeleteBoundaryPointGUID->GetValue();;
+    
+    writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteBoundaryPoint")) {
+    }
+    
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }
@@ -330,6 +394,38 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointODAPI( wxCommandEvent& eve
     pCTP->TextPointDisplayTextWhen = m_radioBoxTextPointTextDisplay->GetSelection();
     pCTP->defaultRangeRings = true;
     g_testplugin_pi->CreateTextPoint(pCTP);
+    g_testplugin_pi->ToggleToolbarIcon();
+    Show(false);
+}
+
+void tpControlDialogImpl::OnButtonClickDeleteTextPointODAPI(wxCommandEvent& event)
+{
+    DeleteTextPoint_t *pDTP = new DeleteTextPoint_t;
+    pDTP->GUID = m_textCtrlDeleteTextPointGUID->GetValue();
+    g_testplugin_pi->DeleteTextPoint(pDTP);
+}
+
+void tpControlDialogImpl::OnButtonClickDeleteTextPointJSON( wxCommandEvent& event )
+{
+    m_bOK = true;
+    wxJSONWriter writer;
+    wxJSONValue jMsg;
+    wxString    MsgString;
+    
+    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Type")] = wxT("Request");
+    jMsg[wxT("Msg")] = wxS("DeleteTextPoint");
+    srand((unsigned)time(0));
+    int l_rand = (rand()%10000) + 1;
+    jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
+    
+    jMsg[wxT("GUID")] = m_textCtrlDeleteTextPointGUID->GetValue();;
+    
+    writer.Write( jMsg, MsgString );
+    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+    if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteTextPoint")) {
+    }
+    
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }

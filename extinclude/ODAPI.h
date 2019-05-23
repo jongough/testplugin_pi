@@ -27,16 +27,6 @@
 #ifndef _ODAPI_H_
 #define _ODAPI_H_
 
-#ifndef DECL_EXP
-#ifdef __WXMSW__
-#  define DECL_EXP     __declspec(dllexport)
-#else
-# ifdef __GNUC__
-# define DECL_EXP       __attribute__((visibility("default")))
-# endif
-#endif
-#endif
-
 #define ODAPI_VERSION_MAJOR 1
 #define ODAPI_VERSION_MINOR 1
 
@@ -130,6 +120,10 @@ struct CreateBoundaryPoint_t : public ODAPIVersion_t {
     std::list   <HyperLinkList_t *> BoundaryPointHyperLinkList;
 };
 
+struct DeleteBoundaryPoint_t : public ODAPIVersion_t {
+    wxString    GUID;
+};
+
 struct CreateBoundary_t : public ODAPIVersion_t {
     wxString    name;
     int         type;
@@ -142,6 +136,10 @@ struct CreateBoundary_t : public ODAPIVersion_t {
     wxString    GUID;
     bool        temporary;
     std::list   <CreateBoundaryPoint_t *> BoundaryPointsList;
+};
+
+struct DeleteBoundary_t : public ODAPIVersion_t {
+    wxString    GUID;
 };
 
 struct CreateTextPoint_t : public ODAPIVersion_t{
@@ -198,9 +196,11 @@ public:
     static bool OD_CreateBoundary( CreateBoundary_t *pCB );
     static bool OD_CreateBoundaryPoint( CreateBoundaryPoint_t *pCBP );
     static bool OD_CreateTextPoint( CreateTextPoint_t *pCTP );
-    static bool OD_DeleteTextPoint( DeleteTextPoint_t *pDTP );
     static bool OD_AddPointIcon( AddPointIcon_t *pAPI );
     static bool OD_DeletePointIcon( DeletePointIcon_t *pDPI );
+    static bool OD_DeleteBoundary( DeleteBoundary_t *pDB );
+    static bool OD_DeleteBoundaryPoint( DeleteBoundaryPoint_t *pDBP );
+    static bool OD_DeleteTextPoint( DeleteTextPoint_t *pDTP );
     
 protected:
     
@@ -215,8 +215,10 @@ typedef bool (*OD_FindFirstBoundaryLineCrossing) (FindClosestBoundaryLineCrossin
 typedef bool (*OD_CreateBoundary) (CreateBoundary_t *);
 typedef bool (*OD_CreateBoundaryPoint) (CreateBoundaryPoint_t *);
 typedef bool (*OD_CreateTextPoint) (CreateTextPoint_t *);
-typedef bool (*OD_DeleteTextPoint) (DeleteTextPoint_t *);
 typedef bool (*OD_AddPointIcon) (AddPointIcon_t *);
 typedef bool (*OD_DeletePointIcon) (DeletePointIcon_t *);
+typedef bool (*OD_DeleteBoundary) (DeleteBoundary_t *);
+typedef bool (*OD_DeleteBoundaryPoint) (DeleteBoundaryPoint_t *);
+typedef bool (*OD_DeleteTextPoint) (DeleteTextPoint_t *);
 
 #endif //_ODAPI_H_

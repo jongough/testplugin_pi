@@ -92,6 +92,11 @@ class tpControlDialogDef : public wxDialog
 		wxColourPickerCtrl* m_colourPickerBoundaryBoundaryPointRingColour;
 		wxButton* m_buttonCreateBoundaryODAPI;
 		wxButton* m_buttonCreateBoundaryJSON;
+		wxPanel* m_panelDeleteBoundary;
+		wxStaticText* m_staticTextDeleteBoundaryGUID;
+		wxTextCtrl* m_textCtrDeleteBoundaryGUID;
+		wxButton* m_buttonDeleteBoundaryODAP;
+		wxButton* m_buttonDeleteBoundaryJSON;
 		wxPanel* m_panelUICreateBoundaryPoint;
 		wxStaticText* m_staticTextBPName;
 		wxTextCtrl* m_textCtrlBoundaryPointName;
@@ -115,6 +120,11 @@ class tpControlDialogDef : public wxDialog
 		wxColourPickerCtrl* m_colourPickerBoundaryPointRingColour;
 		wxButton* m_buttonCreateBoundaryPointODAPI;
 		wxButton* m_buttonCreateBoundaryPointJSON;
+		wxPanel* m_panelDeleteBoundaryPoint;
+		wxStaticText* m_staticTextDeleteBoundaryPointGUID;
+		wxTextCtrl* m_textCtrDeleteBoundaryPointGUID;
+		wxButton* m_buttonDeleteBoundaryPointODAPI;
+		wxButton* m_buttonDeleteBoundaryPointJSON;
 		wxPanel* m_panelUICreateTextPoint;
 		wxFlexGridSizer* m_fgSizerTextPoint;
 		wxStaticText* m_staticTextTextPointName;
@@ -143,6 +153,11 @@ class tpControlDialogDef : public wxDialog
 		wxRadioBox* m_radioBoxTextPointTextDisplay;
 		wxButton* m_buttonCreateTextPointODAPI;
 		wxButton* m_buttonCreateTextPointJSON;
+		wxPanel* m_panelDeleteTextPoint;
+		wxStaticText* m_staticTextDeleteTextPointGUID;
+		wxTextCtrl* m_textCtrlDeleteTextPointGUID;
+		wxButton* m_buttonDeleteTextPointODAP;
+		wxButton* m_buttonDeleteTextPointJSON;
 		wxPanel* m_panelPointIcon;
 		wxRadioBox* m_radioBoxPointIcon;
 		wxButton* m_buttonPointIconODAPI;
@@ -160,11 +175,17 @@ class tpControlDialogDef : public wxDialog
 		virtual void tpControlOnClickImportJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteBoundaryODAPI( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteBoundaryPointODAPI( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickFonts( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteTextPointODAPI( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickPointIconODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickPointIconJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void tpControlCloseClick( wxCommandEvent& event ) { event.Skip(); }
@@ -172,7 +193,7 @@ class tpControlDialogDef : public wxDialog
 
 	public:
 
-		tpControlDialogDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Test Plugin Control Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 527,716 ), long style = wxCAPTION|wxCLOSE_BOX|wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP );
+		tpControlDialogDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Test Plugin Control Dialog"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 750,716 ), long style = wxCAPTION|wxCLOSE_BOX|wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP );
 		~tpControlDialogDef();
 
 };

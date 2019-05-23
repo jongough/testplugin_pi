@@ -283,7 +283,32 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUICreateBoundary->SetSizer( fgSizer5 );
 	m_panelUICreateBoundary->Layout();
 	fgSizer5->Fit( m_panelUICreateBoundary );
-	m_notebookUI->AddPage( m_panelUICreateBoundary, _("Create Boundary"), true );
+	m_notebookUI->AddPage( m_panelUICreateBoundary, _("Create Boundary"), false );
+	m_panelDeleteBoundary = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxFlexGridSizer* fgSizer36;
+	fgSizer36 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer36->AddGrowableCol( 1 );
+	fgSizer36->SetFlexibleDirection( wxBOTH );
+	fgSizer36->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+	m_staticTextDeleteBoundaryGUID = new wxStaticText( m_panelDeleteBoundary, wxID_ANY, _("GUID"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticTextDeleteBoundaryGUID->Wrap( -1 );
+	fgSizer36->Add( m_staticTextDeleteBoundaryGUID, 0, wxALL, 5 );
+
+	m_textCtrDeleteBoundaryGUID = new wxTextCtrl( m_panelDeleteBoundary, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer36->Add( m_textCtrDeleteBoundaryGUID, 0, wxALIGN_RIGHT|wxALL, 5 );
+
+	m_buttonDeleteBoundaryODAP = new wxButton( m_panelDeleteBoundary, wxID_ANY, _("Delete ODAPI"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer36->Add( m_buttonDeleteBoundaryODAP, 0, wxALL, 5 );
+
+	m_buttonDeleteBoundaryJSON = new wxButton( m_panelDeleteBoundary, wxID_ANY, _("Delete JSON"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer36->Add( m_buttonDeleteBoundaryJSON, 0, wxALL, 5 );
+
+
+	m_panelDeleteBoundary->SetSizer( fgSizer36 );
+	m_panelDeleteBoundary->Layout();
+	fgSizer36->Fit( m_panelDeleteBoundary );
+	m_notebookUI->AddPage( m_panelDeleteBoundary, _("Delete Boundary"), false );
 	m_panelUICreateBoundaryPoint = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer8;
 	fgSizer8 = new wxFlexGridSizer( 0, 1, 0, 0 );
@@ -466,6 +491,31 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUICreateBoundaryPoint->Layout();
 	fgSizer8->Fit( m_panelUICreateBoundaryPoint );
 	m_notebookUI->AddPage( m_panelUICreateBoundaryPoint, _("Create Boundary Point"), false );
+	m_panelDeleteBoundaryPoint = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxFlexGridSizer* fgSizer35;
+	fgSizer35 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer35->AddGrowableCol( 1 );
+	fgSizer35->SetFlexibleDirection( wxBOTH );
+	fgSizer35->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+	m_staticTextDeleteBoundaryPointGUID = new wxStaticText( m_panelDeleteBoundaryPoint, wxID_ANY, _("GUID"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticTextDeleteBoundaryPointGUID->Wrap( -1 );
+	fgSizer35->Add( m_staticTextDeleteBoundaryPointGUID, 0, wxALL, 5 );
+
+	m_textCtrDeleteBoundaryPointGUID = new wxTextCtrl( m_panelDeleteBoundaryPoint, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer35->Add( m_textCtrDeleteBoundaryPointGUID, 1, wxALIGN_RIGHT|wxALL, 5 );
+
+	m_buttonDeleteBoundaryPointODAPI = new wxButton( m_panelDeleteBoundaryPoint, wxID_ANY, _("Delete ODAPI"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer35->Add( m_buttonDeleteBoundaryPointODAPI, 0, wxALL, 5 );
+
+	m_buttonDeleteBoundaryPointJSON = new wxButton( m_panelDeleteBoundaryPoint, wxID_ANY, _("Delete JSON"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer35->Add( m_buttonDeleteBoundaryPointJSON, 0, wxALL, 5 );
+
+
+	m_panelDeleteBoundaryPoint->SetSizer( fgSizer35 );
+	m_panelDeleteBoundaryPoint->Layout();
+	fgSizer35->Fit( m_panelDeleteBoundaryPoint );
+	m_notebookUI->AddPage( m_panelDeleteBoundaryPoint, _("Delete Boundary Point"), true );
 	m_panelUICreateTextPoint = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	m_fgSizerTextPoint = new wxFlexGridSizer( 0, 1, 0, 0 );
 	m_fgSizerTextPoint->AddGrowableCol( 0 );
@@ -627,6 +677,31 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUICreateTextPoint->Layout();
 	m_fgSizerTextPoint->Fit( m_panelUICreateTextPoint );
 	m_notebookUI->AddPage( m_panelUICreateTextPoint, _("Create Text Point"), false );
+	m_panelDeleteTextPoint = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxFlexGridSizer* fgSizer37;
+	fgSizer37 = new wxFlexGridSizer( 0, 2, 0, 0 );
+	fgSizer37->AddGrowableCol( 1 );
+	fgSizer37->SetFlexibleDirection( wxBOTH );
+	fgSizer37->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+	m_staticTextDeleteTextPointGUID = new wxStaticText( m_panelDeleteTextPoint, wxID_ANY, _("GUID"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticTextDeleteTextPointGUID->Wrap( -1 );
+	fgSizer37->Add( m_staticTextDeleteTextPointGUID, 0, wxALL, 5 );
+
+	m_textCtrlDeleteTextPointGUID = new wxTextCtrl( m_panelDeleteTextPoint, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer37->Add( m_textCtrlDeleteTextPointGUID, 0, wxALIGN_RIGHT|wxALL, 5 );
+
+	m_buttonDeleteTextPointODAP = new wxButton( m_panelDeleteTextPoint, wxID_ANY, _("Delete ODAPI"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer37->Add( m_buttonDeleteTextPointODAP, 0, wxALL, 5 );
+
+	m_buttonDeleteTextPointJSON = new wxButton( m_panelDeleteTextPoint, wxID_ANY, _("Delete JSON"), wxDefaultPosition, wxDefaultSize, 0 );
+	fgSizer37->Add( m_buttonDeleteTextPointJSON, 0, wxALL, 5 );
+
+
+	m_panelDeleteTextPoint->SetSizer( fgSizer37 );
+	m_panelDeleteTextPoint->Layout();
+	fgSizer37->Fit( m_panelDeleteTextPoint );
+	m_notebookUI->AddPage( m_panelDeleteTextPoint, _("Delete Text Point"), false );
 	m_panelPointIcon = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizerPointIcon;
 	fgSizerPointIcon = new wxFlexGridSizer( 0, 1, 0, 0 );
@@ -717,11 +792,17 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_buttonImportJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlOnClickImportJSON ), NULL, this );
 	m_buttonCreateBoundaryODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryODAPI ), NULL, this );
 	m_buttonCreateBoundaryJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryJSON ), NULL, this );
+	m_buttonDeleteBoundaryODAP->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryODAPI ), NULL, this );
+	m_buttonDeleteBoundaryJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryJSON ), NULL, this );
 	m_buttonCreateBoundaryPointODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointODAPI ), NULL, this );
 	m_buttonCreateBoundaryPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointJSON ), NULL, this );
+	m_buttonDeleteBoundaryPointODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryPointODAPI ), NULL, this );
+	m_buttonDeleteBoundaryPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryPointJSON ), NULL, this );
 	m_buttonTextPointFonts->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickFonts ), NULL, this );
 	m_buttonCreateTextPointODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointODAPI ), NULL, this );
 	m_buttonCreateTextPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
+	m_buttonDeleteTextPointODAP->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteTextPointODAPI ), NULL, this );
+	m_buttonDeleteTextPointJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteTextPointJSON ), NULL, this );
 	m_buttonPointIconODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickPointIconODAPI ), NULL, this );
 	m_buttonPointIconJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickPointIconJSON ), NULL, this );
 	m_buttonClose->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCloseClick ), NULL, this );
@@ -740,11 +821,17 @@ tpControlDialogDef::~tpControlDialogDef()
 	m_buttonImportJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlOnClickImportJSON ), NULL, this );
 	m_buttonCreateBoundaryODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryODAPI ), NULL, this );
 	m_buttonCreateBoundaryJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryJSON ), NULL, this );
+	m_buttonDeleteBoundaryODAP->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryODAPI ), NULL, this );
+	m_buttonDeleteBoundaryJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryJSON ), NULL, this );
 	m_buttonCreateBoundaryPointODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointODAPI ), NULL, this );
 	m_buttonCreateBoundaryPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateBoundaryPointJSON ), NULL, this );
+	m_buttonDeleteBoundaryPointODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryPointODAPI ), NULL, this );
+	m_buttonDeleteBoundaryPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteBoundaryPointJSON ), NULL, this );
 	m_buttonTextPointFonts->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickFonts ), NULL, this );
 	m_buttonCreateTextPointODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointODAPI ), NULL, this );
 	m_buttonCreateTextPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickCreateTextPointJSON ), NULL, this );
+	m_buttonDeleteTextPointODAP->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteTextPointODAPI ), NULL, this );
+	m_buttonDeleteTextPointJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickDeleteTextPointJSON ), NULL, this );
 	m_buttonPointIconODAPI->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickPointIconODAPI ), NULL, this );
 	m_buttonPointIconJSON->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickPointIconJSON ), NULL, this );
 	m_buttonClose->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCloseClick ), NULL, this );

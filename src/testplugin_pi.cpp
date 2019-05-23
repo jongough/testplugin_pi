@@ -212,6 +212,9 @@ int testplugin_pi::Init(void)
     m_pODCreateBoundary = NULL;
     m_pODCreateBoundaryPoint = NULL;
     m_pODCreateTextPoint = NULL;
+    m_pODDeleteBoundary = NULL;
+    m_pODDeleteBoundaryPoint = NULL;
+    m_pODDeleteTextPoint = NULL;
     m_pODAddPointIcon = NULL;
     m_pODDeletePointIcon = NULL;
     m_iODVersionMajor = 0;
@@ -587,6 +590,21 @@ void testplugin_pi::GetODAPI()
             sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateTextPoint);
             m_bODCreateTextPoint = true;
         }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeleteBoundary")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeleteBoundary);
+            m_bODDeleteBoundary = true;
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeleteBoundaryPoint")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeleteBoundaryPoint);
+            m_bODDeleteBoundaryPoint = true;
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeleteTextPoint")].AsString();
+        if(sptr != _T("null")) {
+            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeleteTextPoint);
+            m_bODDeleteTextPoint = true;
+        }
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_AddPointIcon")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODAddPointIcon);
@@ -655,7 +673,7 @@ bool testplugin_pi::CreateBoundary(CreateBoundary_t* pCB)
     bool l_bRet = (*m_pODCreateBoundary)(pCB);
     DEBUGST("Boundary GUID: ");
     DEBUGEND(pCB->GUID);
-    return true;
+    return l_bRet;;
 }
 
 bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
@@ -664,6 +682,30 @@ bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
     bool l_bRet = (*m_pODCreateTextPoint)(pCTP);
     DEBUGST("Text Point GUID: ");
     DEBUGEND(l_GUID);
+    return true;
+}
+
+bool testplugin_pi::DeleteBoundaryPoint(DeleteBoundaryPoint_t* pDBP)
+{
+    bool l_bRet = (*m_pODDeleteBoundaryPoint)(pDBP);
+    DEBUGST("Boundary Point Deleted: ");
+    DEBUGEND(l_bRet);
+    return true;
+}
+
+bool testplugin_pi::DeleteBoundary(DeleteBoundary_t* pDB)
+{
+    bool l_bRet = (*m_pODDeleteBoundary)(pDB);
+    DEBUGST("Boundary deleted: ");
+    DEBUGEND(l_bRet);
+    return true;
+}
+
+bool testplugin_pi::DeleteTextPoint(DeleteTextPoint_t* pDTP)
+{
+    bool l_bRet = (*m_pODDeleteTextPoint)(pDTP);
+    DEBUGST("Text Point created: ");
+    DEBUGEND(l_bRet);
     return true;
 }
 
