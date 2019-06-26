@@ -46,5 +46,6 @@ deploy:
   api_key:
     secure: YaavJ/yYsfMfhCQRRoMaElb3c9vjOUupJe5ukihy/79dUPLOB2v9wClPMoLtSX1UAUrroeRFrwW/Z+qFtWp5VBJdKIcMXI9/K7XqVre6Y7IunKeZhGJfn7fZzQe7UXHxgRoWVVQXfEOpPWL9PME52DJWNuGrwU+8xPb6roMIn/XQzaddBFOV6N0IFoXQmZjgrVV4EsH/FEijtvWwvLnmLyKS/5SvlGIHcxrsMgNuXjvZICUPBUTFYtslwOxgYzCtYLg0nAL88gnjd1nyTvlgdBSarYbV+KLerIgrlg5r6XzRzB1A9b+bq4yX/HOKmMU6IrLAiBkBR+IyTQEUFpN/hWFFYb25zeUwuxGMxdPKIAUtFEW1pc50PMoFy0JqRoQjtccDXEF+bCjkleNPKvZP8G37ONUTHdH5mCefhjA5sy7AZSe/BpcDamu1a4PAw8FHCgo49A5Y59ma7Bg0MZh/FqoCWoF26cGC1+KIgP2uKmBJ0jtffs21g6/XKAPy16JnNGAIt2asdKUOUQQhnK/zJvxGsHLzGXqYdG7m9GSaY8AtCUT6Ly5J9Uw4eRGtda1HYKdN7KoSpPZrc7X4X12lsTkMlFJSXbqq8SF0QITymBntpazMAGRiI6SCvIaWWkJgJ3Q93JrRvpRrj706gaHgBlGvBUr7OC0mlK978abHrHE=
   file: "$TRAVIS_BUILD_DIR/build/*.{deb,rpm,dmg,txz,pkg,pkg.tar.xz}"
-#  on:
+  on:
 #    repo: jongough/testplugin_pi 
+    all_branches: true
