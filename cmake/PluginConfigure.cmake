@@ -20,7 +20,7 @@ ENDIF(NOT SKIP_VERSION_CONFIG)
 IF(OCPN_FLATPAK)
   configure_file(
     # Used by flatpak, do this early.
-    ${CMAKE_SOURCE_DIR}/pkg_version.sh.in
+    ${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in
     ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh
   )
   RETURN()
