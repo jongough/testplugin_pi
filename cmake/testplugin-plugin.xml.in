@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opencpn-plugin version="1">
+  <name> squiddio </name>
+  <version> ${PACKAGE_VERSION} </version>
+  <release> ${PKG_RELEASE} </release>
+  <summary> Repository of sailing destination waypoints </summary>
+
+  <api-version> ${PKG_API_VERSION} </api-version>
+  <open-source> no </open-source>
+  <author> ${PKG_AUTHOR} </author>
+  <source> https://github.com/opencpn-radar-pi/radar_pi </source>
+
+  <description>
+testplugin Plugin is used to test out the ODraw API and demonstrate
+how to use it successfully from another plugin
+  </description>
+
+  <target>${PKG_TARGET}</target>
+  <target-version>${PKG_TARGET_VERSION}</target-version>
+  <tarball-url>
+    ${PKG_BASE_URL}/${PKG_NVR}_${PKG_TARGET_NVR}.tar.gz
+  </tarball-url>
+  <info-url> https://opencpn.org/OpenCPN/plugins/ocpn_draw.html </info-url>
+</opencpn-plugin>
