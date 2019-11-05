@@ -55,7 +55,7 @@
 #include "tpicons.h"
 #include "tpControlDialogImpl.h"
 
-#include "wx/jsonwriter.h"
+#include "jsonwriter.h"
 
 
 //#include "pluginmanager.h"

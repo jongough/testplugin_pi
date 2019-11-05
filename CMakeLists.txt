@@ -161,24 +161,12 @@ SET(HDRS
 )
 
 SET(OCPNSRC 
-    ocpnsrc/wxJSON/jsonreader.cpp
-    ocpnsrc/wxJSON/jsonval.cpp
-    ocpnsrc/wxJSON/jsonwriter.cpp
     ocpnsrc/TexFont.cpp
 )
 SET(OCPNHDRS
     ocpninclude/ocpn_plugin.h
     ocpninclude/pluginmanager.h
     ocpninclude/TexFont.h
-    src/nmea0183/LatLong.hpp
-    src/nmea0183/nmea0183.h
-    src/nmea0183/nmea0183.hpp
-    src/nmea0183/Response.hpp
-    src/nmea0183/Sentence.hpp
-    ocpninclude/wx/json_defs.h
-    ocpninclude/wx/jsonreader.h
-    ocpninclude/wx/jsonval.h
-    ocpninclude/wx/jsonwriter.h
 )
 
 SET(EXTSRC 
@@ -188,43 +176,40 @@ SET(EXTINCLUDE
     extinclude/ODAPI.h
 )
 
+SET(LIBSSRC
+    libs/wxJSON/src/jsonreader.cpp
+    libs/wxJSON/src/jsonval.cpp
+    libs/wxJSON/src/jsonwriter.cpp
+)
+
+SET(LIBHDRS
+    libs/GL/include/gl.h
+    libs/GL/include/gl_private.h
+    libs/GL/include/glext.h
+    libs/GL/include/glu.h
+    libs/wx/include/json_defs.h
+    libs/wx/include/jsonreader.h
+    libs/wx/include/jsonval.h
+    libs/wx/include/jsonwriter.h
+)
 OPTION(TESTPLUGIN_USE_SVG "Use SVG graphics" ON)
 ADD_DEFINITIONS(-DTESTPLUGIN_USE_SVG)
 
-IF(UNIX AND NOT OCPN_FLATPAK)
-    INCLUDE("cmake/FindTinyXML.cmake")
-    FIND_PACKAGE(TinyXML QUIET)
-ENDIF(UNIX AND NOT OCPN_FLATPAK)
-
-IF(TINYXML_FOUND)
-    message (STATUS "Building with system tinyxml")
-    INCLUDE_DIRECTORIES(${TINYXML_INCLUDE_DIR})
-    ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC})
-    TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${TINYXML_LIBRARIES})
-ELSE(TINYXML_FOUND)
-    message (STATUS "Building with embedded tinyxml")
-    INCLUDE_DIRECTORIES(src/tinyxml/)
-    SET(SRC_LTINYXML
-        src/tinyxml/tinyxml.cpp
-        src/tinyxml/tinyxmlparser.cpp
-        src/tinyxml/tinyxmlerror.cpp
-    )
-    ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${SRC_LTINYXML})
-ENDIF(TINYXML_FOUND)
+ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSRC})
 
 ADD_DEFINITIONS(-DTIXML_USE_STL)
 
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/src/mygdal  )
 INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
+INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL/include)
+INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
 INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/src/nmea0183)
 
-IF(OCPN_FLATPAK)
+IF(NOT OCPN_FLATPAK)
     INCLUDE("cmake/PluginInstall.cmake")
     INCLUDE("cmake/PluginLocalization.cmake")
-ENDIF(OCPN_FLATPAK)
+ENDIF(NOT OCPN_FLATPAK)
 INCLUDE("cmake/PluginPackage.cmake")

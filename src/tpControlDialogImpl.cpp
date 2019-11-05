@@ -44,7 +44,7 @@
 
 #include <wx/fontdlg.h>
 
-#include "wx/jsonwriter.h"
+#include "jsonwriter.h"
 
 extern testplugin_pi    *g_testplugin_pi;
 extern bool             g_bSaveJSONOnStartup;
