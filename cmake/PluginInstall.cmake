@@ -4,6 +4,10 @@
 ## License:     GPLv3+
 ##---------------------------------------------------------------------------
 
+IF(OCPN_FLATPAK)
+  RETURN()
+ENDIF(OCPN_FLATPAK)
+
 IF(NOT APPLE)
   TARGET_LINK_LIBRARIES( ${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${EXTRA_LIBS} )
 ENDIF(NOT APPLE)
