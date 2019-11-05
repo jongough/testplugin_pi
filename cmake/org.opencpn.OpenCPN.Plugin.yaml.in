@@ -18,4 +18,4 @@ modules:
         cxxflags: -fPIC
     sources:
        - type: git
-         url: https://github.com/${GIT_USER}/${PACKAGE}_pi.git
+         url: https://github.com/${GIT_USER}/${GIT_REPOSITORY_NAME}.git
