@@ -1,0 +1,21 @@
+id: org.opencpn.OpenCPN.Plugin.${PACKAGE}
+runtime: org.opencpn.OpenCPN
+runtime-version: master
+sdk: org.freedesktop.Sdk//18.08
+build-extension: true
+separate-locales: false
+appstream-compose: false
+modules:
+  - name: ${PACKAGE}
+    no-autogen: true
+    buildsystem: cmake
+    builddir: true
+    config-opts:
+        - -DCMAKE_INSTALL_PREFIX=/app/extensions/${PACKAGE}
+        - -DOCPN_FLATPAK=ON
+    build-options:
+        cflags: -fPIC
+        cxxflags: -fPIC
+    sources:
+       - type: git
+         url: https://github.com/${GIT_USER}/${PACKAGE}_pi.git

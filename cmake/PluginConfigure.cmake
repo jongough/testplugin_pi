@@ -23,6 +23,10 @@ IF(OCPN_FLATPAK)
     ${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in
     ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh
   )
+  configure_file(
+    ${CMAKE_SOURCE_DIR}/cmake/org.opencpn.OpenCPN.yaml.in
+    ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.${PACKAGE}.yaml
+  )
   RETURN()
 ENDIF(OCPN_FLATPAK)
 
