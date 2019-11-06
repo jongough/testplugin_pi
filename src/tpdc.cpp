@@ -89,7 +89,7 @@ ODDC::ODDC( wxGLCanvas &canvas ) :
 #ifdef ocpnUSE_GL
     m_textforegroundcolour = wxColour( 0, 0, 0 );
     g_bTexture2D = false;
-#endif    
+#endif
 }
 
 ODDC::ODDC( wxDC &pdc ) :
@@ -106,7 +106,7 @@ ODDC::ODDC( wxDC &pdc ) :
 #endif
     m_textforegroundcolour = wxColour( 0, 0, 0 );
     g_bTexture2D = false;
-    
+
 }
 
 ODDC::ODDC() :
@@ -136,7 +136,7 @@ void ODDC::Clear()
         glcanvas->GetSize( &w, &h );
         DrawRectangle( 0, 0, w, h );
         SetBrush( tmpBrush );
-#endif        
+#endif
     }
 }
 
@@ -154,7 +154,7 @@ void ODDC::SetBackground( const wxBrush &brush )
 void ODDC::SetGLAttrs( bool highQuality )
 {
 #ifdef ocpnUSE_GL
-    
+
     //      Enable anti-aliased polys, at best quality
     if( highQuality ) {
         glEnable( GL_LINE_SMOOTH );
@@ -165,7 +165,7 @@ void ODDC::SetGLAttrs( bool highQuality )
         glDisable( GL_POLYGON_SMOOTH );
         glDisable( GL_BLEND );
     }
-    
+
 #endif
 }
 
@@ -232,7 +232,7 @@ void ODDC::GetSize( wxCoord *width, wxCoord *height ) const
 void ODDC::SetGLStipple() const
 {
 #ifdef ocpnUSE_GL
-    
+
     switch( m_pen.GetStyle() ) {
         case wxPENSTYLE_DOT: {
             glLineStipple( 1, 0xF8F8 );
@@ -256,7 +256,7 @@ void ODDC::SetGLStipple() const
         }
         default: break;
     }
-#endif    
+#endif
 }
 
 #ifdef ocpnUSE_GL
@@ -287,7 +287,7 @@ void DrawEndCap(float x1, float y1, float t1, float angle)
 void DrawGLThickLine( float x1, float y1, float x2, float y2, wxPen pen, bool b_hiqual )
 {
 #ifdef ocpnUSE_GL
-    
+
     float angle = atan2f( y2 - y1, x2 - x1 );
     float t1 = pen.GetWidth();
     float t2sina1 = t1 / 2 * sinf( angle );
@@ -357,7 +357,7 @@ void DrawGLThickLine( float x1, float y1, float x2, float y2, wxPen pen, bool b_
     }
 
     glEnd();
-#endif    
+#endif
 }
 
 void ODDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqual )
@@ -377,8 +377,8 @@ void ODDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
 #ifndef __WXQT__
             glEnable( GL_BLEND );
             glEnable( GL_LINE_SMOOTH );
-#endif            
-            
+#endif
+
             if( pen_width > 1.0 ) {
                 GLint parms[2];
                 glGetIntegerv( GL_SMOOTH_LINE_WIDTH_RANGE, &parms[0] );
@@ -387,7 +387,7 @@ void ODDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
                     glLineWidth( pen_width );
             } else
                 glLineWidth( pen_width );
-        } else {            
+        } else {
             if( pen_width > 1 ) {
                 GLint parms[2];
                 glGetIntegerv( GL_ALIASED_LINE_WIDTH_RANGE, &parms[0] );
@@ -397,7 +397,7 @@ void ODDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
             } else
                 glLineWidth( pen_width );
         }
-        
+
         if( b_draw_thick ) DrawGLThickLine( x1, y1, x2, y2, m_pen, b_hiqual );
         else {
             wxDash *dashes;
@@ -407,14 +407,14 @@ void ODDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
                 float cosa = cosf( angle );
                 float sina = sinf( angle );
                 float t1 = m_pen.GetWidth();
-                    
+
                 float lpix = sqrtf( powf(x1 - x2, 2) + powf(y1 - y2, 2) );
                 float lrun = 0.;
                 float xa = x1;
                 float ya = y1;
                 float ldraw = t1 * dashes[0];
                 float lspace = t1 * dashes[1];
-                    
+
                 glBegin( GL_LINES );
                 while( lrun < lpix ) {
                     //    Dash
@@ -452,7 +452,7 @@ void ODDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqu
             glDisable( GL_BLEND );
         }
     }
-#endif    
+#endif
 }
 
 // Draws thick lines from triangles
@@ -540,7 +540,7 @@ void DrawGLThickLines( int n, wxPoint points[],wxCoord xoffset,
         a0 = a1;
         t2sina0 = t2sina1, t2cosa0 = t2cosa1;
     }
- 
+
     if(pen.GetCap() == wxCAP_ROUND) {
         DrawEndCap( x0, y0, t1, a0);
         DrawEndCap( x0, y0, t1, a0 + M_PI);
@@ -552,7 +552,7 @@ void DrawGLThickLines( int n, wxPoint points[],wxCoord xoffset,
 
     delete [] cpoints;
 
- #endif    
+ #endif
  }
 
 void ODDC::DrawLines( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, bool b_hiqual )
@@ -567,7 +567,7 @@ void ODDC::DrawLines( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset,
 
         glDisable( GL_LINE_STIPPLE );
         SetGLStipple();
-        
+
         //      Enable anti-aliased lines, at best quality
         if( b_hiqual ) {
             glEnable( GL_BLEND );
@@ -606,7 +606,7 @@ void ODDC::DrawLines( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset,
         glDisable( GL_LINE_STIPPLE );
         SetGLAttrs( false );
     }
-#endif    
+#endif
 }
 
 void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqual )
@@ -616,18 +616,18 @@ void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, 
     #ifdef ocpnUSE_GL
     else if( ConfigurePen() ) {
         bool b_draw_thick = false;
-        
+
         float pen_width = wxMax(g_GLMinSymbolLineWidth, m_pen.GetWidth());
-        
+
         //      Enable anti-aliased lines, at best quality
         if( b_hiqual ) {
             SetGLStipple();
-            
+
             #ifndef __WXQT__
             glEnable( GL_BLEND );
             glEnable( GL_LINE_SMOOTH );
-            #endif            
-            
+            #endif
+
             if( pen_width > 1.0 ) {
                 GLint parms[2];
                 glGetIntegerv( GL_SMOOTH_LINE_WIDTH_RANGE, &parms[0] );
@@ -636,7 +636,7 @@ void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, 
                     glLineWidth( pen_width );
             } else
                 glLineWidth( pen_width );
-        } else {            
+        } else {
             if( pen_width > 1 ) {
                 GLint parms[2];
                 glGetIntegerv( GL_ALIASED_LINE_WIDTH_RANGE, &parms[0] );
@@ -646,7 +646,7 @@ void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, 
             } else
                 glLineWidth( pen_width );
         }
-        
+
         if( b_draw_thick ) DrawGLThickLine( x1, y1, x2, y2, m_pen, b_hiqual );
         else {
             wxDash *dashes;
@@ -656,33 +656,33 @@ void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, 
                 float cosa = cosf( angle );
                 float sina = sinf( angle );
                 float t1 = m_pen.GetWidth();
-                
+
                 float lpix = sqrtf( powf(x1 - x2, 2) + powf(y1 - y2, 2) );
                 float lrun = 0.;
                 float xa = x1;
                 float ya = y1;
                 float ldraw = t1 * dashes[0];
                 float lspace = t1 * dashes[1];
-                
+
                 glBegin( GL_LINES );
                 while( lrun < lpix ) {
                     //    Dash
                     float xb = xa + ldraw * cosa;
                     float yb = ya + ldraw * sina;
-                    
+
                     if( ( lrun + ldraw ) >= lpix )         // last segment is partial draw
                     {
                         xb = x2;
                         yb = y2;
                     }
-                    
+
                     glVertex2f( xa, ya );
                     glVertex2f( xb, yb );
-                    
+
                     xa = xa + ( lspace + ldraw ) * cosa;
                     ya = ya + ( lspace + ldraw ) * sina;
                     lrun += lspace + ldraw;
-                    
+
                 }
                 glEnd();
             } else                    // not dashed
@@ -693,15 +693,15 @@ void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, 
                 glEnd();
             }
         }
-        
+
         glDisable( GL_LINE_STIPPLE );
-        
+
         if( b_hiqual ) {
             glDisable( GL_LINE_SMOOTH );
             glDisable( GL_BLEND );
         }
     }
-    #endif    
+    #endif
 }
 void ODDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, wxCoord x3, wxCoord y3, wxCoord x4, wxCoord y4 )
 {
@@ -713,13 +713,13 @@ void ODDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x
         x4xc = x4-xc;
         wxDouble  l_dFirstAngle;
         l_dFirstAngle = atan2(y1yc, x1xc);
-        
+
         wxDouble  l_dSecondAngle;
         l_dSecondAngle = atan2(y4yc, x4xc);
-        
+
         wxDouble  l_OuterRadius = sqrt(pow((y2-yc), 2.0) + pow((x2-xc), 2.0));
         wxDouble l_InnerRadius = sqrt(pow((y1-yc), 2.0) + pow((x1-xc), 2.0));
-        
+
         wxGraphicsContext *wxGC = NULL;
         wxMemoryDC *pmdc = wxDynamicCast(GetDC(), wxMemoryDC);
         if( pmdc ) wxGC = wxGraphicsContext::Create( *pmdc );
@@ -731,7 +731,7 @@ void ODDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x
             wxGC->SetPen(dc->GetPen());
             wxGC->SetBrush(dc->GetBrush());
             wxGraphicsPath gpath = wxGC->CreatePath();
-            
+
             gpath.MoveToPoint( x1, y1 );
             gpath.AddLineToPoint( x2, y2 );
             gpath.AddArc( xc, yc, l_OuterRadius, l_dFirstAngle, l_dSecondAngle, true );
@@ -750,7 +750,7 @@ void ODDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x
         DrawPolygonTessellated( numpoints, points, 0, 0 );
         delete [] points;
     }
-#endif    
+#endif
 }
 
 void ODDC::StrokeLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2 )
@@ -792,7 +792,7 @@ void ODDC::StrokeArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2
     if( pgc ) {
         pgc->SetPen( dc->GetPen() );
         pgc->SetBrush(dc->GetBrush());
-        
+
         wxGraphicsPath gpath = pgc->CreatePath();
         wxDouble  l_dFirstAngle = atan2((y1 - yc), (x1 -xc));
         wxDouble  l_dSecondAngle = atan2((y2-yc), (x2-xc));
@@ -814,7 +814,7 @@ void ODDC::StrokeSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord
     if( pgc ) {
         pgc->SetPen( dc->GetPen() );
         pgc->SetBrush(dc->GetBrush());
-        
+
         double y1yc, x1xc, y3yc, x3xc;
         y1yc = y1-yc;
         x1xc = x1-xc;
@@ -823,10 +823,10 @@ void ODDC::StrokeSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord
         wxGraphicsPath gpath = pgc->CreatePath();
         wxDouble  l_dFirstAngle;
         l_dFirstAngle = atan2(y1yc, x1xc);
-        
+
         wxDouble  l_dSecondAngle;
         l_dSecondAngle = atan2(y3yc, x3xc);
-        
+
         wxDouble  l_radius = sqrt(pow((y2-yc), 2.0) + pow((x2-xc), 2.0));
         gpath.MoveToPoint( x1, y1 );
         gpath.AddLineToPoint( x2, y2 );
@@ -837,7 +837,7 @@ void ODDC::StrokeSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord
         gpath.AddArc( xc, yc, l_radius, l_dSecondAngle, l_dFirstAngle, false);
         pgc->StrokePath( gpath );
         pgc->FillPath( gpath );
-        
+
         dc->CalcBoundingBox( x1, y1 );
         dc->CalcBoundingBox( x3, y3 );
     } else
@@ -869,7 +869,7 @@ void ODDC::DrawRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h )
             glEnd();
         }
     }
-#endif    
+#endif
 }
 
 /* draw the arc along corners */
@@ -923,7 +923,7 @@ void ODDC::DrawRoundedRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h, wxC
             glEnd();
         }
     }
-#endif    
+#endif
 }
 
 void ODDC::DrawCircle( wxCoord x, wxCoord y, wxCoord radius )
@@ -953,7 +953,7 @@ void ODDC::DrawDisk( wxCoord x, wxCoord y, wxCoord innerRadius, wxCoord outerRad
 #ifdef ocpnUSE_GL
     else {
         //      Enable anti-aliased lines, at best quality
-        
+
         //float steps = floorf(wxMax(sqrtf(sqrtf((float)(width*width + height*height))), 1) * M_PI);
         float innerSteps = floorf(wxMax(sqrtf(sqrtf( ((innerRadius * 2) * (innerRadius * 2)) * 2) ), 1) *M_PI);
         float outerSteps = floorf(wxMax(sqrtf(sqrtf( ((outerRadius * 2) * (outerRadius * 2)) * 2) ), 1) *M_PI);
@@ -976,7 +976,7 @@ void ODDC::DrawDisk( wxCoord x, wxCoord y, wxCoord innerRadius, wxCoord outerRad
         DrawPolygonsTessellated( 2, npoints, disk, 0, 0 );
         delete [] disk;
     }
-#endif    
+#endif
 }
 
 void ODDC::StrokeCircle( wxCoord x, wxCoord y, wxCoord radius )
@@ -1032,7 +1032,7 @@ void ODDC::DrawEllipse( wxCoord x, wxCoord y, wxCoord width, wxCoord height )
 
         glDisable( GL_BLEND );
     }
-#endif    
+#endif
 }
 
 void ODDC::DrawPolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, float scale )
@@ -1059,7 +1059,7 @@ void ODDC::DrawPolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffse
 
         SetGLAttrs( false );
     }
-#endif    
+#endif
 }
 
 #ifdef ocpnUSE_GL
@@ -1163,14 +1163,14 @@ void ODDC::DrawPolygonTessellated( int n, wxPoint points[], wxCoord xoffset, wxC
             gluTessEndContour( tobj );
 			gluTessEndPolygon(tobj);
 		}
-        
+
 		gluDeleteTess(tobj);
 		for (unsigned int i = 0; i<gTesselatorVertices.Count(); i++)
             delete (GLvertex*)gTesselatorVertices.Item(i);
         gTesselatorVertices.Clear();
-        
+
     }
-#endif    
+#endif
 }
 
 void ODDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCoord xoffset, wxCoord yoffset )
@@ -1185,21 +1185,21 @@ void ODDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCo
     #ifdef ocpnUSE_GL
     else {
         GLUtesselator *tobj = gluNewTess();
-        
+
         gluTessCallback( tobj, GLU_TESS_VERTEX, (_GLUfuncptr) &ODDCvertexCallback );
         gluTessCallback( tobj, GLU_TESS_BEGIN, (_GLUfuncptr) &ODDCbeginCallback );
         gluTessCallback( tobj, GLU_TESS_END, (_GLUfuncptr) &ODDCendCallback );
         gluTessCallback( tobj, GLU_TESS_COMBINE, (_GLUfuncptr) &ODDCcombineCallback );
         gluTessCallback( tobj, GLU_TESS_ERROR, (_GLUfuncptr) &ODDCerrorCallback );
-        
+
         gluTessNormal( tobj, 0, 0, 1);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         gluTessProperty(tobj, GLU_TESS_BOUNDARY_ONLY, GL_FALSE);
-        
+
         if(glIsEnabled(GL_TEXTURE_2D)) g_bTexture2D = true;
         else g_bTexture2D = false;
-        
+
         ConfigurePen();
         if( ConfigureBrush() ) {
             gluTessBeginPolygon(tobj, NULL);
@@ -1223,14 +1223,14 @@ void ODDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCo
             }
             gluTessEndPolygon(tobj);
         }
-        
+
         gluDeleteTess(tobj);
         for (unsigned int i = 0; i<gTesselatorVertices.Count(); i++)
             delete (GLvertex*)gTesselatorVertices.Item(i);
         gTesselatorVertices.Clear();
-        
+
     }
-    #endif    
+    #endif
 }
 
 void ODDC::StrokePolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, float scale )
@@ -1320,7 +1320,7 @@ void ODDC::DrawBitmap( const wxBitmap &bitmap, wxCoord x, wxCoord y, bool usemas
             glPixelZoom( 1, 1 );
         }
     }
-#endif    
+#endif
 }
 
 void ODDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
@@ -1333,12 +1333,12 @@ void ODDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
         wxCoord h = 0;
 
 #ifndef __WXMAC__
-        
+
         m_texfont.Build( m_font );      // make sure the font is ready
         m_texfont.GetTextExtent(text, &w, &h);
-        
+
         if( w && h ) {
-            
+
             glEnable( GL_BLEND );
             glEnable( GL_TEXTURE_2D );
             glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -1346,10 +1346,10 @@ void ODDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
 
             glPushMatrix();
             glTranslatef(x, y, 0);
-            
+
             glColor3ub( m_textforegroundcolour.Red(), m_textforegroundcolour.Green(),
                         m_textforegroundcolour.Blue() );
-            
+
 
             m_texfont.RenderString(text);
             glPopMatrix();
@@ -1358,10 +1358,10 @@ void ODDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
             glDisable( GL_BLEND );
 
         }
-#else            
+#else
             wxScreenDC sdc;
             sdc.GetTextExtent(text, &w, &h, NULL, NULL, &m_font);
-            
+
             /* create bitmap of appropriate size and select it */
             wxBitmap bmp( w, h );
             wxMemoryDC temp_dc;
@@ -1403,9 +1403,9 @@ void ODDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
                     m_textforegroundcolour.Blue(), 255 );
             GLDrawBlendData( x, y, w, h, GL_ALPHA, data );
             delete[] data;
-#endif            
+#endif
     }
-#endif    
+#endif
 }
 
 void ODDC::GetTextExtent( const wxString &string, wxCoord *w, wxCoord *h, wxCoord *descent,
@@ -1414,7 +1414,7 @@ void ODDC::GetTextExtent( const wxString &string, wxCoord *w, wxCoord *h, wxCoor
     //  Give at least reasonable results on failure.
     if(w) *w = 100;
     if(h) *h = 100;
-    
+
     if( dc ) dc->GetMultiLineTextExtent( string, w, h, descent, font );
     else {
         wxFont f = m_font;
@@ -1422,9 +1422,9 @@ void ODDC::GetTextExtent( const wxString &string, wxCoord *w, wxCoord *h, wxCoor
 
         wxMemoryDC temp_dc;
         temp_dc.GetMultiLineTextExtent( string, w, h, descent, &f );
-        
+
      }
-     
+
      //  Sometimes GetTextExtent returns really wrong, uninitialized results.
      //  Dunno why....
      if( w && (*w > 500) ) *w = 500;
@@ -1447,7 +1447,7 @@ bool ODDC::ConfigurePen()
     int width = 0;
 
     if( !m_pen.IsOk() ) return false;
-    if( m_pen == *wxTRANSPARENT_PEN ) 
+    if( m_pen == *wxTRANSPARENT_PEN )
         width = 0;
     else {
         c = m_pen.GetColour();
@@ -1457,7 +1457,7 @@ bool ODDC::ConfigurePen()
     if(c != wxNullColour)
         glColor4ub( c.Red(), c.Green(), c.Blue(), c.Alpha() );
     glLineWidth(wxMax(g_GLMinSymbolLineWidth, width) );
-#endif    
+#endif
     return true;
 }
 
@@ -1468,7 +1468,7 @@ bool ODDC::ConfigureBrush()
 #ifdef ocpnUSE_GL
     wxColour c = m_brush.GetColour();
     glColor4ub( c.Red(), c.Green(), c.Blue(), c.Alpha() );
-#endif    
+#endif
     return true;
 }
 

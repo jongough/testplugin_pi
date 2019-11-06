@@ -1,5 +1,5 @@
 /******************************************************************************
- * updated: 4-5-2012  
+ * updated: 4-5-2012
  * Project:  OpenCPN
  * Purpose:  test Plugin
  * Author:   David Register
@@ -142,7 +142,7 @@ testplugin_pi::testplugin_pi(void *ppimgr)
     g_ppimgr = ppimgr;
 //    g_tp_pi_manager = (PlugInManager *) ppimgr;
     g_testplugin_pi = this;
-    
+
     wxString *l_pDir = new wxString(*GetpPrivateApplicationDataLocation());
     appendOSDirSlash( l_pDir );
     l_pDir->Append(_T("plugins"));
@@ -164,9 +164,9 @@ testplugin_pi::testplugin_pi(void *ppimgr)
     g_pLayerDir->Append(*l_pDir);
     g_pLayerDir->Append( wxT("Layers") );
     appendOSDirSlash( g_pLayerDir );
-    
+
     m_ptpicons = new tpicons();
-    
+
     delete l_pDir;
 }
 
@@ -174,16 +174,16 @@ testplugin_pi::~testplugin_pi()
 {
     delete g_SData_Locn;
     g_SData_Locn = NULL;
-    
+
     delete g_PrivateDataDir;
     g_PrivateDataDir = NULL;
-    
+
     delete g_pData;
     g_pData = NULL;
-    
+
     delete g_pLayerDir;
     g_pLayerDir = NULL;
-    
+
 }
 
 int testplugin_pi::Init(void)
@@ -228,25 +228,25 @@ int testplugin_pi::Init(void)
     m_bCloseSaveFileAfterEachWrite = true;
     m_bAppendToSaveFile = true;
     m_bRecreateConfig = false;
-    
+
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
-    
+
     eventsEnabled = true;
-    
+
     // Get a pointer to the opencpn display canvas, to use as a parent for windows created
     m_parent_window = GetOCPNCanvasWindow();
     m_pTPConfig = GetOCPNConfigObject();
-    
+
     m_tpControlDialogImpl = new tpControlDialogImpl(m_parent_window);
     m_tpControlDialogImpl->Fit();
     m_tpControlDialogImpl->Layout();
     m_tpControlDialogImpl->Hide();
     LoadConfig();
-    
+
     g_ptpJSON = new tpJSON;
-    
-    
+
+
 #ifdef TESTPLUGIN_USE_SVG
     m_testplugin_button_id  = InsertPlugInToolSVG(_("Test Plugin"), m_ptpicons->m_s_testplugin_grey_pi, m_ptpicons->m_s_testplugin_pi, m_ptpicons->m_s_testplugin_toggled_pi, wxITEM_CHECK,
                                                   _("Test Plugin"), wxS(""), NULL, testplugin_POSITION, 0, this);
@@ -254,15 +254,15 @@ int testplugin_pi::Init(void)
     m_testplugin_button_id  = InsertPlugInTool(_("Test Plugin"), &m_ptpicons->m_bm_testplugin_grey_pi, &m_ptpicons->m_bm_testplugin_pi, wxITEM_CHECK,
                                              _("Test Plugin"), wxS(""), NULL, testplugin_POSITION, 0, this);
 #endif
-    
+
     //    In order to avoid an ASSERT on msw debug builds,
     //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
     //    The Items will be re-parented when added to the real context meenu
     wxMenu dummy_menu;
-    
+
     // Create an OCPN Draw event handler
     //g_WVEventHandler = new WVEventHandler( g_testplugin_pi );
-    
+
     // Get item into font list in options/user interface
     AddPersistentFontKey( wxT("tp_Label") );
     AddPersistentFontKey( wxT("tp_Data") );
@@ -272,10 +272,10 @@ int testplugin_pi::Init(void)
     g_pFontSmall = GetOCPNScaledFont_PlugIn( wxS("tp_Small") );
     wxColour l_fontcolour = GetFontColour_PlugIn( wxS("tp_Label") );
     l_fontcolour = GetFontColour_PlugIn( wxS("tp_Data") );
-    
+
     m_pOD_FindPointInAnyBoundary = NULL;
     m_pODFindClosestBoundaryLineCrossing = NULL;
-    
+
     return (
         WANTS_CURSOR_LATLON       |
         WANTS_TOOLBAR_CALLBACK    |
@@ -309,7 +309,7 @@ bool testplugin_pi::DeInit(void)
         m_tpControlDialogImpl->Close();
     }
     if(m_pTPConfig) SaveConfig();
-    
+
     return true;
 }
 
@@ -374,7 +374,7 @@ void testplugin_pi::OnToolbarToolUpCallback(int id)
 
 void testplugin_pi::ShowPreferencesDialog( wxWindow* parent )
 {
-    
+
 }
 
 void testplugin_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
@@ -386,14 +386,14 @@ void testplugin_pi::SetPluginMessage(wxString &message_id, wxString &message_bod
 bool testplugin_pi::KeyboardEventHook( wxKeyEvent &event )
 {
     bool bret = FALSE;
-    
+
     if( event.GetKeyCode() < 128 )            //ascii
     {
         int key_char = event.GetKeyCode();
-        
+
         if ( event.ControlDown() )
             key_char -= 64;
-        
+
         switch( key_char ) {
             case WXK_CONTROL_W:                      // Ctrl W
                 if ( event.ShiftDown() ) { // Shift-Ctrl-W
@@ -412,7 +412,7 @@ bool testplugin_pi::KeyboardEventHook( wxKeyEvent &event )
 bool testplugin_pi::MouseEventHook( wxMouseEvent &event )
 {
     bool bret = FALSE;
-    
+
     if(m_tpControlDialogImpl->IsVisible()) {
         if(event.LeftDown()) {
             m_click_lat = m_cursor_lat;
@@ -420,14 +420,14 @@ bool testplugin_pi::MouseEventHook( wxMouseEvent &event )
             m_tpControlDialogImpl->SetLatLon( m_cursor_lat, m_cursor_lon );
             bret = TRUE;
         }
-        
+
         if(event.LeftUp()) {
             bret = TRUE;
         }
     }
-    
+
     return bret;
-}                        
+}
 
 void testplugin_pi::SetCursorLatLon(double lat, double lon)
 {
@@ -445,7 +445,7 @@ wxBitmap *testplugin_pi::GetPlugInBitmap()
 void testplugin_pi::appendOSDirSlash(wxString* pString)
 {
     wxChar sep = wxFileName::GetPathSeparator();
-    
+
     if (pString->Last() != sep)
         pString->Append(sep);
 }
@@ -469,16 +469,16 @@ void testplugin_pi::SaveConfig()
 {
     #ifndef __WXMSW__
     wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
-    #if wxCHECK_VERSION(3,0,0)  && !defined(_WXMSW_)       
-    //#if wxCHECK_VERSION(3,0,0)       
+    #if wxCHECK_VERSION(3,0,0)  && !defined(_WXMSW_)
+    //#if wxCHECK_VERSION(3,0,0)
     wxSetlocale(LC_NUMERIC, "C");
     #else
     setlocale(LC_NUMERIC, "C");
     #endif
     #endif
-    
+
     wxFileConfig *pConf = m_pTPConfig;
-    
+
     if(pConf) {
         pConf->SetPath( wxS( "/Settings/testplugin_pi" ) );
         if(m_bRecreateConfig) {
@@ -498,15 +498,15 @@ void testplugin_pi::LoadConfig()
 {
     #ifndef __WXMSW__
     wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
-    #if wxCHECK_VERSION(3,0,0)        
+    #if wxCHECK_VERSION(3,0,0)
     wxSetlocale(LC_NUMERIC, "C");
     #else
     setlocale(LC_NUMERIC, "C");
     #endif
     #endif
-    
+
     wxFileConfig *pConf = m_pTPConfig;
-    
+
     if(pConf)
     {
         wxString val;
@@ -547,7 +547,7 @@ void testplugin_pi::GetODAPI()
         m_iODVersionPatch = g_ReceivedODAPIJSONMsg[wxS("Patch")].AsInt();
     }
     m_bDoneODAPIVersionCall = true;
-    
+
     wxJSONValue jMsg1;
     jMsg1[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg1[wxT("Type")] = wxT("Request");
@@ -558,13 +558,13 @@ void testplugin_pi::GetODAPI()
     if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("GetAPIAddresses")) {
         m_iODAPIVersionMajor = g_ReceivedODAPIJSONMsg[_T("ODAPIVersionMajor")].AsInt();
         m_iODAPIVersionMinor = g_ReceivedODAPIJSONMsg[_T("ODAPIVersionMinor")].AsInt();
-        
+
         wxString sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindPointInAnyBoundary")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pOD_FindPointInAnyBoundary);
             m_bOD_FindPointInAnyBoundary = true;
         }
-        
+
         sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindClosestBoundaryLineCrossing")].AsString();
         if(sptr != _T("null")) {
             sscanf(sptr.To8BitData().data(), "%p", &m_pODFindClosestBoundaryLineCrossing);
@@ -616,7 +616,7 @@ void testplugin_pi::GetODAPI()
             m_bODDeletePointIcon = true;
         }
     }
-    
+
     wxString l_msg;
     wxString l_avail;
     wxString l_notavail;
@@ -633,7 +633,7 @@ void testplugin_pi::GetODAPI()
         l_msg.Append(_("The following ODAPI's are available: \n"));
         l_msg.Append(l_avail);
     }
-    
+
     if(!m_bOD_FindPointInAnyBoundary) l_notavail.Append(_("OD_FindPointInAnyBoundary\n"));
     if(!m_bODFindClosestBoundaryLineCrossing) l_notavail.Append(_("OD_FindClosestBoundaryLineCrossing\n"));
     if(!m_bODFindFirstBoundaryLineCrossing) l_notavail.Append(_("OD_FindFirstBoundaryLineCrossing\n"));
@@ -646,9 +646,9 @@ void testplugin_pi::GetODAPI()
         l_msg.Append(_("The following ODAPI's are not available:\n"));
         l_msg.Append(l_notavail);
     }
-    
+
     OCPNMessageBox_PlugIn( m_parent_window, l_msg, _("TESTPLUGIN"), (long) wxYES );
-    
+
 }
 
 void testplugin_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPBLC)
@@ -737,11 +737,11 @@ bool testplugin_pi::ImportJSONFile()
         //wxString l_ext = l_str.Mid(i, l_str_find)
         //wxStringTokenizer tokenizer("first:second:third:fourth", ":");
     }
-*/    
+*/
     wxJSONValue jMsg;
     wxJSONWriter writer;
     wxString    MsgString;
-    
+
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), l_str );
     return true;

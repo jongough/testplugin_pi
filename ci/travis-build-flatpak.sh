@@ -15,7 +15,7 @@ DOCKER_SOCK="unix:///var/run/docker.sock"
 
 echo "DOCKER_OPTS=\"-H tcp://127.0.0.1:2375 -H $DOCKER_SOCK -s devicemapper\"" \
     | sudo tee /etc/default/docker > /dev/null
-    
+
 if [ -n "$TRAVIS" ]; then
 
     sudo service docker restart;
@@ -28,7 +28,7 @@ if [ -n "$TRAVIS" ]; then
         -v $(pwd):/opencpn-ci:rw \
         fedora:28   /usr/sbin/init
 fi
-    
+
 DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
 docker logs $DOCKER_CONTAINER_ID
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \

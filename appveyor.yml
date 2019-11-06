@@ -3,7 +3,7 @@ shallow_clone: true
 image:
 - Visual Studio 2017
 
-platform: 
+platform:
 # - x64
 - Win32
 

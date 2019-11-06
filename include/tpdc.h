@@ -86,11 +86,11 @@ public:
      void StrokeLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2);
      void StrokeLine( wxPoint a, wxPoint b) { StrokeLine(a.x, a.y, b.x, b.y); }
      void StrokeLines( int n, wxPoint *points);
-     
+
      void DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqual = true);
      void StrokeArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2);
      void StrokeSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, wxCoord x3, wxCoord y3, wxCoord x4, wxCoord y4 );
-     
+
      void Clear();
      void DrawRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h );
      void DrawRoundedRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h, wxCoord rr );
@@ -118,7 +118,7 @@ public:
      void DestroyClippingRegion() {}
 
      wxDC *GetDC() const { return dc; }
-     
+
      void SetTextureSize( int width, int height );
 
 protected:
@@ -135,10 +135,10 @@ protected:
      wxColour m_textforegroundcolour;
      wxFont m_font;
 
-#ifdef ocpnUSE_GL     
+#ifdef ocpnUSE_GL
      TexFont m_texfont;
 #endif
-     
+
 
 #if  wxUSE_GRAPHICS_CONTEXT
      wxGraphicsContext *pgc;

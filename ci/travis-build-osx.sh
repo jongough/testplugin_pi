@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Build the Travis OSX artifacts 
+# Build the Travis OSX artifacts
 #
 
 # As of travis-ci-macos-10.13-xcode9.4.1-1529955246, the travis osx image

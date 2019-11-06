@@ -1,5 +1,5 @@
 /***************************************************************************
- * 
+ *
  * Project:  OpenCPN
  *
  ***************************************************************************
@@ -39,27 +39,27 @@ WX_DECLARE_OBJARRAY(wxBitmap,      ArrayOfBitmaps);
 class  ODIconCombo : public wxOwnerDrawnComboBox
 {
 public:
-    
+
     ODIconCombo(wxWindow* parent, wxWindowID id, const wxString& value = _T(""),
                   const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
                   int n = 0, const wxString choices[] = NULL,
                   long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = _T("OCPNIconCombo") );
-    
-    
-    
+
+
+
     ~ODIconCombo ();
-    
+
     void OnDrawItem(wxDC& dc, const wxRect& rect, int item, int flags) const;
     wxCoord OnMeasureItem(size_t item) const;
     wxCoord OnMeasureItemWidth(size_t item) const;
-    
+
     int Append(const wxString& item, wxBitmap bmp);
     void Clear( void );
-    
+
 private:
     int         itemHeight;
     ArrayOfBitmaps  bmpArray;
-    
+
 };
 
 WX_DECLARE_LIST(wxBitmap, BitmapList);
