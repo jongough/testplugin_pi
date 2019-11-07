@@ -12,7 +12,7 @@ su -c "dnf install -y sudo cmake gcc-c++ flatpak-builder flatpak make tar"
 flatpak remote-add --user --if-not-exists flathub \
     https://flathub.org/repo/flathub.flatpakrepo
 ocpnfound=$(flatpak list | grep org.opencpn.OpenCPN)
-if [ $ocpnfound != '1' ]; then
+if [ "" = "$ocpnfound" ]; then
    flatpak install --user  -y \
        http://opencpn.duckdns.org/opencpn/opencpn.flatpakref
 fi
