@@ -21,7 +21,9 @@ if [ -n "$TRAVIS" ]; then
     sudo service docker restart;
     sleep 5;
     sudo docker pull fedora:28;
-
+fi
+DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
+if [ -n "$DOCKER_CONTAINER_ID" ]; then
     docker run --privileged -d -ti -e "container=docker"  \
         -e "TOPDIR=/opencpn-ci" \
         -v /sys/fs/cgroup:/sys/fs/cgroup \
