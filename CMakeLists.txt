@@ -31,9 +31,9 @@ set(CPACK_PACKAGE_CONTACT "Jon Gough")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "35")
+set(VERSION_PATCH "36")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "06/11/2019")
+set(VERSION_DATE "07/11/2019")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -173,7 +173,9 @@ set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/T
 
 set(EXTSRC)
 
-set(EXTINCLUDE extinclude/ODAPI.h)
+set(EXTINCLUDE
+    extinclude/nlohmann/json.hpp
+    extinclude/ODAPI.h)
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
