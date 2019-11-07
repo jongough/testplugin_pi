@@ -23,15 +23,15 @@ if [ -n "$TRAVIS" ]; then
     sudo docker pull fedora:28;
 fi
 DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
-if [ -n "$DOCKER_CONTAINER_ID" ]; then
+if [ "" = "$DOCKER_CONTAINER_ID" ]; then
     docker run --privileged -d -ti -e "container=docker"  \
         -e "TOPDIR=/opencpn-ci" \
         -v /sys/fs/cgroup:/sys/fs/cgroup \
         -v $(pwd):/opencpn-ci:rw \
         fedora:28   /usr/sbin/init
+    DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
 fi
 
-DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
 docker logs $DOCKER_CONTAINER_ID
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "bash -xe /opencpn-ci/ci/docker-build-flatpak.sh 28;
