@@ -37,6 +37,8 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "bash -xe /opencpn-ci/ci/docker-build-flatpak.sh 28;
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
 docker ps -a
-docker stop $DOCKER_CONTAINER_ID
-docker rm -v $DOCKER_CONTAINER_ID
-sudo apt-get install python3-pip python3-setuptools
+if [ -n "$TRAVIS" ]; then
+    docker stop $DOCKER_CONTAINER_ID
+    docker rm -v $DOCKER_CONTAINER_ID
+    sudo apt-get install python3-pip python3-setuptools
+fi
