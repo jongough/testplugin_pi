@@ -31,7 +31,7 @@ set(CPACK_PACKAGE_CONTACT "Jon Gough")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "38")
+set(VERSION_PATCH "39")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "08/11/2019")
 set(OCPN_MIN_VERSION "ov50")
@@ -74,10 +74,6 @@ set(PKG_BASE_URL "https://dl.cloudsmith.io/public/${CLOUDSMITH_USER}/${PACKAGE}-
 
 include("cmake/PluginSetup.cmake")
 set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
-
-set(PKG_RELEASE "1")
-set(PKG_NVR ${PACKAGE_NAME}-${PACKAGE_VERSION}.${PKG_RELEASE})
-set(PKG_BASE_URL "https://dl.cloudsmith.io/public/mauro-calvi/squiddio-pi/raw/files")
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
