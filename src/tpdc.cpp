@@ -37,16 +37,16 @@
 #endif
 
 #ifdef __WXMSW__
-    #include "GL/gl.h"            // local copy for Windows
-    #include <GL/glu.h>
+    #include "gl.h"            // local copy for Windows
+    #include <glu.h>
 #else
 
     #ifndef __OCPN__ANDROID__
-        #include <GL/gl.h>
-        #include <GL/glu.h>
+        #include <gl.h>
+        #include <glu.h>
     #else
         #include "qopengl.h"                  // this gives us the qt runtime gles2.h
-        #include "GL/gl_private.h"
+        #include "gl_private.h"
     #endif
 
 #endif
