@@ -57,14 +57,14 @@ test -n "$tag" && REPO="$STABLE_REPO" || REPO="$UNSTABLE_REPO"
 cloudsmith push raw \
     --republish \
     --no-wait-for-sync \
-    --name squiddio-linuxmint-19.2-metadata \
+    --name testplugin-linuxmint-19.2-metadata \
     --version  \
     --summary "testplugin opencpn plugin metadata for automatic installation" \
     $REPO $xml
 cloudsmith push raw  \
     --republish \
     --no-wait-for-sync \
-    --name squiddio-linuxmint-19.2-tarball \
+    --name testplugin-linuxmint-19.2-tarball \
     --version  \
     --summary "testplugin opencpn plugin tarball for automatic installation" \
     $REPO $tarball
