@@ -4,8 +4,8 @@
 # Upload the .tar.gz and .xml artifacts to cloudsmith
 #
 
-STABLE_REPO=${CLOUDSMITH_STABLE_REPO\:-'jon-gough/testplugin_pi-stable'}
-UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO\:-'jon-gough/testplugin_pi'}
+STABLE_REPO=${CLOUDSMITH_STABLE_REPO\:-'@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'}
+UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO\:-'@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'}
 
 if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then
     echo "Not on master branch, skipping deployment."
@@ -44,22 +44,22 @@ if [ -n "$tag" ]; then
     # There is no sed available in git bash. This is nasty, but seems
     # to work:
     while read line; do
-        echo ${line/testplugin-pi/testplugin-stable}
+        echo ${line/@PACKAGE@-pi/@PACKAGE@-stable}
     done < $xml > xml.tmp && cp xml.tmp $xml && rm xml.tmp
 fi
 
 cloudsmith push raw \
     --republish \
     --no-wait-for-sync \
-    --name squiddio-linuxmint-19.2-metadata \
-    --version  \
-    --summary "testplugin opencpn plugin metadata for automatic installation" \
+    --name squiddio-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \
+    --version @VERSION@ \
+    --summary "@PACKAGE@ opencpn plugin metadata for automatic installation" \
     $REPO $xml
 
 cloudsmith push raw  \
     --republish \
     --no-wait-for-sync \
-    --name squiddio-linuxmint-19.2-tarball \
-    --version  \
-    --summary "testplugin opencpn plugin tarball for automatic installation" \
+    --name squiddio-@PKG_TARGET@-@PKG_TARGET_VERSION@-tarball \
+    --version @VERSION@ \
+    --summary "@PACKAGE@ opencpn plugin tarball for automatic installation" \
     $REPO $tarball

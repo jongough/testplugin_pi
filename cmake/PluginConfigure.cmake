@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Author:      Pavel Kalian (Based on the work of Sean D'Epagnier) Copyright:   2014 License:     GPLv3+
+# Author:      Jon Gough (Based on the work of Sean D'Epagnier and Pavel Kalian) Copyright:   2019 License:     GPLv3+
 # ---------------------------------------------------------------------------
 
 set(PLUGIN_SOURCE_DIR .)
@@ -13,6 +13,9 @@ if(NOT SKIP_VERSION_CONFIG)
   configure_file(cmake/wxWTranslateCatalog.h.in ${BUILD_INCLUDE_PATH}/include/wxWTranslateCatalog.h)
   include_directories(${BUILD_INCLUDE_PATH}/include)
 endif(NOT SKIP_VERSION_CONFIG)
+
+configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ${CMAKE_SOURCE_DIR}/ci/appveyor-upload.sh @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ${CMAKE_SOURCE_DIR}/ci/circleci-upload.sh @ONLY)
 
 if(OCPN_FLATPAK)
   configure_file(# Used by flatpak, do this early.
