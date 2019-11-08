@@ -29,7 +29,7 @@ tar xJf wx312_opencpn50_macos109.tar.xz -C /tmp
 export PATH="/usr/local/opt/gettext/bin:$PATH"
 echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile
 
-mkdir build && cd build
+rm -rf build && mkdir build && cd build
 cmake  \
   -DwxWidgets_CONFIG_EXECUTABLE=/tmp/wx312_opencpn50_macos109/bin/wx-config \
   -DwxWidgets_CONFIG_OPTIONS="--prefix=/tmp/wx312_opencpn50_macos109" \
