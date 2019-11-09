@@ -16,6 +16,7 @@ jobs:
            | sudo tee -a /etc/apt/sources.list
        - run: cat /etc/apt/sources.list
        - run: ci/circleci-build-debian.sh
+       - run: chmod a+x ci/circleci-upload.sh
        - run: ci/circleci-upload.sh
    build-flatpak:
      machine:
@@ -25,6 +26,7 @@ jobs:
      steps:
        - checkout
        - run: ci/circleci-build-flatpak.sh
+       - run: chmod a+x ci/circleci-upload.sh
        - run: ci/circleci-upload.sh
    build-mingw:
      docker:
@@ -35,6 +37,7 @@ jobs:
        - run: su -c "dnf install -q -y git openssh-clients openssh-server"
        - checkout
        - run: ci/circleci-build-mingw.sh
+       - run: chmod a+x ci/circleci-upload.sh
        - run: ci/circleci-upload.sh
    build-macos:
      macos:
@@ -44,6 +47,7 @@ jobs:
      steps:
        - checkout
        - run: ci/circleci-build-macos.sh
+       - run: chmod a+x ci/circleci-upload.sh
        - run: ci/circleci-upload.sh
 
 workflows:
@@ -53,24 +57,24 @@ workflows:
       - build-debian:
           filters:
             branches:
-              ignore: 
+              ignore:
                 - devel
                 - tmp
       - build-flatpak:
           filters:
             branches:
-              ignore: 
+              ignore:
                 - devel
                 - tmp
       - build-macos:
           filters:
             branches:
-              ignore: 
+              ignore:
                 - devel
                 - tmp
       - build-mingw:
           filters:
             branches:
-              ignore: 
+              ignore:
                 - devel
                 - tmp
