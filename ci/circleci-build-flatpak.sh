@@ -17,10 +17,6 @@ set -xe
 PLUGIN=bsb4
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
-if [-n "$TRAVIS" ]; then
-    TOPDIR=/opencpn-ci
-fi
-
 if [ -n "$CIRCLECI" ]; then
    TOPDIR=/root/project
 fi
