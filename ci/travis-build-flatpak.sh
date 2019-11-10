@@ -25,9 +25,9 @@ fi
 DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
 if [ "" = "$DOCKER_CONTAINER_ID" ]; then
     docker run --privileged -d -ti -e "container=docker"  \
-        -e "TOPDIR=/opencpn-ci" \
+        -e "TOPDIR=$TOPDIR" \
         -v /sys/fs/cgroup:/sys/fs/cgroup \
-        -v $(pwd):/opencpn-ci:rw \
+        -v $(pwd):$TOPDIR:rw \
         fedora:28   /usr/sbin/init
     DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
 fi
