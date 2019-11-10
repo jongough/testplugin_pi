@@ -14,8 +14,9 @@ if(NOT SKIP_VERSION_CONFIG)
   include_directories(${BUILD_INCLUDE_PATH}/include)
 endif(NOT SKIP_VERSION_CONFIG)
 
-configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/appveyor-upload.sh @ONLY)
-configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/circleci-upload.sh @ONLY)
+message(STATUS "Modifying appveyor/circleci-upload.sh")
+configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ci/appveyor-upload.sh @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ci/circleci-upload.sh @ONLY)
 
 if(OCPN_FLATPAK)
   configure_file(# Used by flatpak, do this early.
