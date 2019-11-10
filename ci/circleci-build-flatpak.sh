@@ -19,6 +19,8 @@ PLUGIN=bsb4
 DOCKER_SOCK="unix:///var/run/docker.sock"
 if [ -n "$CIRCLECI" ]; then
    TOPDIR=/root/project
+else
+   TOPDIR=/opencpn-ci
 fi
 
 echo "DOCKER_OPTS=\"-H tcp://127.0.0.1:2375 -H $DOCKER_SOCK -s devicemapper\"" \
