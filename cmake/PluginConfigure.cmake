@@ -18,13 +18,16 @@ message(STATUS "Modifying appveyor/circleci-upload.sh")
 configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ci/appveyor-upload.sh @ONLY)
 configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ci/circleci-upload.sh @ONLY)
 
+message(STATUS "Checking OCPN_FLATPAK")
 if(OCPN_FLATPAK)
   configure_file(# Used by flatpak, do this early.
                  ${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
   configure_file(${CMAKE_SOURCE_DIR}/cmake/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
+  message(STATUS "Done OCPN_LATPAK")
   return()
 endif(OCPN_FLATPAK)
 
+message(STATUS "Not done OCPN_FLATPAK")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
