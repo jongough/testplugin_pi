@@ -13,7 +13,7 @@ execute_process(
   OUTPUT_VARIABLE GIT_COMMIT_DATE
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-if(OCPN_FLATPAK)
+if(OCPN_FLATPAK_BUILD)
   set(PKG_TARGET "flatpak")
   set(PKG_TARGET_VERSION "18.08") # As of flatpak/*yaml
 elseif(MINGW)
