@@ -19,6 +19,7 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ci/appveyor-uploa
 configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ci/circleci-upload.sh @ONLY)
 
 message(STATUS "Checking OCPN_FLATPAK")
+message(STATUS "Config: OCPN_FLATPAK_BUILD: ${OCPN_FLATPAK_BUILD}, OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
 if(OCPN_FLATPAK_BUILD)
   configure_file(# Used by flatpak, do this early.
                  ${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
