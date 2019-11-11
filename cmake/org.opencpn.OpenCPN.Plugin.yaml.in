@@ -12,7 +12,7 @@ modules:
     builddir: true
     config-opts:
         - -DCMAKE_INSTALL_PREFIX=/app/extensions/${PACKAGE}
-        - -DOCPN_FLATPAK=ON
+#        - -DOCPN_FLATPAK=ON
     build-options:
         cflags: -fPIC
         cxxflags: -fPIC
