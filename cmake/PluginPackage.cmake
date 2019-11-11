@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------
 
 # build a FLATPAK installer package
-if(OCPN_FLATPAK)
+if(OCPN_FLATPAK_BUILD)
   # On a flatpak build lib libraries such as LibGL and wxWidgets are only available in the flatpak sandbox. Thus, building flatpak must be done before attempts to locate these non-existing libraries
   # in the host i. e., before any FindLibrary(), FindWxWidgets(), etc.
   find_program(TAR NAMES gtar tar)
@@ -18,7 +18,7 @@ if(OCPN_FLATPAK)
   add_custom_target("flatpak-pkg")
   add_custom_command(TARGET flatpak-pkg COMMAND ${TAR} -czf ${PKG_NVR}_${PKG_TARGET_NVR}.tar.gz --transform 's|.*/files/|${PACKAGE}-flatpak-${PACKAGE_VERSION}/|' ${CMAKE_CURRENT_BINARY_DIR}/app/files)
   return()
-endif(OCPN_FLATPAK)
+endif(OCPN_FLATPAK_BUILD)
 
 # build a CPack driven installer package
 
