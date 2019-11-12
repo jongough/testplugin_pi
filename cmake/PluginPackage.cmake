@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------
 
 # build a FLATPAK installer package
-message(STATUS "Package: OCPN_FLATPAK_BUILD: ${OCPN_FLATPAK_BUILD}, OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
+message(STATUS "Package: OCPN_FLATPAK: ${OCPN_FLATPAK}")
 
 if(OCPN_FLATPAK)
   # On a flatpak build lib libraries such as LibGL and wxWidgets are only available in the flatpak sandbox. Thus, building flatpak must be done before attempts to locate these non-existing libraries
