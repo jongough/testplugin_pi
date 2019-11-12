@@ -19,17 +19,17 @@ jobs:
 #       - run: ci/circleci-build-debian.sh
 #       - run: chmod a+x ci/circleci-upload.sh
 #       - run: ci/circleci-upload.sh
-   build-flatpak:
-     machine:
-       image: circleci/classic:201808-01
-     environment:
-       - OCPN_TARGET:  flatpak
-       - CLOUDSMITH_PKG_EXT: gz
-     steps:
-       - checkout
-       - run: ci/circleci-build-flatpak.sh
-       - run: chmod a+x ci/circleci-upload.sh
-       - run: ci/circleci-upload.sh
+#   build-flatpak:
+#     machine:
+#       image: circleci/classic:201808-01
+#     environment:
+#       - OCPN_TARGET:  flatpak
+#       - CLOUDSMITH_PKG_EXT: gz
+#     steps:
+#       - checkout
+#       - run: ci/circleci-build-flatpak.sh
+#       - run: chmod a+x ci/circleci-upload.sh
+#       - run: ci/circleci-upload.sh
 #   build-mingw:
 #     docker:
 #         - image: fedora:29
@@ -64,12 +64,12 @@ workflows:
 #              ignore:
 #                - devel
 #                - tmp
-      - build-flatpak:
-          filters:
-            branches:
-              ignore:
-                - devel
-                - tmp
+#      - build-flatpak:
+#          filters:
+#            branches:
+#              ignore:
+#                - devel
+#                - tmp
 #      - build-macos:
 #          filters:
 #            branches:
