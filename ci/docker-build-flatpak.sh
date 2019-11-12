@@ -18,6 +18,6 @@ if [ "" = "$ocpnfound" ]; then
 fi
 flatpak install --user -y  flathub org.freedesktop.Sdk//18.08
 rm -rf flatpak/.flatpak-builder && rm -rf build && mkdir build && cd build
-cmake -DOCPN_FLATPAK_CONFIG=ON ..
+cmake -DOCPN_FLATPAK=ON ..
 make flatpak-build
 make flatpak-pkg
