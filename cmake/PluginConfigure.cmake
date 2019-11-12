@@ -24,7 +24,7 @@ if(OCPN_FLATPAK_CONFIG)
   configure_file(# Used by flatpak, do this early.
                  ${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
   configure_file(${CMAKE_SOURCE_DIR}/cmake/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
-  message(STATUS "Done OCPN_FLATPAK")
+  message(STATUS "Done OCPN_FLATPAK_CONFIG")
   return()
 endif(OCPN_FLATPAK_CONFIG)
 
