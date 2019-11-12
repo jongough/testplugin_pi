@@ -14,7 +14,7 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 message(STATUS "OCPN_FLATPAK: ${OCPN_FLATPAK}, UNIX: ${UNIX}")
-if(OCPN_FLATPAK)
+if(OCPN_FLATPAK_CONFIG OR OCPN_FLATPAK_BUILD)
   set(PKG_TARGET "flatpak")
   set(PKG_TARGET_VERSION "18.08") # As of flatpak/*yaml
 elseif(MINGW)
@@ -38,10 +38,8 @@ elseif(APPLE)
   execute_process(COMMAND "sw_vers" "-productVersion" OUTPUT_VARIABLE PKG_TARGET_VERSION)
 elseif(UNIX)
   # Some linux dist:
-  #execute_process(COMMAND "lsb_release" "-is" OUTPUT_VARIABLE PKG_TARGET ERROR_VARIABLE PKG_TARGET_ERROR)
-  exec_program(/usr/bin/lsb_release ARGS "-is" OUTPUT_VARIABLE PKG_TARGET)
+  execute_process(COMMAND "lsb_release" "-is" OUTPUT_VARIABLE PKG_TARGET)
   execute_process(COMMAND "lsb_release" "-rs" OUTPUT_VARIABLE PKG_TARGET_VERSION)
-  message(STATUS "PKG_TARGET: ${PKG_TARGET}, PKG_TARGET_VERSION: ${PKG_TARGET_VERSION}, PKG_TARGET_ERROR: ${PKG_TARGET_ERROR}")
   string(REPLACE "_pi" "" PKG_NVR ${PKG_NVR})
   set(PKG_NVR "opencpn-plugin-${PKG_NVR}")
 else()
