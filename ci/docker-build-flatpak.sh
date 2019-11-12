@@ -8,7 +8,7 @@ set -xe
 
 df -h
 cd $TOPDIR
-su -c "dnf install -y sudo cmake gcc-c++ flatpak-builder flatpak make tar"
+su -c "dnf install -y sudo cmake gcc-c++ flatpak-builder flatpak make tar lsb-release"
 flatpak remote-add --user --if-not-exists flathub \
     https://flathub.org/repo/flathub.flatpakrepo
 ocpnfound=$(flatpak list | grep org.opencpn.OpenCPN | awk '{print $1}')
