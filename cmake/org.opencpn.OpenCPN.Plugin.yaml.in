@@ -20,5 +20,5 @@ modules:
     sources:
        - type: git
 #         url: https://github.com/${GIT_USER}/${GIT_REPOSITORY_NAME}.git
-         url: git://git.eclipse.com.au/${GIT_REPOSITORY_NAME} --branch cmake_flatpak_test
+         url: git://git.eclipse.com.au/${GIT_REPOSITORY_NAME}
          branch: cmake_flatpak_test
