@@ -39,7 +39,7 @@ elseif(APPLE)
 elseif(UNIX)
   # Some linux dist:
   #execute_process(COMMAND "lsb_release" "-is" OUTPUT_VARIABLE PKG_TARGET ERROR_VARIABLE PKG_TARGET_ERROR)
-  execute_program("lsb_release" ARGS "-is" OUTPUT_VARIABLE PKG_TARGET)
+  exec_program("lsb_release" ARGS "-is" OUTPUT_VARIABLE PKG_TARGET)
   execute_process(COMMAND "lsb_release" "-rs" OUTPUT_VARIABLE PKG_TARGET_VERSION)
   message(STATUS "PKG_TARGET: ${PKG_TARGET}, PKG_TARGET_VERSION: ${PKG_TARGET_VERSION}, PKG_TARGET_ERROR: ${PKG_TARGET_ERROR}")
   string(REPLACE "_pi" "" PKG_NVR ${PKG_NVR})
