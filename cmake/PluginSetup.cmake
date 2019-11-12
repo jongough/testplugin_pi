@@ -40,6 +40,7 @@ elseif(UNIX)
   # Some linux dist:
   execute_process(COMMAND "lsb_release" "-is" OUTPUT_VARIABLE PKG_TARGET)
   execute_process(COMMAND "lsb_release" "-rs" OUTPUT_VARIABLE PKG_TARGET_VERSION)
+  message(STATUS "PKG_TARGET: ${PKG_TARGET}")
   string(REPLACE "_pi" "" PKG_NVR ${PKG_NVR})
   set(PKG_NVR "opencpn-plugin-${PKG_NVR}")
 else()
