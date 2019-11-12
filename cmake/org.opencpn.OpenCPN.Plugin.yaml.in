@@ -13,7 +13,7 @@ modules:
     config-opts:
         - -DCMAKE_INSTALL_PREFIX=/app/extensions/${PACKAGE}
         - -DOCPN_FLATPAK_BUILD=ON
-        - -DOCPN_FLATPAK_CONFIG=OFF
+#        - -DOCPN_FLATPAK_CONFIG=OFF
     build-options:
         cflags: -fPIC
         cxxflags: -fPIC
