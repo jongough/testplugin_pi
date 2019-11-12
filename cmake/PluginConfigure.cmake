@@ -20,15 +20,15 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ci/circleci-uploa
 
 message(STATUS "Checking OCPN_FLATPAK")
 message(STATUS "Config: OCPN_FLATPAK_BUILD: ${OCPN_FLATPAK_BUILD}, OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
-if(OCPN_FLATPAK_BUILD)
+if(OCPN_FLATPAK_CONFIG)
   configure_file(# Used by flatpak, do this early.
                  ${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
   configure_file(${CMAKE_SOURCE_DIR}/cmake/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
   message(STATUS "Done OCPN_FLATPAK")
   return()
-endif(OCPN_FLATPAK_BUILD)
+endif(OCPN_FLATPAK_CONFIG)
 
-message(STATUS "Not done OCPN_FLATPAK")
+message(STATUS "OCPN_FLATPAK continuing")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
