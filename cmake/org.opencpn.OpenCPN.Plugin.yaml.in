@@ -19,5 +19,6 @@ modules:
         cxxflags: -fPIC
     sources:
        - type: git
-         url: https://github.com/${GIT_USER}/${GIT_REPOSITORY_NAME}.git
+#         url: https://github.com/${GIT_USER}/${GIT_REPOSITORY_NAME}.git
+         url: https://git.eclipse.com.au/repos/${GIT_REPOSITORY_NAME}.git
          branch: cmake_flatpak
