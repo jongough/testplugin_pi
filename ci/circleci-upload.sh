@@ -14,8 +14,8 @@
 
 set -xe
 
-STABLE_REPO=${CLOUDSMITH_STABLE_REPO:-'jon-gough/testplugin_pi-stable'}
-UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'jon-gough/testplugin_pi'}
+STABLE_REPO=${CLOUDSMITH_STABLE_REPO:-'jon\-gough/testplugin_pi-stable'}
+UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'jon\-gough/testplugin_pi'}
 
 if [ -z "$CIRCLECI" ]; then
     exit 0;
