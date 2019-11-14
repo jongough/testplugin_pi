@@ -15,7 +15,7 @@
 set -xe
 
 STABLE_REPO=${CLOUDSMITH_STABLE_REPO:-'@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'}
-UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'}
+UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'@CLOUDSMITH_USER@/@PACKAGE@-pi'}
 STABLE_PKG_REPO=${CLOUDSMITH_PKG_REPO:-'@CLOUDSMITH_USER@/manual'}
 PKG_EXT=${CLOUDSMITH_PKG_EXT:-'deb'}
 
@@ -72,19 +72,14 @@ sudo sed -i -e "s|@name@|$tarball_name|" $xml
 sudo sed -i -e "s|@version@|$VERSION|" $xml
 sudo sed -i -e "s|@filename@|$tarball_basename|" $xml
 
-
-cloudsmith push raw \
-    --republish \
-    --no-wait-for-sync \
+cloudsmith push raw --republish --no-wait-for-sync \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \
     --version @VERSION@ \
     --summary "@PACKAGE@ opencpn plugin metadata for automatic installation" \
     $REPO $xml
 
-cloudsmith push raw  \
-    --republish \
-    --no-wait-for-sync \
-    --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-tarball \
+cloudsmith push raw --republish --no-wait-for-sync \
+    --name $tarball_name \
     --version @VERSION@ \
     --summary "@PACKAGE@ opencpn plugin tarball for automatic installation" \
     $REPO $tarball
