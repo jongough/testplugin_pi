@@ -18,7 +18,7 @@ set(PARENT "opencpn")
 set(PACKAGE "testplugin")
 set(VERBOSE_NAME "Testplugin")
 set(CPACK_PACKAGE_CONTACT "Jon Gough")
-set(CLOUDSMITH_USER "jon\-gough")
+set(CLOUDSMITH_USER "jon-gough")
 set(GIT_USER "jongough")
 set(GIT_REPOSITORY_NAME "testplugin_pi")
 
