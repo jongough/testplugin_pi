@@ -15,8 +15,8 @@ if(NOT SKIP_VERSION_CONFIG)
 endif(NOT SKIP_VERSION_CONFIG)
 
 message(STATUS "Modifying appveyor/circleci-upload.sh")
-configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ci/appveyor-upload.sh @ONLY)
-configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ci/circleci-upload.sh @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ${CMAKE_SOURCE_DIR}/ci/appveyor-upload.sh @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ${CMAKE_SOURCE_DIR}/ci/circleci-upload.sh @ONLY)
 
 message(STATUS "Checking OCPN_FLATPAK: ${OCPN_FLATPAK}")
 if(OCPN_FLATPAK_CONFIG)

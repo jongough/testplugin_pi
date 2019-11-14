@@ -14,9 +14,9 @@
 
 set -xe
 
-STABLE_REPO=${CLOUDSMITH_STABLE_REPO:-'${CLOUDSMITH_USER}/${PACKAGE}-stable'}
-UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'${CLOUDSMITH_USER}/${PACKAGE}-pi'}
-STABLE_PKG_REPO=${CLOUDSMITH_PKG_REPO:-'${CLOUDSMITH_USER}/manual'}
+STABLE_REPO=${CLOUDSMITH_STABLE_REPO:-'jon-gough/testplugin_pi-stable'}
+UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'jon-gough/testplugin-pi'}
+STABLE_PKG_REPO=${CLOUDSMITH_PKG_REPO:-'jon-gough/manual'}
 PKG_EXT=${CLOUDSMITH_PKG_EXT:-'deb'}
 
 if [ -z "$CIRCLECI" ]; then
@@ -53,8 +53,8 @@ tarball=$(ls $HOME/project/build/*.tar.gz)
 tarball_basename=${tarball##*/}
 
 source $HOME/project/build/pkg_version.sh
-tarball_name=${PACKAGE}-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
-pkg=$(ls $HOME/project/build/*.${PKG_EXT})
+tarball_name=testplugin-linuxmint-19.2-tarball
+pkg=$(ls $HOME/project/build/*.)
 
 source $HOME/project/build/pkg_version.sh
 if [ -n "$tag" ]; then
@@ -62,30 +62,30 @@ if [ -n "$tag" ]; then
     REPO="$STABLE_REPO"
     PKG_REPO="$STABLE_PKG_REPO"
 else
-    VERSION="${VERSION}+${BUILD_ID}.${commit}"
+    VERSION="+."
     REPO="$UNSTABLE_REPO"
     PKG_REPO="$UNSTABLE_REPO"
 fi
 
-sudo sed -i -e "s|@pkg_repo@|$REPO|"  $xml
-sudo sed -i -e "s|@name@|$tarball_name|" $xml
-sudo sed -i -e "s|@version@|$VERSION|" $xml
-sudo sed -i -e "s|@filename@|$tarball_basename|" $xml
+sudo sed -i -e "s||$REPO|"  $xml
+sudo sed -i -e "s||$tarball_name|" $xml
+sudo sed -i -e "s||$VERSION|" $xml
+sudo sed -i -e "s||$tarball_basename|" $xml
 
 cloudsmith push raw --republish --no-wait-for-sync \
-    --name ${PACKAGE}-${PKG_TARGET}-${PKG_TARGET_VERSION}-metadata \
-    --version ${VERSION} \
-    --summary "${PACKAGE} opencpn plugin metadata for automatic installation" \
+    --name testplugin-linuxmint-19.2-metadata \
+    --version  \
+    --summary "testplugin opencpn plugin metadata for automatic installation" \
     $REPO $xml
 
 cloudsmith push raw --republish --no-wait-for-sync \
     --name $tarball_name \
-    --version ${VERSION} \
-    --summary "${PACKAGE} opencpn plugin tarball for automatic installation" \
+    --version  \
+    --summary "testplugin opencpn plugin tarball for automatic installation" \
     $REPO $tarball
 
 cloudsmith push raw --republish --no-wait-for-sync \
-    --name squiddio-${PKG_TARGET}-${PKG_TARGET_VERSION}.${PKG_EXT} \
-    --version ${VERSION} \
-    --summary "${PACKAGE} .${PKG_EXT} installation package" \
+    --name testplugin-linuxmint-19.2.${PKG_EXT} \
+    --version  \
+    --summary "testplugin .${PKG_EXT} installation package" \
     $PKG_REPO $pkg
