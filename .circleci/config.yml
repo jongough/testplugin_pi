@@ -1,24 +1,23 @@
 ---
 version: 2
 jobs:
-#   build-debian:
-#     docker:
-#       - image: circleci/buildpack-deps:xenial-scm
-#     environment:
-#       - OCPN_TARGET:  xenial
-#       - CLOUDSMITH_PKG_EXT: deb
-#     steps:
-#       - checkout
-#       - run: >
-#           echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main"
-#           | sudo tee -a /etc/apt/sources.list
-#       - run: >
-#           echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
-#           | sudo tee -a /etc/apt/sources.list
-#       - run: cat /etc/apt/sources.list
-#       - run: ci/circleci-build-debian.sh
-#       - run: chmod a+x ci/circleci-upload.sh
-#       - run: ci/circleci-upload.sh
+   build-debian:
+     docker:
+       - image: circleci/buildpack-deps:xenial-scm
+     environment:
+       - OCPN_TARGET:  xenial
+       - CLOUDSMITH_PKG_EXT: deb
+     steps:
+       - checkout
+       - run: >
+           echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main"
+           | sudo tee -a /etc/apt/sources.list
+       - run: >
+           echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
+           | sudo tee -a /etc/apt/sources.list
+       - run: cat /etc/apt/sources.list
+       - run: ci/circleci-build-debian.sh
+       - run: bash ci/circleci-upload.sh
    build-flatpak:
      machine:
        image: circleci/classic:201808-01
@@ -28,7 +27,6 @@ jobs:
      steps:
        - checkout
        - run: ci/circleci-build-flatpak.sh
-#       - run: chmod 755 ci/circleci-upload.sh
        - run: bash ci/circleci-upload.sh
 #   build-mingw:
 #     docker:
@@ -58,12 +56,12 @@ workflows:
   version: 2
   build_all:
     jobs:
-#      - build-debian:
-#          filters:
-#            branches:
-#              ignore:
-#                - devel
-#                - tmp
+      - build-debian:
+          filters:
+            branches:
+              ignore:
+                - devel
+                - tmp
       - build-flatpak:
           filters:
             branches:
