@@ -62,7 +62,7 @@ if [ -n "$tag" ]; then
     REPO="$STABLE_REPO"
     PKG_REPO="$STABLE_PKG_REPO"
 else
-    VERSION="@VERSION@+@BUILD_ID@.@commit@"
+    VERSION="@PROJECT_VERSION@+${BUILD_ID}.${commit}"
     REPO="$UNSTABLE_REPO"
     PKG_REPO="$UNSTABLE_REPO"
 fi
