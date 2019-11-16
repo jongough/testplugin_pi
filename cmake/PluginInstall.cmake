@@ -195,4 +195,3 @@ if(APPLE)
   message(STATUS "Install Target: ${PACKAGE_NAME}/${PACKAGE_NAME}")
 
 endif(APPLE)
-MESSAGE (STATUS "Install Prefix-1: ${CMAKE_INSTALL_PREFIX}")
