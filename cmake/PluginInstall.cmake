@@ -19,8 +19,11 @@ if(WIN32)
   if(MINGW)
     # assuming wxwidgets is compiled with unicode, this is needed for mingw headers
     add_definitions(" -DUNICODE")
-    target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
-    set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/libopencpn.dll.a")
+    TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
+    SET(OPENCPN_IMPORT_LIB "${PARENT}.dll")
+    SET( CMAKE_SHARED_LINKER_FLAGS "-L../buildwin" )
+#    target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
+#    set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/libopencpn.dll.a")
   endif(MINGW)
 
   target_link_libraries(${PACKAGE_NAME} ${OPENCPN_IMPORT_LIB})
