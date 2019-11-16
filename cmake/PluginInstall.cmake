@@ -13,15 +13,14 @@ if(WIN32)
     # TARGET_LINK_LIBRARIES(${PACKAGE_NAME} gdiplus.lib glu32.lib)
     target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
 
-    set(OPENCPN_IMPORT_LIB "${PARENT}.lib")
+    set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/opencpn.lib")
   endif(MSVC)
 
   if(MINGW)
     # assuming wxwidgets is compiled with unicode, this is needed for mingw headers
     add_definitions(" -DUNICODE")
     target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
-    set(OPENCPN_IMPORT_LIB "${PARENT}.dll")
-    set(CMAKE_SHARED_LINKER_FLAGS "-L../buildwin")
+    set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/libopencpn.dll.a")
   endif(MINGW)
 
   target_link_libraries(${PACKAGE_NAME} ${OPENCPN_IMPORT_LIB})
