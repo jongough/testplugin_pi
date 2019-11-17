@@ -188,7 +188,7 @@ set(LIBHDRS
 option(TESTPLUGIN_USE_SVG "Use SVG graphics" ON)
 add_definitions(-DTESTPLUGIN_USE_SVG)
 
-add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSRC})
+add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
 add_definitions(-DTIXML_USE_STL)
 
