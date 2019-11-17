@@ -7,8 +7,7 @@ if(NOT APPLE)
 endif(NOT APPLE)
 
 if(WIN32)
-  set(PARENT "opencpn")
-
+  TARGET_LINK_LIBRARIES(${PACKAGE_NAME} "GLU_static")
   if(MSVC)
     # TARGET_LINK_LIBRARIES(${PACKAGE_NAME} gdiplus.lib glu32.lib)
     target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
