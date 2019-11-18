@@ -14,10 +14,12 @@ if(NOT SKIP_VERSION_CONFIG)
   include_directories(${BUILD_INCLUDE_PATH}/include)
 endif(NOT SKIP_VERSION_CONFIG)
 
+# configure xml file for circleci
+configure_file(${CMAKE_SOURCE_DIR}/cmake/${PACKAGE}-plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}.xml)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
+
 message(STATUS "Checking OCPN_FLATPAK: ${OCPN_FLATPAK}")
 if(OCPN_FLATPAK_CONFIG)
-  configure_file(# Used by flatpak, do this early.
-                 ${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
   configure_file(${CMAKE_SOURCE_DIR}/cmake/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
 
   message(STATUS "Modifying appveyor/circleci-upload.sh")
@@ -27,10 +29,6 @@ if(OCPN_FLATPAK_CONFIG)
   message(STATUS "Done OCPN_FLATPAK CONFIG")
   return()
 endif(OCPN_FLATPAK_CONFIG)
-
-# configure xml file for circleci
-configure_file(${CMAKE_SOURCE_DIR}/cmake/${PACKAGE}-plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}.xml)
-
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
