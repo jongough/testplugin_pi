@@ -30,14 +30,23 @@ set(CPACK_INSTALL_CMAKE_PROJECTS "${CMAKE_CURRENT_BINARY_DIR};${PACKAGE_NAME};AL
 
 if(WIN32)
   # The TGZ (tar.gz) is used by experimental plugin manager,
-  set(CPACK_GENERATOR "TGZ")
+  set(CPACK_GENERATOR "NSIS;TGZ")
 
   # override install directory to put package files in the opencpn directory
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "OpenCPN")
 
+  set(CPACK_NSIS_PACKAGE_NAME "${PACKAGE_NAME}")
+
+  # Let cmake find NSIS.template.in
+  set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildwin")
+
+#  These lines set the name of the Windows Start Menu shortcut and the icon that goes with it
+  set(CPACK_NSIS_DISPLAY_NAME "OpenCPN ${PACKAGE_NAME}")
+
   set(CPACK_PACKAGE_FILE_NAME "${PACKAGE_FILE_NAME}_${CPACK_PACKAGE_VERSION}-${OCPN_MIN_VERSION}_win32")
   message(STATUS "CPACK_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION}")
 
+  set(CPACK_NSIS_DIR "${PROJECT_SOURCE_DIR}/buildwin/NSIS_Unicode")  #Gunther
   set(CPACK_BUILDWIN_DIR "${PROJECT_SOURCE_DIR}/buildwin") # Gunther
 
   message(STATUS "FILE: ${CPACK_PACKAGE_FILE_NAME}")
