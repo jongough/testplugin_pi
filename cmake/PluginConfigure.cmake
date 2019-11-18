@@ -28,6 +28,10 @@ if(OCPN_FLATPAK_CONFIG)
   return()
 endif(OCPN_FLATPAK_CONFIG)
 
+# configure xml file for circleci
+configure_file(${CMAKE_SOURCE_DIR}/cmake/${PACKAGE}-plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}.xml)
+
+
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)

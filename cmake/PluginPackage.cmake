@@ -12,7 +12,6 @@ if(OCPN_FLATPAK_CONFIG)
   if(NOT TAR)
     message(FATAL_ERROR "tar not found, required for OCPN_FLATPAK")
   endif()
-  configure_file(${CMAKE_SOURCE_DIR}/cmake/${PACKAGE}-plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}.xml)
   add_custom_target(
     flatpak-build ALL
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/flatpak
