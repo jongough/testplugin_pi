@@ -10,7 +10,7 @@ message(STATUS "*** Staging to build ${PACKAGE_NAME} ***")
 if(NOT SKIP_VERSION_CONFIG)
   set(BUILD_INCLUDE_PATH ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
   configure_file(cmake/in-files/version.h.in ${BUILD_INCLUDE_PATH}/include/version.h)
-  configure_file(cmake/in-fileswxWTranslateCatalog.h.in ${BUILD_INCLUDE_PATH}/include/wxWTranslateCatalog.h)
+  configure_file(cmake/in-files/wxWTranslateCatalog.h.in ${BUILD_INCLUDE_PATH}/include/wxWTranslateCatalog.h)
   include_directories(${BUILD_INCLUDE_PATH}/include)
 endif(NOT SKIP_VERSION_CONFIG)
 
