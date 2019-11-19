@@ -9,21 +9,21 @@ message(STATUS "*** Staging to build ${PACKAGE_NAME} ***")
 # Do the version.h & wxWTranslateCatalog configuration into the build output directory, thereby allowing building from a read-only source tree.
 if(NOT SKIP_VERSION_CONFIG)
   set(BUILD_INCLUDE_PATH ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
-  configure_file(cmake/version.h.in ${BUILD_INCLUDE_PATH}/include/version.h)
-  configure_file(cmake/wxWTranslateCatalog.h.in ${BUILD_INCLUDE_PATH}/include/wxWTranslateCatalog.h)
+  configure_file(cmake/in-files/version.h.in ${BUILD_INCLUDE_PATH}/include/version.h)
+  configure_file(cmake/in-fileswxWTranslateCatalog.h.in ${BUILD_INCLUDE_PATH}/include/wxWTranslateCatalog.h)
   include_directories(${BUILD_INCLUDE_PATH}/include)
 endif(NOT SKIP_VERSION_CONFIG)
 
 # configure xml file for circleci
-configure_file(${CMAKE_SOURCE_DIR}/cmake/${PACKAGE}-plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}.xml)
-configure_file(${CMAKE_SOURCE_DIR}/cmake/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
-configure_file(${CMAKE_SOURCE_DIR}/cmake/circleci-upload.sh.in ${CMAKE_SOURCE_DIR}/ci/circleci-upload.sh @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/${PACKAGE}-plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}.xml)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/circleci-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/ci/circleci-upload.sh @ONLY)
 message(STATUS "Modifying appveyor/circleci-upload.sh")
-configure_file(${CMAKE_SOURCE_DIR}/cmake/appveyor-upload.sh.in ${CMAKE_SOURCE_DIR}/ci/appveyor-upload.sh @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/appveyor-upload.sh.in ${CMAKE_SOURCE_DIR}/ci/appveyor-upload.sh @ONLY)
 
 message(STATUS "Checking OCPN_FLATPAK: ${OCPN_FLATPAK}")
 if(OCPN_FLATPAK_CONFIG)
-  configure_file(${CMAKE_SOURCE_DIR}/cmake/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
+  configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
 
   message(STATUS "Done OCPN_FLATPAK CONFIG")
   return()
