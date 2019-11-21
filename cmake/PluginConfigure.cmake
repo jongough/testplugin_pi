@@ -23,9 +23,10 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/appveyor-upload.sh.in ${CMAKE_
 
 message(STATUS "Checking OCPN_FLATPAK: ${OCPN_FLATPAK}")
 if(OCPN_FLATPAK_CONFIG)
-  configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
+  configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_CURRENT_BINARY_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
 
   message(STATUS "Done OCPN_FLATPAK CONFIG")
+  message(STATUS "Directory used: ${CMAKE_CURRENT_BINARY_DIR}/flatpak")
   return()
 endif(OCPN_FLATPAK_CONFIG)
 
