@@ -46,10 +46,17 @@ if [ "" = "$DOCKER_CONTAINER_ID" ]; then
 fi
 
 docker logs $DOCKER_CONTAINER_ID
-docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
+if [ -n "$CIRCLECI" ];
+  docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "bash -xe export $CIRCLECI;
     bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
+else
+  docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
+    "bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
+         echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
+fi
+
 docker ps -a
 
 if [ -n "$CIRCLECI" ]; then
