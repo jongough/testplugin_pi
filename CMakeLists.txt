@@ -89,6 +89,10 @@ set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION}-${OCPN_MIN_VERSION}-${OCPN_API_VE
 set(PKG_BASE_URL "https://dl.cloudsmith.io/public/${CLOUDSMITH_USER}/${PACKAGE}-pi/raw/files")
 
 include("cmake/PluginSetup.cmake")
+if(OCPN_FLATPAK_BUILD)
+  return()
+endif(OCPN_FLATPAK_BUILD)
+
 set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
