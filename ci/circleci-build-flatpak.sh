@@ -47,7 +47,8 @@ fi
 
 docker logs $DOCKER_CONTAINER_ID
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-    "bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
+    "bash -x export $CIRCLECI;
+    bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
 docker ps -a
 
