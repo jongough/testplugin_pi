@@ -21,6 +21,9 @@ set(CPACK_PACKAGE_CONTACT "Jon Gough")
 set(CLOUDSMITH_USER "jon-gough")
 set(GIT_USER "jongough")
 set(GIT_REPOSITORY_NAME "testplugin_pi")
+set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
+set(XML_SUMMARY "Repository of sailing destination waypoints")
+set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
 
 project(testplugin_pi)
 
