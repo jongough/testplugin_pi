@@ -19,10 +19,8 @@ jobs:
        - run: ci/circleci-build-debian.sh
        - run: bash ci/circleci-upload.sh
    build-flatpak:
-#     machine:
-#       image: circleci/classic:201808-01
-     docker:
-       - image: circleci/buildpack-deps:xenial-scm
+     machine:
+       image: circleci/classic:201808-01
      environment:
        - OCPN_TARGET:  flatpak
        - CLOUDSMITH_PKG_EXT: gz
