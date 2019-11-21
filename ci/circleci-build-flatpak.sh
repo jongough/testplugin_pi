@@ -46,7 +46,7 @@ if [ "" = "$DOCKER_CONTAINER_ID" ]; then
 fi
 
 docker logs $DOCKER_CONTAINER_ID
-if [ -n "$CIRCLECI" ];
+if [ -n "$CIRCLECI" ]; then
   docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "bash -xe export $CIRCLECI;
     bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
