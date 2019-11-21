@@ -18,5 +18,5 @@ modules:
         cxxflags: -fPIC
     sources:
        - type: git
-         url: https://${GIT_HOST}/${GIT_REPOSITORY_DIR}${GIT_REPOSITORY_NAME}.git
-         branch: cmake_flatpak_test
+         url: https://${GIT_REPOSITORY_HOST}/${GIT_REPOSITORY_DIR}${GIT_REPOSITORY_NAME}.git
+         branch: ${GIT_REPOSITORY_BRANCH}
