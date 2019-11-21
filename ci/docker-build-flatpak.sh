@@ -19,7 +19,6 @@ fi
 flatpak install --user -y  flathub org.freedesktop.Sdk//18.08
 #rm -rf flatpak/.flatpak-builder && rm -rf build && mkdir build && cd build
 rm -rf build && mkdir build && cd build
-ls -la flatpak
 cmake -DOCPN_FLATPAK_CONFIG=ON ..
 make flatpak-build
 make flatpak-pkg
