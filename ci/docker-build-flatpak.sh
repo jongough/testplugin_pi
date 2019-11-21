@@ -17,6 +17,7 @@ if [ "" = "$ocpnfound" ]; then
        http://opencpn.duckdns.org/opencpn/opencpn.flatpakref
 fi
 flatpak install --user -y  flathub org.freedesktop.Sdk//18.08
+ls -la flatpak
 rm -rf flatpak/.flatpak-builder && rm -rf build && mkdir build && cd build
 cmake -DOCPN_FLATPAK_CONFIG=ON ..
 ls -la flatpak
