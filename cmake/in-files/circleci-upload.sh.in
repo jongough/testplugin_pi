@@ -49,6 +49,7 @@ commit=$(git rev-parse --short=7 HEAD) || commit="unknown"
 tag=$(git tag --contains HEAD)
 
 xml=$(ls $HOME/project/build/*.xml)
+cat $xml
 tarball=$(ls $HOME/project/build/*.tar.gz)
 tarball_basename=${tarball##*/}
 
