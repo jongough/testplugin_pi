@@ -85,7 +85,7 @@ set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWi
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION}-${OCPN_MIN_VERSION}-${OCPN_API_VERSION_MAJOR}.${OCPN_API_VERSION_MINOR})
-set(PKG_URL "https://dl.cloudsmith.io/public/${CLOUDSMITH_USER}/${PACKAGE}/raw/names/--name--/version/--version--/--filename--")
+set(PKG_URL "https://dl.cloudsmith.io/public/${CLOUDSMITH_USER}/${PACKAGE}/raw/names/--name--/versions/--version--/--filename--")
 
 include("cmake/PluginSetup.cmake")
 
