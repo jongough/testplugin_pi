@@ -7,7 +7,8 @@
 STABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'
 UNSTABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'
 
-if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then
+git_head=$(git rev-parse master) || git_head="unknown"
+if [ "$git_head" != "$(git rev-parse HEAD)" ]; then
     echo "Not on master branch, skipping deployment."
     exit 0
 fi
@@ -17,7 +18,7 @@ if [ -z "$CLOUDSMITH_API_KEY" ]; then
     exit 0
 fi
 
-echo "Using \$CLOUDSMITH_API_KEY: \$\{CLOUDSMITH_API_KEY\:0\:4\}..."
+echo "Using \$CLOUDSMITH_API_KEY: \${CLOUDSMITH_API_KEY:0:4}..."
 
 set -xe
 
@@ -27,7 +28,6 @@ python -m pip install -q cloudsmith-cli
 
 commit=$(git rev-parse --short=7 HEAD) || commit="unknown"
 now=$(date --rfc-3339=seconds) || now=$(date)
-
 
 BUILD_ID=${APPVEYOR_BUILD_NUMBER:-1}
 commit=$(git rev-parse --short=7 HEAD) || commit="unknown"
