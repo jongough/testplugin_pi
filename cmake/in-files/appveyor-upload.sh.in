@@ -49,6 +49,8 @@ if [ -n "$tag" ]; then
     done < $xml > xml.tmp && cp xml.tmp $xml && rm xml.tmp
 fi
 
+cat $xml
+
 cloudsmith push raw \
     --republish \
     --no-wait-for-sync \
