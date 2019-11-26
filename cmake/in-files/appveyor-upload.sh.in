@@ -51,7 +51,7 @@ else
     REPO="$UNSTABLE_REPO"
     PKG_REPO="$UNSTABLE_REPO"
 fi
-tarball_name=squiddio-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
+tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
 
 cat $xml
 
