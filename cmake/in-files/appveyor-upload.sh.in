@@ -4,8 +4,8 @@
 # Upload the .tar.gz and .xml artifacts to cloudsmith
 #
 
-STABLE_REPO=${CLOUDSMITH_STABLE_REPO\:-'@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'}
-UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO\:-'@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'}
+STABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'
+UNSTABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'
 
 if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then
     echo "Not on master branch, skipping deployment."
@@ -44,7 +44,11 @@ if [ -n "$tag" ]; then
     # There is no sed available in git bash. This is nasty, but seems
     # to work:
     while read line; do
-        echo ${line/@PACKAGE@-pi/@PACKAGE@-stable}
+        line=${line/--pkg_repo--/$REPO}
+        line=${line/--name--/$tarball_name}
+        line=${line/--version--$VERSION}
+        line=${line--filename--/$tarball_basename}
+        echo $line
     done < $xml > xml.tmp && cp xml.tmp $xml && rm xml.tmp
 fi
 
