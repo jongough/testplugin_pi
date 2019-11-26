@@ -33,13 +33,13 @@ tag=$(git tag --contains HEAD)
 tarball=$(ls *.tar.gz)
 xml=$(ls *.xml)
 
-source $HOME/project/build/pkg_version.sh
+source ../build/pkg_version.sh
 test -n "$tag" && VERSION="$tag" || VERSION="${VERSION}+${BUILD_ID}.${commit}"
 test -n "$tag" && REPO="$STABLE_REPO" || REPO="$UNSTABLE_REPO"
 
 cat $xml
 
-if [ -n "$tag" ]; then
+#if [ -n "$tag" ]; then
     # There is no sed available in git bash. This is nasty, but seems
     # to work:
     echo 'substituting xmal file stuff'
@@ -50,7 +50,7 @@ if [ -n "$tag" ]; then
         line=${line//--filename--/$tarball_basename}
         echo $line
     done < $xml > xml.tmp && cat xml.tmp && cp xml.tmp $xml && rm xml.tmp
-fi
+#fi
 
 cat $xml
 
