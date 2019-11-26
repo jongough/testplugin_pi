@@ -43,7 +43,7 @@ if [ -n "$tag" ]; then
     while read line; do
         line=${line/--pkg_repo--/$REPO}
         line=${line/--name--/$tarball_name}
-        line=${line/--version--$VERSION}
+        line=${line/--version--/$VERSION}
         line=${line--filename--/$tarball_basename}
         echo $line
     done < $xml > xml.tmp && cp xml.tmp $xml && rm xml.tmp
@@ -53,7 +53,7 @@ cloudsmith push raw \
     --republish \
     --no-wait-for-sync \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \
-    --version @VERSION@ \
+    --version ${VERSION} \
     --summary "@PACKAGE@ opencpn plugin metadata for automatic installation" \
     $REPO $xml
 
@@ -61,6 +61,6 @@ cloudsmith push raw  \
     --republish \
     --no-wait-for-sync \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-tarball \
-    --version @VERSION@ \
+    --version ${VERSION} \
     --summary "@PACKAGE@ opencpn plugin tarball for automatic installation" \
     $REPO $tarball
