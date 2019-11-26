@@ -33,7 +33,7 @@ tag=$(git tag --contains HEAD)
 tarball=$(ls *.tar.gz)
 xml=$(ls *.xml)
 
-source ../build/pkg_version.sh
+source $HOME/project/build/pkg_version.sh
 test -n "$tag" && VERSION="$tag" || VERSION="${VERSION}+${BUILD_ID}.${commit}"
 test -n "$tag" && REPO="$STABLE_REPO" || REPO="$UNSTABLE_REPO"
 
