@@ -3,15 +3,16 @@
 #
 # Upload the .tar.gz and .xml artifacts to cloudsmith
 #
+set -xe
 
 STABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'
 UNSTABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'
 
-git_head=$(git rev-parse master) || git_head="unknown"
-if [ "$git_head" != "$(git rev-parse HEAD)" ]; then
-    echo "Not on master branch, skipping deployment."
-    exit 0
-fi
+#git_head=$(git rev-parse master) || git_head="unknown"
+#if [ "$git_head" != "$(git rev-parse HEAD)" ]; then
+#    echo "Not on master branch, skipping deployment."
+#    exit 0
+#fi
 
 if [ -z "$CLOUDSMITH_API_KEY" ]; then
     echo 'Cannot deploy to cloudsmith, missing $CLOUDSMITH_API_KEY'
@@ -19,8 +20,6 @@ if [ -z "$CLOUDSMITH_API_KEY" ]; then
 fi
 
 echo "Using \$CLOUDSMITH_API_KEY: \${CLOUDSMITH_API_KEY:0:4}..."
-
-set -xe
 
 python -m ensurepip
 python -m pip install -q setuptools
