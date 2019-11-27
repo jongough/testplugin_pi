@@ -5,8 +5,8 @@
 #
 set -xe
 
-STABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'
-UNSTABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'
+#STABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'
+#UNSTABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'
 
 #git_head=$(git rev-parse master) || git_head="unknown"
 #if [ "$git_head" != "$(git rev-parse HEAD)" ]; then
