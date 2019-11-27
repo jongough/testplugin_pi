@@ -9,12 +9,14 @@ STABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@-stable'
 UNSTABLE_REPO='@CLOUDSMITH_USER@/@GIT_REPOSITORY_NAME@'
 STABLE_PKG_REPO='@STABLE_PKG_REPO@/manual'
 
-
-#git_head=$(git rev-parse master) || git_head="unknown"
-#if [ "$git_head" != "$(git rev-parse HEAD)" ]; then
-#    echo "Not on master branch, skipping deployment."
-#    exit 0
-#fi
+if test "@APPVEYOR_TEST_DEPLOY_TO_CLOUDSMITH@" != "true"
+then
+    git_head=$(git rev-parse master) || git_head="unknown"
+    if [ "$git_head" != "$(git rev-parse HEAD)" ]; then
+        echo "Not on master branch, skipping deployment."
+        exit 0
+    fi
+fi
 
 set +x
 if [ -z "$CLOUDSMITH_API_KEY" ]; then
@@ -91,5 +93,5 @@ cloudsmith push raw \
     --no-wait-for-sync \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \
     --version ${VERSION} \
-    --summary "@PACKAGE@ opencpn plugin metadata for automatic installation" \
+    --summary "@PACKAGE@ .${PKG_EXT} installation package" \
     $REPO ./$exe
