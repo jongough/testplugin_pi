@@ -2,6 +2,10 @@
 # Author:      Pavel Kalian (Based on the work of Sean D'Epagnier) Copyright:   2014 License:     GPLv3+
 # ---------------------------------------------------------------------------
 
+if(OCPN_FLATPAK_CONFIG)
+  return()
+endif(OCPN_FLATPAK_CONFIG)
+
 if(NOT APPLE)
   target_link_libraries(${PACKAGE_NAME} ${wxWidgets_LIBRARIES} ${EXTRA_LIBS})
 endif(NOT APPLE)

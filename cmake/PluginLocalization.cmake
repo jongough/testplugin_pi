@@ -2,6 +2,10 @@
 # Author:      Pavel Kalian / Sean D'Epagnier Copyright: License:     GPLv3+
 # ---------------------------------------------------------------------------
 
+if(OCPN_FLATPAK_CONFIG)
+  return()
+endif(OCPN_FLATPAK_CONFIG)
+
 message(STATUS "Starting POTFILE generation")
 
 set(POTFILE ${CMAKE_CURRENT_SOURCE_DIR}/po/POTFILES.in)
