@@ -38,3 +38,14 @@ cmake \
   ..
 make -sj2
 make package
+
+wget -q http://opencpn.navnux.org/build_deps/Packages.dmg
+hdiutil attach Packages.dmg
+sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
+make install
+make create-pkg
+
+# Install cludsmith-cli, used in upload.
+sudo -H python3 -m ensurepip
+sudo -H python3 -m pip install -q setuptools
+sudo -H python3 -m pip install -q cloudsmith-cli
