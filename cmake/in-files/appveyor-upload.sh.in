@@ -94,4 +94,4 @@ cloudsmith push raw \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \
     --version ${VERSION} \
     --summary "@PACKAGE@ .${PKG_EXT} installation package" \
-    $REPO ./$exe
+    $PKG_REPO ./$exe
