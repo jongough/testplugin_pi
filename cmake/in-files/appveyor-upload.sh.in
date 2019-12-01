@@ -91,7 +91,7 @@ cloudsmith push raw  \
 cloudsmith push raw \
     --republish \
     --no-wait-for-sync \
-    --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \
+    --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-installer \
     --version ${VERSION} \
-    --summary "@PACKAGE@ .${PKG_EXT} installation package" \
+    --summary "@PACKAGE@ installation package" \
     $PKG_REPO ./$exe
