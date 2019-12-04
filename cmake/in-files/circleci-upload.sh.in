@@ -16,7 +16,7 @@ set -xe
 
 STABLE_REPO=${CLOUDSMITH_STABLE_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-stable'}
 UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@'}
-STABLE_PKG_REPO=${CLOUDSMITH_PKG_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-pkgl'}
+STABLE_PKG_REPO=${CLOUDSMITH_PKG_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-pkg'}
 PKG_EXT=${CLOUDSMITH_PKG_EXT:-'deb'}
 
 if [ -z "$CIRCLECI" ]; then
@@ -68,7 +68,7 @@ else
     PKG_REPO="$UNSTABLE_REPO"
 fi
 
-sudo sed -i -e "s|--pkg_repo--|$REPO|"  $xml
+sudo sed -i -e "s|--pkg_repo--|$PKG_REPO|"  $xml
 sudo sed -i -e "s|--name--|$tarball_name|" $xml
 sudo sed -i -e "s|--version--|$VERSION|" $xml
 sudo sed -i -e "s|--filename--|$tarball_basename|" $xml
