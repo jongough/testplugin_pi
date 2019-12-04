@@ -54,7 +54,7 @@ tarball=$(ls $HOME/project/build/*.tar.gz)
 tarball_basename=${tarball##*/}
 
 source $HOME/project/build/pkg_version.sh
-tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}.gz
+tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
 pkg=$(ls $HOME/project/build/*.${PKG_EXT})
 
 source $HOME/project/build/pkg_version.sh
