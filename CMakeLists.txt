@@ -14,12 +14,11 @@ if(COMMAND cmake_policy)
   endif(POLICY CMP0077)
 endif(COMMAND cmake_policy)
 
-project(testplugin_pi)
-
 set(PACKAGE_NAME testplugin_pi)
 set(VERBOSE_NAME testplugin)
 set(TITLE_NAME testplugin)
-set(CPACK_PACKAGE_CONTACT "Jon Gough")
+set(PACKAGE_CONTACT "Jon Gough")
+set(CPACK_PACKAGE_CONTACT ${PACKAGE_CONTACT})
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")

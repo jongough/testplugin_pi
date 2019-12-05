@@ -2,12 +2,12 @@
 <opencpn-plugin version="1">
   <name> ${PACKAGE} </name>
   <version> ${PACKAGE_VERSION} </version>
-  <release> ${PKG_RELEASE} </release>
+  <release> ${PROJECT_VERSION_TWEAK} </release>
   <summary> ${XML_SUMMARY} </summary>
 
-  <api-version> ${PKG_API_VERSION} </api-version>
+  <api-version> ${OCPN_API_VERSION_MAJOR}.${OCPN_API_VERSION_MINOR} </api-version>
   <open-source> yes </open-source>
-  <author> ${PKG_AUTHOR} </author>
+  <author> ${PACKAGE_CONTACT} </author>
   <source> https://github.com/${GIT_USER}/${GIT_REPOSITORY_NAME} </source>
 
   <description>
