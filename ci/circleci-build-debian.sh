@@ -13,7 +13,8 @@ sudo apt-get install  ./*all.deb  || :
 sudo apt-get --allow-unauthenticated install -f
 rm -f ./*all.deb
 
-cmake -DCMAKE_BUILD_TYPE=Release ..
+#cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 make -sj2
 make package
 
