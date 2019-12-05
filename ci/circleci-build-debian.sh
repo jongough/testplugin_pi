@@ -16,9 +16,9 @@ rm -f ./*all.deb
 tag=$(git tag --contains HEAD)
 
 if [ -n "$tag" ]; then
-  cmake -DCMAKE_BUILD_TYPE=Debug ..
+  cmake -DCMAKE_BUILD_TYPE=Release ..
 else
- cmake -DCMAKE_BUILD_TYPE=Release ..
+  cmake -DCMAKE_BUILD_TYPE=Debug ..
 fi
 
 make -sj2
