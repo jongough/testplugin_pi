@@ -13,6 +13,8 @@ sudo apt-get install  ./*all.deb  || :
 sudo apt-get --allow-unauthenticated install -f
 rm -f ./*all.deb
 
+tag=$(git tag --contains HEAD)
+
 if [ -n "$tag" ]; then
   cmake -DCMAKE_BUILD_TYPE=Debug ..
 else
