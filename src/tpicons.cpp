@@ -68,7 +68,8 @@ void tpicons::initialize_images(void)
 //    fn.AppendDir( wxT("plugins") );
 //    fn.AppendDir(wxT("testplugin_pi"));
 //#else
-    fn.SetPath(*GetpSharedDataLocation());
+//    fn.SetPath(*GetpSharedDataLocation());
+    fn.SetPath(GetPluginDataDir("testplugin_pi"));
     fn.AppendDir( wxT("plugins") );
     fn.AppendDir(wxT("testplugin_pi"));
     fn.AppendDir(wxT("data"));
