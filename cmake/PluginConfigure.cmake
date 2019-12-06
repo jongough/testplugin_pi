@@ -35,10 +35,11 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
 
 # SET(PROFILING 1)
-if(CMAKE_BUILD_TYPE STREQUAL Debug)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_definitions("-DDEBUG_BUILD")
+  set(CMAKE_INSTALL_DO_STRIP FALSE)
   message(STATUS "DEBUG available")
-endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 if(NOT WIN32 AND NOT APPLE)
   add_definitions("-Wall -Wno-unused -fexceptions -rdynamic -fvisibility=hidden")

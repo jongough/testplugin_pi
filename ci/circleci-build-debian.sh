@@ -18,7 +18,7 @@ tag=$(git tag --contains HEAD)
 if [ -n "$tag" ]; then
   cmake -DCMAKE_BUILD_TYPE=Release ..
 else
-  cmake -DCMAKE_BUILD_TYPE=Debug -DCPACK_STRIP_FILES="" ..
+  cmake -DCMAKE_BUILD_TYPE=Debug ..
 fi
 
 make -j2
