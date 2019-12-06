@@ -76,6 +76,7 @@ sudo sed -i -e "s|--version--|$VERSION|" $xml
 sudo sed -i -e "s|--filename--|$tarball_basename|" $xml
 
 cat $xml
+ls -l
 
 cloudsmith push raw --republish --no-wait-for-sync \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \

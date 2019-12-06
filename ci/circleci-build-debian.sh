@@ -22,8 +22,8 @@ else
 fi
 
 make -j2
-ls -l
 make package
+ls -l
 
 # install cloudsmith-cli, used in upload.
 sudo apt-get install python3-pip python3-setuptools
