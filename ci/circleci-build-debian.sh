@@ -20,8 +20,9 @@ if [ -n "$tag" ]; then
 else
   cmake -DCMAKE_BUILD_TYPE=Debug ..
 fi
+cat Makefile
 
-make -sj2 V=1
+make V=1
 make package
 
 # install cloudsmith-cli, used in upload.
