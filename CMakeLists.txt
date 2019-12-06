@@ -48,7 +48,7 @@ endif()
 set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
-set(XML_SUMMARY "Plugin to enable testing of and examples of the ODAPI and JSON interfaces for ODraw")
+set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
 set(APPVEYOR_TEST_DEPLOY_TO_CLOUDSMITH "true")
 
