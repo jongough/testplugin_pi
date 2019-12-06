@@ -21,7 +21,7 @@ else
   cmake -DCMAKE_BUILD_TYPE=Debug ..
 fi
 
-make -sj2
+make -sj2 VERBOSE=1
 make package
 
 # install cloudsmith-cli, used in upload.
