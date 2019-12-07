@@ -158,7 +158,7 @@ class tpControlDialogImpl;
 
 //#define PI 3.14159265
 
-class testplugin_pi : public opencpn_plugin_113
+class testplugin_pi : public opencpn_plugin_116
 {
 public:
 

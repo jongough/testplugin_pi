@@ -69,7 +69,8 @@ void tpicons::initialize_images(void)
 //    fn.AppendDir(wxT("testplugin_pi"));
 //#else
 //    fn.SetPath(*GetpSharedDataLocation());
-    fn.SetPath(GetPluginDataDir("testplugin_pi"));
+    const char *sPluginName = "testplugin_pi";
+    fn.SetPath(GetPluginDataDir(sPluginName));
 //    fn.AppendDir( wxT("plugins") );
 //    fn.AppendDir(wxT("testplugin_pi"));
     fn.AppendDir(wxT("data"));
@@ -95,7 +96,7 @@ void tpicons::initialize_images(void)
 #endif
 
     if(m_failedBitmapLoad) {
-        int ret = OCPNMessageBox_PlugIn( NULL, _("Failed to load all OCPN Draw Plugin icons, check OCPN log for details"), _("OpenCPN Alert"), wxOK );
+        int ret = OCPNMessageBox_PlugIn( NULL, _("Failed to load all testplugin_pi icons, check OCPN log for details"), _("OpenCPN Alert"), wxOK );
     } else {
         CreateSchemeIcons();
         ScaleIcons();
