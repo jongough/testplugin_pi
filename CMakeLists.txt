@@ -202,10 +202,6 @@ set(LIBHDRS
 option(TESTPLUGIN_USE_SVG "Use SVG graphics" ON)
 add_definitions(-DTESTPLUGIN_USE_SVG)
 
-add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
-
-add_definitions(-DTIXML_USE_STL)
-
 IF(APPLE)
     OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
 ELSE(APPLE)
@@ -241,6 +237,10 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
+
+add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
+
+add_definitions(-DTIXML_USE_STL)
 
 IF(UNIX AND NOT APPLE)
   IF(TP_JSON_SCHEMA_VALIDATOR)
