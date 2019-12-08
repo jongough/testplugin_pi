@@ -49,6 +49,10 @@ using nlohmann::json;
 using nlohmann::json_schema::json_validator;
 #endif
 
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+#include "ODJSONSchemas.h"
+#endif
+
 extern testplugin_pi        *g_testplugin_pi;
 extern ODAPI                *g_pODAPI;
 extern double               g_dVar;
@@ -57,10 +61,17 @@ extern wxJSONValue          g_ReceivedODAPIJSONMsg;
 extern wxString             g_ReceivedJSONMessage;
 extern wxJSONValue          g_ReceivedJSONJSONMsg;
 
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+    json_validator *gTPJSONMsgValidator;
+#endif
+
 tpJSON::tpJSON()
 {
     // ctor
     m_ffOutputFile = NULL;
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+    gTPJSONMsgValidator = NULL;
+#endif
 }
 
 tpJSON::~tpJSON()
@@ -73,6 +84,14 @@ tpJSON::~tpJSON()
         }
         delete m_ffOutputFile;
     }
+
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+    if(gTPJSONMsgValidator) {
+        delete gTPJSONMsgValidator;
+        gTPJSONMsgValidator = NULL;
+    }
+#endif
+
 }
 
 void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
@@ -131,8 +150,41 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             }
         }
     } else if(message_id == wxS("TESTPLUGIN_PI")) {
+
         // now read the JSON text and store it in the 'root' structure
         // check for errors before retreiving values...
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+        if(!gTPJSONMsgValidator) {
+            gTPJSONMsgValidator = new json_validator;
+            try {
+                DEBUGSL(jSchema);
+                gTPJSONMsgValidator->set_root_schema(jSchema);
+            } catch (const std::exception &e) {
+                DEBUGST("Validation of schema failed, here is why: ");
+                DEBUGEND(e.what());
+                wxString l_errorMsg;
+                l_errorMsg.Append("Validation of schema failed, here is why: ");
+                l_errorMsg.Append(e.what());
+                wxLogMessage( l_errorMsg );
+                bFail = true;
+            }
+        }
+        if(!bFail) {
+            try {
+                json message = json::parse(static_cast<const char*>(message_body));
+                gTPJSONMsgValidator->validate(message);
+            } catch (const std::exception &e) {
+                DEBUGST("Validation of message against schema failed, here is why: ");
+                DEBUGEND(e.what());
+                wxString l_errorMsg;
+                l_errorMsg.Append("Validation of message against schema failed, here is why: ");
+                l_errorMsg.Append(e.what());
+                wxLogMessage( l_errorMsg );
+                bFail = true;
+            }
+        }
+#endif
+
         int numErrors = reader.Parse( message_body, &root );
         if ( numErrors > 0 )  {
             const wxArrayString& errors = reader.GetErrors();
@@ -149,6 +201,8 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             }
             return;
         }
+
+#ifndef OD_JSON_SCHEMA_VALIDATOR
         if(!root.HasMember( wxS("Source"))) {
             // Originator
             wxLogMessage( wxS("No Source found in message") );
@@ -172,6 +226,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             wxLogMessage( wxS("No MsgId found in message") );
             bFail = true;
         }
+#endif
 
         if(!bFail && root[wxS("Msg")].AsString() == wxS("Version") && root[wxS("Type")].AsString() == wxS("Request")) {
             jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
