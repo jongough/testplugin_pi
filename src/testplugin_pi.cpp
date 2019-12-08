@@ -307,6 +307,8 @@ bool testplugin_pi::DeInit(void)
     if(m_tpControlDialogImpl)
     {
         m_tpControlDialogImpl->Close();
+        delete m_tpControlDialogImpl;
+        m_tpControlDialogImpl = NULL;
     }
     if(m_pTPConfig) SaveConfig();
 

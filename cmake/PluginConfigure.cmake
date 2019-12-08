@@ -38,6 +38,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_definitions("-DDEBUG_BUILD")
   set(CMAKE_INSTALL_DO_STRIP FALSE)
+  set(CPACK_DEBIAN_DEBUGINFO_PACKAGE YES)
   message(STATUS "DEBUG available")
 endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 

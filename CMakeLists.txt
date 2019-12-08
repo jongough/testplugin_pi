@@ -206,6 +206,33 @@ add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSR
 
 add_definitions(-DTIXML_USE_STL)
 
+IF(APPLE)
+    OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
+ELSE(APPLE)
+    OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
+ENDIF(APPLE)
+
+IF(TP_JSON_SCHEMA_VALIDATOR)
+    MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
+    ADD_DEFINITIONS(-DTP_JSON_SCHEMA_VALIDATOR)
+    MESSAGE(STATUS "Adding JSON Schema validation")
+
+    SET(EXTSRC
+        ${EXTSRC}
+        extsrc/json-schema-validator/json-schema-draft7.json.cpp
+        extsrc/json-schema-validator/json-uri.cpp
+        extsrc/json-schema-validator/json-validator.cpp
+    )
+    SET(EXTINCLUDE
+        ${EXTINCLUDE}
+        extinclude/nlohmann/json.hpp
+        extinclude/json-schema-validator/json-schema.hpp
+    )
+    INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+ELSE(TP_JSON_SCHEMA_VALIDATOR)
+    MESSAGE(STATUS "Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
+ENDIF(TP_JSON_SCHEMA_VALIDATOR)
+
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
@@ -214,6 +241,28 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
+
+IF(UNIX AND NOT APPLE)
+  IF(TP_JSON_SCHEMA_VALIDATOR)
+    # Change OS/ABI to be UNIX - System V to make it run with OCPN
+    SET(lib_name lib${PACKAGE_NAME}.so)
+    MESSAGE(STATUS "lib-name: ${lib_name}")
+    FIND_FILE(elfedit elfedit)
+    IF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+      MESSAGE(STATUS "Will ensure OS/ABI is set to 0 to match OCPN")
+      ADD_CUSTOM_COMMAND(
+        TARGET ${PACKAGE_NAME}
+        POST_BUILD
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        DEPENDS ${PACKAGE_NAME}
+        COMMENT " Running post build action on ${lib_name}."
+        COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) '
+      )
+    ELSE(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+      MESSAGE(STATUS "Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
+    ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+  ENDIF(TP_JSON_SCHEMA_VALIDATOR)
+ENDIF(UNIX AND NOT APPLE)
 
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
