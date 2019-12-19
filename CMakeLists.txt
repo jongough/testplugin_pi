@@ -2,6 +2,10 @@
 # Author:      jongough aka. Jon Gough Copyright: License:     wxWidgets License
 # ---------------------------------------------------------------------------
 
+##
+## ----- Modify this section to include all the details for your plugin ----- ##
+##
+
 # define minimum cmake version
 cmake_minimum_required(VERSION 3.1.1)
 if(COMMAND cmake_policy)
@@ -56,6 +60,14 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Prefer libGL.so to libOpenGL.so, see CMP0072
 set(OpenGL_GL_PREFERENCE "LEGACY")
+
+##
+## ----- End modify this section to include all the details for your plugin ----- ##
+##
+
+##
+## ----- Modify this section if there are special requirements for the plugin ----- ##
+##
 
 set(PACKAGE_NAME ${PACKAGE}_pi)
 set(PACKAGE_FILE_NAME "${PARENT}-plugin-${PACKAGE}")
@@ -154,9 +166,16 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
   endif()
 endif()
 
-# SET_DIRECTORY_PROPERTIES(dummy ADDITIONAL_MAKE_CLEAN_FILES ${PROJECT_SOURCE_DIR}/include/version.h)
+##
+## ----- Modify this section if there are special requirements for the plugin ----- ##
+##
+
 
 include("cmake/PluginConfigure.cmake")
+
+##
+## ----- Change below to match project requirements ----- ##
+##
 
 add_definitions(-DUSE_S57)
 
@@ -263,7 +282,9 @@ IF(UNIX AND NOT APPLE)
     ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
   ENDIF(TP_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
+## ----- Change above to match project requirements ----- ##
 
+## ----- do not change - needed to build app ----- ##
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
 include("cmake/PluginPackage.cmake")
