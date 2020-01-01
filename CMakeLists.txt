@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------
 
 ##
-## ----- Modify this section to include all the details for your plugin ----- ##
+## ----- Modify section below to include all the details for your plugin ----- ##
 ##
 
 # define minimum cmake version
@@ -39,6 +39,7 @@ set(VERBOSE_NAME "Testplugin")
 set(GIT_USER "jongough")
 set(GIT_REPOSITORY_NAME "testplugin_pi")
 message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
+# This if allows for setting up your own local webserver with git on it for testing purposes
 if($ENV{CIRCLECI})
   set(GIT_REPOSITORY_HOST "github.com")
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
@@ -49,12 +50,14 @@ else()
   set(GIT_REPOSITORY_DIR "")
   set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
 endif()
+
 set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
 set(APPVEYOR_TEST_DEPLOY_TO_CLOUDSMITH "true")
+option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -62,11 +65,11 @@ set(CMAKE_CXX_STANDARD 11)
 set(OpenGL_GL_PREFERENCE "LEGACY")
 
 ##
-## ----- End modify this section to include all the details for your plugin ----- ##
+## ----- Modify section above to include all the details for your plugin ----- ##
 ##
 
 ##
-## ----- Modify this section if there are special requirements for the plugin ----- ##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
 ##
 
 set(PACKAGE_NAME ${PACKAGE}_pi)
@@ -167,7 +170,7 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
 endif()
 
 ##
-## ----- Modify this section if there are special requirements for the plugin ----- ##
+## ----- Modify section above if there are special requirements for the plugin ----- ##
 ##
 
 
@@ -218,8 +221,8 @@ set(LIBHDRS
     libs/wx/include/jsonreader.h
     libs/wx/include/jsonval.h
     libs/wx/include/jsonwriter.h)
-option(TESTPLUGIN_USE_SVG "Use SVG graphics" ON)
-add_definitions(-DTESTPLUGIN_USE_SVG)
+
+add_definitions(-DPLUGIN_USE_SVG)
 
 IF(APPLE)
     OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
@@ -282,9 +285,15 @@ IF(UNIX AND NOT APPLE)
     ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
   ENDIF(TP_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
-## ----- Change above to match project requirements ----- ##
 
+##
+## ----- Change above to match project requirements ----- ##
+##
+
+##
 ## ----- do not change - needed to build app ----- ##
+##
+
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
 include("cmake/PluginPackage.cmake")
