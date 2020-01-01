@@ -69,9 +69,11 @@ void tpicons::initialize_images(void)
 //    fn.AppendDir(wxT("testplugin_pi"));
 //#else
 //    fn.SetPath(*GetpSharedDataLocation());
-    const char *sPluginName = "testplugin_pi";
-    fn.SetPath(GetPluginDataDir(sPluginName));
-//    fn.AppendDir( wxT("plugins") );
+    //const char *sPluginName = "testplugin_pi";
+    //fn.SetPath(GetPluginDataDir(sPluginName));
+    //const char *sPluginName = "testplugin_pi";
+    fn.SetPath(GetPluginDataDir("testplugin_pi"));
+    //    fn.AppendDir( wxT("plugins") );
 //    fn.AppendDir(wxT("testplugin_pi"));
     fn.AppendDir(wxT("data"));
     g_SData_Locn = new wxString(fn.GetFullPath().c_str());
@@ -81,7 +83,7 @@ void tpicons::initialize_images(void)
 
     m_failedBitmapLoad = false;
 
-#ifdef TESTPLUGIN_USE_SVG
+#ifdef PLUGIN_USE_SVG
     fn.SetFullName(wxT("testplugin.svg"));
     m_s_testplugin_pi = fn.GetFullPath();
     m_bm_testplugin_pi = LoadSVG( fn.GetFullPath() );
@@ -103,7 +105,7 @@ void tpicons::initialize_images(void)
     }
 }
 
-#ifdef TESTPLUGIN_USE_SVG
+#ifdef PLUGIN_USE_SVG
 wxBitmap tpicons::LoadSVG( const wxString filename, unsigned int width, unsigned int height )
 {
     wxBitmap l__Bitmap = GetBitmapFromSVGFile(filename , width, height);
@@ -126,7 +128,7 @@ wxBitmap tpicons::ScaleIcon( wxBitmap bitmap, const wxString filename, double sf
         return svgbm;
     return wxBitmap(32 * sf, 32 * sf); //scalled default blank bitmap
 }
-#endif // TESTPLUGIN_USE_SVG
+#endif // PLUGIN_USE_SVG
 
 wxBitmap *tpicons::ScaleIcon( wxBitmap bitmap, double sf )
 {
@@ -139,14 +141,14 @@ bool tpicons::ScaleIcons()
     if(!SetScaleFactor()) return false;
 
 
-#ifdef TESTPLUGIN_USE_SVG
+#ifdef PLUGIN_USE_SVG
 
     // Dont scale the OD manager as that should be done by the OCPN toolbar
     //m_bm_testplugin_pi = ScaleIcon( m_p_svgd_testplugin_pi, m_p_img_testplugin_pi, m_dScaleFactor );
     //m_bm_testplugin_grey_pi = ScaleIcon( m_p_svgd_testplugin_grey_pi, m_p_img_testplugin_grey_pi, m_dScaleFactor );
 
 #else
-#endif // TESTPLUGIN_USE_SVG
+#endif // PLUGIN_USE_SVG
 
     CreateSchemeIcons();
 

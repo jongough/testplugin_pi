@@ -247,7 +247,7 @@ int testplugin_pi::Init(void)
     g_ptpJSON = new tpJSON;
 
 
-#ifdef TESTPLUGIN_USE_SVG
+#ifdef PLUGIN_USE_SVG
     m_testplugin_button_id  = InsertPlugInToolSVG(_("Test Plugin"), m_ptpicons->m_s_testplugin_grey_pi, m_ptpicons->m_s_testplugin_pi, m_ptpicons->m_s_testplugin_toggled_pi, wxITEM_CHECK,
                                                   _("Test Plugin"), wxS(""), NULL, testplugin_POSITION, 0, this);
 #else
