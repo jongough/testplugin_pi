@@ -337,7 +337,7 @@ int testplugin_pi::GetPlugInVersionMinor()
 
 wxString testplugin_pi::GetCommonName()
 {
-    return _(PLUGIN_COMMON_NAME);
+    return _T(PLUGIN_COMMON_NAME);
 }
 
 wxString testplugin_pi::GetShortDescription()
