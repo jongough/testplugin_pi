@@ -28,8 +28,8 @@
  */
 
 
-#ifndef __ODDC_H__
-#define __ODDC_H__
+#ifndef __TPDC_H__
+#define __TPDC_H__
 
 #include <vector>
 
@@ -52,19 +52,19 @@
 void DrawGLThickLine( float x1, float y1, float x2, float y2, wxPen pen, bool b_hiqual );
 
 //----------------------------------------------------------------------------
-// ODDC
+// TPDC
 //----------------------------------------------------------------------------
 
 class wxGLCanvas;
 
-class DECL_EXP ODDC
+class DECL_EXP TPDC
 {
 public:
-     ODDC(wxGLCanvas &canvas);
-     ODDC(wxDC &pdc);
-     ODDC();
+     TPDC(wxGLCanvas &canvas);
+     TPDC(wxDC &pdc);
+     TPDC();
 
-     ~ODDC();
+     ~TPDC();
 
      void SetBackground( const wxBrush &brush );
      void SetPen( const wxPen &pen);

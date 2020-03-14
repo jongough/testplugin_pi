@@ -80,7 +80,7 @@ int         g_iTextureWidth;
 
 //----------------------------------------------------------------------------
 /* pass the dc to the constructor, or NULL to use opengl */
-ODDC::ODDC( wxGLCanvas &canvas ) :
+TPDC::TPDC( wxGLCanvas &canvas ) :
         glcanvas( &canvas ), dc( NULL ), m_pen( wxNullPen ), m_brush( wxNullBrush )
 {
 #if wxUSE_GRAPHICS_CONTEXT
@@ -92,7 +92,7 @@ ODDC::ODDC( wxGLCanvas &canvas ) :
 #endif
 }
 
-ODDC::ODDC( wxDC &pdc ) :
+TPDC::TPDC( wxDC &pdc ) :
         glcanvas( NULL ), dc( &pdc ), m_pen( wxNullPen ), m_brush( wxNullBrush )
 {
 #if wxUSE_GRAPHICS_CONTEXT
@@ -109,7 +109,7 @@ ODDC::ODDC( wxDC &pdc ) :
 
 }
 
-ODDC::ODDC() :
+TPDC::TPDC() :
         glcanvas( NULL ), dc( NULL ), m_pen( wxNullPen ), m_brush( wxNullBrush )
 {
 #if wxUSE_GRAPHICS_CONTEXT
@@ -118,14 +118,14 @@ ODDC::ODDC() :
     g_bTexture2D = false;
 }
 
-ODDC::~ODDC()
+TPDC::~TPDC()
 {
 #if wxUSE_GRAPHICS_CONTEXT
     if( pgc ) delete pgc;
 #endif
 }
 
-void ODDC::Clear()
+void TPDC::Clear()
 {
     if( dc ) dc->Clear();
     else {
@@ -140,7 +140,7 @@ void ODDC::Clear()
     }
 }
 
-void ODDC::SetBackground( const wxBrush &brush )
+void TPDC::SetBackground( const wxBrush &brush )
 {
     if( dc )
         dc->SetBackground( brush );
@@ -151,7 +151,7 @@ void ODDC::SetBackground( const wxBrush &brush )
     }
 }
 
-void ODDC::SetGLAttrs( bool highQuality )
+void TPDC::SetGLAttrs( bool highQuality )
 {
 #ifdef ocpnUSE_GL
 
@@ -169,7 +169,7 @@ void ODDC::SetGLAttrs( bool highQuality )
 #endif
 }
 
-void ODDC::SetPen( const wxPen &pen )
+void TPDC::SetPen( const wxPen &pen )
 {
     if( dc ) {
         if( pen == wxNullPen ) dc->SetPen( *wxTRANSPARENT_PEN );
@@ -179,46 +179,46 @@ void ODDC::SetPen( const wxPen &pen )
         m_pen = pen;
 }
 
-void ODDC::SetBrush( const wxBrush &brush )
+void TPDC::SetBrush( const wxBrush &brush )
 {
     if( dc ) dc->SetBrush( brush );
     else
         m_brush = brush;
 }
 
-void ODDC::SetTextForeground( const wxColour &colour )
+void TPDC::SetTextForeground( const wxColour &colour )
 {
     if( dc ) dc->SetTextForeground( colour );
     else
         m_textforegroundcolour = colour;
 }
 
-void ODDC::SetFont( const wxFont& font )
+void TPDC::SetFont( const wxFont& font )
 {
     if( dc ) dc->SetFont( font );
     else
         m_font = font;
 }
 
-const wxPen& ODDC::GetPen() const
+const wxPen& TPDC::GetPen() const
 {
     if( dc ) return dc->GetPen();
     return m_pen;
 }
 
-const wxBrush& ODDC::GetBrush() const
+const wxBrush& TPDC::GetBrush() const
 {
     if( dc ) return dc->GetBrush();
     return m_brush;
 }
 
-const wxFont& ODDC::GetFont() const
+const wxFont& TPDC::GetFont() const
 {
     if( dc ) return dc->GetFont();
     return m_font;
 }
 
-void ODDC::GetSize( wxCoord *width, wxCoord *height ) const
+void TPDC::GetSize( wxCoord *width, wxCoord *height ) const
 {
     if( dc )
         dc->GetSize( width, height );
@@ -229,7 +229,7 @@ void ODDC::GetSize( wxCoord *width, wxCoord *height ) const
     }
 }
 
-void ODDC::SetGLStipple() const
+void TPDC::SetGLStipple() const
 {
 #ifdef ocpnUSE_GL
 
@@ -360,7 +360,7 @@ void DrawGLThickLine( float x1, float y1, float x2, float y2, wxPen pen, bool b_
 #endif
 }
 
-void ODDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqual )
+void TPDC::DrawLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqual )
 {
     if( dc )
         dc->DrawLine( x1, y1, x2, y2 );
@@ -555,7 +555,7 @@ void DrawGLThickLines( int n, wxPoint points[],wxCoord xoffset,
  #endif
  }
 
-void ODDC::DrawLines( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, bool b_hiqual )
+void TPDC::DrawLines( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, bool b_hiqual )
 {
     if( dc )
         dc->DrawLines( n, points, xoffset, yoffset );
@@ -609,7 +609,7 @@ void ODDC::DrawLines( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset,
 #endif
 }
 
-void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqual )
+void TPDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, bool b_hiqual )
 {
     if( dc )
         dc->DrawArc( x1, y1, x2, y2, xc, yc );
@@ -703,7 +703,7 @@ void ODDC::DrawArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, 
     }
     #endif
 }
-void ODDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, wxCoord x3, wxCoord y3, wxCoord x4, wxCoord y4 )
+void TPDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, wxCoord x3, wxCoord y3, wxCoord x4, wxCoord y4 )
 {
     if( dc ) {
         double y1yc, x1xc, y4yc, x4xc;
@@ -753,7 +753,7 @@ void ODDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x
 #endif
 }
 
-void ODDC::StrokeLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2 )
+void TPDC::StrokeLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2 )
 {
 #if wxUSE_GRAPHICS_CONTEXT
     if( pgc ) {
@@ -767,7 +767,7 @@ void ODDC::StrokeLine( wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2 )
         DrawLine( x1, y1, x2, y2, true );
 }
 
-void ODDC::StrokeLines( int n, wxPoint *points) {
+void TPDC::StrokeLines( int n, wxPoint *points) {
     if(n < 2) /* optimization and also to avoid assertion in pgc->StrokeLines */
         return;
 
@@ -786,7 +786,7 @@ void ODDC::StrokeLines( int n, wxPoint *points) {
         DrawLines( n, points, 0, 0, true );
 }
 
-void ODDC::StrokeArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2 )
+void TPDC::StrokeArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2 )
 {
     #if wxUSE_GRAPHICS_CONTEXT
     if( pgc ) {
@@ -808,7 +808,7 @@ void ODDC::StrokeArc( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2
         DrawArc( xc, yc, x1, y1, x2, y2, true );
 }
 
-void ODDC::StrokeSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, wxCoord x3, wxCoord y3, wxCoord x4, wxCoord y4  )
+void TPDC::StrokeSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x2, wxCoord y2, wxCoord x3, wxCoord y3, wxCoord x4, wxCoord y4  )
 {
 #if wxUSE_GRAPHICS_CONTEXT
     if( pgc ) {
@@ -845,7 +845,7 @@ void ODDC::StrokeSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord
         DrawSector( xc, yc, x1, y1, x2, y2, x3, y3, x4, y4 );
 }
 
-void ODDC::DrawRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h )
+void TPDC::DrawRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h )
 {
     if( dc )
         dc->DrawRectangle( x, y, w, h );
@@ -894,7 +894,7 @@ static void drawrrhelper( wxCoord x0, wxCoord y0, wxCoord r, int quadrant, int s
 #endif
 }
 
-void ODDC::DrawRoundedRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h, wxCoord r )
+void TPDC::DrawRoundedRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h, wxCoord r )
 {
     if( dc )
         dc->DrawRoundedRectangle( x, y, w, h, r );
@@ -926,12 +926,12 @@ void ODDC::DrawRoundedRectangle( wxCoord x, wxCoord y, wxCoord w, wxCoord h, wxC
 #endif
 }
 
-void ODDC::DrawCircle( wxCoord x, wxCoord y, wxCoord radius )
+void TPDC::DrawCircle( wxCoord x, wxCoord y, wxCoord radius )
 {
     DrawEllipse( x - radius, y - radius, 2 * radius, 2 * radius );
 }
 
-void ODDC::DrawDisk( wxCoord x, wxCoord y, wxCoord innerRadius, wxCoord outerRadius )
+void TPDC::DrawDisk( wxCoord x, wxCoord y, wxCoord innerRadius, wxCoord outerRadius )
 {
     if( dc ) {
         wxGraphicsContext *wxGC = NULL;
@@ -979,7 +979,7 @@ void ODDC::DrawDisk( wxCoord x, wxCoord y, wxCoord innerRadius, wxCoord outerRad
 #endif
 }
 
-void ODDC::StrokeCircle( wxCoord x, wxCoord y, wxCoord radius )
+void TPDC::StrokeCircle( wxCoord x, wxCoord y, wxCoord radius )
 {
 #if wxUSE_GRAPHICS_CONTEXT
     if( pgc ) {
@@ -998,7 +998,7 @@ void ODDC::StrokeCircle( wxCoord x, wxCoord y, wxCoord radius )
         DrawCircle( x, y, radius );
 }
 
-void ODDC::DrawEllipse( wxCoord x, wxCoord y, wxCoord width, wxCoord height )
+void TPDC::DrawEllipse( wxCoord x, wxCoord y, wxCoord width, wxCoord height )
 {
     if( dc )
         dc->DrawEllipse( x, y, width, height );
@@ -1035,7 +1035,7 @@ void ODDC::DrawEllipse( wxCoord x, wxCoord y, wxCoord width, wxCoord height )
 #endif
 }
 
-void ODDC::DrawPolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, float scale )
+void TPDC::DrawPolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, float scale )
 {
     if( dc )
         dc->DrawPolygon( n, points, xoffset, yoffset );
@@ -1077,7 +1077,7 @@ typedef union {
     } info;
 } GLvertex;
 
-void __CALL_CONVENTION ODDCcombineCallback(GLdouble coords[3], GLdouble *vertex_data[4], GLfloat weight[4], GLdouble **dataOut)
+void __CALL_CONVENTION TPDCcombineCallback(GLdouble coords[3], GLdouble *vertex_data[4], GLfloat weight[4], GLdouble **dataOut)
 {
     GLvertex *vertex;
 
@@ -1095,7 +1095,7 @@ void __CALL_CONVENTION ODDCcombineCallback(GLdouble coords[3], GLdouble *vertex_
     *dataOut = &(vertex->data[0]);
 }
 
-void __CALL_CONVENTION ODDCvertexCallback(GLvoid* arg)
+void __CALL_CONVENTION TPDCvertexCallback(GLvoid* arg)
 {
     GLvertex* vertex;
     vertex = (GLvertex*) arg;
@@ -1103,25 +1103,25 @@ void __CALL_CONVENTION ODDCvertexCallback(GLvoid* arg)
     glVertex2d( vertex->info.x, vertex->info.y );
 }
 
-void __CALL_CONVENTION ODDCerrorCallback(GLenum errorCode)
+void __CALL_CONVENTION TPDCerrorCallback(GLenum errorCode)
 {
    const GLubyte *estring;
    estring = gluErrorString(errorCode);
    wxLogMessage( wxT("OpenGL Tessellation Error: %s"), (char *)estring );
 }
 
-void __CALL_CONVENTION ODDCbeginCallback(GLenum type)
+void __CALL_CONVENTION TPDCbeginCallback(GLenum type)
 {
     glBegin( type );
 }
 
-void __CALL_CONVENTION ODDCendCallback()
+void __CALL_CONVENTION TPDCendCallback()
 {
     glEnd();
 }
 #endif          //#ifdef ocpnUSE_GL
 
-void ODDC::DrawPolygonTessellated( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset )
+void TPDC::DrawPolygonTessellated( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset )
 {
     if( dc )
         dc->DrawPolygon( n, points, xoffset, yoffset );
@@ -1130,11 +1130,11 @@ void ODDC::DrawPolygonTessellated( int n, wxPoint points[], wxCoord xoffset, wxC
 
         GLUtesselator *tobj = gluNewTess();
 
-        gluTessCallback( tobj, GLU_TESS_VERTEX, (_GLUfuncptr) &ODDCvertexCallback );
-        gluTessCallback( tobj, GLU_TESS_BEGIN, (_GLUfuncptr) &ODDCbeginCallback );
-        gluTessCallback( tobj, GLU_TESS_END, (_GLUfuncptr) &ODDCendCallback );
-        gluTessCallback( tobj, GLU_TESS_COMBINE, (_GLUfuncptr) &ODDCcombineCallback );
-        gluTessCallback( tobj, GLU_TESS_ERROR, (_GLUfuncptr) &ODDCerrorCallback );
+        gluTessCallback( tobj, GLU_TESS_VERTEX, (_GLUfuncptr) &TPDCvertexCallback );
+        gluTessCallback( tobj, GLU_TESS_BEGIN, (_GLUfuncptr) &TPDCbeginCallback );
+        gluTessCallback( tobj, GLU_TESS_END, (_GLUfuncptr) &TPDCendCallback );
+        gluTessCallback( tobj, GLU_TESS_COMBINE, (_GLUfuncptr) &TPDCcombineCallback );
+        gluTessCallback( tobj, GLU_TESS_ERROR, (_GLUfuncptr) &TPDCerrorCallback );
 
         gluTessNormal( tobj, 0, 0, 1);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
@@ -1173,7 +1173,7 @@ void ODDC::DrawPolygonTessellated( int n, wxPoint points[], wxCoord xoffset, wxC
 #endif
 }
 
-void ODDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCoord xoffset, wxCoord yoffset )
+void TPDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCoord xoffset, wxCoord yoffset )
 {
     if( dc ) {
         int prev = 0;
@@ -1186,11 +1186,11 @@ void ODDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCo
     else {
         GLUtesselator *tobj = gluNewTess();
 
-        gluTessCallback( tobj, GLU_TESS_VERTEX, (_GLUfuncptr) &ODDCvertexCallback );
-        gluTessCallback( tobj, GLU_TESS_BEGIN, (_GLUfuncptr) &ODDCbeginCallback );
-        gluTessCallback( tobj, GLU_TESS_END, (_GLUfuncptr) &ODDCendCallback );
-        gluTessCallback( tobj, GLU_TESS_COMBINE, (_GLUfuncptr) &ODDCcombineCallback );
-        gluTessCallback( tobj, GLU_TESS_ERROR, (_GLUfuncptr) &ODDCerrorCallback );
+        gluTessCallback( tobj, GLU_TESS_VERTEX, (_GLUfuncptr) &TPDCvertexCallback );
+        gluTessCallback( tobj, GLU_TESS_BEGIN, (_GLUfuncptr) &TPDCbeginCallback );
+        gluTessCallback( tobj, GLU_TESS_END, (_GLUfuncptr) &TPDCendCallback );
+        gluTessCallback( tobj, GLU_TESS_COMBINE, (_GLUfuncptr) &TPDCcombineCallback );
+        gluTessCallback( tobj, GLU_TESS_ERROR, (_GLUfuncptr) &TPDCerrorCallback );
 
         gluTessNormal( tobj, 0, 0, 1);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
@@ -1233,7 +1233,7 @@ void ODDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCo
     #endif
 }
 
-void ODDC::StrokePolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, float scale )
+void TPDC::StrokePolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoffset, float scale )
 {
 #if wxUSE_GRAPHICS_CONTEXT
     if( pgc ) {
@@ -1254,7 +1254,7 @@ void ODDC::StrokePolygon( int n, wxPoint points[], wxCoord xoffset, wxCoord yoff
         DrawPolygon( n, points, xoffset, yoffset, scale );
 }
 
-void ODDC::DrawBitmap( const wxBitmap &bitmap, wxCoord x, wxCoord y, bool usemask )
+void TPDC::DrawBitmap( const wxBitmap &bitmap, wxCoord x, wxCoord y, bool usemask )
 {
 #ifdef ocpnUSE_GLES  // Do not attempt to do anything with glDrawPixels if using opengles
         return;
@@ -1323,7 +1323,7 @@ void ODDC::DrawBitmap( const wxBitmap &bitmap, wxCoord x, wxCoord y, bool usemas
 #endif
 }
 
-void ODDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
+void TPDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
 {
     if( dc )
         dc->DrawText( text, x, y );
@@ -1408,7 +1408,7 @@ void ODDC::DrawText( const wxString &text, wxCoord x, wxCoord y )
 #endif
 }
 
-void ODDC::GetTextExtent( const wxString &string, wxCoord *w, wxCoord *h, wxCoord *descent,
+void TPDC::GetTextExtent( const wxString &string, wxCoord *w, wxCoord *h, wxCoord *descent,
         wxCoord *externalLeading, wxFont *font ) const
 {
     //  Give at least reasonable results on failure.
@@ -1431,17 +1431,17 @@ void ODDC::GetTextExtent( const wxString &string, wxCoord *w, wxCoord *h, wxCoor
      if( h && (*h > 500) ) *h = 500;
 }
 
-void ODDC::ResetBoundingBox()
+void TPDC::ResetBoundingBox()
 {
     if( dc ) dc->ResetBoundingBox();
 }
 
-void ODDC::CalcBoundingBox( wxCoord x, wxCoord y )
+void TPDC::CalcBoundingBox( wxCoord x, wxCoord y )
 {
     if( dc ) dc->CalcBoundingBox( x, y );
 }
 
-bool ODDC::ConfigurePen()
+bool TPDC::ConfigurePen()
 {
     wxColour c = wxNullColour;
     int width = 0;
@@ -1461,7 +1461,7 @@ bool ODDC::ConfigurePen()
     return true;
 }
 
-bool ODDC::ConfigureBrush()
+bool TPDC::ConfigureBrush()
 {
     if( m_brush == wxNullBrush || m_brush.GetStyle() == wxBRUSHSTYLE_TRANSPARENT )
         return false;
@@ -1472,7 +1472,7 @@ bool ODDC::ConfigureBrush()
     return true;
 }
 
-void ODDC::GLDrawBlendData( wxCoord x, wxCoord y, wxCoord w, wxCoord h, int format,
+void TPDC::GLDrawBlendData( wxCoord x, wxCoord y, wxCoord w, wxCoord h, int format,
         const unsigned char *data )
 {
 #ifdef ocpnUSE_GL
@@ -1485,7 +1485,7 @@ void ODDC::GLDrawBlendData( wxCoord x, wxCoord y, wxCoord w, wxCoord h, int form
 #endif
 }
 
-void ODDC::SetTextureSize( int width, int height )
+void TPDC::SetTextureSize( int width, int height )
 {
     g_iTextureWidth = width;
     g_iTextureHeight = height;
