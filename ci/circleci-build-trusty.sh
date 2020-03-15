@@ -20,7 +20,8 @@ if [ -n "$BUILD_GTK3" ]; then
 fi
 
 if [ -n "$tag" ]; then
-  cmake -DCMAKE_BUILD_TYPE=Release ..
+#  cmake -DCMAKE_BUILD_TYPE=Release ..
+  cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 else
   cmake -DCMAKE_BUILD_TYPE=Debug ..
 fi
