@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Build the Debian artifacts
+# Build the Trusty Ubuntu artifacts
 #
 set -xe
 sudo apt-get -qq update
