@@ -4,7 +4,8 @@
 # Build the Trusty Ubuntu artifacts
 #
 set -xe
-sudo apt-get -qq update
+#sudo apt-get -qq update
+sudo apt-get -q update
 sudo apt-get install devscripts equivs
 
 rm -rf build && mkdir build && cd build
@@ -20,8 +21,7 @@ if [ -n "$BUILD_GTK3" ]; then
 fi
 
 if [ -n "$tag" ]; then
-#  cmake -DCMAKE_BUILD_TYPE=Release ..
-  cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+  cmake -DCMAKE_BUILD_TYPE=Release ..
 else
   cmake -DCMAKE_BUILD_TYPE=Debug ..
 fi
