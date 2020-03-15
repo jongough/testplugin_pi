@@ -4,9 +4,9 @@
 # Build the Trusty Ubuntu artifacts
 #
 set -xe
-#sudo apt-get -qq update
-sudo apt-get -q update
-sudo apt-get install devscripts equivs
+sudo apt-get -qq update
+sudo apt-get install devscripts
+sudo apt-get install equivs
 
 rm -rf build && mkdir build && cd build
 mk-build-deps ../ci/control
