@@ -144,13 +144,13 @@ jobs:
 workflows:
   version: 2
   build_all:
-    jobs:
-      - build-trusty:
-          filters:
-            branches:
-              ignore:
-                - devel
-                - tmp
+#    jobs:
+#      - build-trusty:
+#          filters:
+#            branches:
+#              ignore:
+#                - devel
+#                - tmp
 #      - build-xenial:
 #          filters:
 #            branches:
@@ -175,12 +175,12 @@ workflows:
 #             ignore:
 #               - devel
 #               - tmp
-#     - build-flatpak:
-#         filters:
-#           branches:
-#             ignore:
-#               - devel
-#               - tmp
+     - build-flatpak:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
 #     - build-fedora:
 #         filters:
 #           branches:
