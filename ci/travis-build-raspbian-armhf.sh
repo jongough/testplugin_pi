@@ -42,7 +42,7 @@ docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install git cmake build-essentia
 #    'mkdir source_top/build; cd source_top/build; cmake ..; make; make package;'
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -c \
-    'mkdir ci-source/build; cd ci-source/build; cmake ..; make; make package; chmod a+x circleci-upload.sh; ./circleci-upload.sh'
+    'mkdir ci-source/build; cd ci-source/build; cmake ..; make; make package;'
  
 echo "Stopping"
 docker ps -a
@@ -52,7 +52,6 @@ docker rm -v $DOCKER_CONTAINER_ID
 sudo apt-get install python3-pip python3-setuptools
 
 #  Upload to cloudsmith
-bash ../build/circleci-upload.sh
 exit
 STABLE_REPO=${OCPN_STABLE_REPO}
 UNSTABLE_REPO=${OCPN_UNSTABLE_REPO}

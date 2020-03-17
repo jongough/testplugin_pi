@@ -12,20 +12,21 @@ matrix:
     script:
     - chmod a+x ./ci/travis-build-raspbian-armhf.sh
     - "./ci/travis-build-raspbian-armhf.sh"
-  - env:
-    - OCPN_TARGET=buster-armhf
-    - OCPN_BRANCH=master
-#    - OCPN_STABLE_REPO=rick-gleason/opencpn-plugins-prod
-#    - OCPN_UNSTABLE_REPO=rick-gleason/opencpn-plugins-beta
-#    - OCPN_PKG_REPO=rick-gleason/opencpn-plugins-pkg
-    - DOCKER_IMAGE=raspbian/stretch
-    - DOCKER_IMAGE=opencpn/raspbian-buster:plugin_build_tooling
-    services:
-    - docker
-    script:
-    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
-    - "./ci/travis-build-raspbian-armhf.sh"
+#  - env:
+#    - OCPN_TARGET=buster-armhf
+#    - OCPN_BRANCH=master
+#    - DOCKER_IMAGE=raspbian/stretch
+#    - DOCKER_IMAGE=opencpn/raspbian-buster:plugin_build_tooling
+#    services:
+#    - docker
+#    script:
+#    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
+#    - "./ci/travis-build-raspbian-armhf.sh"
 branches:
   only:
     - update_for_gtk3
 #    - master
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: bash ./ci/circleci-upload.sh
