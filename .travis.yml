@@ -22,9 +22,9 @@ matrix:
 #    script:
 #    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
 #    - "./ci/travis-build-raspbian-armhf.sh"
-branches:
-  only:
-    - update_for_gtk3
+#branches:
+#  only:
+#    - update_for_gtk3
 #    - master
 deploy:
   provider: script
