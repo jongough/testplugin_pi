@@ -52,7 +52,8 @@ docker rm -v $DOCKER_CONTAINER_ID
 sudo apt-get install python3-pip python3-setuptools
 
 #  Upload to cloudsmith
-
+bash ../build/circleci-upload.sh
+exit
 STABLE_REPO=${OCPN_STABLE_REPO}
 UNSTABLE_REPO=${OCPN_UNSTABLE_REPO}
 
