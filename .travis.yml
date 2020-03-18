@@ -29,7 +29,7 @@ matrix:
 deploy:
   provider: script
   skip_cleanup: true
-  script: bash ./ci/circleci-upload.sh
+  script: bash ./ci/travis-upload.sh
   on:
     #repo: jongough/testplugin_pi
     tags: false

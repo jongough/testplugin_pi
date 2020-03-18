@@ -19,7 +19,7 @@ UNSTABLE_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_RE
 STABLE_PKG_REPO=${CLOUDSMITH_PKG_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-pkg'}
 PKG_EXT=${CLOUDSMITH_PKG_EXT:-'deb'}
 
-if [ -z "$CIRCLECI" ] ]; then
+if [ -z "$CIRCLECI" ] && [ -z "$TRAVIS" ]; then
     exit 0;
 fi
 
@@ -50,16 +50,16 @@ BUILD_ID=${CIRCLE_BUILD_NUM:-1}
 commit=$(git rev-parse --short=7 HEAD) || commit="unknown"
 tag=$(git tag --contains HEAD)
 
-xml=$(ls $HOME/project/build/*.xml)
+xml=$(ls $HOME/ci-source/build/*.xml)
 cat $xml
-tarball=$(ls $HOME/project/build/*.tar.gz)
+tarball=$(ls $HOME/ci-source/build/*.tar.gz)
 tarball_basename=${tarball##*/}
 
-source $HOME/project/build/pkg_version.sh
+source $HOME/ci-source/build/pkg_version.sh
 tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
-pkg=$(ls $HOME/project/build/*.${PKG_EXT})
+pkg=$(ls $HOME/ci-source/build/*.${PKG_EXT})
 
-source $HOME/project/build/pkg_version.sh
+source $HOME/ci-source/build/pkg_version.sh
 if [ -n "$tag" ]; then
     VERSION="$tag"
     REPO="$STABLE_REPO"
