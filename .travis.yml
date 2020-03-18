@@ -32,5 +32,5 @@ deploy:
   script: bash ./ci/circleci-upload.sh
   on:
     #repo: jongough/testplugin_pi
-    tags: true
+    tags: false
     all_branches: true
