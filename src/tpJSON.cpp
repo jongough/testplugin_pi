@@ -32,7 +32,7 @@
 #ifndef  WX_PRECOMP
 #include "wx/wx.h"
 #endif //precompiled headers
-#include <wx/jsonreader.h>
+#include "wx/jsonreader.h"
 #include "wx/jsonwriter.h"
 #include <wx/ffile.h>
 
@@ -43,10 +43,17 @@
 
 #include <stdio.h>
 
-#ifdef TP_JSON_SCHEMA_VALIDATOR 
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+#if defined(snprintf) && defined(_MSC_VER)
+    #undef snprintf
+#endif
 #include "json-schema.hpp"
 using nlohmann::json;
 using nlohmann::json_schema::json_validator;
+#endif
+
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+#include "ODJSONSchemas.h"
 #endif
 
 extern testplugin_pi        *g_testplugin_pi;
@@ -57,10 +64,17 @@ extern wxJSONValue          g_ReceivedODAPIJSONMsg;
 extern wxString             g_ReceivedJSONMessage;
 extern wxJSONValue          g_ReceivedJSONJSONMsg;
 
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+    json_validator *gTPJSONMsgValidator;
+#endif
+
 tpJSON::tpJSON()
 {
     // ctor
     m_ffOutputFile = NULL;
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+    gTPJSONMsgValidator = NULL;
+#endif
 }
 
 tpJSON::~tpJSON()
@@ -73,6 +87,14 @@ tpJSON::~tpJSON()
         }
         delete m_ffOutputFile;
     }
+
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+    if(gTPJSONMsgValidator) {
+        delete gTPJSONMsgValidator;
+        gTPJSONMsgValidator = NULL;
+    }
+#endif
+
 }
 
 void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
@@ -82,7 +104,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
     wxJSONValue     jMsg;
     wxJSONWriter    writer;
     wxString        MsgString;
-    
+
     wxString    sLogMessage;
     wxString    l_sType;
     wxString    l_sMsg;
@@ -99,7 +121,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
     int         l_BoundaryType;
     int         l_BoundaryState;
     bool        bFail = false;
-    
+
     if(g_testplugin_pi->m_bSaveIncommingJSONMessages) {
         if(!m_ffOutputFile) {
             wxString l_mode;
@@ -121,7 +143,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             delete m_ffOutputFile;
             m_ffOutputFile = NULL;
         }
-        
+
     }
     if(message_id != _T("TESTPLUGIN_PI")) {
         if(message_id == _T("OCPN_DRAW_PI_READY_FOR_REQUESTS")) {
@@ -129,10 +151,43 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
                 if(g_testplugin_pi->m_bReadyForRequests)
                     g_testplugin_pi->GetODAPI();
             }
-        } 
+        }
     } else if(message_id == wxS("TESTPLUGIN_PI")) {
+
         // now read the JSON text and store it in the 'root' structure
         // check for errors before retreiving values...
+#ifdef TP_JSON_SCHEMA_VALIDATOR
+        if(!gTPJSONMsgValidator) {
+            gTPJSONMsgValidator = new json_validator;
+            try {
+                DEBUGSL(jSchema);
+                gTPJSONMsgValidator->set_root_schema(jSchema);
+            } catch (const std::exception &e) {
+                DEBUGST("Validation of schema failed, here is why: ");
+                DEBUGEND(e.what());
+                wxString l_errorMsg;
+                l_errorMsg.Append("Validation of schema failed, here is why: ");
+                l_errorMsg.Append(e.what());
+                wxLogMessage( l_errorMsg );
+                bFail = true;
+            }
+        }
+        if(!bFail) {
+            try {
+                json message = json::parse(static_cast<const char*>(message_body));
+                gTPJSONMsgValidator->validate(message);
+            } catch (const std::exception &e) {
+                DEBUGST("Validation of message against schema failed, here is why: ");
+                DEBUGEND(e.what());
+                wxString l_errorMsg;
+                l_errorMsg.Append("Validation of message against schema failed, here is why: ");
+                l_errorMsg.Append(e.what());
+                wxLogMessage( l_errorMsg );
+                bFail = true;
+            }
+        }
+#endif
+
         int numErrors = reader.Parse( message_body, &root );
         if ( numErrors > 0 )  {
             const wxArrayString& errors = reader.GetErrors();
@@ -149,29 +204,32 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             }
             return;
         }
+
+#ifndef OD_JSON_SCHEMA_VALIDATOR
         if(!root.HasMember( wxS("Source"))) {
             // Originator
             wxLogMessage( wxS("No Source found in message") );
             bFail = true;
         }
-        
+
         if(!root.HasMember( wxS("Msg"))) {
             // Message identifier
             wxLogMessage( wxS("No Msg found in message") );
             bFail = true;
         }
-        
+
         if(!root.HasMember( wxS("Type"))) {
             // Message type, orig or resp
             wxLogMessage( wxS("No Type found in message") );
             bFail = true;
         }
-        
+
         if(!root.HasMember( wxS("MsgId"))) {
             // Unique (?) Msg number
             wxLogMessage( wxS("No MsgId found in message") );
             bFail = true;
         }
+#endif
 
         if(!bFail && root[wxS("Msg")].AsString() == wxS("Version") && root[wxS("Type")].AsString() == wxS("Request")) {
             jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
@@ -190,7 +248,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
         } else if(root[wxS("Msg")].AsString() == wxS("GetAPIAddresses") ) {
             g_ReceivedODAPIJSONMsg = root;
             g_ReceivedODAPIMessage = message_body;
-            
+
         } else if(!bFail && root[wxS("Msg")].AsString() == wxS("CreateBoundary") && root[wxS("Type")].AsString() == wxS("Response")) {
             g_ReceivedJSONJSONMsg = root;
             g_ReceivedJSONMessage = message_body;
@@ -198,14 +256,14 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             g_ReceivedJSONJSONMsg = root;
             g_ReceivedJSONMessage = message_body;
         }
-        
+
     } else if(message_id == _T("WMM_VARIATION_BOAT")) {
-        
+
         // construct the JSON root object
         wxJSONValue  root;
         // construct a JSON parser
         wxJSONReader reader;
-        
+
         // now read the JSON text and store it in the 'root' structure
         // check for errors before retreiving values...
         int numErrors = reader.Parse( message_body, &root );
@@ -213,16 +271,16 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             //              const wxArrayString& errors = reader.GetErrors();
             return;
         }
-        
+
         // get the DECL value from the JSON message
         wxString decl = root[_T("Decl")].AsString();
         double decl_val;
         decl.ToDouble(&decl_val);
-        
+
         g_dVar = decl_val;
     }
-    
-    
+
+
     return;
 }
 

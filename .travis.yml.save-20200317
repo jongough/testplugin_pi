@@ -1,0 +1,68 @@
+language: cpp
+matrix:
+  include:
+  - dist: trusty
+    compiler: gcc
+  - os: osx
+    compiler: clang
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; 
+    then 
+      sudo apt-get -qq update; 
+      sudo apt-get install libwxgtk3.0-dev libwxgtk3.0-0 libgps-dev libglu1-mesa-dev libgtk2.0-dev libbz2-dev libtinyxml-dev; 
+      sudo apt-get install libexpat1-dev libcairo2-dev; 
+      sudo apt-get install rpm; 
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
+    then 
+      brew install cairo libexif xz libarchive;
+      wget http://opencpn.navnux.org/build_deps/wx312_opencpn50_macos109.tar.xz; 
+      tar xJf wx312_opencpn50_macos109.tar.xz -C /tmp; 
+      export PATH="/usr/local/opt/gettext/bin:$PATH";
+      echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile; 
+      wget http://opencpn.navnux.org/build_deps/Packages.dmg;
+      hdiutil attach Packages.dmg; 
+      sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"; 
+    fi
+script:
+  - if [[ "${COVERITY_SCAN_BRANCH}" == 1 ]]; 
+    then 
+      echo "Don't build on coverty_scan branch."; 
+      exit 0; 
+  fi
+  - mkdir build && cd build
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; 
+    then 
+      cmake -DCMAKE_BUILD_TYPE=Release ../ && make -sj2 && sudo make package; 
+    fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
+      then 
+        cmake -DwxWidgets_CONFIG_EXECUTABLE=/tmp/wx312_opencpn50_macos109/bin/wx-config -DwxWidgets_CONFIG_OPTIONS="--prefix=/tmp/wx312_opencpn50_macos109" -DCMAKE_INSTALL_PREFIX=/tmp/opencpn -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 .. && make -sj2 && make create-pkg; 
+      fi
+    - ls -l;
+    notifications:
+    email: false
+    git:
+    depth: 10
+    before_install:
+    - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
+    - if [ "${#OAUTH_ACCESS_TOKEN}" != 0 ]; then (echo OAUTH_ACCESS_TOKEN=${OAUTH_ACCESS_TOKEN}
+    > ~/.dropbox_uploader); fi
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-6
+    - g++-6
+deploy:
+  provider: releases
+  api_key:
+    secure: "YaavJ/yYsfMfhCQRRoMaElb3c9vjOUupJe5ukihy/79dUPLOB2v9wClPMoLtSX1UAUrroeRFrwW/Z+qFtWp5VBJdKIcMXI9/K7XqVre6Y7IunKeZhGJfn7fZzQe7UXHxgRoWVVQXfEOpPWL9PME52DJWNuGrwU+8xPb6roMIn/XQzaddBFOV6N0IFoXQmZjgrVV4EsH/FEijtvWwvLnmLyKS/5SvlGIHcxrsMgNuXjvZICUPBUTFYtslwOxgYzCtYLg0nAL88gnjd1nyTvlgdBSarYbV+KLerIgrlg5r6XzRzB1A9b+bq4yX/HOKmMU6IrLAiBkBR+IyTQEUFpN/hWFFYb25zeUwuxGMxdPKIAUtFEW1pc50PMoFy0JqRoQjtccDXEF+bCjkleNPKvZP8G37ONUTHdH5mCefhjA5sy7AZSe/BpcDamu1a4PAw8FHCgo49A5Y59ma7Bg0MZh/FqoCWoF26cGC1+KIgP2uKmBJ0jtffs21g6/XKAPy16JnNGAIt2asdKUOUQQhnK/zJvxGsHLzGXqYdG7m9GSaY8AtCUT6Ly5J9Uw4eRGtda1HYKdN7KoSpPZrc7X4X12lsTkMlFJSXbqq8SF0QITymBntpazMAGRiI6SCvIaWWkJgJ3Q93JrRvpRrj706gaHgBlGvBUr7OC0mlK978abHrHE="
+  file_glob: true
+  file: "$TRAVIS_BUILD_DIR/build/*.{deb,rpm,dmg,txz,pkg,pkg.tar.xz}"
+  skip_cleanup: true
+  on:
+    #repo: jongough/testplugin_pi 
+    tags: true
+    all_branches: true

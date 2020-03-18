@@ -36,14 +36,14 @@
 #include "ODAPI.h"
 
 //    Constants for buttons
-    
-// forward class definition    
+
+// forward class definition
 class wxFontDialog;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class tpControlDialogImpl
 ///////////////////////////////////////////////////////////////////////////////
-class tpControlDialogImpl : public tpControlDialogDef 
+class tpControlDialogImpl : public tpControlDialogDef
 {
 	private:
         double  m_dBoundaryPointRangeRingSteps;
@@ -51,7 +51,7 @@ class tpControlDialogImpl : public tpControlDialogDef
         bool    m_bCreateBoundaryHasFocus;
         wxFontDialog  *m_pfdDialog;
         wxFont  m_DisplayTextFont;
-        
+
 	protected:
         // Handlers for ODNewODPointDialogDef events.
         void tpControlOnClickImportJSON( wxCommandEvent& event );
@@ -79,8 +79,8 @@ class tpControlDialogImpl : public tpControlDialogDef
         void OnCheckBoxCloseSaveFileAfterEachWrite( wxCommandEvent& event );
         void OnCheckBoxAppendToFile( wxCommandEvent& event );
         void OnCheckBoxDeleteFromConfig( wxCommandEvent& event );
-        
-        
+
+
 	public:
         tpControlDialogImpl( wxWindow *parent );
         void        SetDialogSize( void );
@@ -94,11 +94,11 @@ class tpControlDialogImpl : public tpControlDialogDef
         void        SetIncommingJSONMessages(bool IncommingJSONMessages);
         void        SetAppendToSaveFile(bool AppendToSaveFile);
         void        SetCloseFileAfterEachWrite(bool CloseFileAfterEachWrite);
-        
+
         bool m_bOK;
         int  m_iSelection;
-        
-	
+
+
 };
 
 #endif //__ODNEWODPOINTDIALOGIMPL_H__

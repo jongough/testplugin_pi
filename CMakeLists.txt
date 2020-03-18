@@ -1,110 +1,197 @@
-##---------------------------------------------------------------------------
-# Author:      jongough aka. Jon Gough
-## Copyright:
-## License:     wxWidgets License
-##---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Author:      jongough aka. Jon Gough Copyright: License:     wxWidgets License
+# ---------------------------------------------------------------------------
+
+##
+## ----- Modify section below to include all the details for your plugin ----- ##
+##
 
 # define minimum cmake version
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
-IF (COMMAND cmake_policy)
-    if (POLICY CMP0043)
-        CMAKE_POLICY(SET CMP0043 NEW)
-    endif (POLICY CMP0043)
-ENDIF (COMMAND cmake_policy)
+cmake_minimum_required(VERSION 3.1.1)
+if(COMMAND cmake_policy)
+  if(POLICY CMP0043)
+    cmake_policy(SET CMP0043 NEW)
+  endif(POLICY CMP0043)
+  cmake_policy(SET CMP0048 NEW)
+  if(POLICY CMP0077)
+    cmake_policy(SET CMP0077 NEW)
+  endif(POLICY CMP0077)
+endif(COMMAND cmake_policy)
 
-PROJECT(testplugin_pi)
+set(PACKAGE_NAME "testplugin_pi")
+set(VERBOSE_NAME "Testplugin")
+set(COMMON_NAME "testplugin")
+set(TITLE_NAME "testplugin")
+set(PACKAGE_CONTACT "Jon Gough")
 
-SET(PACKAGE_NAME testplugin_pi)
-SET(VERBOSE_NAME testplugin)
-SET(TITLE_NAME testplugin)
-SET(CPACK_PACKAGE_CONTACT "Jon Gough")
+set(VERSION_MAJOR "1")
+set(VERSION_MINOR "0")
+set(VERSION_PATCH "45")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "17/02/2020")
+set(OCPN_MIN_VERSION "ov50")
+set(OCPN_API_VERSION_MAJOR "1")
+set(OCPN_API_VERSION_MINOR "16")
+set(TP_COMMENT "  * Release for O5 using CI")
 
-SET(VERSION_MAJOR "1")
-SET(VERSION_MINOR "0")
-SET(VERSION_PATCH "30")
-SET(VERSION_DATE "27/06/2019")
-SET(OCPN_MIN_VERSION "ov50")
-SET(TP_COMMENT "  * Release for O5 using CI")
+set(PARENT "opencpn")
+set(PACKAGE "testplugin")
+set(GIT_USER "jongough")
+set(GIT_REPOSITORY_NAME "testplugin_pi")
+message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
+# This if allows for setting up your own local webserver with git on it for testing purposes
+if($ENV{CIRCLECI})
+  set(GIT_REPOSITORY_HOST "github.com")
+  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
+#  set(GIT_REPOSITORY_BRANCH "master")
+  set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
+else()
+  set(GIT_REPOSITORY_HOST "git.eclipse.com.au")
+  set(GIT_REPOSITORY_DIR "")
+  set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
+endif()
 
-SET(BUNDLE_DATA FALSE)
-SET( CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" )
-SET_PROPERTY( CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS None Debug Release RelWithDebInfo MinSizeRel )
+set(CLOUDSMITH_USER "jon-gough")
+set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
+set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
+set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
+set(APPVEYOR_TEST_DEPLOY_TO_CLOUDSMITH "true")
+option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
-MESSAGE (STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+set(CMAKE_CXX_STANDARD 11)
 
-SET(CMAKE_VERBOSE_MAKEFILE ON)
+# Prefer libGL.so to libOpenGL.so, see CMP0072
+set(OpenGL_GL_PREFERENCE "LEGACY")
 
-OPTION(OD_CXX11 "Use c++11" OFF)
+##
+## ----- Modify section above to include all the details for your plugin ----- ##
+##
 
-IF ( OD_CXX11 )
-    MESSAGE(STATUS "Attempting to use c++11")
-    include(CheckCXXCompilerFlag)
-    CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-    CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-    if(COMPILER_SUPPORTS_CXX11)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-        SET(Testplugin_USE_CXX11 ON)
-    elseif(COMPILER_SUPPORTS_CXX0X)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-        SET(Testplugin_USE_CXX11 ON)
+##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
+
+set(PACKAGE_NAME ${PACKAGE}_pi)
+set(PACKAGE_FILE_NAME "${PARENT}-plugin-${PACKAGE}")
+string(TOUPPER "${PACKAGE}" TITLE_NAME)
+
+project(${PACKAGE_NAME} VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK})
+
+set(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
+message(STATUS "${VERBOSE_NAME} Version: ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK}")
+message(STATUS "OPCN_FLATPAK: ${OCPN_FLATPAK}")
+
+# Don't use local version of GLU library
+set(USE_LOCAL_GLU FALSE)
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE
+      "Release"
+      CACHE STRING "Choose the type of build" FORCE)
+elseif("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE
+      "Release"
+      CACHE STRING "Choose the type of build")
+endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+
+set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION}-${OCPN_MIN_VERSION}-${OCPN_API_VERSION_MAJOR}.${OCPN_API_VERSION_MINOR})
+set(PKG_URL "https://dl.cloudsmith.io/public/--pkg_repo--/raw/names/--name--/versions/--version--/--filename--")
+
+include("cmake/PluginSetup.cmake")
+
+set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
+
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+option(OD_CXX11 "Use c++11" OFF)
+
+if(OD_CXX11)
+  message(STATUS "Attempting to use c++11")
+  include(CheckCXXCompilerFlag)
+  check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
+  check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+  if(COMPILER_SUPPORTS_CXX11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    set(Testplugin_USE_CXX11 ON)
+  elseif(COMPILER_SUPPORTS_CXX0X)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+    set(Testplugin_USE_CXX11 ON)
+  else()
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+    set(Testplugin_USE_CXX11 OFF)
+  endif()
+else()
+  set(Testplugin_USE_CXX11 OFF)
+endif()
+
+if(Testplugin_USE_CXX11)
+  message(STATUS "Allowing use of c++11")
+  add_definitions(-DTestplugin_USE_CXX11)
+endif()
+
+message(STATUS "CMAKE version: ${CMAKE_VERSION}")
+if(CMAKE_VERSION VERSION_GREATER 3.4)
+  set(ENABLE_CLANG_TIDY
+      OFF
+      CACHE BOOL "Add clang-tidy automatically to builds")
+  if(ENABLE_CLANG_TIDY)
+    find_program(
+      CLANG_TIDY_EXE
+      NAMES "clang-tidy"
+      PATHS /usr/local/opt/llvm/bin)
+    if(CLANG_TIDY_EXE)
+      message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+      # For more, see http://clang.llvm.org/extra/clang-tidy/ set(CLANG_TIDY_CHECKS "-*,modernize-*")
+      set(CLANG_TIDY_CHECKS "-*,performance-*")
+      set(CMAKE_CXX_CLANG_TIDY
+          "${CLANG_TIDY_EXE};-checks=${CLANG_TIDY_CHECKS};-header-filter='${CMAKE_SOURCE_DIR}/*'"
+          CACHE STRING "" FORCE)
     else()
-        message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
-        SET(Testplugin_USE_CXX11 OFF)
+      message(AUTHOR_WARNING "clang-tidy not found!")
+      set(CMAKE_CXX_CLANG_TIDY
+          ""
+          CACHE STRING "" FORCE) # delete it
     endif()
-ELSE()
-    SET(Testplugin_USE_CXX11 OFF)
-ENDIF()
-
-IF(Testplugin_USE_CXX11)
-    MESSAGE(STATUS "Allowing use of c++11")
-    ADD_DEFINITIONS(-DTestplugin_USE_CXX11)
-ENDIF()
-
-MESSAGE(STATUS "CMAKE version: ${CMAKE_VERSION}")
-if ( CMAKE_VERSION VERSION_GREATER 3.4 )
-    set(ENABLE_CLANG_TIDY OFF CACHE BOOL "Add clang-tidy automatically to builds")
-    if (ENABLE_CLANG_TIDY)
-        find_program (CLANG_TIDY_EXE NAMES "clang-tidy" PATHS /usr/local/opt/llvm/bin )
-        if (CLANG_TIDY_EXE)
-            message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
-            #For more, see http://clang.llvm.org/extra/clang-tidy/
-            #set(CLANG_TIDY_CHECKS "-*,modernize-*")
-            set(CLANG_TIDY_CHECKS "-*,performance-*")
-            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-checks=${CLANG_TIDY_CHECKS};-header-filter='${CMAKE_SOURCE_DIR}/*'"
-                CACHE STRING "" FORCE)
-        else()
-            message(AUTHOR_WARNING "clang-tidy not found!")
-            set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE) # delete it
-        endif()
-    endif()
+  endif()
 endif()
 
-if ( CMAKE_VERSION VERSION_GREATER 3.9 )
-    set(ENABLE_CPPCHECK OFF CACHE BOOL "Add cppcheck automatically to builds")
-    if (ENABLE_CPPCHECK)
-        find_program (CPPCHECK_EXECUTABLE NAMES "cppcheck" )
-        set(CMAKE_CXX_CPPCHECK ${CPPCHECK_EXECUTABLE})
-    endif()
+if(CMAKE_VERSION VERSION_GREATER 3.9)
+  set(ENABLE_CPPCHECK
+      OFF
+      CACHE BOOL "Add cppcheck automatically to builds")
+  if(ENABLE_CPPCHECK)
+    find_program(CPPCHECK_EXECUTABLE NAMES "cppcheck")
+    set(CMAKE_CXX_CPPCHECK ${CPPCHECK_EXECUTABLE})
+  endif()
 endif()
 
-#SET_DIRECTORY_PROPERTIES(dummy ADDITIONAL_MAKE_CLEAN_FILES ${PROJECT_SOURCE_DIR}/include/version.h)
-
-INCLUDE("cmake/PluginConfigure.cmake")
-
-ADD_DEFINITIONS(-DUSE_S57)
+##
+## ----- Modify section above if there are special requirements for the plugin ----- ##
+##
 
 
-SET(SRCS
+include("cmake/PluginConfigure.cmake")
+
+##
+## ----- Change below to match project requirements ----- ##
+##
+
+add_definitions(-DUSE_S57)
+
+set(SRCS
     src/tpdc.cpp
     src/tpControlDialogDef.cpp
     src/tpControlDialogImpl.cpp
     src/tpicons.cpp
     src/tpJSON.cpp
     src/testplugin_pi.cpp
-    src/tpUtils.cpp
-)
+    src/tpUtils.cpp)
 
-SET(HDRS
+set(HDRS
     include/testplugin_pi.h
     include/tpicons.h
     include/tpControlDialogDef.h
@@ -112,72 +199,101 @@ SET(HDRS
     include/tpIconCombo.h
     include/tpJSON.h
     include/tpdc.h
-    include/tpUtils.h
-)
+    include/tpUtils.h)
 
-SET(OCPNSRC 
-    ocpnsrc/wxJSON/jsonreader.cpp
-    ocpnsrc/wxJSON/jsonval.cpp
-    ocpnsrc/wxJSON/jsonwriter.cpp
-    ocpnsrc/TexFont.cpp
-)
-SET(OCPNHDRS
-    ocpninclude/ocpn_plugin.h
-    ocpninclude/pluginmanager.h
-    ocpninclude/TexFont.h
-    src/nmea0183/LatLong.hpp
-    src/nmea0183/nmea0183.h
-    src/nmea0183/nmea0183.hpp
-    src/nmea0183/Response.hpp
-    src/nmea0183/Sentence.hpp
-    ocpninclude/wx/json_defs.h
-    ocpninclude/wx/jsonreader.h
-    ocpninclude/wx/jsonval.h
-    ocpninclude/wx/jsonwriter.h
-)
+set(OCPNSRC ocpnsrc/TexFont.cpp)
+set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/TexFont.h)
 
-SET(EXTSRC 
-)
+set(EXTSRC)
 
-SET(EXTINCLUDE 
-    extinclude/ODAPI.h
-)
+set(EXTINCLUDE
+    extinclude/nlohmann/json.hpp
+    extinclude/ODAPI.h)
 
-OPTION(TESTPLUGIN_USE_SVG "Use SVG graphics" ON)
-ADD_DEFINITIONS(-DTESTPLUGIN_USE_SVG)
+set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
-IF(UNIX)
-    INCLUDE("cmake/FindTinyXML.cmake")
-    FIND_PACKAGE(TinyXML QUIET)
-ENDIF(UNIX)
+set(LIBHDRS
+    libs/GL/include/gl.h
+    libs/GL/include/gl_private.h
+    libs/GL/include/glext.h
+    libs/GL/include/glu.h
+    libs/wx/include/json_defs.h
+    libs/wx/include/jsonreader.h
+    libs/wx/include/jsonval.h
+    libs/wx/include/jsonwriter.h)
 
-IF(TINYXML_FOUND)
-    message (STATUS "Building with system tinyxml")
-    INCLUDE_DIRECTORIES(${TINYXML_INCLUDE_DIR})
-    ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC})
-    TARGET_LINK_LIBRARIES(${PACKAGE_NAME} ${TINYXML_LIBRARIES})
-ELSE(TINYXML_FOUND)
-    message (STATUS "Building with embedded tinyxml")
-    INCLUDE_DIRECTORIES(src/tinyxml/)
-    SET(SRC_LTINYXML
-        src/tinyxml/tinyxml.cpp
-        src/tinyxml/tinyxmlparser.cpp
-        src/tinyxml/tinyxmlerror.cpp
+add_definitions(-DPLUGIN_USE_SVG)
+
+IF(APPLE)
+    OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
+ELSE(APPLE)
+    OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
+ENDIF(APPLE)
+
+IF(TP_JSON_SCHEMA_VALIDATOR)
+    MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
+    ADD_DEFINITIONS(-DTP_JSON_SCHEMA_VALIDATOR)
+    MESSAGE(STATUS "Adding JSON Schema validation")
+
+    SET(EXTSRC
+        ${EXTSRC}
+        extsrc/json-schema-validator/json-schema-draft7.json.cpp
+        extsrc/json-schema-validator/json-uri.cpp
+        extsrc/json-schema-validator/json-validator.cpp
     )
-    ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${SRC_LTINYXML})
-ENDIF(TINYXML_FOUND)
+    SET(EXTINCLUDE
+        ${EXTINCLUDE}
+        extinclude/nlohmann/json.hpp
+        extinclude/json-schema-validator/json-schema.hpp
+    )
+    INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+ELSE(TP_JSON_SCHEMA_VALIDATOR)
+    MESSAGE(STATUS "Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
+ENDIF(TP_JSON_SCHEMA_VALIDATOR)
 
-ADD_DEFINITIONS(-DTIXML_USE_STL)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/src/mygdal  )
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
-INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/src/nmea0183)
+add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
-INCLUDE("cmake/PluginInstall.cmake")
-INCLUDE("cmake/PluginLocalization.cmake")
-INCLUDE("cmake/PluginPackage.cmake")
+add_definitions(-DTIXML_USE_STL)
+
+IF(UNIX AND NOT APPLE)
+  IF(TP_JSON_SCHEMA_VALIDATOR)
+    # Change OS/ABI to be UNIX - System V to make it run with OCPN
+    SET(lib_name lib${PACKAGE_NAME}.so)
+    MESSAGE(STATUS "lib-name: ${lib_name}")
+    FIND_FILE(elfedit elfedit)
+    IF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+      MESSAGE(STATUS "Will ensure OS/ABI is set to 0 to match OCPN")
+      ADD_CUSTOM_COMMAND(
+        TARGET ${PACKAGE_NAME}
+        POST_BUILD
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        DEPENDS ${PACKAGE_NAME}
+        COMMENT " Running post build action on ${lib_name}."
+        COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) '
+      )
+    ELSE(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+      MESSAGE(STATUS "Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
+    ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+  ENDIF(TP_JSON_SCHEMA_VALIDATOR)
+ENDIF(UNIX AND NOT APPLE)
+
+##
+## ----- Change above to match project requirements ----- ##
+##
+
+##
+## ----- do not change - needed to build app ----- ##
+##
+
+include("cmake/PluginInstall.cmake")
+include("cmake/PluginLocalization.cmake")
+include("cmake/PluginPackage.cmake")

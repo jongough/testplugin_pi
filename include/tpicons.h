@@ -1,5 +1,5 @@
 /***************************************************************************
- * 
+ *
  * Project:  OpenCPN
  * Purpose:  tpicons
  * Author:   Jon Gough
@@ -41,14 +41,14 @@ class tpicons
 public:
     tpicons();
     ~tpicons();
-    
+
     void    initialize_images(void);
     bool    ScaleIcons(void);
     wxSize  GetIconSize(void);
     bool    SetScaleFactor(void);
     void    SetColourScheme( PI_ColorScheme cs );
     void    ChangeScheme(void);
-    
+
     wxBitmap    m_bm_testplugin_pi;
     wxBitmap    m_bm_testplugin_toggled_pi;
     wxBitmap    m_bm_testplugin_grey_pi;
@@ -63,8 +63,8 @@ private:
     wxBitmap    *ScaleIcon( wxBitmap bitmap, double sf );
     void        CreateSchemeIcons(void);
     wxBitmap    BuildDimmedToolBitmap(wxBitmap bmp_normal, unsigned char dim_ratio);
-    
-#ifdef TESTPLUGIN_USE_SVG
+
+#ifdef PLUGIN_USE_SVG
     wxBitmap    LoadSVG( const wxString filename, unsigned int width = -1, unsigned int height = -1 );
     wxBitmap    ScaleIcon( wxBitmap bitmap, const wxString filename, double sf );
 #endif

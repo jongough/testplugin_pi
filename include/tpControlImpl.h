@@ -39,15 +39,15 @@ enum
 {
     ID_ODNEWPOINTDIALOGBUTTON_BOUNDARY = 0,
     ID_ODNEWPOINTDIALOGBUTTON_TEXT,
-    
+
     ID_ODNEWPOINTDIALOGBUTTON_LAST
 };
-    
+
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class NewODPoint
 ///////////////////////////////////////////////////////////////////////////////
-class ODNewODPointDialogImpl : public ODNewODPointDialogDef 
+class ODNewODPointDialogImpl : public ODNewODPointDialogDef
 {
 	private:
 
@@ -55,14 +55,14 @@ class ODNewODPointDialogImpl : public ODNewODPointDialogDef
         // Handlers for ODNewODPointDialogDef events.
         void OnOK( wxCommandEvent& event );
         void OnCancel( wxCommandEvent& event );
-        
+
 	public:
         ODNewODPointDialogImpl( wxWindow *parent );
-        
+
         bool m_bOK;
         int  m_iSelection;
-        
-	
+
+
 };
 
 #endif //__ODNEWODPOINTDIALOGIMPL_H__

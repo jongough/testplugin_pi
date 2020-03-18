@@ -1,5 +1,5 @@
 /******************************************************************************
- * 
+ *
  * Project:  OpenCPN
  *
  ***************************************************************************
@@ -48,7 +48,7 @@ tpicons::tpicons()
     m_dScaleFactor = 1.0;
     m_bUpdateIcons = false;
     m_ColourScheme = PI_GLOBAL_COLOR_SCHEME_RGB;
-    
+
     initialize_images();
 }
 
@@ -68,18 +68,22 @@ void tpicons::initialize_images(void)
 //    fn.AppendDir( wxT("plugins") );
 //    fn.AppendDir(wxT("testplugin_pi"));
 //#else
-    fn.SetPath(*GetpSharedDataLocation());
-    fn.AppendDir( wxT("plugins") );
-    fn.AppendDir(wxT("testplugin_pi"));
+//    fn.SetPath(*GetpSharedDataLocation());
+    //const char *sPluginName = "testplugin_pi";
+    //fn.SetPath(GetPluginDataDir(sPluginName));
+    //const char *sPluginName = "testplugin_pi";
+    fn.SetPath(GetPluginDataDir("testplugin_pi"));
+    //    fn.AppendDir( wxT("plugins") );
+//    fn.AppendDir(wxT("testplugin_pi"));
     fn.AppendDir(wxT("data"));
     g_SData_Locn = new wxString(fn.GetFullPath().c_str());
 //#endif
     wxString s = _("testplugin_pi data location");
     wxLogMessage( wxT("%s: %s"), s.c_str(), fn.GetFullPath().c_str());
-    
+
     m_failedBitmapLoad = false;
-    
-#ifdef TESTPLUGIN_USE_SVG
+
+#ifdef PLUGIN_USE_SVG
     fn.SetFullName(wxT("testplugin.svg"));
     m_s_testplugin_pi = fn.GetFullPath();
     m_bm_testplugin_pi = LoadSVG( fn.GetFullPath() );
@@ -92,23 +96,23 @@ void tpicons::initialize_images(void)
     #else
     m_failedBitmapLoad = true;
 #endif
-    
+
     if(m_failedBitmapLoad) {
-        int ret = OCPNMessageBox_PlugIn( NULL, _("Failed to load all OCPN Draw Plugin icons, check OCPN log for details"), _("OpenCPN Alert"), wxOK );
+        int ret = OCPNMessageBox_PlugIn( NULL, _("Failed to load all testplugin_pi icons, check OCPN log for details"), _("OpenCPN Alert"), wxOK );
     } else {
         CreateSchemeIcons();
         ScaleIcons();
     }
 }
 
-#ifdef TESTPLUGIN_USE_SVG
+#ifdef PLUGIN_USE_SVG
 wxBitmap tpicons::LoadSVG( const wxString filename, unsigned int width, unsigned int height )
 {
     wxBitmap l__Bitmap = GetBitmapFromSVGFile(filename , width, height);
     if(!l__Bitmap.IsOk()) {
         m_failedBitmapLoad = true;
     }
-    
+
     return l__Bitmap;
 }
 
@@ -118,13 +122,13 @@ wxBitmap tpicons::ScaleIcon( wxBitmap bitmap, const wxString filename, double sf
     int h = bitmap.GetHeight();
     w *= sf;
     h *= sf;
-    
+
     wxBitmap svgbm = GetBitmapFromSVGFile(filename, w, h);
     if(svgbm.GetWidth() > 0 && svgbm.GetHeight() > 0)
         return svgbm;
     return wxBitmap(32 * sf, 32 * sf); //scalled default blank bitmap
 }
-#endif // TESTPLUGIN_USE_SVG
+#endif // PLUGIN_USE_SVG
 
 wxBitmap *tpicons::ScaleIcon( wxBitmap bitmap, double sf )
 {
@@ -135,19 +139,19 @@ wxBitmap *tpicons::ScaleIcon( wxBitmap bitmap, double sf )
 bool tpicons::ScaleIcons()
 {
     if(!SetScaleFactor()) return false;
-    
 
-#ifdef TESTPLUGIN_USE_SVG
-    
+
+#ifdef PLUGIN_USE_SVG
+
     // Dont scale the OD manager as that should be done by the OCPN toolbar
     //m_bm_testplugin_pi = ScaleIcon( m_p_svgd_testplugin_pi, m_p_img_testplugin_pi, m_dScaleFactor );
     //m_bm_testplugin_grey_pi = ScaleIcon( m_p_svgd_testplugin_grey_pi, m_p_img_testplugin_grey_pi, m_dScaleFactor );
-    
+
 #else
-#endif // TESTPLUGIN_USE_SVG
-    
+#endif // PLUGIN_USE_SVG
+
     CreateSchemeIcons();
-    
+
     return true;
 }
 
@@ -199,24 +203,24 @@ void tpicons::CreateSchemeIcons()
     m_bm_night_testplugin_grey_pi = BuildDimmedToolBitmap(m_bm_testplugin_grey_pi, 32);
     m_bm_night_testplugin_pi = BuildDimmedToolBitmap(m_bm_testplugin_pi, 32);
     m_bm_night_testplugin_toggled_pi = BuildDimmedToolBitmap(m_bm_testplugin_toggled_pi, 32);
-    
+
 }
 
 wxBitmap tpicons::BuildDimmedToolBitmap(wxBitmap bmp_normal, unsigned char dim_ratio)
 {
     wxImage img_dup = bmp_normal.ConvertToImage();
-    
+
     if( !img_dup.IsOk() )
         return bmp_normal;
-   
+
     if(dim_ratio < 200)
     {
         //  Create a dimmed version of the image/bitmap
         int gimg_width = img_dup.GetWidth();
         int gimg_height = img_dup.GetHeight();
-        
+
         double factor = (double)(dim_ratio) / 256.0;
-        
+
         for(int iy=0 ; iy < gimg_height ; iy++)
         {
             for(int ix=0 ; ix < gimg_width ; ix++)
@@ -232,20 +236,20 @@ wxBitmap tpicons::BuildDimmedToolBitmap(wxBitmap bmp_normal, unsigned char dim_r
             }
         }
     }
-    
+
     //  Make a bitmap
     wxBitmap toolBarBitmap;
-    
+
 #ifdef __WXMSW__
     wxBitmap tbmp(img_dup.GetWidth(),img_dup.GetHeight(),-1);
     wxMemoryDC dwxdc;
     dwxdc.SelectObject(tbmp);
-    
+
     toolBarBitmap = wxBitmap(img_dup, (wxDC &)dwxdc);
 #else
     toolBarBitmap = wxBitmap(img_dup);
 #endif
-    
+
     // store it
     return toolBarBitmap;
 }

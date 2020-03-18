@@ -1,5 +1,5 @@
 /**************************************************************************
- * 
+ *
  * Project:  OpenCPN
  * Purpose:  Test Plugin Control Dialog
  * Author:   Jon Gough
@@ -38,7 +38,7 @@
 
 #include "ocpn_plugin.h"
 
-#if wxCHECK_VERSION(3,0,0) 
+#if wxCHECK_VERSION(3,0,0)
 #include <wx/valnum.h>
 #endif
 
@@ -60,13 +60,13 @@ tpControlDialogImpl::tpControlDialogImpl( wxWindow* parent ) : tpControlDialogDe
     wxFloatingPointValidator<double> dBoundaryPointRangeRingSteps(3, &m_dBoundaryPointRangeRingSteps, wxNUM_VAL_DEFAULT);
     dBoundaryPointRangeRingSteps.SetMin(0);
     m_textCtrlBoundaryPointRingStep->SetValidator( dBoundaryPointRangeRingSteps );
-    #endif // not defined __WXMSW__ 
+    #endif // not defined __WXMSW__
 #endif // wxCHECK_VERSION(3,0,0)
-    
+
     m_bCreateBoundaryHasFocus = FALSE;
     m_bCreateBoundaryPointHasFocus = FALSE;
     m_pfdDialog = NULL;
-    
+
     if(!g_testplugin_pi->m_bODCreateBoundary) m_buttonCreateBoundaryODAPI->Disable();
     if(!g_testplugin_pi->m_bODCreateBoundaryPoint) m_buttonCreateBoundaryPointODAPI->Disable();
     if(!g_testplugin_pi->m_bODCreateTextPoint) m_buttonCreateTextPointODAPI->Disable();
@@ -83,14 +83,14 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
     CreateBoundaryPoint_t *pCBP4 = new CreateBoundaryPoint_t;
     CreateBoundaryPoint_t *pCBP5 = new CreateBoundaryPoint_t;
     CreateBoundaryPoint_t *pCBP6 = new CreateBoundaryPoint_t;
-    
+
     if(m_textCtrlCornerLat->IsEmpty() || m_textCtrlCornerLon->IsEmpty()) {
         return;
     }
-    
+
     double l_lat;
     double l_lon;
-    
+
     CreateBoundary_t *pCB = new CreateBoundary_t;
     pCB->name = m_textCtrlBoundaryName->GetValue();
     pCB->type = m_choiceBoundaryType->GetSelection();
@@ -100,7 +100,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
     pCB->fillColour = m_colourPickerBoundaryFillColour->GetColour();
     pCB->temporary = false;
     //pCB->BoundaryPointsList.insert()
-    
+
     pCB->BoundaryPointsList.clear();
     pCBP->name = _T("Corner");
     pCBP->lat = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
@@ -275,7 +275,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
         pCBP5->ringscolour = m_colourPickerBoundaryLineColour->GetColour();
         pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP5);
     }
-    
+
     g_testplugin_pi->CreateBoundary(pCB);
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
@@ -285,7 +285,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
     delete pCBP4;
     delete pCBP5;
     delete pCBP6;
-    
+
     delete pCBP;
     delete pCB;
 }
@@ -303,21 +303,21 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event
     wxJSONWriter writer;
     wxJSONValue jMsg;
     wxString    MsgString;
-    
+
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("DeleteBoundary");
     srand((unsigned)time(0));
     int l_rand = (rand()%10000) + 1;
     jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-    
+
     jMsg[wxT("GUID")] = m_textCtrDeleteBoundaryGUID->GetValue();;
-    
+
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteBoundary")) {
     }
-    
+
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }
@@ -325,7 +325,7 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event
 void tpControlDialogImpl::OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event )
 {
     m_bOK = true;
-    
+
     CreateBoundaryPoint_t *pCBP = new CreateBoundaryPoint_t;
     pCBP->name = m_textCtrlBoundaryPointName->GetValue();
     pCBP->iconname = m_textCtrlBoundaryPointIconName->GetValue();
@@ -356,21 +356,21 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& 
     wxJSONWriter writer;
     wxJSONValue jMsg;
     wxString    MsgString;
-    
+
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("DeleteBoundaryPoint");
     srand((unsigned)time(0));
     int l_rand = (rand()%10000) + 1;
     jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-    
+
     jMsg[wxT("GUID")] = m_textCtrDeleteBoundaryPointGUID->GetValue();;
-    
+
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteBoundaryPoint")) {
     }
-    
+
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }
@@ -411,21 +411,21 @@ void tpControlDialogImpl::OnButtonClickDeleteTextPointJSON( wxCommandEvent& even
     wxJSONWriter writer;
     wxJSONValue jMsg;
     wxString    MsgString;
-    
+
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("DeleteTextPoint");
     srand((unsigned)time(0));
     int l_rand = (rand()%10000) + 1;
     jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-    
+
     jMsg[wxT("GUID")] = m_textCtrlDeleteTextPointGUID->GetValue();;
-    
+
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteTextPoint")) {
     }
-    
+
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }
@@ -435,11 +435,11 @@ void tpControlDialogImpl::OnButtonClickPointIconODAPI(wxCommandEvent& event)
     if(m_radioBoxPointIcon->GetSelection() == 0) {
         AddPointIcon_t *pAPI = new AddPointIcon_t;
         wxMemoryInputStream sm("\211PNG\r\n\032\n\000\000\000\rIHDR\000\000\000 \000\000\000%\b\006\000\000\000#\267\353G\000\000\000\001sRGB\000\256\316\034\351\000\000\000\006bKGD\000\377\000\377\000\377\240\275\247\223\000\000\000\011pHYs\000\000\013\023\000\000\013\023\001\000\232\234\030\000\000\000\atIME\a\335\006\033\003\026\bz)\003\323\000\000\002\322IDATX\303\355\230=L\023a\034\306\177o\271J,\021\224:0\310\200\212`\342\000:p\261Q\373A\200\204Hbc\030pq a\201\311\004''\023\023H\210\203]X\214\023\0031\016\032\"\224\266\370\305@b\023\006\027\025\343\300|U \022\n\355\275\016\265'\005z\275;\212\014\362L\327\267\327\377\363\364\371\177\274\357\035\034\341\220!v.\250\252*+++q\273\335\306\232\224\322<\210\020\005\367J)\021B \204@\327u\204\020H)Q\024\205h4*\212\nhkk\223\311\315V\332\373\206\231\236\211\227\365\237vu\206\210M\214\0228\375\215\331\331Y\203\327\265\375&\217\307s \344\000\3233q\332\373\206\311f\263\005\353\005\002\024E9\020\362\355\"\266\247k\227\000]\327m\333\332\325\031\262Wt;\004(f_\232\021w\267\3240\020\252\006`\274%\314\324\342\212#\367\n\004H)\367\350\213\335\350n\251\241?TE\317\3302\000/\357\325\377\261\270\364owv\224\342$\227S\213+\014\204\252\rb-\273\302\324\342\252\243\024\270\234\026\323x<G\270\246\257\363\374\215p\\\274.'5\00004\362\002\200\023.\217q\355\004\266k\240\2533\304\203\233^\343\363\232\276\316|\244\027\200\207\257\264\222N\230\326\200\035\a.5V\030\0164\237_\377w\016L\317\304\231\236\3119\221/\302;\217\265\362\324\300a\340\377\023P\2269\260\037\330\356\202\371H/\256\232U>~\262\336\357O\356\207\271\\\237\013\355\033\234\334_\n|\203\223\250ug\214\300Vq\265\251zOr\323\024\024;zEb)\006\333k-\211X~\335\303@\250\232H,U\276A\224\263>\314m\277\244N\361\342k\b3\377\035\334B1v\307G\267\302\264\236\2535\004\027K\227\251\000\263A\224\027\00197.\236M\263\252\377\002\240?T\205\0337\221X\n_\003\266\366\006[\2438\037xh\0046\243w9.*\376\006\352xj\255\357]\256\3425\220\315f-\037\261\216u<\333\363\272\324F\226\311d\314\267\343\330\304\250e\021=c\313\306\251\310\352\261<\235N\233?\230\004\203A\231\267*\377\200!\245\344m\252\221\214\367\212\265\274jI\374\336\245\202\265\255\255-666XXX\020\246\002\212!\030\014\312w?.\224\024\241hIn\324~%\036\217[\212my\024'\022\011\341\367.\241h\311\262\221\333r\240\224\023\212\226\344\372\251/$\022\011[1m\013\000\360\373\375\362\303J\263!B\321\222\\;\371\231\271\2719\333\361\034\011\000\b\004\002\362\375\317&\000\307\344\373\206\252\252RUUy\364\226c?\370\r\006\316 \022WO\242\r\000\000\000\000IEND\256B`\202", 850);
-        
+
         pAPI->PointIcon =  wxBitmap(wxImage(sm));
         pAPI->PointIconName = _T("blue_anchor");
         pAPI->PointIconDescription = _("Blue Anchor");
-        
+
         g_testplugin_pi->AddPointIcon(pAPI);
         g_testplugin_pi->ToggleToolbarIcon();
         Show(false);
@@ -457,7 +457,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     if(m_textCtrlCornerLat->IsEmpty() || m_textCtrlCornerLon->IsEmpty()) {
         return;
     }
-    
+
     double l_lat;
     double l_lon;
     wxJSONValue jMsg;
@@ -472,14 +472,14 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     wxJSONWriter writer;
     wxString    MsgString;
     wxString    l_sname;
-    
+
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("CreateBoundary");
     srand((unsigned)time(0));
     int l_rand = (rand()%10000) + 1;
     jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-    
+
     wxString l_name = m_textCtrlBoundaryName->GetValue();
     if(l_name.Length() < 1) l_name = wxEmptyString;
     jMsgB[wxT("BoundaryName")] = l_name;
@@ -489,7 +489,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     else jMsgB[wxT("visible")] = false;
     jMsgB[wxT("lineColour")] = m_colourPickerBoundaryLineColour->GetColour().GetAsString();
     jMsgB[wxT("fillColour")] = m_colourPickerBoundaryFillColour->GetColour().GetAsString();
-    
+
 
     jMsgBP[wxT("Name")] = _T("Corner");
     jMsgBP[wxT("Lat")] = fromDMM_Plugin(m_textCtrlCornerLat->GetValue());
@@ -724,9 +724,9 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
         jMsgBP5[wxT("ringscolour")] = m_colourPickerBoundaryBoundaryPointRingColour->GetColour().GetAsString();
         jMsgB[wxT("BoundaryPoints")].Item(l_iPointNum++) = jMsgBP5;
     }
-        
+
     jMsg[wxT("Boundary")] = jMsgB;
-       
+
     writer.Write( jMsg, MsgString );
     DEBUGSL("About to send message to OD");
     DEBUGSL(MsgString);
@@ -744,14 +744,14 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& 
     wxJSONValue jMsg;
     wxJSONValue jMsgBP;
     wxString    MsgString;
-    
+
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("CreateBoundaryPoint");
     srand((unsigned)time(0));
     int l_rand = (rand()%10000) + 1;
     jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-    
+
     wxString l_name = m_textCtrlBoundaryPointName->GetValue();
     if(l_name.Length() < 1) l_name = wxEmptyString;
     else jMsgBP[wxT("BoundaryPointName")] = l_name;
@@ -766,14 +766,14 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& 
     jMsgBP[wxT("ringssteps")] = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
     jMsgBP[wxT("ringsunits")] = m_choiceBoundaryPointRingUnits->GetSelection();
     jMsgBP[wxT("ringscolour")] = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
-    
+
     jMsg[wxT("BoundaryPoint")] = jMsgBP;
-    
+
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
     }
-    
+
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }
@@ -786,14 +786,14 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
     wxJSONValue jMsgTPHL;
     wxJSONWriter writer;
     wxString    MsgString;
-    
+
     jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("CreateTextPoint");
     srand((unsigned)time(0));
     int l_rand = (rand()%10000) + 1;
     jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-    
+
     wxString l_name = m_textCtrlTextPointName->GetValue();
     if(l_name.Length() < 1) l_name = wxEmptyString;
     jMsgTP[wxT("TextPointName")] = l_name;
@@ -820,13 +820,13 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
     jMsgTPHL[wxT("LinkDescription")] = _("Test Link 2");
     jMsgTPHL[wxT("LinkURL")] = wxT("http://google.com");
     jMsgTP[wxT("HyperLinks")].Item(1) = jMsgTPHL;
-    
+
     jMsg[wxT("TextPoint")] = jMsgTP;
     writer.Write( jMsg, MsgString );
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateTextPoint")) {
     }
-    
+
     g_testplugin_pi->ToggleToolbarIcon();
     Show(false);
 }
@@ -843,26 +843,26 @@ void tpControlDialogImpl::OnButtonClickPointIconJSON(wxCommandEvent& event)
     if(m_radioBoxPointIcon->GetSelection() == 0) {
         wxMemoryBuffer mb;
         mb.AppendData("\211PNG\r\n\032\n\000\000\000\rIHDR\000\000\000 \000\000\000%\b\006\000\000\000#\267\353G\000\000\000\001sRGB\000\256\316\034\351\000\000\000\006bKGD\000\377\000\377\000\377\240\275\247\223\000\000\000\011pHYs\000\000\013\023\000\000\013\023\001\000\232\234\030\000\000\000\atIME\a\335\006\033\003\026\bz)\003\323\000\000\002\322IDATX\303\355\230=L\023a\034\306\177o\271J,\021\224:0\310\200\212`\342\000:p\261Q\373A\200\204Hbc\030pq a\201\311\004''\023\023H\210\203]X\214\023\0031\016\032\"\224\266\370\305@b\023\006\027\025\343\300|U \022\n\355\275\016\265'\005z\275;\212\014\362L\327\267\327\377\363\364\371\177\274\357\035\034\341\220!v.\250\252*+++q\273\335\306\232\224\322<\210\020\005\367J)\021B \204@\327u\204\020H)Q\024\205h4*\212\nhkk\223\311\315V\332\373\206\231\236\211\227\365\237vu\206\210M\214\0228\375\215\331\331Y\203\327\265\375&\217\307s \344\000\3233q\332\373\206\311f\263\005\353\005\002\024E9\020\362\355\"\266\247k\227\000]\327m\333\332\325\031\262Wt;\004(f_\232\021w\267\3240\020\252\006`\274%\314\324\342\212#\367\n\004H)\367\350\213\335\350n\251\241?TE\317\3302\000/\357\325\377\261\270\364owv\224\342$\227S\213+\014\204\252\rb-\273\302\324\342\252\243\024\270\234\026\323x<G\270\246\257\363\374\215p\\\274.'5\00004\362\002\200\023.\217q\355\004\266k\240\2533\304\203\233^\343\363\232\276\316|\244\027\200\207\257\264\222N\230\326\200\035\a.5V\030\0164\237_\377w\016L\317\304\231\236\3119\221/\302;\217\265\362\324\300a\340\377\023P\2269\260\037\330\356\202\371H/\256\232U>~\262\336\357O\356\207\271\\\237\013\355\033\234\334_\n|\203\223\250ug\214\300Vq\265\251zOr\323\024\024;zEb)\006\333k-\211X~\335\303@\250\232H,U\276A\224\263>\314m\277\244N\361\342k\b3\377\035\334B1v\307G\267\302\264\236\2535\004\027K\227\251\000\263A\224\027\00197.\236M\263\252\377\002\240?T\205\0337\221X\n_\003\266\366\006[\2438\037xh\0046\243w9.*\376\006\352xj\255\357]\256\3425\220\315f-\037\261\216u<\333\363\272\324F\226\311d\314\267\343\330\304\250e\021=c\313\306\251\310\352\261<\235N\233?\230\004\203A\231\267*\377\200!\245\344m\252\221\214\367\212\265\274jI\374\336\245\202\265\255\255-666XXX\020\246\002\212!\030\014\312w?.\224\024\241hIn\324~%\036\217[\212my\024'\022\011\341\367.\241h\311\262\221\333r\240\224\023\212\226\344\372\251/$\022\011[1m\013\000\360\373\375\362\303J\263!B\321\222\\;\371\231\271\2719\333\361\034\011\000\b\004\002\362\375\317&\000\307\344\373\206\252\252RUUy\364\226c?\370\r\006\316 \022WO\242\r\000\000\000\000IEND\256B`\202", 850);
-        
+
         wxString l_sBlueAnchor(wxBase64Encode(mb));
-        
+
         jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
         jMsg[wxT("Type")] = wxT("Request");
         jMsg[wxT("Msg")] = wxS("AddPointIcon");
         srand((unsigned)time(0));
         int l_rand = (rand()%10000) + 1;
         jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-        
+
         jMsgPI[wxT("PointIcon")] = l_sBlueAnchor;
         jMsgPI[wxT("PointIconName")] = wxT("blue_anchor");
         jMsgPI[wxT("PointIconDescription")] = _("Blue Anchor");
-        
+
         jMsg[wxT("AddPointIcon")] = jMsgPI;
         writer.Write( jMsg, MsgString );
         SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
         if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("AddPointIcon")) {
         }
-        
+
         g_testplugin_pi->ToggleToolbarIcon();
         Show(false);
     } else {
@@ -872,15 +872,15 @@ void tpControlDialogImpl::OnButtonClickPointIconJSON(wxCommandEvent& event)
         srand((unsigned)time(0));
         int l_rand = (rand()%10000) + 1;
         jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
-        
+
         jMsgPI[wxT("PointIconName")] = wxT("blue_anchor");
-        
+
         jMsg[wxT("DeletePointIcon")] = jMsgPI;
         writer.Write( jMsg, MsgString );
         SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
         if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeletePointIcon")) {
         }
-        
+
         g_testplugin_pi->ToggleToolbarIcon();
         Show(false);
     }
@@ -895,13 +895,13 @@ void tpControlDialogImpl::tpControlCloseClick( wxCommandEvent& event )
 {
     m_bOK = false;
     g_testplugin_pi->ToggleToolbarIcon();
-    
+
     Show(false);
 }
- 
+
 void tpControlDialogImpl::tpControlOnClickImportJSON( wxCommandEvent& event )
 {
-    
+
     if(m_checkBoxSaveJSON->IsChecked()) {
         if(!m_filePickerOutputJSON->GetPath()) {
             OCPNMessageBox_PlugIn(NULL, _("No file specified for output"), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
@@ -936,12 +936,12 @@ void tpControlDialogImpl::SetLatLon( double lat, double lon )
 void tpControlDialogImpl::OnButtonClickFonts( wxCommandEvent& event )
 {
     if(m_pfdDialog) delete m_pfdDialog;
-    
+
     wxFontData l_FontData;
     l_FontData.SetInitialFont( m_DisplayTextFont );
     m_pfdDialog = new wxFontDialog( this, l_FontData );
     m_pfdDialog->Centre( wxBOTH );
-    
+
     int iRet = m_pfdDialog->ShowModal();
     if(iRet == wxID_OK) {
         m_staticTextTextPointTextFontExample->SetFont(m_pfdDialog->GetFontData().GetChosenFont());
@@ -952,7 +952,7 @@ void tpControlDialogImpl::OnButtonClickFonts( wxCommandEvent& event )
 void tpControlDialogImpl::SetDialogSize( void )
 {
     //m_bSizerFill->RecalcSizes();
-    /*    
+    /*
      *    wxSize sz = m_SizerDialogBox->CalcMin();
      *    sz.IncBy( 20 );   // Account for some decorations?
      *    wxSize dsize = ::wxGetDisplaySize();
@@ -960,13 +960,13 @@ void tpControlDialogImpl::SetDialogSize( void )
      *    SetClientSize(sz);
      *    m_defaultClientSize = sz;
      *    //m_panelBasicProperties->SetScrollRate(5, 5);
-     * 
+     *
      *    wxSize fsize = GetSize();
      *    fsize.y = wxMin(fsize.y, dsize.y-80);
      *    fsize.x = wxMin(fsize.x, dsize.x-80);
      *    SetSize(fsize);
-     */    
-    
+     */
+
     m_fgSizerTextPoint->Layout();
     m_fgSizerDisplayText->Layout();
     m_SizerControl->Layout();

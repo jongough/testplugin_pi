@@ -48,7 +48,7 @@ s += s1; \
 s += "\n"; \
 std::wstring stemp = std::wstring(s.begin(), s.end()); \
 LPCWSTR sw = stemp.c_str(); \
-OutputDebugString(sw); } while (0) 
+OutputDebugString(sw); } while (0)
 
 #  define DEBUGST(x) do { \
 std::string s(""); \
@@ -79,7 +79,7 @@ s += s1; } while (0); \
 s += "\n" ; \
 std::wstring stemp = std::wstring(s.begin(), s.end()); \
 LPCWSTR sw = stemp.c_str(); \
-OutputDebugString(sw); } while (0) 
+OutputDebugString(sw); } while (0)
 #else
 #  define DEBUGSL(x) do {} while (0)
 #  define DEBUGST(x) do {} while (0)
@@ -158,7 +158,7 @@ class tpControlDialogImpl;
 
 //#define PI 3.14159265
 
-class testplugin_pi : public opencpn_plugin_113
+class testplugin_pi : public opencpn_plugin_116
 {
 public:
 
@@ -168,7 +168,7 @@ public:
     wxWindow            *m_parent_window;
     wxFileConfig        *m_pTPConfig;
     wxTimer             *m_timer;
-    
+
 
     //    The required PlugIn Methods
     int Init(void);
@@ -205,16 +205,16 @@ public:
     bool KeyboardEventHook( wxKeyEvent &event );
     bool MouseEventHook( wxMouseEvent &event );
     void SetCursorLatLon(double lat, double lon);
-    
+
     // OD Methods
     void ProcessTimerEvent(wxTimerEvent& ev);
     void PopupMenuHandler(wxCommandEvent& ev);
-    
+
     void SetToolbarTool( void );
     void ToggleToolbarIcon( void);
-    
+
     void    GetODAPI( void );
-    
+
     void FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPIAB);
     bool CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP);
     bool CreateBoundary(CreateBoundary_t *pCB);
@@ -227,18 +227,18 @@ public:
     bool ImportJSONFile(void);
     void UpdateCloseAfterSave(bool bCloseAfterSave);
     void UpdateAppendToFile(bool bAppendToFile);
-    
+
     wxGLContext     *m_pcontext;
     wxMemoryDC      *pmdc;
 //    wxGLCanvas      *m_glcc;
-    
+
     int         nBlinkerTick;
-    
-    void    appendOSDirSlash(wxString* pString);  
-    
+
+    void    appendOSDirSlash(wxString* pString);
+
     tpicons *m_ptpicons;
     tpControlDialogImpl    *m_tpControlDialogImpl;
-    
+
     bool    eventsEnabled;
     bool    m_bReadyForRequests;
     bool    m_bDoneODAPIVersionCall;
@@ -267,8 +267,8 @@ public:
     bool    m_bRecreateConfig;
     bool    m_bCloseSaveFileAfterEachWrite;
     bool    m_bAppendToSaveFile;
-    
-    
+
+
 private:
     void    OnTimer(wxTimerEvent& ev);
 
@@ -278,19 +278,19 @@ private:
     void    MenuPrepend( wxMenu *menu, int id, wxString label);
     void    MenuAppend( wxMenu *menu, int id, wxString label);
     void    FindSelectedObject( void );
-    
+
     PlugIn_ViewPort m_VP;
 
     int     m_show_id;
     int     m_hide_id;
     bool    show;
     int     m_config_button_id;
-    
+
     double  m_cursor_lat;
     double  m_cursor_lon;
     double  m_click_lat;
     double  m_click_lon;
-    
+
     OD_FindPointInAnyBoundary           m_pOD_FindPointInAnyBoundary;
     OD_FindClosestBoundaryLineCrossing  m_pODFindClosestBoundaryLineCrossing;
     OD_FindFirstBoundaryLineCrossing    m_pODFindFirstBoundaryLineCrossing;
