@@ -46,7 +46,7 @@ if($ENV{CIRCLECI} || $ENV{TRAVIS})
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
   if($ENV{CIRCLECI})
     set(GIT_REPOSITORY_BRANCH "$ENV{CIRCLECI_BRANCH}")
-  else
+  else()
     set(GIT_REPOSITORY_BRANCH "$ENV{TRAVIS_BRANCH}")
   endif()
 else()
