@@ -41,7 +41,7 @@ set(GIT_REPOSITORY_NAME "testplugin_pi")
 message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
 message(STATUS "TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
 # This if allows for setting up your own local webserver with git on it for testing purposes
-if($ENV{CIRCLECI} || $ENV{TRAVIS})
+if($ENV{CIRCLECI} or $ENV{TRAVIS})
   set(GIT_REPOSITORY_HOST "github.com")
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
   if($ENV{CIRCLECI})
