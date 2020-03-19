@@ -50,7 +50,7 @@ if dnf --version 2>&1 >/dev/null; then
     sudo dnf install python3-pip python3-setuptools
     sudo python3 -m pip install -q cloudsmith-cli
 elif apt-get --version 2>&1 >/dev/null; then
-    COUNTER = 0
+    COUNTER=0
     while
         lsof /var/lib/dpkg/lock
         sleep 5
