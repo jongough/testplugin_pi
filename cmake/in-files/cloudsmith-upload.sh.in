@@ -88,7 +88,7 @@ echo ${#BUILD_TAG}
 
 if [ "${BUILD_BRANCH,,}" = "master" ]; then
     echo "In master branch "
-    if [ -n $BUILD_TAG &&  ]; then
+    if [ -n "$BUILD_TAG"  ]; then
         echo "building with tag"
         VERSION=$BUILD_TAG
         REPO="$STABLE_REPO"
@@ -101,7 +101,7 @@ if [ "${BUILD_BRANCH,,}" = "master" ]; then
     fi
 else
     echo "In non master branch"
-    if [ -n $BUILD_TAG ]; then
+    if [ -n "$BUILD_TAG" ]; then
         echo "buildnig with tag"
         VERSION=$BUILD_TAG
         REPO="$BETA_REPO"
