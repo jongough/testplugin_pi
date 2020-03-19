@@ -11,20 +11,16 @@ matrix:
     - docker
     script:
     - bash ./ci/travis-build-raspbian-armhf.sh
-#  - env:
-#    - OCPN_TARGET=buster-armhf
-#    - OCPN_BRANCH=master
-#    - DOCKER_IMAGE=raspbian/stretch
-#    - DOCKER_IMAGE=opencpn/raspbian-buster:plugin_build_tooling
-#    services:
-#    - docker
-#    script:
-#    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
-#    - "./ci/travis-build-raspbian-armhf.sh"
-#branches:
-#  only:
-#    - update_for_gtk3
-#    - master
+  - env:
+    - OCPN_TARGET=buster-armhf
+    - OCPN_BRANCH=master
+    - DOCKER_IMAGE=raspbian/stretch
+    - DOCKER_IMAGE=opencpn/raspbian-buster:plugin_build_tooling
+    services:
+    - docker
+    script:
+    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
+    - "./ci/travis-build-raspbian-armhf.sh"
 deploy:
   provider: script
   skip_cleanup: true
