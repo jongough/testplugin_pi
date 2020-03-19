@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<opencpn-plugin version="1">
+<plugin version="1">
   <name> ${PACKAGE} </name>
   <version> ${PACKAGE_VERSION} </version>
   <release> ${PROJECT_VERSION_TWEAK} </release>
@@ -20,4 +20,4 @@
     ${PKG_URL}
   </tarball-url>
   <info-url> ${XML_INFO_URL} </info-url>
-</opencpn-plugin>
+</plugin>
