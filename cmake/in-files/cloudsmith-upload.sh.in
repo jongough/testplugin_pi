@@ -82,8 +82,8 @@ tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
 pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 
 source $BUILD_DIR/pkg_version.sh
-cat $BUILD_BRANCH
-cat $BUILD_TAG
+echo $BUILD_BRANCH
+echo $BUILD_TAG
 if [[ "${BUILD_BRANCH,,}" -eq "MASTER" ]]; then
     if [ -n $BUILD_TAG ]; then
         VERSION=$BUILD_TAG
@@ -105,6 +105,9 @@ else
         PKG_REPO="$ALPHA_PKG_REPO"
     fi
 fi
+echo $VERSION
+echo $REPO
+echo $PKG_REPO
 
 sudo sed -i -e "s|--pkg_repo--|$PKG_REPO|"  $xml
 sudo sed -i -e "s|--name--|$tarball_name|" $xml
