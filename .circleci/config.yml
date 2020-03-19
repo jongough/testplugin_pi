@@ -151,51 +151,51 @@ workflows:
              ignore:
                - devel
                - tmp
-     - build-xenial:
+      - build-xenial:
          filters:
            branches:
              ignore:
                - devel
                - tmp
-     - build-bionic:
+      - build-bionic:
          filters:
            branches:
              ignore:
               - devel
               - tmp
-    - build-bionic-gtk3:
-        filters:
-          branches:
-            ignore:
-              - devel
-              - tmp
-    - build-buster:
-        filters:
-          branches:
-            ignore:
-              - devel
-              - tmp
-   - build-flatpak:
-       filters:
-         branches:
-           ignore:
-             - devel
-             - tmp
-    - build-fedora:
-        filters:
-          branches:
-            ignore:
-              - devel
-              - tmp
-    - build-mingw:
-        filters:
-          branches:
-            ignore:
-              - devel
-              - tmp
-    - build-macos:
-        filters:
-          branches:
-            ignore:
-              - devel
-              - tmp
+      - build-bionic-gtk3:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
+      - build-buster:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
+      - build-flatpak:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
+      - build-fedora:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
+      - build-mingw:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
+      - build-macos:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
