@@ -26,10 +26,11 @@ fi
 if [ "$CIRCLECI" ]; then
     BUILD_ID=${CIRCLE_BUILD_NUM:-1}
     BUILD_DIR=$HOME/project/build
-elfi [ "$TRAVIS" ]; then
+else
     BUILD_ID=${TRAVIS_BUILD_NUM:-1}
     BUILD_DIR=$TRAVIS_BUILD_DIR/build
 fi
+
 set +x
 if [ -z "$CLOUDSMITH_API_KEY" ]; then
     echo 'Cannot deploy to cloudsmith, missing $CLOUDSMITH_API_KEY'
