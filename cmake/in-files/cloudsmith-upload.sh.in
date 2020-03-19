@@ -82,7 +82,7 @@ tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
 pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 
 source $BUILD_DIR/pkg_version.sh
-if [[ ${BUILD_BRANCH,,} -eq MASTER ]]; then
+if [[ "${BUILD_BRANCH,,}" -eq "MASTER" ]]; then
     if [ -n $BUILD_TAG ]; then
         VERSION=$BUILD_TAG
         REPO="$STABLE_REPO"
@@ -92,7 +92,7 @@ if [[ ${BUILD_BRANCH,,} -eq MASTER ]]; then
         REPO="$BETA_REPO"
         PKG_REPO="$BETA_PKG_REPO"
     fi
-elif [[ ${BUILD_BRANCH,,} -ne MASTER ]]; then
+elif [[ "${BUILD_BRANCH,,}" -ne "MASTER" ]]; then
     if [ -n $BUILD_TAG ]; then
         VERSION=$BUILD_TAG
         REPO="$BETA_REPO"
