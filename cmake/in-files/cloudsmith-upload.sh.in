@@ -51,17 +51,15 @@ if dnf --version 2>&1 >/dev/null; then
     sudo python3 -m pip install -q cloudsmith-cli
 elif apt-get --version 2>&1 >/dev/null; then
     COUNTER=0
-    while
-        lsof /var/lib/dpkg/lock
-        sleep 5
-        ((COUNTER++))
+    until
+        sudo apt-get install python3-pip python3-setuptools
+    do
         if [ "$COUNTER" -gt  "20" ]; then
             exit -1
         fi
-    do
-        continue
+        sleep 5
+        ((COUNTER++))
     done
-    sudo apt-get install python3-pip python3-setuptools
     sudo python3 -m pip install -q cloudsmith-cli
 else
     sudo -H python3 -m ensurepip
