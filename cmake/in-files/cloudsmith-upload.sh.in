@@ -113,7 +113,7 @@ echo $VERSION
 echo $REPO
 echo $PKG_REPO
 
-sudo sed -i -e "s|--pkg_repo--|$PKG_REPO|"  $xml
+sudo sed -i -e "s|--pkg_repo--|$REPO|"  $xml
 sudo sed -i -e "s|--name--|$tarball_name|" $xml
 sudo sed -i -e "s|--version--|$VERSION|" $xml
 sudo sed -i -e "s|--filename--|$tarball_basename|" $xml
