@@ -84,9 +84,11 @@ pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 source $BUILD_DIR/pkg_version.sh
 echo $BUILD_BRANCH
 echo $BUILD_TAG
-if [[ "${BUILD_BRANCH,,}" -eq "master" ]]; then
+echo ${#BUILD_TAG}
+
+if [ "${BUILD_BRANCH,,}" = "master" ]; then
     echo "In master branch "
-    if [ -n $BUILD_TAG ]; then
+    if [ -n $BUILD_TAG &&  ]; then
         echo "building with tag"
         VERSION=$BUILD_TAG
         REPO="$STABLE_REPO"
