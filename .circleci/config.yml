@@ -17,7 +17,7 @@ jobs:
        - run: cat /etc/apt/sources.list
        - run: chmod a+x ci/*.sh
        - run: ci/circleci-build-trusty.sh
-       - run: ci/circleci-upload.sh
+       - run: ci/cloudsmith-upload.sh
    build-xenial:
      docker:
        - image: circleci/buildpack-deps:xenial-scm
@@ -33,7 +33,7 @@ jobs:
            | sudo tee -a /etc/apt/sources.list
        - run: cat /etc/apt/sources.list
        - run: ci/circleci-build-debian.sh
-       - run: ci/circleci-upload.sh
+       - run: ci/cloudsmith-upload.sh
    build-bionic:
      docker:
        - image: circleci/buildpack-deps:bionic-scm
@@ -49,7 +49,7 @@ jobs:
            | sudo tee -a /etc/apt/sources.list
        - run: cat /etc/apt/sources.list
        - run: ci/circleci-build-debian.sh
-       - run: ci/circleci-upload.sh
+       - run: ci/cloudsmith-upload.sh
    build-bionic-gtk3:
      docker:
        - image: circleci/buildpack-deps:bionic-scm
@@ -66,7 +66,7 @@ jobs:
            | sudo tee -a /etc/apt/sources.list
        - run: cat /etc/apt/sources.list
        - run: ci/circleci-build-debian.sh
-       - run: ci/circleci-upload.sh
+       - run: ci/cloudsmith-upload.sh
    build-buster:
      docker:
        - image: circleci/buildpack-deps:buster-scm
@@ -82,7 +82,7 @@ jobs:
            | sudo tee -a /etc/apt/sources.list
        - run: cat /etc/apt/sources.list
        - run: ci/circleci-build-debian.sh
-       - run: ci/circleci-upload.sh
+       - run: ci/cloudsmith-upload.sh
    build-debian:
      docker:
        - image: circleci/buildpack-deps:xenial-scm
@@ -99,7 +99,7 @@ jobs:
            | sudo tee -a /etc/apt/sources.list
        - run: cat /etc/apt/sources.list
        - run: bash ci/circleci-build-debian.sh
-       - run: bash ci/circleci-upload.sh
+       - run: bash ci/cloudsmith-upload.sh
    build-flatpak:
      machine:
        image: circleci/classic:201808-01
@@ -109,7 +109,7 @@ jobs:
      steps:
        - checkout
        - run: bash ci/circleci-build-flatpak.sh
-       - run: bash ci/circleci-upload.sh
+       - run: bash ci/cloudsmith-upload.sh
    build-fedora:
      docker:
          - image: fedora:29
@@ -119,7 +119,7 @@ jobs:
        - run: su -c "dnf install -q -y git openssh-clients openssh-server"
        - checkout
        - run: ci/circleci-build-fedora.sh
-       - run: ci/circleci-upload.sh
+       - run: ci/cloudsmith-upload.sh
    build-mingw:
      docker:
          - image: fedora:29
@@ -130,7 +130,7 @@ jobs:
        - run: su -c "dnf install -q -y git openssh-clients openssh-server"
        - checkout
        - run: bash ci/circleci-build-mingw.sh
-       - run: bash ci/circleci-upload.sh
+       - run: bash ci/cloudsmith-upload.sh
    build-macos:
      macos:
        xcode: "10.0.0"
@@ -140,17 +140,17 @@ jobs:
      steps:
        - checkout
        - run: bash ci/circleci-build-macos.sh
-       - run: bash ci/circleci-upload.sh
+       - run: bash ci/cloudsmith-upload.sh
 workflows:
   version: 2
   build_all:
     jobs:
-#      - build-trusty:
-#         filters:
-#           branches:
-#             ignore:
-#               - devel
-#               - tmp
+      - build-trusty:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
 #     - build-xenial:
 #         filters:
 #           branches:

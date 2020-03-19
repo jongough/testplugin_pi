@@ -10,8 +10,7 @@ matrix:
     services:
     - docker
     script:
-    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
-    - "./ci/travis-build-raspbian-armhf.sh"
+    - bash ./ci/travis-build-raspbian-armhf.sh
 #  - env:
 #    - OCPN_TARGET=buster-armhf
 #    - OCPN_BRANCH=master
@@ -29,7 +28,7 @@ matrix:
 deploy:
   provider: script
   skip_cleanup: true
-  script: bash ./ci/travis-upload.sh
+  script: bash ./ci/cloudsmith-upload.sh
   on:
     #repo: jongough/testplugin_pi
     tags: false
