@@ -59,16 +59,16 @@ tag=$(git tag --contains HEAD)
 
 ls -la
 pwd
-xml=$(ls /$BUILD_DIR/*.xml)
+xml=$(ls $BUILD_DIR/*.xml)
 cat $xml
-tarball=$(ls /$BUILD_DIR/*.tar.gz)
+tarball=$(ls $BUILD_DIR/*.tar.gz)
 tarball_basename=${tarball##*/}
 
-source /$BUILD_DIR/pkg_version.sh
+source $BUILD_DIR/pkg_version.sh
 tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
 pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 
-source BUILD_DIR/pkg_version.sh
+source $BUILD_DIR/pkg_version.sh
 if [ -n "$tag" ]; then
     VERSION="$tag"
     REPO="$STABLE_REPO"
