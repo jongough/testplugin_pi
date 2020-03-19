@@ -92,12 +92,10 @@ if [ "${BUILD_BRANCH,,}" = "master" ]; then
         echo "building with tag"
         VERSION=$BUILD_TAG
         REPO="$STABLE_REPO"
-        PKG_REPO="$STABLE_PKG_REPO"
     else
         VERSION="@PROJECT_VERSION@+${BUILD_ID}.${commit}"
         echo "building without tag"
         REPO="$BETA_REPO"
-        PKG_REPO="$BETA_PKG_REPO"
     fi
 else
     echo "In non master branch"
@@ -105,12 +103,10 @@ else
         echo "buildnig with tag"
         VERSION=$BUILD_TAG
         REPO="$BETA_REPO"
-        PKG_REPO="$BETA_PKG_REPO"
     else
         echo "building without tag"
         VERSION="@PROJECT_VERSION@+${BUILD_ID}.${commit}"
         REPO="$ALPHA_REPO"
-        PKG_REPO="$ALPHA_PKG_REPO"
     fi
 fi
 echo $VERSION
@@ -141,4 +137,4 @@ cloudsmith push raw --republish --no-wait-for-sync \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@.${PKG_EXT} \
     --version ${VERSION} \
     --summary "@PACKAGE@ .${PKG_EXT} installation package" \
-    $PKG_REPO $pkg
+    $REPO $pkg
