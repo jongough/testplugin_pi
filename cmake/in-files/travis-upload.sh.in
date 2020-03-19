@@ -52,16 +52,17 @@ tag=$(git tag --contains HEAD)
 
 ls -la
 pwd
-xml=$(ls /ci-source/build/*.xml)
+echo $TRAVIS_BUILD_DIR
+xml=$(ls build/*.xml)
 cat $xml
-tarball=$(ls /ci-source/build/*.tar.gz)
+tarball=$(ls build/*.tar.gz)
 tarball_basename=${tarball##*/}
 
-source /ci-source/build/pkg_version.sh
+source build/pkg_version.sh
 tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
-pkg=$(ls /ci-source/build/*.${PKG_EXT})
+pkg=$(ls build/*.${PKG_EXT})
 
-source /ci-source/build/pkg_version.sh
+source build/pkg_version.sh
 if [ -n "$tag" ]; then
     VERSION="$tag"
     REPO="$STABLE_REPO"
