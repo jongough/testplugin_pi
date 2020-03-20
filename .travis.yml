@@ -2,15 +2,15 @@ language: cpp
 
 matrix:
   include:
-  - env:
-    - OCPN_TARGET=stretch-armhf
-    - OCPN_BRANCH=master
-    - DOCKER_IMAGE=raspbian/stretch
+#  - env:
+#    - OCPN_TARGET=stretch-armhf
+#    - OCPN_BRANCH=master
+#    - DOCKER_IMAGE=raspbian/stretch
 
-    services:
-    - docker
-    script:
-    - bash ./ci/travis-build-raspbian-armhf.sh
+#    services:
+#    - docker
+#    script:
+#    - bash ./ci/travis-build-raspbian-armhf.sh
   - env:
     - OCPN_TARGET=buster-armhf
     - OCPN_BRANCH=master
@@ -19,8 +19,7 @@ matrix:
     services:
     - docker
     script:
-    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
-    - "./ci/travis-build-raspbian-armhf.sh"
+    - bash ./ci/travis-build-raspbian-armhf.sh
 deploy:
   provider: script
   skip_cleanup: true
