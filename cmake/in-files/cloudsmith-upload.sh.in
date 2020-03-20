@@ -50,6 +50,7 @@ if pyenv versions 2>&1 >/dev/null; then
     pyenv_array=()
     while IFS= read -r line; do
         pyenv_array+=( "$line" )
+        echo $line
     done < <( pyenv versions )
     pyenv_array_len=${#pyenv_array[@]}
     pyenv global ${pyenv_array[${#pyenv_array[@]}-1]}
