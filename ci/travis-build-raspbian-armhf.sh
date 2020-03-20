@@ -42,7 +42,7 @@ docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install git cmake build-essentia
 #    'mkdir source_top/build; cd source_top/build; cmake ..; make; make package;'
 echo $TRAVIS_BRANCH
 echo $OCPN_TARGET
-docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -c \
+docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     'export TRAVIS=$TRAVIS; export TRAVIS_BRANCH=$TRAVIS_BRANCH; export OCPN_TARGET=$OCPN_TARGET; mkdir ci-source/build; cd ci-source/build; cmake ..; make; make package;'
  
 echo "Stopping"
