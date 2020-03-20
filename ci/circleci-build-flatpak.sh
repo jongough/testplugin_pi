@@ -45,11 +45,12 @@ if [ "" = "$DOCKER_CONTAINER_ID" ]; then
     DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
 fi
 
+echo $CIRCLE_BRANCH
 docker logs $DOCKER_CONTAINER_ID
 if [ -n "$CIRCLECI" ]; then
   docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "export CIRCLECI=$CIRCLECI;
-    export CIRCLE_BUILD=$CIRCLE_BUILD;
+    export CIRCLE_BRANCH=$CIRCLE_BRANCH;
     bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
 else
