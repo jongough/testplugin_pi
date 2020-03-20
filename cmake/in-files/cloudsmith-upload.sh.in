@@ -44,8 +44,11 @@ set -x
 
 if pyenv versions 2>&1 >/dev/null; then
     pyenv versions
+    if ! pyenv global 3.7.1 2>&1 >/dev/null; then
+      pyenv global 3.7
+    fi
     pyenv_array=()
-    while IFS=read -r line; do
+    while IFS= read -r line; do
         pyenv_array+=( "$line" )
     done < <( pyenv versions )
     pyenv_array_len=${#pyenv_array[@]}
