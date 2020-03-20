@@ -46,16 +46,39 @@ exe=${exe/-${PKG_TARGET_VERSION}/}
 exe=${exe/_${PKG_TARGET}/-pi${OCPN_API_VERSION}-${PKG_TARGET}-win32}
 mv $oldexe $exe
 
-if [ -n "$tag" ]; then
-    VERSION="$tag"
-    REPO="$PROD_REPO"
-    PKG_REPO="$PROD_REPO"
+echo $BUILD_BRANCH
+echo $BUILD_TAG
+echo ${#BUILD_TAG}
+
+BUILD_BRANCH_LOWER=`echo $BUILD_BRANCH | tr '[A-Z]' '[a-z]'`
+if [ "$BUILD_BRANCH_LOWER" = "master" ]; then
+    echo "In master branch "
+    if [ -n "$BUILD_TAG"  ]; then
+        echo "building with tag"
+        VERSION=$BUILD_TAG
+        REPO="$PROD_REPO"
+    else
+        VERSION="@PROJECT_VERSION@+${BUILD_ID}.${commit}"
+        echo "building without tag"
+        REPO="$BETA_REPO"
+    fi
 else
-    VERSION="${VERSION}+${BUILD_ID}.${commit}"
-    REPO="$BETA_REPO"
-    PKG_REPO="$BETA_REPO"
+    echo "In non master branch"tarball_name
+    if [ -n "$BUILD_TAG" ]; then
+        echo "buildnig with tag"
+        VERSION=$BUILD_TAG
+        REPO="$BETA_REPO"
+    else
+        echo "building without tag"
+        VERSION="@PROJECT_VERSION@+${BUILD_ID}.${commit}"
+        REPO="$ALPHA_REPO"
+    fi
 fi
-tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-tarball
+echo $VERSION
+echo $REPO
+echo $PKG_REPO
+
+tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
 
 cat $xml
 
@@ -75,7 +98,7 @@ cat $xml
 cloudsmith push raw \
     --republish \
     --no-wait-for-sync \
-    --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-metadata \
+    --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
     --version ${VERSION} \
     --summary "@PACKAGE@ opencpn plugin metadata for automatic installation" \
     $REPO ./$xml
