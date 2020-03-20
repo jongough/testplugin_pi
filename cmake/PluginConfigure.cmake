@@ -27,6 +27,7 @@ if(OCPN_FLATPAK_CONFIG)
 
   message(STATUS "Done OCPN_FLATPAK CONFIG")
   message(STATUS "Directory used: ${CMAKE_CURRENT_BINARY_DIR}/flatpak")
+  message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
   return()
 endif(OCPN_FLATPAK_CONFIG)
 
