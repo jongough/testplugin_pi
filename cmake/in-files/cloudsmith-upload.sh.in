@@ -7,16 +7,17 @@
 # repo. If there is a tag pointing to current commit it goes
 # to stable, otherwise to unstable.
 #
-# If the environment variable CLOUDSMITH_STABLE_REPO exists it is
-# used as the stable repo, defaulting to the hardcoded STABLE_REPO
-# value. Likewise for CLOUDSMITH_UNSTABLE_REPO and UNSTABLE_REPO.
+# If the environment variable CLOUDSMITH_PROD_REPO exists it is
+# used as the production repo, defaulting to the hardcoded PROD_REPO
+# value. Likewise for CLOUDSMITH_BETA_REPO and BETA_REPO and
+# CLOUDSMIT_ALPHA_RERP and ALPHA_REPO
 #
 
 set -xe
 
-STABLE_REPO=${CLOUDSMITH_STABLE_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-prod'}
-BETA_REPO=${CLOUDSMITH_UNSTABLE_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-beta'}
-ALPHA_REPO=${CLOUDSMITH_PKG_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-pkg'}
+PROD_REPO=${CLOUDSMITH_PROD_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-prod'}
+BETA_REPO=${CLOUDSMITH_BETA_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-beta'}
+ALPHA_REPO=${CLOUDSMITH_ALPHA_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-pkg'}
 PKG_EXT=${CLOUDSMITH_PKG_EXT:-'deb'}
 
 if [ -z "$CIRCLECI" ] && [ -z "$TRAVIS" ]; then
@@ -96,7 +97,7 @@ if [ "$BUILD_BRANCH_LOWER" = "master" ]; then
     if [ -n "$BUILD_TAG"  ]; then
         echo "building with tag"
         VERSION=$BUILD_TAG
-        REPO="$STABLE_REPO"
+        REPO="$PROD_REPO"
     else
         VERSION="@PROJECT_VERSION@+${BUILD_ID}.${commit}"
         echo "building without tag"
