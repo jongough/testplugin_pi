@@ -26,7 +26,7 @@ set(PACKAGE_CONTACT "Jon Gough")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "46")
+set(VERSION_PATCH "47")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "20/03/2020")
 set(OCPN_MIN_VERSION "ov50")
@@ -50,9 +50,12 @@ elseif($ENV{TRAVIS})
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
   set(GIT_REPOSITORY_BRANCH "$ENV{TRAVIS_BRANCH}")
 else()
-  set(GIT_REPOSITORY_HOST "git.eclipse.com.au")
-  set(GIT_REPOSITORY_DIR "")
-  set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
+  set(GIT_REPOSITORY_HOST "github.com")
+  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
+  set(GIT_REPOSITORY_BRANCH "master")
+#  set(GIT_REPOSITORY_HOST "git.eclipse.com.au")
+#  set(GIT_REPOSITORY_DIR "")
+#  set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
 endif()
 message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
@@ -91,16 +94,10 @@ message(STATUS "OPCN_FLATPAK: ${OCPN_FLATPAK}")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "")
-  set(CMAKE_BUILD_TYPE
-      "Release"
-      CACHE STRING "Choose the type of build" FORCE)
-elseif("${CMAKE_BUILD_TYPE}" STREQUAL "")
-  set(CMAKE_BUILD_TYPE
-      "Release"
-      CACHE STRING "Choose the type of build")
-endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
+endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION}-${OCPN_MIN_VERSION}-${OCPN_API_VERSION_MAJOR}.${OCPN_API_VERSION_MINOR})
