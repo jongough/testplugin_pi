@@ -41,6 +41,7 @@ set(GIT_REPOSITORY_NAME "testplugin_pi")
 message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
 message(STATUS "TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
 message(STATUS "CIRCLE_BRANCH: $ENV{CIRCLE_BRANCH}")
+message(STATUS "Reo: $ENV{CIRCLE_PROJECT_REPONAME}")
 # This if allows for setting up your own local webserver with git on it for testing purposes
 if($ENV{CIRCLECI})
   set(GIT_REPOSITORY_HOST "github.com")
