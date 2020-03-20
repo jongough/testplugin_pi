@@ -76,7 +76,6 @@ else
 fi
 echo $VERSION
 echo $REPO
-echo $PKG_REPO
 
 tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
 
@@ -117,4 +116,4 @@ cloudsmith push raw \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-installer \
     --version ${VERSION} \
     --summary "@PACKAGE@ installation package" \
-    $PKG_REPO ./$exe
+    $REPO ./$exe
