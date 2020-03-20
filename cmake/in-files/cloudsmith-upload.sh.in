@@ -45,7 +45,7 @@ set -x
 if pyenv versions 2>&1 >/dev/null; then
     pyenv versions
     if ! pyenv global 3.7.1 2>&1 >/dev/null; then
-      pyenv global 3.7
+      pyenv global 3.7.0
     fi
     pyenv_array=()
     while IFS= read -r line; do
@@ -54,7 +54,7 @@ if pyenv versions 2>&1 >/dev/null; then
     pyenv_array_len=${#pyenv_array[@]}
     echo $pyenv_array_len
     #pyenv global 3.7.1
-    python -m pip install cloudsmith-cli
+    python3 -m pip install -q cloudsmith-cli
     pyenv rehash
 elif dnf --version 2>&1 >/dev/null; then
     sudo dnf install python3-pip python3-setuptools
