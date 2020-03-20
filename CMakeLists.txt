@@ -54,6 +54,7 @@ else()
   set(GIT_REPOSITORY_DIR "")
   set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
 endif()
+message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
 set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
