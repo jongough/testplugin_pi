@@ -17,7 +17,7 @@ set -xe
 PLUGIN=bsb4
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
-if [-n "$TRAVIS" ]; then
+if [ -n "$TRAVIS" ]; then
     TOPDIR=/opencpn-ci
 elif [ -n "$CIRCLECI" ]; then
    TOPDIR=/root/project
@@ -45,10 +45,13 @@ if [ "" = "$DOCKER_CONTAINER_ID" ]; then
     DOCKER_CONTAINER_ID=$(docker ps | grep fedora | awk '{print $1}')
 fi
 
+echo $CIRCLE_BRANCH
 docker logs $DOCKER_CONTAINER_ID
 if [ -n "$CIRCLECI" ]; then
   docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "export CIRCLECI=$CIRCLECI;
+    export CIRCLE_BRANCH=$CIRCLE_BRANCH;
+    export OCPN_TARGET=$OCPN_TARGET;
     bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
 else

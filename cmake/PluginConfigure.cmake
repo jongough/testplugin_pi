@@ -16,7 +16,7 @@ endif(NOT SKIP_VERSION_CONFIG)
 
 # configure xml file for circleci
 message(STATUS "*.in files generated in ${CMAKE_CURRENT_BINARY_DIR}")
-configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}.xml)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PLUGIN_NAME}-$ENV{OCPN_TARGET}.xml)
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/cloudsmith-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/cloudsmith-upload.sh @ONLY)
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/appveyor-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/appveyor-upload.sh @ONLY)
@@ -27,6 +27,7 @@ if(OCPN_FLATPAK_CONFIG)
 
   message(STATUS "Done OCPN_FLATPAK CONFIG")
   message(STATUS "Directory used: ${CMAKE_CURRENT_BINARY_DIR}/flatpak")
+  message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
   return()
 endif(OCPN_FLATPAK_CONFIG)
 
