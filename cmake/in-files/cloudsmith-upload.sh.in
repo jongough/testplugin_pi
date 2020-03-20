@@ -52,6 +52,7 @@ if pyenv versions 2>&1 >/dev/null; then
         pyenv_array+=( "$line" )
     done < <( pyenv versions )
     pyenv_array_len=${#pyenv_array[@]}
+    pyenv global ${pyenv_array[-1]}
     echo $pyenv_array_len
     #pyenv global 3.7.1
     python3 -m pip install -q cloudsmith-cli
