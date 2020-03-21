@@ -44,17 +44,12 @@ fi
 set -x
 
 if pyenv versions 2>&1 >/dev/null; then
-<<<<<<< HEAD
-    pyenv global 3.7.0
-    python -m pip install cloudsmith-cli
-=======
     pyenv versions
     if ! pyenv global 3.7.1 2>&1 >/dev/null; then
       pyenv global 3.7.0
     fi
     #pyenv global 3.7.1
     python3 -m pip install -q cloudsmith-cli
->>>>>>> 90e6ada1ff9ac9835f820fbd7f2a32c9ee1a0561
     pyenv rehash
 elif dnf --version 2>&1 >/dev/null; then
     sudo dnf install python3-pip python3-setuptools
