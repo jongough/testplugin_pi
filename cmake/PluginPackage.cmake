@@ -15,8 +15,9 @@ if(OCPN_FLATPAK_CONFIG)
   add_custom_target(
     flatpak-build ALL
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flatpak
+    COMMAND cat ${CMAKE_CURRENT_BINARY_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml
     COMMAND /usr/bin/flatpak-builder --force-clean ${CMAKE_CURRENT_BINARY_DIR}/app ${CMAKE_CURRENT_BINARY_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
-  add_custom_target("flatpak-pkg")
+    add_custom_target("flatpak-pkg")
   add_custom_command(TARGET flatpak-pkg COMMAND ${TAR} -czf ${PKG_NVR}_${PKG_TARGET_NVR}.tar.gz --transform 's|.*/files/|${PACKAGE}-flatpak-${PACKAGE_VERSION}/|' ${CMAKE_CURRENT_BINARY_DIR}/app/files)
   return()
 endif(OCPN_FLATPAK_CONFIG)
@@ -109,7 +110,7 @@ if(UNIX AND NOT APPLE)
   set(CPACK_PACKAGE_DESCRIPTION "${PACKAGE_NAME} PlugIn for OpenCPN")
   set(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
-  set(CPACK_PACKAGE_FILE_NAME "opencpn-plugin-${PACKAGE}_${PACKAGE_VERSION}-${OCPN_MIN_VERSION}_${ARCH}")
+  set(CPACK_PACKAGE_FILE_NAME "opencpn-plugin-${PACKAGE}_${PACKAGE_VERSION}-${OCPN_MIN_VERSION}_${ARCH}-$ENV{OCPN_TARGET}")
 
 endif(UNIX AND NOT APPLE)
 
@@ -145,7 +146,7 @@ if(NOT STANDALONE MATCHES "BUNDLED")
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PACKAGE_NAME} PlugIn for OpenCPN")
   set(CPACK_PACKAGE_DESCRIPTION "${PACKAGE_NAME} PlugIn for OpenCPN")
   set(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-  set(CPACK_PACKAGE_FILE_NAME "${PKG_NVR}_${PKG_TARGET}-${PKG_TARGET_VERSION}")
+  set(CPACK_PACKAGE_FILE_NAME "${PKG_NVR}_${PKG_TARGET}-${PKG_TARGET_VERSION}-$ENV{OCPN_TARGET}")
 
   if(WIN32)
     message(STATUS "FILE: ${CPACK_PACKAGE_FILE_NAME}")

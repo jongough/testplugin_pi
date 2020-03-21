@@ -6,7 +6,6 @@ matrix:
     - OCPN_TARGET=stretch-armhf
     - OCPN_BRANCH=master
     - DOCKER_IMAGE=raspbian/stretch
-
     services:
     - docker
     script:
@@ -14,18 +13,15 @@ matrix:
   - env:
     - OCPN_TARGET=buster-armhf
     - OCPN_BRANCH=master
-    - DOCKER_IMAGE=raspbian/stretch
     - DOCKER_IMAGE=opencpn/raspbian-buster:plugin_build_tooling
     services:
     - docker
     script:
-    - chmod a+x ./ci/travis-build-raspbian-armhf.sh
-    - "./ci/travis-build-raspbian-armhf.sh"
+    - bash ./ci/travis-build-raspbian-armhf.sh
 deploy:
   provider: script
   skip_cleanup: true
   script: bash ./ci/cloudsmith-upload.sh
   on:
-    #repo: jongough/testplugin_pi
     tags: false
     all_branches: true
