@@ -62,8 +62,8 @@ message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
 #set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_USER "rick-gleason")
-#set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")
-set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+#set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")
 
 set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
