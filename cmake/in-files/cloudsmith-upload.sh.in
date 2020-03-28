@@ -113,7 +113,7 @@ if [ "$BUILD_BRANCH_LOWER" = "master" ]; then
         REPO="$BETA_REPO"
     fi
 else
-    echo "In non master branch"tarball_name
+    echo "In non master branch " $BUILD_BRANCH
     if [ -n "$BUILD_TAG" ]; then
         echo "buildnig with tag"
         VERSION=$BUILD_TAG
@@ -128,10 +128,21 @@ echo $VERSION
 echo $REPO
 echo $PKG_REPO
 
-sudo sed -i -e "s|--pkg_repo--|$REPO|"  $xml
-sudo sed -i -e "s|--name--|$tarball_name|" $xml
-sudo sed -i -e "s|--version--|$VERSION|" $xml
-sudo sed -i -e "s|--filename--|$tarball_basename|" $xml
+if [ "$APPVEYOR" ]; then
+echo 'substituting xml file stuff'
+    while read line; do
+        line=${line//--pkg_repo--/$PKG_REPO}
+        line=${line//--name--/$tarball_name}
+        line=${line//--version--/$VERSION}
+        line=${line//--filename--/$tarball_basename}
+        echo $line
+    done < $xml > xml.tmp && cat xml.tmp && cp xml.tmp $xml && rm xml.tmp
+else
+    sudo sed -i -e "s|--pkg_repo--|$REPO|"  $xml
+    sudo sed -i -e "s|--name--|$tarball_name|" $xml
+    sudo sed -i -e "s|--version--|$VERSION|" $xml
+    sudo sed -i -e "s|--filename--|$tarball_basename|" $xml
+fi
 
 cat $xml
 ls -l build
