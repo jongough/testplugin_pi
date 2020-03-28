@@ -93,7 +93,7 @@ tarball_basename=${tarball##*/}
 
 source $BUILD_DIR/pkg_version.sh
 tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
-pkg=$(ls $BUILD_DIR*.${PKG_EXT})
+pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 
 source $BUILD_DIR/pkg_version.sh
 echo $BUILD_BRANCH
