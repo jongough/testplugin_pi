@@ -50,7 +50,7 @@ build_script:
   - python -m ensurepip
   - python -m pip install -q setuptools
   - python -m pip install -q cloudsmith-cli
-  - bash ../build/appveyor-upload.sh
+  - bash ../build/cloudsmith-upload.sh
 
 artifacts:
   - path: 'build\*.exe'
