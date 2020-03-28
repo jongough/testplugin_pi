@@ -129,7 +129,7 @@ echo $REPO
 echo $PKG_REPO
 
 if [ "$APPVEYOR" ]; then
-echo 'substituting xml file stuff'
+    echo 'substituting xml file stuff'
     while read line; do
         line=${line//--pkg_repo--/$PKG_REPO}
         line=${line//--name--/$tarball_name}
@@ -145,7 +145,7 @@ else
 fi
 
 cat $xml
-ls -l build
+ls -l $BUILD_DIR
 
 cloudsmith push raw --republish --no-wait-for-sync \
     --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
