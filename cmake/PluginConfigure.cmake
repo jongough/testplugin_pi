@@ -2,8 +2,6 @@
 # Author:      Jon Gough (Based on the work of Sean D'Epagnier and Pavel Kalian) Copyright:   2019 License:     GPLv3+
 # ---------------------------------------------------------------------------
 
-set(PLUGIN_SOURCE_DIR .)
-
 message(STATUS "*** Staging to build ${PACKAGE_NAME} ***")
 
 # Do the version.h & wxWTranslateCatalog configuration into the build output directory, thereby allowing building from a read-only source tree.
