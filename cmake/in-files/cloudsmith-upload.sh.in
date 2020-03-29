@@ -126,18 +126,18 @@ else
 fi
 echo $VERSION
 echo $REPO
-echo $PKG_REPO
 
 if [ "$APPVEYOR" ]; then
-    echo 'substituting xml file stuff'
+    echo 'substituting xml file variables for windows build'
     while read line; do
-        line=${line//--pkg_repo--/$PKG_REPO}
+        line=${line//--pkg_repo--/$REPO}
         line=${line//--name--/$tarball_name}
         line=${line//--version--/$VERSION}
         line=${line//--filename--/$tarball_basename}
         echo $line
     done < $xml > xml.tmp && cat xml.tmp && cp xml.tmp $xml && rm xml.tmp
 else
+    echo 'substituting xml file variables for non-windows build'
     sudo sed -i -e "s|--pkg_repo--|$REPO|"  $xml
     sudo sed -i -e "s|--name--|$tarball_name|" $xml
     sudo sed -i -e "s|--version--|$VERSION|" $xml
