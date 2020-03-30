@@ -27,7 +27,7 @@ set(PACKAGE "testplugin")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "50")
-set(VERSION_TWEAK "2")
+set(VERSION_TWEAK "3")
 set(VERSION_DATE "30/03/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -103,6 +103,9 @@ set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION}-${OCPN_MIN_VERSION}-${OCPN_API_VE
 set(PKG_URL "https://dl.cloudsmith.io/public/--pkg_repo--/raw/names/--name--/versions/--version--/--filename--")
 
 include("cmake/PluginSetup.cmake")
+
+set(PACKAGING_NAME "${PKG_NVR}_${PKG_TARGET}-${PKG_TARGET_VERSION}-$ENV{OCPN_TARGET}")
+message(STATUS "PACKAGING_NAME: ${PACKAGING_NAME}")
 
 set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
 
