@@ -90,9 +90,11 @@ xml=$(ls $BUILD_DIR/*.xml)
 cat $xml
 tarball=$(ls $BUILD_DIR/*.tar.gz)
 tarball_basename=${tarball##*/}
+echo $tarball
+echo $tarball_basename
 
 source $BUILD_DIR/pkg_version.sh
-tarball_name=@PACKAGE@-${PKG_TARGET}-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
+tarball_name=@PACKAGE_NAME@-@PACKAGE_VERSION@-${PKG_TARGET}-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
 pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 
 source $BUILD_DIR/pkg_version.sh
@@ -148,7 +150,7 @@ cat $xml
 ls -l $BUILD_DIR
 
 cloudsmith push raw --republish --no-wait-for-sync \
-    --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
+    --name @PACKAGE_NAME@-@PKG_TARGET@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
     --version ${VERSION} \
     --summary "@PACKAGE@ opencpn plugin metadata for automatic installation" \
     $REPO $xml
@@ -160,7 +162,7 @@ cloudsmith push raw --republish --no-wait-for-sync \
     $REPO $tarball
 
 cloudsmith push raw --republish --no-wait-for-sync \
-    --name @PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@.${PKG_EXT} \
+    --name opencpn-package-@PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@.${PKG_EXT} \
     --version ${VERSION} \
     --summary "@PACKAGE@ .${PKG_EXT} installation package" \
     $REPO $pkg
