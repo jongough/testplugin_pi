@@ -76,8 +76,8 @@ if [ "$CIRCLECI" ] || [ "$TRAVIS" ]; then
         sudo python3 -m pip install -q cloudsmith-cli
     else
         sudo -H python3 -m ensurepip
-        sudo -H python3 -m pip3 install -q setuptools
-        sudo -H python3 -m pip3 install -q cloudsmith-cli
+        sudo -H python3 -m pip install -q setuptools
+        sudo -H python3 -m pip install -q cloudsmith-cli
     fi
 fi
 
