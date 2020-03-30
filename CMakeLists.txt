@@ -18,26 +18,28 @@ if(COMMAND cmake_policy)
   endif(POLICY CMP0077)
 endif(COMMAND cmake_policy)
 
-set(PACKAGE_NAME "testplugin_pi")
 set(VERBOSE_NAME "Testplugin")
 set(COMMON_NAME "testplugin")
 set(TITLE_NAME "testplugin")
 set(PACKAGE_CONTACT "Jon Gough")
+set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "48")
-set(VERSION_TWEAK "0")
-set(VERSION_DATE "21/03/2020")
+set(VERSION_PATCH "50")
+set(VERSION_TWEAK "3")
+set(VERSION_DATE "30/03/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
+<<<<<<< HEAD
 set(PACKAGE "testplugin")
 #set(GIT_USER "jongough")
 set(GIT_USER "rgleason")
+
 set(GIT_REPOSITORY_NAME "testplugin_pi")
 message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
 message(STATUS "TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
@@ -85,7 +87,7 @@ set(OpenGL_GL_PREFERENCE "LEGACY")
 ##
 
 set(PACKAGE_NAME ${PACKAGE}_pi)
-set(PACKAGE_FILE_NAME "${PARENT}-plugin-${PACKAGE}")
+set(PACKAGE_FILE_NAME "${PACKAGE}_pi")
 string(TOUPPER "${PACKAGE}" TITLE_NAME)
 
 project(${PACKAGE_NAME} VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK})
@@ -108,6 +110,9 @@ set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION}-${OCPN_MIN_VERSION}-${OCPN_API_VE
 set(PKG_URL "https://dl.cloudsmith.io/public/--pkg_repo--/raw/names/--name--/versions/--version--/--filename--")
 
 include("cmake/PluginSetup.cmake")
+
+set(PACKAGING_NAME "${PKG_NVR}_${PKG_TARGET}-${PKG_TARGET_VERSION}-$ENV{OCPN_TARGET}")
+message(STATUS "PACKAGING_NAME: ${PACKAGING_NAME}")
 
 set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
 
