@@ -35,7 +35,6 @@ set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
-<<<<<<< HEAD
 set(PACKAGE "testplugin")
 #set(GIT_USER "jongough")
 set(GIT_USER "rgleason")
