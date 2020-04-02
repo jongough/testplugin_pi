@@ -13,6 +13,7 @@ if(NOT SKIP_VERSION_CONFIG)
 endif(NOT SKIP_VERSION_CONFIG)
 
 # configure xml file for circleci
+message(STATUS "OCPN_TARGET: $ENV{OCPN_TARGET}")
 if(NOT $ENV{OCPN_TARGET})
     set($ENV{OCPN_TARGET} ${PKG_TARGET})
     message(STATUS "Setting OCPN_TARGET")
