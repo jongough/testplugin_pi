@@ -26,8 +26,8 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "58")
-set(VERSION_TWEAK "1")
+set(VERSION_PATCH "60")
+set(VERSION_TWEAK "0")
 set(VERSION_DATE "03/04/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -60,10 +60,9 @@ message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
 set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
-set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
+set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
-set(APPVEYOR_TEST_DEPLOY_TO_CLOUDSMITH "true")
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -79,8 +78,13 @@ set(OpenGL_GL_PREFERENCE "LEGACY")
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
 ##
 
-set(PACKAGE_NAME ${PACKAGE}_pi)
-set(PACKAGE_FILE_NAME "${PACKAGE}_pi")
+if(NOT ${PACKAGE} MATCHES "(.*)_pi")
+  set(PACKAGE_NAME ${PACKAGE}_pi)
+  set(PACKAGE_FILE_NAME "${PACKAGE}_pi")
+else(NOT ${PACKAGE} MATCHES "(.*)_pi")
+  set(PACKAGE_NAME ${PACKAGE})
+  set(PACKAGE_FILE_NAME "${PACKAGE}")
+endif(NOT ${PACKAGE} MATCHES "(.*)_pi")
 string(TOUPPER "${PACKAGE}" TITLE_NAME)
 
 project(${PACKAGE_NAME} VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK})
