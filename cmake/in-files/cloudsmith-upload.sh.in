@@ -153,8 +153,10 @@ gunzip $tarball
 cd $BUILD_DIR
 tarball_tar=$(ls *.tar)
 xml_here=$(ls *.xml)
+ls -l
 tar -rf $tarball_tar $xml_here
 gzip $tarball_tar
+ls -l
 cd $cur_dir
 pwd
 ls -la
