@@ -151,12 +151,14 @@ fi
 
 cat $xml
 ls -l $BUILD_DIR
-pwd
+cur_dir=$(pwd)
 gunzip $tarball
-tarball_tar=$(ls $BUILD_DIR/*.tar)
-xml_here=$(ls $BUILD_DIR/*.xml)
+cd $BUILD_DIR
+tarball_tar=$(ls *.tar)
+xml_here=$(ls *.xml)
 tar -rf $tarball_tar $xml_here
-gzip $BUILD_DIR/$tarball_tar
+gzip $tarball_tar
+cd $cur_dir
 pwd
 ls -la
 
