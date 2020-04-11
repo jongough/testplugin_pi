@@ -150,7 +150,7 @@ ls -l $BUILD_DIR
 pwd
 gunzip $tarball
 tarball_tar=$(ls $BUILD_DIR/*.tar)
-xml_here=$(ls *.xml)
+xml_here=$(ls $BUILD_DIR/*.xml)
 tar -rf $tarball_tar $xml_here
 gzip $tarball_tar
 pwd
