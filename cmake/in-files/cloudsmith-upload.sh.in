@@ -86,11 +86,7 @@ tag=$(git tag --contains HEAD)
 
 ls -la
 pwd
-xml1=$(pwd)
-xml=$(ls $xml1/*.xml)
 xml=$(ls $BUILD_DIR/*.xml)
-xml1=$(pwd)
-xml1=$xml1/*.xml
 cat $xml
 tarball=$(ls $BUILD_DIR/*.tar.gz)
 tarball_basename=${tarball##*/}
