@@ -153,8 +153,8 @@ tarball_tar=$(ls $BUILD_DIR/*.tar)
 cd $BUILD_DIR
 xml_here=$(ls *.xml)
 tar -rf $tarball_tar $xml_here
-cd ..
 gzip $tarball_tar
+ls -la
 
 cloudsmith push raw --republish --no-wait-for-sync \
     --name @PACKAGE_NAME@-@PKG_TARGET@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
