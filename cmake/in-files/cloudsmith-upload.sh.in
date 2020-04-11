@@ -147,7 +147,6 @@ else
 fi
 
 cat $xml
-chmod -R a+wr $BUILD_DIR
 ls -l $BUILD_DIR
 cur_dir=$(pwd)
 gunzip $tarball
