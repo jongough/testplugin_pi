@@ -199,11 +199,13 @@ endif()
 include("cmake/PluginConfigure.cmake")
 
 ##
-## ----- Change below to match project requirements ----- ##
+## ----- Change below to match your project requirements ----- ##
+## ------These lines are only for Testplugin - do not use ------------##
 ##
 
 add_definitions(-DUSE_S57)
 
+# ----Remember to Add your project Set(SRCS and set(HDRS
 set(SRCS
     src/tpdc.cpp
     src/tpControlDialogDef.cpp
@@ -231,6 +233,7 @@ set(EXTSRC)
 set(EXTINCLUDE
     extinclude/nlohmann/json.hpp
     extinclude/ODAPI.h)
+
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
@@ -282,6 +285,7 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
+# Remember to Add/Modify a statement like this to join all of your project's set(
 add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
 add_definitions(-DTIXML_USE_STL)
@@ -309,7 +313,8 @@ IF(UNIX AND NOT APPLE)
 ENDIF(UNIX AND NOT APPLE)
 
 ##
-## ----- Change above to match project requirements ----- ##
+## ------The lines above are only for Testplugin -do not use------------##
+## ----- Change above to match your project requirements --- ##
 ##
 
 ##
