@@ -148,11 +148,11 @@ fi
 cat $xml
 ls -l $BUILD_DIR
 
-sudo gunzip $tarball
+gunzip $tarball
 tarball_tar=$(ls $BUILD_DIR/*.tar)
 cd $BUILD_DIR
 xml_here=$(ls *.xml)
-sudo tar -rf $tarball_tar $xml_here
+tar -rf $tarball_tar $xml_here
 cd ..
 sudo gzip $tarball_tar
 
