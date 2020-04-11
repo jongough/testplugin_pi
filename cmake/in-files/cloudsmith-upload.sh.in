@@ -97,7 +97,6 @@ source $BUILD_DIR/pkg_version.sh
 tarball_name=@PACKAGE_NAME@-@PACKAGE_VERSION@-${PKG_TARGET}-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
 pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 
-source $BUILD_DIR/pkg_version.sh
 echo $BUILD_BRANCH
 echo $BUILD_TAG
 echo ${#BUILD_TAG}
@@ -148,6 +147,14 @@ fi
 
 cat $xml
 ls -l $BUILD_DIR
+
+sudo gunzip $tarball
+tarball_tar=$(ls $BUILD_DIR/*.tar)
+cd $BUILD_DIR
+xml_here=$(ls *.xml)
+sudo tar -rf $tarball_tar $xml_here
+cd ..
+sudo gzip $tarball_tar
 
 cloudsmith push raw --republish --no-wait-for-sync \
     --name @PACKAGE_NAME@-@PKG_TARGET@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
