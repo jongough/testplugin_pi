@@ -26,9 +26,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "58")
+set(VERSION_PATCH "63")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "03/04/2020")
+set(VERSION_DATE "08/04/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -66,16 +66,14 @@ set(CLOUDSMITH_USER "rick-gleason")
 #set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")
 
-set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
+#set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
+set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
-set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
-set(APPVEYOR_TEST_DEPLOY_TO_CLOUDSMITH "true")
+set(XML_DESCRIPTION "Testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
 
-# Prefer libGL.so to libOpenGL.so, see CMP0072
-set(OpenGL_GL_PREFERENCE "LEGACY")
 
 ##
 ## ----- Modify section above to include all the details for your plugin ----- ##
@@ -85,8 +83,13 @@ set(OpenGL_GL_PREFERENCE "LEGACY")
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
 ##
 
-set(PACKAGE_NAME ${PACKAGE}_pi)
-set(PACKAGE_FILE_NAME "${PACKAGE}_pi")
+if(NOT ${PACKAGE} MATCHES "(.*)_pi")
+  set(PACKAGE_NAME ${PACKAGE}_pi)
+  set(PACKAGE_FILE_NAME "${PACKAGE}_pi")
+else(NOT ${PACKAGE} MATCHES "(.*)_pi")
+  set(PACKAGE_NAME ${PACKAGE})
+  set(PACKAGE_FILE_NAME "${PACKAGE}")
+endif(NOT ${PACKAGE} MATCHES "(.*)_pi")
 string(TOUPPER "${PACKAGE}" TITLE_NAME)
 
 project(${PACKAGE_NAME} VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK})
@@ -97,8 +100,12 @@ set(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 message(STATUS "${VERBOSE_NAME} Version: ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK}")
 message(STATUS "OPCN_FLATPAK: ${OCPN_FLATPAK}")
 
+# Prefer libGL.so to libOpenGL.so, see CMP0072
+set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
+option(USE_GL "Enable OpenGL support" OFF)
+message(STATUS "USE_GL: ${USE_GL}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
