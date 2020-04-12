@@ -153,16 +153,19 @@ gunzip $tarball
 cd $BUILD_DIR
 tarball_tar=$(ls *.tar)
 xml_here=$(ls *.xml)
-if [ "$TRAVIS" ]; then
+if [ "$TRAVIS" ] || [ "$CIRCLECI" ]; then
     mkdir build_tar
     cp $tarball_tar build_tar/.
     cd build_tar
+    ls -l
     tar -xf $tarball_tar
     rm *.tar
     cp $xml .
+    ls -l
     tar -cf build_tarfile.tar *
     tar -tf build_tarfile.tar
     rm ../$tarball_tar
+    ls -l ../
     cp build_tarfile.tar ../$tarball_tar
     cd ..
     ls -l
