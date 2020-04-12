@@ -154,6 +154,14 @@ cd $BUILD_DIR
 tarball_tar=$(ls *.tar)
 xml_here=$(ls *.xml)
 ls -l
+mkdir test_tar
+cp $tarball_tar test_tar/.
+cd test_tar
+tar -xf $tarball_tar
+cp ../$xml .
+tar -crf test_tar.tar *
+tar -tf test_tar.tar
+cd ..
 tar -tf $tarball_tar
 tar -rf $tarball_tar $xml_here
 tar -tf $tarball_tar
