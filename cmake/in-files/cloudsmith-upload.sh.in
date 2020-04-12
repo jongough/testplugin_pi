@@ -158,8 +158,8 @@ mkdir test_tar
 cp $tarball_tar test_tar/.
 cd test_tar
 tar -xf $tarball_tar
-cp ../$xml .
-tar -crf test_tar.tar *
+cp $xml .
+tar -cf test_tar.tar *
 tar -tf test_tar.tar
 cd ..
 tar -tf $tarball_tar
