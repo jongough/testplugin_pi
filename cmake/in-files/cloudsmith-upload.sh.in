@@ -163,7 +163,7 @@ if [ "$TRAVIS" ]; then
     tar -cf build_tarfile.tar *
     tar -tf build_tarfile.tar
     rm ../$tarball_tar
-    cp build_tarfile.tar $tarball_tar
+    cp build_tarfile.tar ../$tarball_tar
     cd ..
     ls -l
     rm -rf build_tar
