@@ -153,7 +153,7 @@ gunzip $tarball
 cd $BUILD_DIR
 tarball_tar=$(ls *.tar)
 xml_here=$(ls *.xml)
-if [ $ENV{TRAVIS} ]; then
+if [ "$TRAVIS" ]; then
     mkdir build_tar
     cp $tarball_tar build_tar/.
     cd build_tar
@@ -164,6 +164,7 @@ if [ $ENV{TRAVIS} ]; then
     tar -tf build_tarfile.tar
     cp build_tarfile.tar $tarball_tar
     cd ..
+    rm -rf build_tar
 else
     tar -rf $tarball_tar $xml_here
 fi
