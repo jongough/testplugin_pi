@@ -26,16 +26,16 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "63")
+set(VERSION_PATCH "67")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "08/04/2020")
+set(VERSION_DATE "12/04/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
-set(PACKAGE "testplugin")
+
 #set(GIT_USER "jongough")
 set(GIT_USER "rgleason")
 
@@ -66,7 +66,6 @@ set(CLOUDSMITH_USER "rick-gleason")
 #set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")
 
-#set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/ocpn_draw.html")
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "Testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
@@ -233,7 +232,6 @@ set(EXTSRC)
 set(EXTINCLUDE
     extinclude/nlohmann/json.hpp
     extinclude/ODAPI.h)
-
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
