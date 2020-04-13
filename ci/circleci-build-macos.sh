@@ -4,11 +4,8 @@
 # Build the  MacOS artifacts
 #
 
-# Fix broken ruby on the CircleCI image:
 if [ -n "$CI" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
-    inst="https://raw.githubusercontent.com/Homebrew/install/master/install"
-    /usr/bin/ruby -e "$(curl -fsSL $inst)"
 fi
 
 
