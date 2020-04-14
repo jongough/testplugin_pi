@@ -58,6 +58,11 @@ else()
 endif()
 message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
+# Builds repository sufficies
+set(PROD "prod")  #Standard Repos
+set(BETA "beta")       #Standard Repos
+set(ALPHA "alpha") #Standard Repos
+
 set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
