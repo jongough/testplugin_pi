@@ -15,9 +15,9 @@
 
 set -xe
 
-PROD_REPO=${CLOUDSMITH_PROD_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-prod'}
-BETA_REPO=${CLOUDSMITH_BETA_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-beta'}
-ALPHA_REPO=${CLOUDSMITH_ALPHA_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-alpha'}
+PROD_REPO=${CLOUDSMITH_PROD_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-@PROD@'}
+BETA_REPO=${CLOUDSMITH_BETA_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-@BETA@'}
+ALPHA_REPO=${CLOUDSMITH_ALPHA_REPO:-'@CLOUDSMITH_USER@/@CLOUDSMITH_BASE_REPOSITORY@-@ALPHA@'}
 
 if [ -z "$CIRCLECI" ] && [ -z "$TRAVIS" ] && [ -z "$APPVEYOR" ]; then
     exit 0;
@@ -153,30 +153,25 @@ gunzip $tarball
 cd $BUILD_DIR
 tarball_tar=$(ls *.tar)
 xml_here=$(ls *.xml)
+cp $xml_here metadata.xml
 if [ "$TRAVIS" ] || [ "$CIRCLECI" ]; then
     mkdir build_tar
     cp $tarball_tar build_tar/.
     cd build_tar
-    ls -l
     tar -xf $tarball_tar
     rm *.tar
-    cp $xml .
-    ls -l
+    cp ../metadata.xml .
     tar -cf build_tarfile.tar *
     tar -tf build_tarfile.tar
     rm ../$tarball_tar
-    ls -l ../
     cp build_tarfile.tar ../$tarball_tar
     cd ..
-    ls -l
     rm -rf build_tar
 else
-    tar -rf $tarball_tar $xml_here
+    tar -rf $tarball_tar metadata.xml
 fi
-ls -l
 tar -tf $tarball_tar
 gzip $tarball_tar
-ls -l
 cd $cur_dir
 pwd
 ls -la
