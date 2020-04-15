@@ -8,8 +8,9 @@ matrix:
     - DOCKER_IMAGE=raspbian/stretch
     services:
     - docker
-    script:
+    before_script:
     - travis_wait 50 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
+    script:
     - travis_wait 50 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
   - env:
     - OCPN_TARGET=buster-armhf
@@ -17,8 +18,9 @@ matrix:
     - DOCKER_IMAGE=opencpn/raspbian-buster:plugin_build_tooling
     services:
     - docker
-    script:
+    before_script:
     - travis_wait 50 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
+    script:
     - travis_wait 50 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
 deploy:
   provider: script
