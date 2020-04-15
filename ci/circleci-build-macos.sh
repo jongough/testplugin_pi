@@ -17,6 +17,7 @@ done
 	brew unlink python@2
 	brew upgrade python
 	brew ls python3
+	brew install wget
 
 wget -q http://opencpn.navnux.org/build_deps/wx312_opencpn50_macos109.tar.xz
 tar xJf wx312_opencpn50_macos109.tar.xz -C /tmp
