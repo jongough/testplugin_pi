@@ -167,61 +167,61 @@ workflows:
         jobs:
         - build-armhf:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-trusty:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-xenial:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-bionic:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-bionic-gtk3:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-buster:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-flatpak:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-fedora:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-mingw:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-macos:
             filters:
-            branches:
-                ignore:
-                - devel
-                - tmp
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
