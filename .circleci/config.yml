@@ -1,23 +1,34 @@
 ---
 version: 2
 jobs:
-   build-trusty:
-     docker:
-       - image: circleci/buildpack-deps:trusty-scm
-     environment:
-       - OCPN_TARGET:  trusty
-     steps:
-       - checkout
-       - run: >
-           echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main"
-           | sudo tee -a /etc/apt/sources.list
-       - run: >
-           echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates main"
-           | sudo tee -a /etc/apt/sources.list
-       - run: cat /etc/apt/sources.list
-       - run: chmod a+x ci/*.sh
-       - run: ci/circleci-build-trusty.sh
-       - run: ci/cloudsmith-upload.sh
+    build-armhf:
+        docker:
+            - image: circleci/buildpack-deps:trusty-scm
+        environment:
+            - OCPN_TARGET=stretch-armhf
+            - OCPN_BRANCH=master
+            - DOCKER_IMAGE=raspbian/stretch
+        steps:
+            - chmod a+x ./ci/circleci-build-raspbian-armhf.sh
+            - travis_wait 50 sleep infinity & bash ./ci/circleci-build-raspbian-armhf.sh
+            - run: ci/cloudsmith-upload.sh
+    build-trusty:
+        docker:
+            - image: circleci/buildpack-deps:trusty-scm
+        environment:
+            - OCPN_TARGET:  trusty
+        steps:
+            - checkout
+            - run: >
+                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main"
+                | sudo tee -a /etc/apt/sources.list
+            - run: >
+                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates main"
+                | sudo tee -a /etc/apt/sources.list
+            - run: cat /etc/apt/sources.list
+            - run: chmod a+x ci/*.sh
+            - run: ci/circleci-build-trusty.sh
+            - run: ci/cloudsmith-upload.sh
    build-xenial:
      docker:
        - image: circleci/buildpack-deps:xenial-scm
@@ -154,6 +165,12 @@ workflows:
   version: 2
   build_all:
     jobs:
+      - build-armhf:
+         filters:
+           branches:
+             ignore:
+               - devel
+               - tmp
       - build-trusty:
          filters:
            branches:
