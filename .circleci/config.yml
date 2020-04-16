@@ -3,66 +3,66 @@ version: 2
 jobs:
     build-armhf:
         docker:
-            - image: circleci/buildpack-deps:trusty-scm
+        - image: circleci/buildpack-deps:trusty-scm
         environment:
-            - OCPN_TARGET=stretch-armhf
-            - OCPN_BRANCH=master
-            - DOCKER_IMAGE=raspbian/stretch
+        - OCPN_TARGET=stretch-armhf
+        - OCPN_BRANCH=master
+        - DOCKER_IMAGE=raspbian/stretch
         steps:
-            - chmod a+x ./ci/circleci-build-raspbian-armhf.sh
-            - travis_wait 50 sleep infinity & bash ./ci/circleci-build-raspbian-armhf.sh
-            - run: ci/cloudsmith-upload.sh
+        - chmod a+x ./ci/circleci-build-raspbian-armhf.sh
+        - travis_wait 50 sleep infinity & bash ./ci/circleci-build-raspbian-armhf.sh
+        - run: ci/cloudsmith-upload.sh
     build-trusty:
         docker:
-            - image: circleci/buildpack-deps:trusty-scm
+        - image: circleci/buildpack-deps:trusty-scm
         environment:
-            - OCPN_TARGET:  trusty
+        - OCPN_TARGET:  trusty
         steps:
-            - checkout
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-trusty.sh
-            - run: ci/cloudsmith-upload.sh
+        - checkout
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-trusty.sh
+        - run: ci/cloudsmith-upload.sh
     build-xenial:
         docker:
-            - image: circleci/buildpack-deps:xenial-scm
+        - image: circleci/buildpack-deps:xenial-scm
         environment:
-            - OCPN_TARGET:  xenial
+        - OCPN_TARGET:  xenial
         steps:
-            - checkout
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-debian.sh
-            - run: ci/cloudsmith-upload.sh
+        - checkout
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - run: ci/cloudsmith-upload.sh
     build-bionic:
         docker:
-            - image: circleci/buildpack-deps:bionic-scm
+        - image: circleci/buildpack-deps:bionic-scm
         environment:
-            - OCPN_TARGET:  bionic
+        - OCPN_TARGET:  bionic
         steps:
-            - checkout
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-debian.sh
-            - run: ci/cloudsmith-upload.sh
+        - checkout
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - run: ci/cloudsmith-upload.sh
     build-bionic-gtk3:
         docker:
         - image: circleci/buildpack-deps:bionic-scm
@@ -129,7 +129,7 @@ jobs:
         - run: bash ci/cloudsmith-upload.sh
     build-fedora:
         docker:
-            - image: fedora:29
+        - image: fedora:29
         environment:
         - OCPN_TARGET:  fedora
         steps:
@@ -140,7 +140,7 @@ jobs:
         - run: ci/cloudsmith-upload.sh
     build-mingw:
         docker:
-            - image: fedora:29
+        - image: fedora:29
         environment:
         - OCPN_TARGET:  mingw
         - CLOUDSMITH_PKG_EXT: exe
