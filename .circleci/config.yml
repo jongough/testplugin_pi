@@ -118,7 +118,7 @@ jobs:
         - run: bash ci/cloudsmith-upload.sh
     build-flatpak:
         machine:
-        image: circleci/classic:201808-01
+            image: circleci/classic:201808-01
         environment:
         - OCPN_TARGET:  flatpak
         - CLOUDSMITH_PKG_EXT: gz
@@ -152,7 +152,7 @@ jobs:
         - run: bash ci/cloudsmith-upload.sh
     build-macos:
         macos:
-        xcode: "10.0.0"
+            xcode: "10.0.0"
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
