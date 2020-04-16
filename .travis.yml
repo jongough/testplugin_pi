@@ -15,7 +15,7 @@ matrix:
   - env:
     - OCPN_TARGET=buster-armhf
     - OCPN_BRANCH=master
-    - DOCKER_IMAGE=opencpn/raspbian-buster:plugin_build_tooling
+    - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
     services:
     - docker
     before_script:
