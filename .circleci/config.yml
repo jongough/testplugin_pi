@@ -9,7 +9,8 @@ jobs:
         - OCPN_BRANCH=master
         - DOCKER_IMAGE=raspbian/stretch
         steps:
-        - run: chmod a+x ./ci/circleci-build-raspbian-armhf.sh
+        - checkout
+        - run: chmod a+x ./ci/*.sh
         - run: travis_wait 50 sleep infinity & bash ./ci/circleci-build-raspbian-armhf.sh
         - run: ci/cloudsmith-upload.sh
     build-trusty:
