@@ -6,6 +6,8 @@ matrix:
     - OCPN_TARGET=stretch-armhf
     - OCPN_BRANCH=master
     - DOCKER_IMAGE=raspbian/stretch
+    global:
+      -MAKEFLAGS="-j 2"
     services:
     - docker
     before_script:
@@ -16,6 +18,8 @@ matrix:
     - OCPN_TARGET=buster-armhf
     - OCPN_BRANCH=master
     - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
+    global:
+      -MAKEFLAGS="-j 2"
     services:
     - docker
     before_script:
