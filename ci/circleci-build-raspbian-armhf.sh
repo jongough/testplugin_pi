@@ -5,9 +5,14 @@
 
 # bailout on errors and echo commands.
 set -xe
-echo "\"deb https://download.docker.com/linux/ubuntu trusty stable\” | sudo tee /etc/apt/sources.list.d/docker.list"
 sudo apt-get -qq update
-sudo apt-get install -y docker-ce
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get -qq update
+sudo apt-get install -y docker-ce docker-ci-cli container.io
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
