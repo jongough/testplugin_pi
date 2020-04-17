@@ -6,7 +6,7 @@ matrix:
     - OCPN_TARGET=stretch-armhf
     - OCPN_BRANCH=master
     - DOCKER_IMAGE=raspbian/stretch
-    - BUILD_FLAGS=-j2
+    - BUILD_FLAGS="-j2"
     services:
     - docker
     - chmod a+x ./ci/travis-build-raspbian-armhf-part1.sh
