@@ -19,7 +19,7 @@ cat /etc/apt/sources.list.d/docker.list
 #   $(lsb_release -cs) \
 #   stable"
 sudo apt-get -qq update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+sudo apt-get install -y docker-ce containerd.io
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
