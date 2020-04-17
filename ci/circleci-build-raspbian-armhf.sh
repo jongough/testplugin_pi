@@ -14,7 +14,7 @@ echo "\"deb https://download.docker.com/linux/ubuntu trusty stable\” | sudo te
 #   $(lsb_release -cs) \
 #   stable"
 sudo apt-get -qq update
-sudo apt-get install -y docker-ce docker-ci-cli container.io
+sudo apt-get install -y docker-ce docker-ci-cli containerd.io
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
