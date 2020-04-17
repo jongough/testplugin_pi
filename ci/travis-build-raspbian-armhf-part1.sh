@@ -6,7 +6,6 @@
 # bailout on errors and echo commands.
 set -xe
 sudo apt-get -qq update
-sudo apt-get install docker
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
