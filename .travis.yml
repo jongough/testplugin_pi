@@ -10,7 +10,6 @@ matrix:
     services:
     - docker
     before_script:
-    - chmod a+x ./ci/travis-build-raspbian-armhf-part1.sh
     - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
     script:
     - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
@@ -22,7 +21,6 @@ matrix:
     services:
     - docker
     before_script:
-    - chmod a+x ./ci/travis-build-raspbian-armhf-part1.sh
     - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
     script:
     - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
