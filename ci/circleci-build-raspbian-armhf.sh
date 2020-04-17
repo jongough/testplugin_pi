@@ -7,7 +7,7 @@
 set -xe
 sudo apt-get -qq update
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-echo "\"deb https://download.docker.com/linux/ubuntu trusty stable\” | sudo tee /etc/apt/sources.list.d/docker.list"
+echo "deb https://download.docker.com/linux/ubuntu trusty stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
 #sudo add-apt-repository \
 #   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
