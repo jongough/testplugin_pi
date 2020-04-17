@@ -3,7 +3,7 @@ version: 2
 jobs:
     build-armhf-stretch:
         docker:
-        - image: circleci/buildpack-deps:xenial-scm
+        - image: circleci/buildpack-deps:bionic-scm
         environment:
         - OCPN_TARGET=stretch-armhf
         - OCPN_BRANCH=master
@@ -15,7 +15,7 @@ jobs:
         - run: ci/cloudsmith-upload.sh
     build-armhf-buster:
         docker:
-        - image: circleci/buildpack-deps:xenial-scm
+        - image: circleci/buildpack-deps:bionic-scm
         environment:
         - OCPN_TARGET=stretch-armhf
         - OCPN_BRANCH=master
