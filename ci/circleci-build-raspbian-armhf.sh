@@ -6,7 +6,7 @@
 # bailout on errors and echo commands.
 set -xe
 sudo apt-get -qq update
-curl -fsSL http://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#curl -fsSL http://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 echo "deb http://download.docker.com/linux/ubuntu trusty stable" | sudo tee /etc/apt/sources.list.d/docker.list
 ls -la /etc/apt
 cat /etc/apt/sources.list
