@@ -7,7 +7,7 @@
 set -xe
 echo "\"deb https://apt.dockerproject.org/repo ubuntu-trusty main\” | sudo tee /etc/apt/sources.list.d/docker.list"
 sudo apt-get -qq update
-sudo apt-get install -y docker-engine
+sudo apt-get install -y docker-ce
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
