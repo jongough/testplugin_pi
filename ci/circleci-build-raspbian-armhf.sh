@@ -8,16 +8,8 @@ set -xe
 sudo apt-get -qq update
 
 sudo apt-get install -y apt-transport-https
-curl -fsSL http://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-echo "deb https://download.docker.com/linux/ubuntu bionic stable" | sudo tee /etc/apt/sources.list.d/docker.list
-#sudo add-apt-repository \
-#   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-#   $(lsb_release -cs) \
-#   stable"
-ls -la /etc/apt
-cat /etc/apt/sources.list
-cat /etc/apt/sources.list.d/docker.list
-
+sudo sh -c 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
+sudo sh -c 'echo "deb https://download.docker.com/linux/ubuntu bionic stable" | tee /etc/apt/sources.list.d/docker.list'
 #sudo add-apt-repository \
 #   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
 #   $(lsb_release -cs) \
@@ -27,11 +19,10 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
-echo "DOCKER_OPTS=\"-H tcp://127.0.0.1:2375 -H $DOCKER_SOCK -s devicemapper\"" \
-    | sudo tee /etc/default/docker > /dev/null
-sudo systemctl restart docker
-#sudo service docker restart;
+echo "DOCKER_OPTS=\"-H tcp://127.0.0.1:2375 -H $DOCKER_SOCK -s devicemapper\"" | sudo tee /etc/default/docker > /dev/null
+sudo service docker restart;
 sleep 5;
+sudo service docker status
 
 docker run --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
 
