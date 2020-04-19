@@ -32,7 +32,7 @@ docker run --rm --privileged multiarch/qemu-user-static --reset --credential yes
 docker run --privileged -d -ti -e "container=docker" \
       -v ~/source_top:/source_top \
       -v $(pwd):/ci-source:rw \
-      $DOCKER_IMAGE /bin/bash
+      $DOCKER_IMAGE /bin/bash && tail -f /dev/null
 sleep 5;
 docker ps -a
 sleep 5;
