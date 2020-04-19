@@ -2,12 +2,13 @@
 version: 2
 jobs:
     build-armhf-stretch:
-        docker:
-        - image: circleci/buildpack-deps:bionic-scm
+#        docker:
+#        - image: circleci/buildpack-deps:bionic-scm
+        machine: true
         environment:
         - OCPN_TARGET=stretch-armhf
-        - OCPN_BRANCH=master
         - DOCKER_IMAGE=raspbian/stretch
+        - BUILD_FLAGS="-j2"
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
@@ -15,13 +16,13 @@ jobs:
         - run: ci/cloudsmith-upload.sh
     build-armhf-buster:
 #        docker:
-        machine: true
 #            image: ubuntu-1604:201903-01
 #        - image: multiarch/qemu-user-static
+        machine: true
         environment:
         - OCPN_TARGET=buster-armhf
-        - OCPN_BRANCH=master
         - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
+        - BUILD_FLAGS="-j2"
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
