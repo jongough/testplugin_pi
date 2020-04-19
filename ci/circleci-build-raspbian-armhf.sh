@@ -29,10 +29,11 @@ sudo service docker status
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 #docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-docker run --privileged -d -ti -e "container=docker" \
-      -v ~/source_top:/source_top \
-      -v $(pwd):/ci-source:rw \
-      $DOCKER_IMAGE /bin/bash
+#docker run --privileged -d -ti -e "container=docker"
+#      -v ~/source_top:/source_top \
+#      -v $(pwd):/ci-source:rw \
+#      $DOCKER_IMAGE /bin/bash
+docker run --privileged -d -ti -e "container=docker"  $DOCKER_IMAGE /bin/bash
 DOCKER_CONTAINER_ID=$(docker ps | grep raspbian | awk '{print $1}')
 sleep 5;
 #docker exec -ti $DOCKER_CONTAINER_ID sudo apt-get update
