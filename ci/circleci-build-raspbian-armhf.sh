@@ -33,7 +33,7 @@ docker run --rm --privileged multiarch/qemu-user-static:register --reset
 #      -v ~/source_top:/source_top \
 #      -v $(pwd):/ci-source:rw \
 #      $DOCKER_IMAGE /bin/bash
-docker run --privileged -d -ti -e "container=docker"  $DOCKER_IMAGE /bin/bash
+docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/project:rw $DOCKER_IMAGE /bin/bash
 DOCKER_CONTAINER_ID=$(docker ps | grep raspbian | awk '{print $1}')
 sleep 5;
 #docker exec -ti $DOCKER_CONTAINER_ID sudo apt-get update
@@ -42,6 +42,7 @@ sleep 5;
 #docker exec -ti $DOCKER_CONTAINER_ID sudo apt-get -y install git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 
 echo $OCPN_TARGET
+docker exec -ti $DOCKER_CONTAINER_ID mount
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "export CICLECI=$CIRCLECI; export CIRCLECI_BRANCH=$CIRCLECI_BRANCH; export OCPN_TARGET=$OCPN_TARGET; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make; make package; chmod -R a+rw ../build;"
 
