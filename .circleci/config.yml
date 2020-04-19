@@ -8,7 +8,7 @@ jobs:
         environment:
         - OCPN_TARGET=stretch-armhf
         - DOCKER_IMAGE=raspbian/stretch
-        - BUILD_FLAGS=-j2
+        - BUILD_FLAGS=-j3
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
@@ -22,7 +22,7 @@ jobs:
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
-        - BUILD_FLAGS=-j2
+        - BUILD_FLAGS=-j3
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
@@ -181,64 +181,69 @@ workflows:
     version: 2
     build_all:
         jobs:
+        - build-armhf-stretch:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
         - build-armhf-buster:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-#       - build-trusty:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-xenial:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-bionic:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-bionic-gtk3:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-buster:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-flatpak:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-fedora:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-mingw:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#       - build-macos:
-#           filters:
-#               branches:
-#                   ignore:
-#                   - devel
-#                   - tmp
-#
+           filters:
+        - build-trusty:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-xenial:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-bionic:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-bionic-gtk3:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-buster:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-flatpak:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-fedora:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-mingw:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+        - build-macos:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
