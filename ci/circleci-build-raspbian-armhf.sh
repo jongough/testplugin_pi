@@ -26,7 +26,8 @@ sudo service docker restart
 sleep 5;
 sudo service docker status
 
-docker run --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
+docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes --persistent yes
+#docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 docker run --privileged -d -ti -e "container=docker" \
       -v ~/source_top:/source_top \
