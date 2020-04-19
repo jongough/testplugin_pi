@@ -193,8 +193,8 @@ workflows:
                     ignore:
                     - devel
                     - tmp
-           filters:
         - build-trusty:
+            filters:
                 branches:
                     ignore:
                     - devel
