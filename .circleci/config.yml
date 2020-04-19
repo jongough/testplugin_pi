@@ -14,10 +14,12 @@ jobs:
         - run: ci/circleci-build-raspbian-armhf.sh
         - run: ci/cloudsmith-upload.sh
     build-armhf-buster:
-        docker:
-        - image: circleci/buildpack-deps:bionic-scm
+#        docker:
+        machine: true
+#            image: ubuntu-1604:201903-01
+#        - image: multiarch/qemu-user-static
         environment:
-        - OCPN_TARGET=stretch-armhf
+        - OCPN_TARGET=buster-armhf
         - OCPN_BRANCH=master
         - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
         steps:
