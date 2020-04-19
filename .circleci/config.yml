@@ -8,7 +8,7 @@ jobs:
         environment:
         - OCPN_TARGET=stretch-armhf
         - DOCKER_IMAGE=raspbian/stretch
-        - BUILD_FLAGS="-j2"
+        - BUILD_FLAGS=-j2
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
@@ -22,7 +22,7 @@ jobs:
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/raspbian-buster:plugin_build_tooling_current
-        - BUILD_FLAGS="-j2"
+        - BUILD_FLAGS=-j2
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
