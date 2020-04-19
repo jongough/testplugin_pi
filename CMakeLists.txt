@@ -1,7 +1,25 @@
 # ---------------------------------------------------------------------------
-# Author:      jongough aka. Jon Gough Copyright: License:     wxWidgets License
+# Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
-
+##---------------------------------------------------------------------------
+## Author:      Mauro Calvi
+##***************************************************************************
+## *   Copyright (C) 2010 by Mauro Calvi                               *
+## *   This program is free software; you can redistribute it and/or modify  *
+## *   it under the terms of the GNU General Public License as published by  *
+## *   the Free Software Foundation; either version 2 of the License, or     *
+## *   (at your option) any later version.                                   *
+## *                                                                         *
+## *   This program is distributed in the hope that it will be useful,       *
+## *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+## *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+## *   GNU General Public License for more details.                          *
+## *                                                                         *
+## *   You should have received a copy of the GNU General Public License     *
+## *   along with this program; if not, write to the                         *
+## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
+## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx          *
+## ***
 ##
 ## ----- Modify section below to include all the details for your plugin ----- ##
 ##
@@ -37,7 +55,7 @@ set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
-
+#set(GIT_USER "mauroc")
 #set(GIT_USER "jongough")
 set(GIT_USER "rgleason")
 
@@ -65,8 +83,10 @@ endif()
 message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
 #set(CLOUDSMITH_USER "jon-gough")
+#set(CLOUDSMITH_USER "mauro-calvi")								   
 set(CLOUDSMITH_USER "rick-gleason")
 #set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+#set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
 set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")
 
 # Set Cloudsmith upload repository suffix for each catalog
@@ -77,9 +97,6 @@ set(ALPHA "alpha")  #Standard Repos
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "Testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
-option(PLUGIN_USE_SVG "Use SVG graphics" ON)
-
-set(CMAKE_CXX_STANDARD 11)
 
 ##
 ## ----- Modify section above to include all the details for your plugin ----- ##
@@ -127,7 +144,9 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION})
 set(PKG_URL "https://dl.cloudsmith.io/public/--pkg_repo--/raw/names/--name--/versions/--version--/--filename--")
 
-include("cmake/PluginSetup.cmake")
+#===========================================================
+INCLUDE("cmake/PluginSetup.cmake")
+#===========================================================
 
 if(DEFINED ENV{OCPN_TARGET})
     set(PACKAGING_NAME "${PKG_NVR}_${PKG_TARGET}-${PKG_TARGET_VERSION}-$ENV{OCPN_TARGET}")
@@ -205,8 +224,9 @@ endif()
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
 ##
 
-
+#===========================================================
 include("cmake/PluginConfigure.cmake")
+#===========================================================
 
 ##
 ## ----- Change below to match your project requirements ----- ##
