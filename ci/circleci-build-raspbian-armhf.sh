@@ -18,13 +18,12 @@ set -xe
 #sudo apt-get -qq update
 #sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
-#DOCKER_SOCK="unix:///var/run/docker.sock"
+DOCKER_SOCK="unix:///var/run/docker.sock"
 
-#echo "DOCKER_OPTS=\"-H tcp://127.0.0.1:2375 -s devicemapper\"" | sudo tee /etc/default/docker > /dev/null
-#sudo docker run -v /var/run/docker.sock:/var/run/docker.sock hello-world
-#sudo service docker status
-#sudo service docker restart
-#sleep 5;
+echo "DOCKER_OPTS=\"-H tcp://127.0.0.1:2375 -s devicemapper\"" | sudo tee /etc/default/docker > /dev/null
+sudo service docker status
+sudo service docker restart
+sleep 5;
 sudo service docker status
 
 docker run --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
