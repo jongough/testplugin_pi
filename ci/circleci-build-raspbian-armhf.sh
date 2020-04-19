@@ -32,7 +32,7 @@ docker run --rm --privileged multiarch/qemu-user-static --reset --credential yes
 docker run --privileged -d -ti -e "container=docker" \
       -v ~/source_top:/source_top \
       -v $(pwd):/ci-source:rw \
-      $DOCKER_IMAGE tail -f /dev/dnull
+      $DOCKER_IMAGE /bin/bash tail -f /dev/dnull
 DOCKER_CONTAINER_ID=$(docker ps | grep raspbian | awk '{print $1}')
 
 docker exec -ti $DOCKER_CONTAINER_ID apt-get update
