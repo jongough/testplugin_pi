@@ -34,8 +34,8 @@ docker run --privileged -d -ti -e "container=docker" \
       -v $(pwd):/ci-source:rw \
       $DOCKER_IMAGE /bin/bash
 docker ps -a
-
-DOCKER_CONTAINER_ID=$(sudo docker ps | grep raspbian | awk '{print $1}')
+docker ps
+DOCKER_CONTAINER_ID=$(docker ps | grep raspbian | awk '{print $1}')
 
 docker exec -ti $DOCKER_CONTAINER_ID apt-get update
 docker exec -ti $DOCKER_CONTAINER_ID echo "------\nEND apt-get update\n"
