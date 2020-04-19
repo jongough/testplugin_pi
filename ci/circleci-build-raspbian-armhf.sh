@@ -44,7 +44,7 @@ DOCKER_CONTAINER_ID=$(docker ps | grep raspbian | awk '{print $1}')
 echo $OCPN_TARGET
 docker exec -ti $DOCKER_CONTAINER_ID mount
 docker exec -ti $DOCKER_CONTAINER_ID ls -la /
-docker exec -ti $DOCKER_CONTAINER_ID ls -la /project
+docker exec -ti $DOCKER_CONTAINER_ID ls -la /ci-source
 
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     "export CICLECI=$CIRCLECI; export CIRCLECI_BRANCH=$CIRCLECI_BRANCH; export OCPN_TARGET=$OCPN_TARGET; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make; make package; chmod -R a+rw ../build;"
