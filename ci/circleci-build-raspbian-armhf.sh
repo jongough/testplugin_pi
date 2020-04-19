@@ -35,10 +35,10 @@ docker run --privileged -d -ti -e "container=docker" \
       $DOCKER_IMAGE /bin/bash tail -f /dev/null
 DOCKER_CONTAINER_ID=$(docker ps | grep raspbian | awk '{print $1}')
 
-docker exec -ti $DOCKER_CONTAINER_ID apt-get update
+docker exec -ti $DOCKER_CONTAINER_ID sudo apt-get update
 docker exec -ti $DOCKER_CONTAINER_ID echo "------\nEND apt-get update\n"
 
-docker exec -ti $DOCKER_CONTAINER_ID apt-get -y install git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+docker exec -ti $DOCKER_CONTAINER_ID sudo apt-get -y install git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 
 echo $TRAVIS_BRANCH
 echo $OCPN_TARGET
