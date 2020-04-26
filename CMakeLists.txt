@@ -63,7 +63,7 @@ set(GIT_REPOSITORY_NAME "testplugin_pi")
 message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
 message(STATUS "TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
 
-# This "if" permits setup of a local webserver with git for testing purposes
+# Permits setup of a local webserver with git for testing purposes
 if($ENV{CIRCLECI})
   set(GIT_REPOSITORY_HOST "github.com")
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
@@ -79,6 +79,17 @@ else()
 #  set(GIT_REPOSITORY_HOST "git.eclipse.com.au")
 #  set(GIT_REPOSITORY_DIR "")
 #  set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
+# Get the current working branch
+  execute_process(
+    COMMAND git rev-parse --abbrev-ref HEAD
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE GIT_REPOSITORY_BRANCH
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+  if(${GIT_REPOSITORY_BRANCH} EQUAL "")
+    message(STATUS "Setting default GIT repository branch - master")
+    set(GIT_REPOSITORY_BRANCH "master")
+  endif()
 endif()
 message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
@@ -155,6 +166,10 @@ else(DEFINED ENV{OCPN_TARGET})
 endif(DEFINED ENV{OCPN_TARGET})
 message(STATUS "PACKAGING_NAME: ${PACKAGING_NAME}")
 
+
+##=============================================================
+# Modify/configure 'Include' Directories below for the Plugin
+##=============================================================
 set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -220,18 +235,20 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
   endif()
 endif()
 
-##
-## ----- Modify section above if there are special requirements for the plugin ----- ##
+#
+# -------Section above is directly from Testplugin --------------#  
+# ----- Modify section above if there are special requirements for the plugin -----#
 ##
 
 #===========================================================
-include("cmake/PluginConfigure.cmake")
+INCLUDE("cmake/PluginConfigure.cmake")
 #===========================================================
 
-##
-## ----- Change below to match your project requirements ----- ##
-## ------These lines are only for Testplugin - do not use for other plugins ------------##
-##
+# ----- Change below to match your project requirements ----- ##
+# ------These lines are only for Testplugin - do not use ------------##
+#
+#   THESE GET REMOVED
+#
 
 add_definitions(-DUSE_S57)
 
