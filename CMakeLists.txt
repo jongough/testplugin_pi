@@ -79,6 +79,17 @@ else()
 #  set(GIT_REPOSITORY_HOST "git.eclipse.com.au")
 #  set(GIT_REPOSITORY_DIR "")
 #  set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
+# Get the current working branch
+  execute_process(
+    COMMAND git rev-parse --abbrev-ref HEAD
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE GIT_REPOSITORY_BRANCH
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+  if(${GIT_REPOSITORY_BRANCH} EQUAL "")
+    message(STATUS "Setting default GIT repository branch - master")
+    set(GIT_REPOSITORY_BRANCH "master")
+  endif()
 endif()
 message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 
