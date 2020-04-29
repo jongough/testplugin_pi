@@ -43,7 +43,7 @@ if(UNIX)
 endif(UNIX)
 
 if(APPLE)
-  install(TARGETS ${PACKAGE_NAME} RUNTIME LIBRARY DESTINATION OpenCPN.app/Contents)
+  install(TARGETS ${PACKAGE_NAME} RUNTIME LIBRARY DESTINATION OpenCPN.app/Contents/PlugIns)
   if(EXISTS ${PROJECT_SOURCE_DIR}/data)
     install(DIRECTORY data DESTINATION OpenCPN.app/Contents/SharedSupport/plugins/${PACKAGE_NAME})
   endif()
