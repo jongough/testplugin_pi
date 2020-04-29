@@ -43,16 +43,9 @@ if(UNIX)
 endif(UNIX)
 
 if(APPLE)
-  install(
-    TARGETS ${PACKAGE_NAME}
-    RUNTIME
-    LIBRARY DESTINATION ${CMAKE_BINARY_DIR}/OpenCPN.app/Contents/SharedSupport/plugins)
-  install(
-    TARGETS ${PACKAGE_NAME}
-    RUNTIME
-    LIBRARY DESTINATION ${CMAKE_BINARY_DIR}/OpenCPN.app/Contents/PlugIns)
+  install(TARGETS ${PACKAGE_NAME} RUNTIME LIBRARY DESTINATION OpenCPN.app/Contents)
   if(EXISTS ${PROJECT_SOURCE_DIR}/data)
-    install(DIRECTORY data DESTINATION ${CMAKE_BINARY_DIR}/OpenCPN.app/Contents/SharedSupport/plugins/${PACKAGE_NAME})
+    install(DIRECTORY data DESTINATION OpenCPN.app/Contents/SharedSupport/plugins/${PACKAGE_NAME})
   endif()
 
   find_package(ZLIB REQUIRED)
@@ -192,10 +185,10 @@ if(APPLE)
     file(COPY ${_currentDataFile} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
   endforeach(_currentDataFile)
 
-  install(
-    TARGETS ${PACKAGE_NAME}
-    RUNTIME
-    LIBRARY DESTINATION ${PACKAGE_NAME}/${PACKAGE_NAME})
-  message(STATUS "Install Target: ${PACKAGE_NAME}/${PACKAGE_NAME}")
+#  install(
+#    TARGETS ${PACKAGE_NAME}
+#    RUNTIME
+#    LIBRARY DESTINATION ${PACKAGE_NAME}/${PACKAGE_NAME})
+#  message(STATUS "Install Target: ${PACKAGE_NAME}/${PACKAGE_NAME}")
 
 endif(APPLE)
