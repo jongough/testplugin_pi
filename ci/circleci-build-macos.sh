@@ -35,9 +35,9 @@ cmake -DOCPN_CI_BUILD=$CI_BUILD \
 make -sj2
 make package
 
-wget -q http://opencpn.navnux.org/build_deps/Packages.dmg
-hdiutil attach Packages.dmg
-sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
-make install
-make create-pkg
+#wget -q http://opencpn.navnux.org/build_deps/Packages.dmg
+#hdiutil attach Packages.dmg
+#sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
+#make install
+#make create-pkg
 
