@@ -103,7 +103,7 @@ set(CLOUDSMITH_USER "rick-gleason")
 
 #set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 #set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
-set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")
+set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 
 # Set Cloudsmith upload repository suffix for each catalog
 set(PROD "prod")    #Standard Repos
