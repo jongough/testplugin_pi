@@ -39,5 +39,5 @@ make package
 #hdiutil attach Packages.dmg
 #sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
 #make install
-#make create-pkg
+make create-pkg
 
