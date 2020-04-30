@@ -185,10 +185,19 @@ if(APPLE)
     file(COPY ${_currentDataFile} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
   endforeach(_currentDataFile)
 
-#  install(
-#    TARGETS ${PACKAGE_NAME}
-#    RUNTIME
-#    LIBRARY DESTINATION ${PACKAGE_NAME}/${PACKAGE_NAME})
-#  message(STATUS "Install Target: ${PACKAGE_NAME}/${PACKAGE_NAME}")
+  if(EXISTS ${PROJECT_SOURCE_DIR}/UserIcons)
+      file(GLOB_RECURSE PACKAGE_DATA_FILES LIST_DIRECTORIES true ${CMAKE_SOURCE_DIR}/UserIcons/*)
+
+      foreach(_currentDataFile ${PACKAGE_DATA_FILES})
+          message(STATUS "copying: ${_currentDataFile}")
+          file(COPY ${_currentDataFile} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/UserIcons)
+      endforeach(_currentDataFile)
+  endif()
+
+  install(
+    TARGETS ${PACKAGE_NAME}
+    RUNTIME
+    LIBRARY DESTINATION OpenCPN.app/Contents/PlugIns)
+    message(STATUS "Install Target: OpenCPN.app/Contents/PlugIns")
 
 endif(APPLE)
