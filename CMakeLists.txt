@@ -2,9 +2,9 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 ##---------------------------------------------------------------------------
-## Author:      Mauro Calvi
+## Author:      Jon Gough
 ##***************************************************************************
-## *   Copyright (C) 2010 by Mauro Calvi                               *
+## *   Copyright (C) 2010 by Jon Gough                          *
 ## *   This program is free software; you can redistribute it and/or modify  *
 ## *   it under the terms of the GNU General Public License as published by  *
 ## *   the Free Software Foundation; either version 2 of the License, or     *
@@ -46,9 +46,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "75")
+set(VERSION_PATCH "80")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "20/04/2020")
+set(VERSION_DATE "30/04/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -72,14 +72,14 @@ elseif($ENV{TRAVIS})
   set(GIT_REPOSITORY_HOST "github.com")
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
   set(GIT_REPOSITORY_BRANCH "$ENV{TRAVIS_BRANCH}")
+elseif($ENV{APPVEYOR})
+  set(GIT_REPOSITORY_HOST "github.com")
+  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
+  set(GIT_REPOSITORY_BRANCH "$ENV{APPVEYOR_REPO_BRANCH}")
 else()
   set(GIT_REPOSITORY_HOST "github.com")
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  set(GIT_REPOSITORY_BRANCH "master")
-#  set(GIT_REPOSITORY_HOST "git.eclipse.com.au")
-#  set(GIT_REPOSITORY_DIR "")
-#  set(GIT_REPOSITORY_BRANCH "cmake_flatpak_test")
-# Get the current working branch
+  # Get the current working branch
   execute_process(
     COMMAND git rev-parse --abbrev-ref HEAD
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -96,9 +96,10 @@ message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
 #set(CLOUDSMITH_USER "jon-gough")
 #set(CLOUDSMITH_USER "mauro-calvi")								   
 set(CLOUDSMITH_USER "rick-gleason")
+
 #set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 #set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
-set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")
+set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 
 # Set Cloudsmith upload repository suffix for each catalog
 set(PROD "prod")    #Standard Repos
