@@ -20,13 +20,19 @@
 ## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
 ## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx          *
 ## ***
-##
-## ----- Modify section below to include all the details for your plugin ----- ##
-##
-## ====FRONTEND 2==============
-## 
-## 
-# define minimum cmake version
+#-----------------------------------------------------------------------------
+# Frontend2 Author: Jon Gough  
+# ---------------------------------------------------------------------------
+# CMake-CI Number: 0.0.005  
+#    - 2/19/2020 10 environments needed for beta testing.
+#    - 2/19/2020 fix debian build
+#    - 2/19/2020 Add raspian build
+#    - 2/20/2020 fix execute ci/*.sh files  and increment version patch
+#    - 3/1/2020  fix raspian xml target-url with if-then
+#    - 3/30/2020 MacOS build fixed 12 env
+# ---------------------------------------------------------------------------
+# ----- Modify section below to include all the details for your plugin ----- ##
+
 cmake_minimum_required(VERSION 3.1.1)
 if(COMMAND cmake_policy)
   if(POLICY CMP0043)
@@ -39,6 +45,7 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 set(VERBOSE_NAME "Testplugin")
+# Search "getcommonname"in weather_routing_pi.cpp
 set(COMMON_NAME "testplugin")
 set(TITLE_NAME "testplugin")
 set(PACKAGE_CONTACT "Jon Gough")
@@ -63,7 +70,7 @@ set(GIT_REPOSITORY_NAME "testplugin_pi")
 message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
 message(STATUS "TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
 
-# Permits setup of a local webserver with git for testing purposes
+# Permits setup of a local webserver with git for testing
 if($ENV{CIRCLECI})
   set(GIT_REPOSITORY_HOST "github.com")
   set(GIT_REPOSITORY_DIR "${GIT_USER}/")
@@ -106,16 +113,14 @@ set(PROD "prod")    #Standard Repos
 set(BETA "beta")    #Standard Repos
 set(ALPHA "alpha")  #Standard Repos
 
+# Set Plugin info-url, summary and description
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "Testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
 
 ##
-## ----- Modify section above to include all the details for your plugin ----- ##
-##
-
-##
-## ----- Modify section below if there are special requirements for the plugin ----- ##
+## ----- Modify above to include all the plugin details --------- ##
+## ----- Modify below for plugin special requirements------------ ##
 ##
 
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
@@ -143,6 +148,8 @@ message(STATUS "OPCN_FLATPAK: ${OCPN_FLATPAK}")
 set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
+
+
 option(USE_GL "Enable OpenGL support" OFF)
 message(STATUS "USE_GL: ${USE_GL}")
 
@@ -152,7 +159,6 @@ endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
-# set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION}-${OCPN_MIN_VERSION}-${OCPN_API_VERSION_MAJOR}.${OCPN_API_VERSION_MINOR})
 set(PKG_NVR ${PACKAGE_NAME}-${PROJECT_VERSION})
 set(PKG_URL "https://dl.cloudsmith.io/public/--pkg_repo--/raw/names/--name--/versions/--version--/--filename--")
 
@@ -168,15 +174,14 @@ endif(DEFINED ENV{OCPN_TARGET})
 message(STATUS "PACKAGING_NAME: ${PACKAGING_NAME}")
 
 
-##=============================================================
-# Modify/configure 'Include' Directories below for the Plugin
-##=============================================================
 set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
 
+# Settings and Options
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
 
+# Check on compiler support
 if(Plugin_CXX11)
   message(STATUS "Attempting to use c++11")
   include(CheckCXXCompilerFlag)
@@ -236,24 +241,18 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
   endif()
 endif()
 
-#
-# -------Section above is directly from Testplugin --------------#  
-# ----- Modify section above if there are special requirements for the plugin -----#
-##
 
+# -------Section above is directly from Testplugin --------------#  
+# ----- Modify section above for special plugin requirements----- ##
 #===========================================================
 INCLUDE("cmake/PluginConfigure.cmake")
 #===========================================================
-
-# ----- Change below to match your project requirements ----- ##
-# ------These lines are only for Testplugin - do not use ------------##
-#
-#   THESE GET REMOVED
-#
+# ----- Change below to match project requirements ----- ##
 
 add_definitions(-DUSE_S57)
 
-# ----Remember to Add your project Set(SRCS and set(HDRS
+# ------These lines below are only for Testplugin - do not use ------------##
+# ----Remember to Add your project Set(SRCS and set(HDRS  etc..
 set(SRCS
     src/tpdc.cpp
     src/tpControlDialogDef.cpp
@@ -277,11 +276,32 @@ set(OCPNSRC ocpnsrc/TexFont.cpp)
 set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/TexFont.h)
 
 set(EXTSRC)
+								  
+							  
+							  
+									
+								
+									  
+											
+								   
+							   
+						 
+						
+							
+								   
+							 
+									 
+								 
+									
+						 
+						  
+						
+							  
+ 
 
 set(EXTINCLUDE
     extinclude/nlohmann/json.hpp
     extinclude/ODAPI.h)
-
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
 set(LIBHDRS
@@ -301,6 +321,13 @@ IF(APPLE)
 ELSE(APPLE)
     OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
 ENDIF(APPLE)
+
+##================================================================================
+## Required to collect all the set( headers and SRCS  - Adjust as required
+## This add_library  can be used in conditionals below.
+##================================================================================	
+#    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
+##================================================================================
 
 IF(TP_JSON_SCHEMA_VALIDATOR)
     MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
@@ -322,7 +349,9 @@ IF(TP_JSON_SCHEMA_VALIDATOR)
 ELSE(TP_JSON_SCHEMA_VALIDATOR)
     MESSAGE(STATUS "Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 ENDIF(TP_JSON_SCHEMA_VALIDATOR)
-
+##=============================================================
+# Modify/configure 'Include' Directories below for the Plugin
+##=============================================================
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
@@ -332,7 +361,6 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
-# Remember to Add/Modify a statement like this to join all of your project's set(
 add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
 add_definitions(-DTIXML_USE_STL)
@@ -359,15 +387,19 @@ IF(UNIX AND NOT APPLE)
   ENDIF(TP_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
 
-##
-## ------The lines above are only for Testplugin -do not use for other plugins------------##
-## ----- Change above to match your project requirements --- ##
-##
+#--------Above from testplugin_pi------------
+#--------REMOVE LN 194 to LN 296 from Testplugin_pi---------------
+#------- Change below to match project requirements --------------
 
-##
-## ----- do not change - needed to build app ----- ##
-##
-
+#----INCLUDE CMAKE #3 & #4 -----
+#These are NOT used in Testplugin, used for other plugins
+#INCLUDE("cmake/PluginJSON.cmake")
+#INCLUDE("cmake/PluginXML.cmake")
+#INCLUDE("cmake/PluginGL.cmake")
+#
+# ----- Do not change - needed to build app ----- ##
+#
+#INCLUDE CMAKE #5,6 & 7 -----
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
 include("cmake/PluginPackage.cmake")
