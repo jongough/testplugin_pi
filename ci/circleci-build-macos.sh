@@ -12,9 +12,7 @@ fi
 set -xe
 
 set -o pipefail
-brew unlink python@2
-brew upgrade python
-for pkg in cairo cmake libarchive libexif python3 wget; do
+for pkg in cairo cmake libarchive libexif wget; do
     brew list $pkg 2>&1 >/dev/null || brew install $pkg 2>&1 >/dev/null || brew upgrade $pkg
 done
 
