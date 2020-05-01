@@ -12,9 +12,10 @@ fi
 set -xe
 
 set -o pipefail
-for pkg in cairo cmake libarchive libexif wget; do
+for pkg in cairo cmake libarchive libexif wget pyenv; do
     brew list $pkg 2>&1 >/dev/null || brew install $pkg 2>&1 >/dev/null || brew upgrade $pkg
 done
+brew unlink python@2
 brew reinstall python3
 
 wget -q http://opencpn.navnux.org/build_deps/wx312_opencpn50_macos109.tar.xz
