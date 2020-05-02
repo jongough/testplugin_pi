@@ -123,9 +123,11 @@ set(XML_DESCRIPTION "Testplugin Plugin is used to test out the ODraw API and dem
 ## ----- Modify below for plugin special requirements------------ ##
 ##
 
+#------Settings
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
-
 set(CMAKE_CXX_STANDARD 11)
+
+#------ End Settings
 
 if(NOT ${PACKAGE} MATCHES "(.*)_pi")
   set(PACKAGE_NAME ${PACKAGE}_pi)
@@ -144,14 +146,15 @@ set(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 message(STATUS "${VERBOSE_NAME} Version: ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK}")
 message(STATUS "OPCN_FLATPAK: ${OCPN_FLATPAK}")
 
+#------Settings
 # Prefer libGL.so to libOpenGL.so, see CMP0072
 set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
 
-
 option(USE_GL "Enable OpenGL support" OFF)
 message(STATUS "USE_GL: ${USE_GL}")
+#------End Settings
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
@@ -172,7 +175,6 @@ else(DEFINED ENV{OCPN_TARGET})
     set(PACKAGING_NAME "${PKG_NVR}_${PKG_TARGET}-${PKG_TARGET_VERSION}")
 endif(DEFINED ENV{OCPN_TARGET})
 message(STATUS "PACKAGING_NAME: ${PACKAGING_NAME}")
-
 
 set(PLUGIN_NAME ${PACKAGE}-plugin-${PKG_TARGET}-${PKG_TARGET_VERSION})
 
@@ -240,7 +242,6 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
     set(CMAKE_CXX_CPPCHECK ${CPPCHECK_EXECUTABLE})
   endif()
 endif()
-
 
 # -------Section above is directly from Testplugin --------------#  
 # ----- Modify section above for special plugin requirements----- ##
@@ -322,12 +323,6 @@ ELSE(APPLE)
     OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
 ENDIF(APPLE)
 
-##================================================================================
-## Required to collect all the set( headers and SRCS  - Adjust as required
-## This add_library  can be used in conditionals below.
-##================================================================================	
-#    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
-##================================================================================
 
 IF(TP_JSON_SCHEMA_VALIDATOR)
     MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
@@ -361,9 +356,17 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
+##================================================================================
+## Required to collect all the set( headers and SRCS  - Adjust as required
+## This add_library  can be used in conditionals below.
+##================================================================================	
+#    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
+##================================================================================
 add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
 add_definitions(-DTIXML_USE_STL)
+
+#JSON Validator: Every plugin that uses JSON for passing messages should use a validator.  A JSON validator is much like an XML validator, the validator allows the system to ignore non-conformant messages.  The JSON validator changes the OSABI flavor of the Linux executable so there is code to change it back.
 
 IF(UNIX AND NOT APPLE)
   IF(TP_JSON_SCHEMA_VALIDATOR)
