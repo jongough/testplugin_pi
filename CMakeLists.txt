@@ -23,13 +23,15 @@
 #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
 # ---------------------------------------------------------------------------
-# CMake-CI Number: 0.0.005  
+# CMake-CI Number: 0.0.006  
 #    - 2/19/2020 10 environments needed for beta testing.
 #    - 2/19/2020 fix debian build
 #    - 2/19/2020 Add raspian build
 #    - 2/20/2020 fix execute ci/*.sh files  and increment version patch
 #    - 3/1/2020  fix raspian xml target-url with if-then
 #    - 3/30/2020 MacOS build fixed 12 env
+#    - Reverse dates here
+#    - 2/05/2020 MacOS final fix- JG
 # ---------------------------------------------------------------------------
 # ----- Modify section below to include all the details for your plugin ----- ##
 
@@ -53,7 +55,7 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "82")
+set(VERSION_PATCH "83")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "02/05/2020")
 set(OCPN_MIN_VERSION "ov50")
@@ -277,28 +279,6 @@ set(OCPNSRC ocpnsrc/TexFont.cpp)
 set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/TexFont.h)
 
 set(EXTSRC)
-								  
-							  
-							  
-									
-								
-									  
-											
-								   
-							   
-						 
-						
-							
-								   
-							 
-									 
-								 
-									
-						 
-						  
-						
-							  
- 
 
 set(EXTINCLUDE
     extinclude/nlohmann/json.hpp
