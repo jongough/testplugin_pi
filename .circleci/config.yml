@@ -191,12 +191,12 @@ workflows:
 #                    ignore:
 #                    - devel
 #                    - tmp
-        - build-trusty:
-            filters:
-                branches:
-                    ignore:
-                    - devel
-                    - tmp
+#        - build-trusty:
+#            filters:
+#                branches:
+#                    ignore:
+#                    - devel
+#                    - tmp
         - build-xenial:
             filters:
                 branches:
