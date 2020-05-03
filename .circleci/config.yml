@@ -41,7 +41,7 @@ jobs:
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: >
-            echo "deb http://repos.codelite.org/wx3.1.2/ubuntu/ trusty universe"
+            echo "deb http://repos.codelite.org/wx3.1.3/ubuntu/ trusty universe"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
@@ -61,7 +61,7 @@ jobs:
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: >
-            echo "deb http://repos.codelite.org/wx3.1.2/ubuntu/ xenial universe"
+            echo "deb http://repos.codelite.org/wx3.1.3/ubuntu/ xenial universe"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
@@ -81,7 +81,7 @@ jobs:
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: >
-            echo "deb http://repos.codelite.org/wx3.1.2/ubuntu/ bionic universe"
+            echo "deb http://repos.codelite.org/wx3.1.3/ubuntu/ bionic universe"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
@@ -119,7 +119,7 @@ jobs:
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: >
-            echo "deb http://repos.codelite.org/wx3.1.2/ubuntu/ focal universe"
+            echo "deb http://repos.codelite.org/wx3.1.3/ubuntu/ focal universe"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
@@ -139,7 +139,7 @@ jobs:
             echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: >
-            echo "deb http://repos.codelite.org/wx3.1.2/ubuntu/ buster universe"
+            echo "deb http://repos.codelite.org/wx3.1.3/ubuntu/ buster universe"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
