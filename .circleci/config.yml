@@ -83,7 +83,7 @@ jobs:
         - run: >
             echo "deb https://repos.codelite.org/wx3.1.2/ubuntu/ bionic universe"
             | sudo tee -a /etc/apt/sources.list
-        - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 856E1DB1AC82609
+#        - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 856E1DB1AC82609
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
