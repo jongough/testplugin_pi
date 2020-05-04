@@ -107,7 +107,6 @@ fi
 echo $BUILD_BRANCH
 echo $BUILD_TAG
 echo ${#BUILD_TAG}
-echo "Package extension: $pkg"
 
 BUILD_BRANCH_LOWER=`echo $BUILD_BRANCH | tr '[A-Z]' '[a-z]'`
 if [ "$BUILD_BRANCH_LOWER" = "master" ]; then
