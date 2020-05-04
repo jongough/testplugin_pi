@@ -57,9 +57,6 @@ jobs:
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
             | sudo tee -a /etc/apt/sources.list
-        - run: >
-            echo "deb http://repos.codelite.org/wx3.1.2/ubuntu/ xenial universe"
-            | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
@@ -76,9 +73,6 @@ jobs:
             | sudo tee -a /etc/apt/sources.list
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
-            | sudo tee -a /etc/apt/sources.list
-        - run: >
-            echo "deb https://repos.codelite.org/wx3.1.2/ubuntu/ bionic universe"
             | sudo tee -a /etc/apt/sources.list
         - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6856E1DB1AC82609
         - run: cat /etc/apt/sources.list
@@ -116,9 +110,6 @@ jobs:
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main"
             | sudo tee -a /etc/apt/sources.list
-        - run: >
-            echo "deb https://repos.codelite.org/wx3.1.2/ubuntu/ focal universe"
-            | sudo tee -a /etc/apt/sources.list
         - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 856E1DB1AC82609
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
@@ -136,9 +127,6 @@ jobs:
             | sudo tee -a /etc/apt/sources.list
         - run: >
             echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
-            | sudo tee -a /etc/apt/sources.list
-        - run: >
-            echo "deb http://repos.codelite.org/wx3.1.2/ubuntu/ buster universe"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
