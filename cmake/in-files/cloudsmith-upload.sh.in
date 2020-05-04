@@ -194,7 +194,7 @@ cloudsmith push raw --republish --no-wait-for-sync \
     --summary "@PACKAGE@ opencpn plugin tarball for automatic installation" \
     $REPO $tarball
 
-if [ "${PKG_EXT}" != "gz" && "$pkg" != "" ]; then
+if [ "${PKG_EXT}" != "gz" ] && [ -n "$pkg" ]; then
     cloudsmith push raw --republish --no-wait-for-sync \
         --name opencpn-package-@PACKAGE@-@PKG_TARGET@-@PKG_TARGET_VERSION@-${OCPN_TARGET}.${PKG_EXT} \
         --version ${VERSION} \
