@@ -74,7 +74,6 @@ jobs:
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
             | sudo tee -a /etc/apt/sources.list
-        - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6856E1DB1AC82609
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
@@ -110,7 +109,6 @@ jobs:
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main"
             | sudo tee -a /etc/apt/sources.list
-        - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 856E1DB1AC82609
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
