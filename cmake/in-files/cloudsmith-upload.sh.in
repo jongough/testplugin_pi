@@ -98,7 +98,7 @@ echo $tarball_basename
 
 source $BUILD_DIR/pkg_version.sh
 tarball_name=@PACKAGE_NAME@-@PACKAGE_VERSION@-${PKG_TARGET}-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
-if [ -Z $BUILD_DIR/*.${PKG_EXT} ]; then
+if [ "$(ls $BUILD_DIR/*.${PKG_EXT})" ]; then
     pkg=$(ls $BUILD_DIR/*.${PKG_EXT})
 else
     pkg=""
