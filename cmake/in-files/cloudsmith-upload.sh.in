@@ -111,6 +111,13 @@ if [ "$BUILD_TAG" = "" ] && [ "$tag" != "" ]; then
     BUILD_TAG=$tag
     echo "Build tag: $BUILD_TAG"
 fi
+if [ "$BUILD_BRANCH" = "" ]; then
+    build_commit=$(git show -s --format=%d $BUILD_TAG)
+    is_master=(awk '/ master/ {print}')
+    if [ "$is_master" != "" ]; then
+        BUILD_BRANCH="master"
+    fi
+fi
 
 BUILD_BRANCH_LOWER=`echo $BUILD_BRANCH | tr '[A-Z]' '[a-z]'`
 if [ "$BUILD_BRANCH_LOWER" = "master" ]; then
