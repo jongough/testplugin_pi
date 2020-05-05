@@ -179,67 +179,67 @@ workflows:
     version: 2
     build_all:
         jobs:
-        - build-armhf-stretch:
+#        - build-armhf-stretch:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-armhf-buster:
+#        - build-armhf-buster:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-trusty:
+#        - build-trusty:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-xenial:
+#        - build-xenial:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-bionic:
+#        - build-bionic:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-bionic-gtk3:
+#        - build-bionic-gtk3:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-focal:
+#        - build-focal:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-buster:
+#        - build-buster:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-flatpak:
+#        - build-flatpak:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-fedora:
+#        - build-fedora:
             filters:
                 branches:
                     ignore:
                     - devel
                     - tmp
-        - build-mingw:
+#        - build-mingw:
             filters:
                 branches:
                     ignore:
