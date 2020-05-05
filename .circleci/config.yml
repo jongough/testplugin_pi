@@ -179,7 +179,7 @@ workflows:
     version: 2
     build_all:
         jobs:
-#        - build-armhf-stretch:
+        - build-armhf-stretch:
             filters:
                 branches:
                     ignore:
@@ -245,7 +245,7 @@ workflows:
                     ignore:
                     - devel
                     - tmp
-        - build-macos:
+#         - build-macos:
             filters:
                 branches:
                     ignore:
