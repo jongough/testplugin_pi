@@ -127,7 +127,7 @@ if [ "$BUILD_BRANCH_LOWER" = "master" ]; then
 else
     echo "In non master branch " $BUILD_BRANCH
     if [ -n "$BUILD_TAG" ]; then
-        echo "buildnig with tag"
+        echo "building with tag"
         VERSION=$BUILD_TAG
         REPO="$BETA_REPO"
     else
