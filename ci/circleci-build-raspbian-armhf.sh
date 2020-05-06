@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-
 #
 #
-
 # bailout on errors and echo commands.
 set -xe
 
@@ -29,4 +27,3 @@ echo "Stopping"
 docker ps -a
 docker stop $DOCKER_CONTAINER_ID
 docker rm -v $DOCKER_CONTAINER_ID
-
