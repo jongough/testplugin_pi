@@ -26,7 +26,7 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "85")
+set(VERSION_PATCH "86")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "06/05/2020")
 set(OCPN_MIN_VERSION "ov50")
