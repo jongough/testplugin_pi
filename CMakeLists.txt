@@ -26,65 +26,23 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "89")
+set(VERSION_PATCH "90")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "06/05/2020")
+set(VERSION_DATE "09/05/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
+
+# The following lines are used to describe your git repository
 set(GIT_USER "jongough")
 set(GIT_REPOSITORY_NAME "testplugin_pi")
-message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
-message(STATUS "TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
-# This if allows for setting up your own local webserver with git on it for testing purposes
-if($ENV{CIRCLECI})
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  set(GIT_REPOSITORY_BRANCH "$ENV{CIRCLE_BRANCH}")
-  set(GIT_REPOSITORY_TAG "$ENV{CIRCLE_TAG}")
-elseif($ENV{TRAVIS})
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  set(GIT_REPOSITORY_BRANCH "$ENV{TRAVIS_BRANCH}")
-  set(GIT_REPOSITORY_TAG "$ENV{TRAVIS_TAG}")
-elseif($ENV{APPVEYOR})
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  set(GIT_REPOSITORY_BRANCH "$ENV{APPVEYOR_REPO_BRANCH}")
-  set(GIT_REPOSITORY_TAG "$ENV{APPVEYOR_REPO_TAG_NAME}")
-else()
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  # Get the current working branch
-  execute_process(
-    COMMAND git rev-parse --abbrev-ref HEAD
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE GIT_REPOSITORY_BRANCH
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-  if(${GIT_REPOSITORY_BRANCH} EQUAL "")
-    message(STATUS "Setting default GIT repository branch - master")
-    set(GIT_REPOSITORY_BRANCH "master")
-  endif()
-  execute_process(
-    COMMAND git tag --contains
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE GIT_REPOSITORY_TAG
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-endif()
-message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
-message(STATUS "Git Tag: ${GIT_REPOSITORY_TAG}")
-if("${GIT_REPOSITORY_BRANCH}" EQUAL "")
-  set(GIT_BRANCH_OR_TAG "TAG")
-else()
-  set(GIT_BRANCH_OR_TAG "BRANCH")
-endif()
+# The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
+set(GIT_REPOSITORY_SERVER "github.com")
 
-# Builds repository sufficies
+# Specifies cloudsmith repository sufficies
 set(PROD "prod")    #Standard Repos
 set(BETA "beta")    #Standard Repos
 set(ALPHA "alpha")  #Standard Repos
@@ -219,8 +177,15 @@ endif()
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
 ##
 
+##
+## ----- do not change next section - needed to configure build process ----- ##
+##
 
 include("cmake/PluginConfigure.cmake")
+
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##
 
 ##
 ## ----- Change below to match project requirements ----- ##
@@ -337,9 +302,14 @@ ENDIF(UNIX AND NOT APPLE)
 ##
 
 ##
-## ----- do not change - needed to build app ----- ##
+## ----- do not change next section - needed to configure build process ----- ##
 ##
 
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
 include("cmake/PluginPackage.cmake")
+
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##
+
