@@ -37,13 +37,14 @@ else()
         OUTPUT_STRIP_TRAILING_WHITESPACE
       )
 endif()
-message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
-message(STATUS "Git Tag: ${GIT_REPOSITORY_TAG}")
+message(STATUS "Git Branch: \"${GIT_REPOSITORY_BRANCH}\"")
+message(STATUS "Git Tag: \"${GIT_REPOSITORY_TAG}\"")
 if("${GIT_REPOSITORY_BRANCH}" EQUAL "")
     set(GIT_BRANCH_OR_TAG "tag")
 else()
     set(GIT_BRANCH_OR_TAG "branch")
 endif()
+message(STATUS "GIT_BRANCH_OR_TAG: ${GIT_BRANCH_OR_TAG}")
 
 # Do the version.h & wxWTranslateCatalog configuration into the build output directory, thereby allowing building from a read-only source tree.
 if(NOT SKIP_VERSION_CONFIG)
