@@ -38,6 +38,7 @@ set(PARENT "opencpn")
 
 # The following lines are used to describe your git repository
 set(GIT_USER "jongough")
+
 set(GIT_REPOSITORY_NAME "testplugin_pi")
 # The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
 set(GIT_REPOSITORY_SERVER "github.com")
