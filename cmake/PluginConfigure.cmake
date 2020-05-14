@@ -44,6 +44,7 @@ if("${GIT_REPOSITORY_BRANCH}" EQUAL "")
 else()
     set(GIT_BRANCH_OR_TAG "branch")
 endif()
+message(STATUS "GIT_BRANCH_OR_TAG: ${GIT_BRANCH_OR_TAG}")
 
 # Do the version.h & wxWTranslateCatalog configuration into the build output directory, thereby allowing building from a read-only source tree.
 if(NOT SKIP_VERSION_CONFIG)
