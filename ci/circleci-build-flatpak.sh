@@ -56,7 +56,10 @@ if [ -n "$CIRCLECI" ]; then
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
 else
   docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
-    "bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
+    "export CIRCLECI=true;
+    export CIRCLE_BRANCH=updates;
+    export OCPN_TARGET=flatpak;
+    bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
 fi
 
