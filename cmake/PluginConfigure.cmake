@@ -39,12 +39,15 @@ else()
 endif()
 message(STATUS "Git Branch: \"${GIT_REPOSITORY_BRANCH}\"")
 message(STATUS "Git Tag: \"${GIT_REPOSITORY_TAG}\"")
-if("${GIT_REPOSITORY_BRANCH}" EQUAL "")
+if("${GIT_REPOSITORY_BRANCH}" STREQUAL "")
     set(GIT_BRANCH_OR_TAG "tag")
+    set(GIT_REPOSITORY_ITEM ${GIT_REPOSITORY_TAG})
 else()
     set(GIT_BRANCH_OR_TAG "branch")
+    set(GIT_REPOSITORY_ITEM ${GIT_REPOSITORY_BRANCH})
 endif()
 message(STATUS "GIT_BRANCH_OR_TAG: ${GIT_BRANCH_OR_TAG}")
+message(STATUS "GIT_REPOSITORY_ITEM: ${GIT_REPOSITORY_ITEM}")
 
 # Do the version.h & wxWTranslateCatalog configuration into the build output directory, thereby allowing building from a read-only source tree.
 if(NOT SKIP_VERSION_CONFIG)
@@ -56,10 +59,10 @@ endif(NOT SKIP_VERSION_CONFIG)
 
 # configure xml file for circleci
 message(STATUS "OCPN_TARGET: $ENV{OCPN_TARGET}")
-if(NOT DEFINED ENV{OCPN_TARGET})
+if(NOT DEFINED $ENV{OCPN_TARGET})
     set($ENV{OCPN_TARGET} ${PKG_TARGET})
     message(STATUS "Setting OCPN_TARGET")
-endif(NOT DEFINED ENV{OCPN_TARGET})
+endif(NOT DEFINED $ENV{OCPN_TARGET})
 if($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
     set(PKG_TARGET_FULL "${PKG_TARGET}-gtk3")
     message(STATUS "Found gtk3")
@@ -73,7 +76,7 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/plugin.xml.in ${CMAKE_CURRENT_
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/cloudsmith-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/cloudsmith-upload.sh @ONLY)
 
-message(STATUS "Checking OCPN_FLATPAK: ${OCPN_FLATPAK}")
+message(STATUS "Checking OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
 if(OCPN_FLATPAK_CONFIG)
   configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_CURRENT_BINARY_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
 
