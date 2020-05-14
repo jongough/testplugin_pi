@@ -38,6 +38,11 @@ set(PARENT "opencpn")
 
 # The following lines are used to describe your git repository
 set(GIT_USER "jongough")
+message(STATUS "APPVEYOR_GIT_REPOSITORY_NAME: $ENV{APPVEYOR_REPO_NAME}")
+message(STATUS "CIRCLECI_GIT_REPOSITORY_NAME: $ENV{CIRCLECI_GIT_REPOSITORY_NAME}")
+message(STATUS "CIRCLE_PR_REPONAME: $ENV{CIRCLE_PR_REPONAME}")
+message(STATUS "CIRCLE_REPOSITORY_URL: $ENV{CIRCLE_REPOSITORY_URL}")
+
 set(GIT_REPOSITORY_NAME "testplugin_pi")
 # The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
 set(GIT_REPOSITORY_SERVER "github.com")
