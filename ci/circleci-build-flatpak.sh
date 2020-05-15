@@ -52,6 +52,9 @@ if [ -n "$CIRCLECI" ]; then
     "export CIRCLECI=$CIRCLECI;
     export CIRCLE_BRANCH=\"$CIRCLE_BRANCH\";
     export CIRCLE_TAG=\"$CIRCLE_TAG\";
+    export CIRCLE_PROJECT_USERNAME=\"$CIRCLE_PROJECT_USERNAME\";
+    export CIRCLE_PROJECT_REPONAME=\"$CIRCLE_PROJECT_REPONAME\";
+    export GIT_REPOSITORY_SERVER=\"$GIT_REPOSITORY_SERVER\";
     export OCPN_TARGET=$OCPN_TARGET;
     bash -xe $TOPDIR/ci/docker-build-flatpak.sh 28;
          echo -ne \"------\nEND OPENCPN-CI BUILD\n\";"
