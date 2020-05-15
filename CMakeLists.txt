@@ -36,18 +36,8 @@ set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
 
-# The following lines are used to describe your git repository
-set(GIT_USER "jongough")
-
-set(GIT_REPOSITORY_NAME "testplugin_pi")
 # The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
 set(GIT_REPOSITORY_SERVER "github.com")
-message(STATUS "CIRCLE_REPOSITORY_URL: $ENV{CIRCLE_REPOSITORY_URL}")
-message(STATUS "CIRCLE_PROJECT_REPONAME: $ENV{CIRCLE_PROJECT_REPONAME}")
-message(STATUS "CIRCLE_PR_REPONAME: $ENV{CIRCLE_PR_REPONAME}")
-message(STATUS "CIRCLE_PROJECT_USERNAME: $ENV{CIRCLE_PROJECT_USERNAME}")
-message(STATUS "APPVEYOR_REPO_NAME: $ENV{APPVEYOR_REPO_NAME}")
-message(STATUS "TRAVIS_REPO_SLUG: $ENV{TRAVIS_REPO_SLUG}")
 
 # Specifies cloudsmith repository sufficies
 set(PROD "prod")    #Standard Repos
