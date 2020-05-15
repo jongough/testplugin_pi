@@ -215,32 +215,13 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
   endif()
 endif()
 
-<<<<<<< HEAD
-# -------Section above is directly from Testplugin --------------#  
-# ----- Modify section above for special plugin requirements----- ##
+## ----- Modify section above if there are special requirements for the plugin ----- ##
+## ----- do not change next section - needed to configure build process ----- ##
 #===========================================================
 INCLUDE("cmake/PluginConfigure.cmake")
 #===========================================================
-# ----- Change below to match project requirements ----- ##
-=======
-##
-## ----- Modify section above if there are special requirements for the plugin ----- ##
-##
-
-##
-## ----- do not change next section - needed to configure build process ----- ##
-##
-
-include("cmake/PluginConfigure.cmake")
-
-##
 ## ----- do not change section above - needed to configure build process ----- ##
-##
-
-##
 ## ----- Change below to match project requirements ----- ##
-##
->>>>>>> 965c64b22be4c7e28e37422226c5f3ea81d0d2ea
 
 add_definitions(-DUSE_S57)
 
@@ -360,38 +341,15 @@ IF(UNIX AND NOT APPLE)
   ENDIF(TP_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
 
-<<<<<<< HEAD
-#--------Above from testplugin_pi------------
-#--------REMOVE LN 194 to LN 296 from Testplugin_pi---------------
-#------- Change below to match project requirements --------------
+## ----- Change above to match project requirements ----- ##
 
-#----INCLUDE CMAKE #3 & #4 -----
 #These are NOT used in Testplugin, used for other plugins
 #INCLUDE("cmake/PluginJSON.cmake")
 #INCLUDE("cmake/PluginXML.cmake")
 #INCLUDE("cmake/PluginGL.cmake")
-#
-# ----- Do not change - needed to build app ----- ##
-#
-#INCLUDE CMAKE #5,6 & 7 -----
-include("cmake/PluginInstall.cmake")
-include("cmake/PluginLocalization.cmake")
-include("cmake/PluginPackage.cmake")
-=======
-##
-## ----- Change above to match project requirements ----- ##
-##
 
-##
 ## ----- do not change next section - needed to configure build process ----- ##
-##
-
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
 include("cmake/PluginPackage.cmake")
-
-##
 ## ----- do not change section above - needed to configure build process ----- ##
-##
-
->>>>>>> 965c64b22be4c7e28e37422226c5f3ea81d0d2ea
