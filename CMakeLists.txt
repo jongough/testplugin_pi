@@ -23,7 +23,7 @@
 #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
 # ---------------------------------------------------------------------------
-# CMake-CI Number: 0.0.006  
+# CMake-CI Number: 0.0.007  
 #    - 2/19/2020 10 environments needed for beta testing.
 #    - 2/19/2020 fix debian build
 #    - 2/19/2020 Add raspian build
@@ -32,6 +32,7 @@
 #    - 3/30/2020 MacOS build fixed 12 env
 #    - Reverse dates here
 #    - 2/05/2020 MacOS final fix- JG
+#    - 15/05/2020 Additional Improvements  
 # ---------------------------------------------------------------------------
 # ----- Modify section below to include all the details for your plugin ----- ##
 
@@ -67,8 +68,8 @@ set(PARENT "opencpn")
 
 #set(GIT_USER "mauroc")
 #set(GIT_USER "jongough")
-#set(GIT_USER "rgleason")
-#set(GIT_REPOSITORY_NAME "testplugin_pi")
+set(GIT_USER "rgleason")
+set(GIT_REPOSITORY_NAME "testplugin_pi")
 
 # The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
 set(GIT_REPOSITORY_SERVER "github.com")
