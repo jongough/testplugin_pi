@@ -38,6 +38,7 @@ else()
         OUTPUT_STRIP_TRAILING_WHITESPACE
       )
 endif()
+message(STATUS "GIT_REPOSITORY: ${GIT_REPOSITORY}")
 message(STATUS "Git Branch: \"${GIT_REPOSITORY_BRANCH}\"")
 message(STATUS "Git Tag: \"${GIT_REPOSITORY_TAG}\"")
 if("${GIT_REPOSITORY_BRANCH}" STREQUAL "")
@@ -49,6 +50,13 @@ else()
 endif()
 message(STATUS "GIT_BRANCH_OR_TAG: ${GIT_BRANCH_OR_TAG}")
 message(STATUS "GIT_REPOSITORY_ITEM: ${GIT_REPOSITORY_ITEM}")
+
+if(NOT EXISTS CLOUDSMITH_BASE_REPOSITORY AND NOT ${GIT_REPOSITORY} STREQUAL "")
+    string(FIND ${GIT_REPOSITORY} "/"  REVERSE START_NAME)
+    string(LENGTH ${GIT_REPOSITORY} STRING_LENGTH)
+    string(SUBSTRING ${GIT_REPOSITORY} ${START_NAME} ${STRING_LENGTH} CLOUDSMITH_BASE_REPOSITORY)
+endif()
+message(STATUS "CLOUDSMITH_BASE_REPOSITORY: ${CLOUDSMITH_BASE_REPOSITORY}")
 
 # Do the version.h & wxWTranslateCatalog configuration into the build output directory, thereby allowing building from a read-only source tree.
 if(NOT SKIP_VERSION_CONFIG)
