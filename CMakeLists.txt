@@ -74,11 +74,6 @@ set(GIT_REPOSITORY_NAME "testplugin_pi")
 # The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
 set(GIT_REPOSITORY_SERVER "github.com")
 
-# Set Cloudsmith upload repository suffix for each catalog
-set(PROD "prod")    #Standard Repos
-set(BETA "beta")    #Standard Repos
-set(ALPHA "alpha")  #Standard Repos
-
 #set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_USER "rick-gleason")
 # set this if your cloudsmith repository name does not match your git repository name
@@ -86,6 +81,10 @@ set(CLOUDSMITH_USER "rick-gleason")
 #set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
 set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 
+# Set Cloudsmith upload repository suffix for each catalog
+set(PROD "prod")    #Standard Repos
+set(BETA "beta")    #Standard Repos
+set(ALPHA "alpha")  #Standard Repos
 
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
