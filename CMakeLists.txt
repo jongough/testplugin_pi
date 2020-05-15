@@ -27,7 +27,7 @@ set(PACKAGE "testplugin")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "91")
-set(VERSION_TWEAK "3")
+set(VERSION_TWEAK "4")
 set(VERSION_DATE "15/05/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -42,6 +42,11 @@ set(GIT_USER "jongough")
 set(GIT_REPOSITORY_NAME "testplugin_pi")
 # The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
 set(GIT_REPOSITORY_SERVER "github.com")
+message(STATUS "CIRCLE_REPOSITORY_URL: $ENV{CIRCLE_REPOSITORY_URL}")
+message(STATUS "CIRCLE_PROJECT_REPONAME: $ENV{CIRCLE_PROJECT_REPONAME}")
+message(STATUS "CIRCLE_PR_REPONAME: $ENV{CIRCLE_PR_REPONAME}")
+message(STATUS "CIRCLE_PROJECT_USERNAME: $ENV{CIRCLE_PROJECT_USERNAME}")
+message(STATUS "APPVEYOR_REPO_NAME: $ENV{APPVEYOR_REPO_NAME}")
 
 # Specifies cloudsmith repository sufficies
 set(PROD "prod")    #Standard Repos
