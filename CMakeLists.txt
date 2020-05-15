@@ -55,82 +55,37 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "89")
-set(VERSION_TWEAK "2")
-set(VERSION_DATE "06/05/2020")
+set(VERSION_PATCH "91")
+set(VERSION_TWEAK "8")
+set(VERSION_DATE "15/05/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
+
 #set(GIT_USER "mauroc")
 #set(GIT_USER "jongough")
-set(GIT_USER "rgleason")
+#set(GIT_USER "rgleason")
+#set(GIT_REPOSITORY_NAME "testplugin_pi")
 
-set(GIT_REPOSITORY_NAME "testplugin_pi")
-message(STATUS "CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
-message(STATUS "TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
-
-# Permits setup of a local webserver with git for testing
-if($ENV{CIRCLECI})
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  set(GIT_REPOSITORY_BRANCH "$ENV{CIRCLE_BRANCH}")
-  set(GIT_REPOSITORY_TAG "$ENV{CIRCLE_TAG}")
-elseif($ENV{TRAVIS})
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  set(GIT_REPOSITORY_BRANCH "$ENV{TRAVIS_BRANCH}")
-  set(GIT_REPOSITORY_TAG "$ENV{TRAVIS_TAG}")
-elseif($ENV{APPVEYOR})
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  set(GIT_REPOSITORY_BRANCH "$ENV{APPVEYOR_REPO_BRANCH}")
-  set(GIT_REPOSITORY_TAG "$ENV{APPVEYOR_REPO_TAG_NAME}")
-else()
-  set(GIT_REPOSITORY_HOST "github.com")
-  set(GIT_REPOSITORY_DIR "${GIT_USER}/")
-  # Get the current working branch
-  execute_process(
-    COMMAND git rev-parse --abbrev-ref HEAD
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE GIT_REPOSITORY_BRANCH
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-  if(${GIT_REPOSITORY_BRANCH} EQUAL "")
-    message(STATUS "Setting default GIT repository branch - master")
-    set(GIT_REPOSITORY_BRANCH "master")
-  endif()
-  execute_process(
-    COMMAND git tag --contains
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE GIT_REPOSITORY_TAG
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-endif()
-message(STATUS "Git Branch: ${GIT_REPOSITORY_BRANCH}")
-message(STATUS "Git Tag: ${GIT_REPOSITORY_TAG}")
-if("${GIT_REPOSITORY_BRANCH}" EQUAL "")
-  set(GIT_BRANCH_OR_TAG "TAG")
-else()
-  set(GIT_BRANCH_OR_TAG "BRANCH")
-endif()
-
-#set(CLOUDSMITH_USER "jon-gough")
-#set(CLOUDSMITH_USER "mauro-calvi")								   
-set(CLOUDSMITH_USER "rick-gleason")
-
-#set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
-#set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
-set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
+# The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
+set(GIT_REPOSITORY_SERVER "github.com")
 
 # Set Cloudsmith upload repository suffix for each catalog
 set(PROD "prod")    #Standard Repos
 set(BETA "beta")    #Standard Repos
 set(ALPHA "alpha")  #Standard Repos
 
-# Set Plugin info-url, summary and description
+#set(CLOUDSMITH_USER "jon-gough")
+set(CLOUDSMITH_USER "rick-gleason")
+# set this if your cloudsmith repository name does not match your git repository name
+#set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+#set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
+set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
+
+
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "Testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
@@ -260,12 +215,32 @@ if(CMAKE_VERSION VERSION_GREATER 3.9)
   endif()
 endif()
 
+<<<<<<< HEAD
 # -------Section above is directly from Testplugin --------------#  
 # ----- Modify section above for special plugin requirements----- ##
 #===========================================================
 INCLUDE("cmake/PluginConfigure.cmake")
 #===========================================================
 # ----- Change below to match project requirements ----- ##
+=======
+##
+## ----- Modify section above if there are special requirements for the plugin ----- ##
+##
+
+##
+## ----- do not change next section - needed to configure build process ----- ##
+##
+
+include("cmake/PluginConfigure.cmake")
+
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##
+
+##
+## ----- Change below to match project requirements ----- ##
+##
+>>>>>>> 965c64b22be4c7e28e37422226c5f3ea81d0d2ea
 
 add_definitions(-DUSE_S57)
 
@@ -385,6 +360,7 @@ IF(UNIX AND NOT APPLE)
   ENDIF(TP_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
 
+<<<<<<< HEAD
 #--------Above from testplugin_pi------------
 #--------REMOVE LN 194 to LN 296 from Testplugin_pi---------------
 #------- Change below to match project requirements --------------
@@ -401,3 +377,21 @@ ENDIF(UNIX AND NOT APPLE)
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
 include("cmake/PluginPackage.cmake")
+=======
+##
+## ----- Change above to match project requirements ----- ##
+##
+
+##
+## ----- do not change next section - needed to configure build process ----- ##
+##
+
+include("cmake/PluginInstall.cmake")
+include("cmake/PluginLocalization.cmake")
+include("cmake/PluginPackage.cmake")
+
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##
+
+>>>>>>> 965c64b22be4c7e28e37422226c5f3ea81d0d2ea
