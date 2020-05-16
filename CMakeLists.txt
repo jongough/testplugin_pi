@@ -70,17 +70,15 @@ set(PARENT "opencpn")
 #set(GIT_USER "jongough")
 set(GIT_USER "rgleason")
 set(GIT_REPOSITORY_NAME "testplugin_pi")
-
-# The next line allows for setting up your own local webserver with git on it for testing purposes, the default is github.com
+# For setting up your own local webserver with git loaded, for testing purposes.
 set(GIT_REPOSITORY_SERVER "github.com")
 
 #set(CLOUDSMITH_USER "jon-gough")
 set(CLOUDSMITH_USER "rick-gleason")
-# set this if your cloudsmith repository name does not match your git repository name
-#set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
-#set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
+# set if the cloudsmith repository name does not match your git repository name
+# set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+# set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
 set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
-
 # Set Cloudsmith upload repository suffix for each catalog
 set(PROD "prod")    #Standard Repos
 set(BETA "beta")    #Standard Repos
