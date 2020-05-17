@@ -39,7 +39,6 @@ Copy the following directories and files from testplugin_pi to the same location
 - testplugin_pi/ci
 - testplugin_pi/cmake
 - testplugin_pi/buildosx
-- testplugin_pi/debian
 - testplugin_pi/mingw
 
 #### Files
@@ -64,12 +63,14 @@ The following directories and files are not needed from testplugin_pi
 1. Rename CMakeLists.txt, appveyor.yml, .travis.yml adding  .save for reference.
 1. Modify CMakeLists.txt file, following the in-line notes
    - Modify Plugin Specifics (about Line 20 to 75).
-   - Enter the 5 name types
-   - Determine CommonName by searching <plugin>_pi.cpp for "GetCommon" and enter that into set(CommonName)
-   - Enter the current version numbers and data
-   - Enter Parent, Package and Git User. Git Repository
-   - Enter Cloudsmith User and (optional) Cloudsmith Base Repository 
-   - Enter XML Info_url, Summary and Description
+   - Enter setup information:
+     - Plugin name types
+     - CommonName -search "plugin"_pi.cpp for "GetCommon"
+     - Version numbers and date
+     - Parent, Package and Git User. Git Repository
+     - Cloudsmith User
+     - Cloudsmith Base Repository (optional) 
+     - Plugin XML Info_url, Summary and Description
    - In the section that replaces testplugin specific code:
      - Modify/configure the set(SRCS and HDRS and 'Include' Directories using CMakeLists.save.txt
      - Modify/configure 'Set(SRCS & HDRS' Directories using CMakeLists.save.txt
