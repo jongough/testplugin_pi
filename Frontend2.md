@@ -8,7 +8,7 @@ during installation. We call this configuration "Frontend 2".
 "Frontend 1" can be found in the current versions of Oesenc_pi and Vdr_pi. 
 
 ## KEEP EXISTING DIRECTORIES AND FILES
------------------------------------------------------
+
 #### Important: 
 1. Make these changes on a new branch "frontend1" or "ci" (if possible).
 1. Keep your currently working "master" branch intact.
@@ -30,7 +30,7 @@ during installation. We call this configuration "Frontend 2".
 - Any other specific plugin directories
 
 ## LIST of FOLDERS & FILES copied from TESTPLUGIN_PI
-----------------------------------------------------
+
 #### Add these Directories + Sub-directories + Files
 
 Copy the following directories and files from testplugin_pi to the same location in the plugin directory you are working on:
@@ -60,10 +60,10 @@ The following directories and files are not needed from testplugin_pi
 - testplugin_pi/src
 
 ## CHANGES REQUIRED
-----------------------------------------------------------------
+
 1. Rename CMakeLists.txt, appveyor.yml, .travis.yml adding  .save for reference.
 1. Modify CMakeLists.txt file, following the in-line notes
-   - Modify Plugin Specifics about Line 20 to 75.
+   - Modify Plugin Specifics (about Line 20 to 75).
    - Enter the 5 name types
    - Determine CommonName by searching <plugin>_pi.cpp for "GetCommon" and enter that into set(CommonName)
    - Enter the current version numbers and data
