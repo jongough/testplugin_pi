@@ -16,10 +16,12 @@ Only ODAPI is working at the moment. JSON is being developed now.
 
 NOTE this is currently a work in progress and should be considered 'Alpha/Beta'. It may have issues at times as new functionality is added. It is a test tool not a production plugin.
 
-## Plugin to provide a PI Manager Build and Deploy Example 
+## Plugin Example of PI Manager Build and Deploy "Frontend 2" 
 
 Frontend 2 for PI Manager (Build and Deploy to Cloudsmith)
-Frontend configuration to 
+Frontend configuration to:
+
   - Build multiple environments (Win, Mac, Fedora, Flatpak, Ubuntu, etc)
   - Deploy to Cloudsmith Repositories.
+  
 Files used: CMakeLists.txt, CMake, .yml and CI scripts. See Frontend2.md 
