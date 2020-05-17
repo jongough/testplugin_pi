@@ -1,4 +1,4 @@
-# FRONTEND 2
+## FRONTEND 2
 
 This document is intended to assist plugin developers intending to convert 
 their plugins to the new Plugin Manager system of tarballs and metadata.xml files
