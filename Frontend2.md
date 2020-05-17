@@ -1,16 +1,25 @@
-# KEEP EXISTING DIRECTORIES AND FILES
+# FRONTEND 2
+
+This document is intended to assist plugin developers intending to convert 
+their plugins to the new Plugin Manager system of tarballs and metadata.xml files
+deployed directly to Cloudsmith repositories that are accessed by OpenCPN Plugin Catalogs
+during installation. We call this configuration "Frontend 2".
+
+"Frontend 1" can be found in the current versions of Oesenc_pi and Vdr_pi. 
+
+## KEEP EXISTING DIRECTORIES AND FILES
 -----------------------------------------------------
 #### Important: 
 1. Make these changes on a new branch "frontend1" or "ci" (if possible).
 1. Keep your currently working "master" branch intact.
-1. Create a new branch EG: git checkout -b master-frontend2 master
+1. Create a new branch EG: git checkout -b frontend2 master
 1. Work in the new branch.
 
 #### Preparation: 
 1. Rename CMakeLists.txt ----> CMakeLists.save.txt for reference
 1. Rename appveyor.yml ----> appveyor.save.yml for reference
 1. Rename .travis.yml ----> .travis.save.yml for reference
-1. Rename the cmake directory ---> "cmake.save" for reference
+1. Rename the cmake directory ---> cmake.save for reference
 1. Keep any other specialized plugin directories
 
 #### KEEP these directories, don't over-write them!:
@@ -20,7 +29,7 @@
 - po
 - Any other specific plugin directories
 
-# LIST of FOLDERS & FILES copied from TESTPLUGIN_PI
+## LIST of FOLDERS & FILES copied from TESTPLUGIN_PI
 ----------------------------------------------------
 #### Add these Directories + Sub-directories + Files
 
@@ -50,7 +59,7 @@ The following directories and files are not needed from testplugin_pi
 - testplugin_pi/ocpnsrc
 - testplugin_pi/src
 
-# CHANGES REQUIRED
+## CHANGES REQUIRED
 ----------------------------------------------------------------
 1. Rename CMakeLists.txt, appveyor.yml, .travis.yml adding  .save for reference.
 1. Modify CMakeLists.txt file, following the in-line notes
