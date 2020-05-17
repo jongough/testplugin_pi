@@ -2,9 +2,8 @@
 
 This document is intended to assist plugin developers intending to convert 
 their plugins to the new Plugin Manager system of tarballs and metadata.xml files
-deployed directly to Cloudsmith repositories that are accessed by OpenCPN Plugin Catalogs
-during installation. We call this configuration "Frontend 2".
-
+deployed directly to Cloudsmith repositories that are accessed by OpenCPN Plugin Manager via Catalogs "master" and "beta"
+during installation. We call this configuration "Frontend 2".  This version is easier to configure.
 "Frontend 1" can be found in the current versions of Oesenc_pi and Vdr_pi. 
 
 ## KEEP EXISTING DIRECTORIES AND FILES
