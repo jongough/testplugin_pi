@@ -194,7 +194,7 @@ pwd
 ls -la
 
 cloudsmith push raw --republish --no-wait-for-sync \
-    --name @PACKAGE_NAME@-@PKG_TARGET@-@ARCH@_@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
+    --name @PACKAGE_NAME@-@PKG_TARGET@-${ARCH}_@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
     --version ${VERSION} \
     --summary "@PACKAGE@ opencpn plugin metadata for automatic installation" \
     $REPO $xml
