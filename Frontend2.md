@@ -6,9 +6,9 @@ deployed directly to Cloudsmith repositories that are accessed by OpenCPN Plugin
 during installation. We call this configuration "Frontend 2".  This version is easier to configure.
 "Frontend 1" can be found in the current versions of Oesenc_pi and Vdr_pi. 
 
-## KEEP EXISTING DIRECTORIES AND FILES
-
-#### Important: 
+# KEEP EXISTING DIRECTORIES AND FILES
+----------------------------------------------------
+#### Important:
 1. Make these changes on a new branch "frontend1" or "ci" (if possible).
 1. Keep your currently working "master" branch intact.
 1. Create a new branch EG: git checkout -b frontend2 master
@@ -18,7 +18,7 @@ during installation. We call this configuration "Frontend 2".  This version is e
 1. Rename CMakeLists.txt ----> CMakeLists.save.txt for reference
 1. Rename appveyor.yml ----> appveyor.save.yml for reference
 1. Rename .travis.yml ----> .travis.save.yml for reference
-1. Rename the cmake directory ---> cmake.save for reference
+1. Rename the cmake directory ---> "cmake.save" for reference
 1. Keep any other specialized plugin directories
 
 #### KEEP these directories, don't over-write them!:
@@ -29,7 +29,7 @@ during installation. We call this configuration "Frontend 2".  This version is e
 - Any other specific plugin directories
 
 ## LIST of FOLDERS & FILES copied from TESTPLUGIN_PI
-
+----------------------------------------------------
 #### Add these Directories + Sub-directories + Files
 
 Copy the following directories and files from testplugin_pi to the same location in the plugin directory you are working on:
@@ -38,7 +38,10 @@ Copy the following directories and files from testplugin_pi to the same location
 - testplugin_pi/ci
 - testplugin_pi/cmake
 - testplugin_pi/buildosx
+- testplugin_pi/debian  (can be removed)
 - testplugin_pi/mingw
+- testplugin_pi/extinclude  Needed for json validation 
+- testplugin_pi/extsrc  Needed for json validation
 
 #### Files
 - testplugin_pi/appveyor.yml
@@ -49,19 +52,17 @@ Copy the following directories and files from testplugin_pi to the same location
 The following directories and files are not needed from testplugin_pi
 - testplugin_pi/data
 - testplugin_pi/forms
-- testplugin_pi/extinclude
-- testplugin_pi/extsrc
 - testplugin_pi/include
 - testplugin_pi/lib
 - testplugin_pi/ocpninclude
 - testplugin_pi/ocpnsrc
 - testplugin_pi/src
 
-## CHANGES REQUIRED
-
+# CHANGES REQUIRED 
+----------------------------------------------------------------
 1. Rename CMakeLists.txt, appveyor.yml, .travis.yml adding  .save for reference.
 1. Modify CMakeLists.txt file, following the in-line notes
-   - Modify Plugin Specifics (about Line 20 to 75).
+   - Modify Personal Specifics about Line 20 to 75.
    - Enter setup information:
      - Plugin name types
      - CommonName -search "plugin"_pi.cpp for "GetCommon"
@@ -99,3 +100,27 @@ The following directories and files are not needed from testplugin_pi
      - OCPN_PKG_REPO=mauro-calvi/squiddio-manual
     
    
+### Comparing Plugin Manager "Frontend2" in testplugin_pi to weatherfax_pi,
+to highlight the differences
+
+1. circleci/config.yml  -same
+1. ci/ all scripts same except
+1. ci/control  weatherfax has librtlsdr-dev
+1. ci/circleci-build-mingw.sh     downloads and installs portauduio & PVWcon32.exe
+    - wget https://downloads.sourceforge.net/project/opencpnplugins/opencpn_packaging_data/PVW32Con.exe
+    - wget https://downloads.sourceforge.net/project/opencpnplugins/opencpn_packaging_data/portaudio-vc12.7z
+    - 7za e portaudio-vc12.7z -o../buildwin -y
+    - mv PVW32Con.exe ../buildwin/.
+1. cmake/  all the files in testplugin are used in weatherfax and are identical
+1. cmake/  weatherfax has 3-4 of its own files too
+1. cmake/in-files/ has all the same files
+1. extinclude   all the same
+1. extsrc   all the same
+1. mingw  all the same
+1. .travis.yml  same
+1. appveyor.yml  (same except the path & name of plugin and  the api key)
+1. CMakeLists.txt  -similar, very different in places, 
+    - personnal settings,
+    - "USE_GL ON" for weatherfax,
+    - plugin name is different,
+    - libraries and includes all different.
