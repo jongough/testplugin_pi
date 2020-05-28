@@ -33,7 +33,8 @@
 #    - Reverse dates here
 #    - 2/05/2020 MacOS final fix- JG
 #    - 15/05/2020 Additional Improvements  
-#    - 26/05/2020 Add ARCH testing to pluginSetup.cmake 
+#    - 26/05/2020 Add ARCH testing to pluginSetup.cmake
+#    - 28/05/2020 Fix Local build  
 # ---------------------------------------------------------------------------
 # ----- Modify section below to include all the details for your plugin ----- ##
 
@@ -57,9 +58,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "98")
+set(VERSION_PATCH "99")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "27/05/2020")
+set(VERSION_DATE "28/05/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
