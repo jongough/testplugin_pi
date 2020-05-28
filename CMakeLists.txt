@@ -26,9 +26,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "98")
+set(VERSION_PATCH "99")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "27/05/2020")
+set(VERSION_DATE "28/05/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -46,7 +46,7 @@ set(ALPHA "alpha")  #Standard Repos
 
 set(CLOUDSMITH_USER "jon-gough")
 # set this if your cloudsmith repository name does not match your git repository name
-#set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+#set(CLOUDSMITH_BASE_REPOSITORY "jongough/testplugin_pi")
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
