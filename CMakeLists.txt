@@ -40,6 +40,7 @@
 # ---------------------------------------------------------------------------
 ##----- Modify section below to include all the details for your plugin ----- ##
 
+# define minimum cmake version
 cmake_minimum_required(VERSION 3.1.1)
 if(COMMAND cmake_policy)
   if(POLICY CMP0043)
@@ -74,8 +75,8 @@ set(PARENT "opencpn")
 
 #set(GIT_USER "mauroc")
 #set(GIT_USER "jongough")
-set(GIT_USER "rgleason")
-set(GIT_REPOSITORY_NAME "testplugin_pi")
+#set(GIT_USER "rgleason")
+#set(GIT_REPOSITORY_NAME "testplugin_pi")
 # For setting up your own local webserver with git loaded, for testing purposes.
 set(GIT_REPOSITORY_SERVER "github.com")
 
@@ -90,7 +91,7 @@ set(CLOUDSMITH_USER "rick-gleason")
 # set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 # Set if  Cloudsmith Base Repository name does not match your Git Repository name.
 # set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
-set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
+set(CLOUDSMITH_BASE_REPOSITORY "opencpn/testplugin") #Rick's customization
 
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
