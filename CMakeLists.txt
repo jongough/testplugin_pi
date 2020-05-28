@@ -34,9 +34,11 @@
 #    - 2/05/2020 MacOS final fix- JG
 #    - 15/05/2020 Additional Improvements  
 #    - 26/05/2020 Add ARCH testing to pluginSetup.cmake
-#    - 28/05/2020 Fix Local build  
+#    - 28/05/2020 Fix Local build 
+#    - 28/05/2020 Work on Local Build
+#    - 28/05/2020 Move CmakeLists code into PluginSetup.cmake 
 # ---------------------------------------------------------------------------
-# ----- Modify section below to include all the details for your plugin ----- ##
+##----- Modify section below to include all the details for your plugin ----- ##
 
 cmake_minimum_required(VERSION 3.1.1)
 if(COMMAND cmake_policy)
@@ -48,6 +50,8 @@ if(COMMAND cmake_policy)
     cmake_policy(SET CMP0077 NEW)
   endif(POLICY CMP0077)
 endif(COMMAND cmake_policy)
+
+project(testplugin_pi)
 
 set(VERBOSE_NAME "Testplugin")
 # Search "getcommonname"in weather_routing_pi.cpp
@@ -75,16 +79,18 @@ set(GIT_REPOSITORY_NAME "testplugin_pi")
 # For setting up your own local webserver with git loaded, for testing purposes.
 set(GIT_REPOSITORY_SERVER "github.com")
 
-#set(CLOUDSMITH_USER "jon-gough")
-set(CLOUDSMITH_USER "rick-gleason")
-# set if the cloudsmith repository name does not match your git repository name
-# set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
-# set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
-set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 # Set Cloudsmith upload repository suffix for each catalog
 set(PROD "prod")    #Standard Repos
 set(BETA "beta")    #Standard Repos
 set(ALPHA "alpha")  #Standard Repos
+
+#set(CLOUDSMITH_USER "jon-gough")
+set(CLOUDSMITH_USER "rick-gleason")
+
+# set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+# Set if  Cloudsmith Base Repository name does not match your Git Repository name.
+# set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
+set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
@@ -101,10 +107,12 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Prefer libGL.so to libOpenGL.so, see CMP0072
 set(OpenGL_GL_PREFERENCE "LEGACY")
+
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
 
 option(USE_GL "Enable OpenGL support" OFF)
+
 message(STATUS "USE_GL: ${USE_GL}")
 #------End Settings
 
@@ -116,13 +124,9 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
 ##
 ## ----- The statement below is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
-##
-
 #===========================================================
 INCLUDE("cmake/PluginSetup.cmake")
 #===========================================================
-
-##
 ## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
 ##
 
@@ -130,7 +134,6 @@ INCLUDE("cmake/PluginSetup.cmake")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
-
 
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
 ## ----- do not change next section - needed to configure build process ----- ##
@@ -191,7 +194,6 @@ ELSE(APPLE)
     OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
 ENDIF(APPLE)
 
-
 IF(TP_JSON_SCHEMA_VALIDATOR)
     MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
     ADD_DEFINITIONS(-DTP_JSON_SCHEMA_VALIDATOR)
@@ -234,6 +236,7 @@ add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSR
 
 add_definitions(-DTIXML_USE_STL)
 
+##================================================================================
 #JSON Validator: Every plugin that uses JSON for passing messages should use a validator.  A JSON validator is much like an XML validator, the validator allows the system to ignore non-conformant messages.  The JSON validator changes the OSABI flavor of the Linux executable so there is code to change it back.
 
 IF(UNIX AND NOT APPLE)
@@ -257,7 +260,7 @@ IF(UNIX AND NOT APPLE)
     ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
   ENDIF(TP_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
-
+##================================================================================
 ## ----- Change above to match project requirements ----- ##
 
 #These are NOT used in Testplugin, used for other plugins
