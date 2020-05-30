@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 #
+# Travis build for raspian part 1
 #
 
 # bailout on errors and echo commands.
