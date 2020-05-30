@@ -23,7 +23,7 @@
 #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
 # ---------------------------------------------------------------------------
-# CMake-CI Number: 0.0.007  
+# CMake-CI Number: 0.0.008
 #    - 2/19/2020 10 environments needed for beta testing.
 #    - 2/19/2020 fix debian build
 #    - 2/19/2020 Add raspian build
@@ -36,7 +36,8 @@
 #    - 26/05/2020 Add ARCH testing to pluginSetup.cmake
 #    - 28/05/2020 Fix Local build 
 #    - 28/05/2020 Work on Local Build
-#    - 28/05/2020 Move CmakeLists code into PluginSetup.cmake 
+#    - 28/05/2020 Move CmakeLists code into PluginSetup.cmake
+#    - 30/05/2020 Minor Update for Arch  
 # ---------------------------------------------------------------------------
 ##----- Modify section below to include all the details for your plugin ----- ##
 
@@ -63,7 +64,7 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "101")
+set(VERSION_PATCH "102")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "29/05/2020")
 set(OCPN_MIN_VERSION "ov50")
@@ -91,6 +92,7 @@ set(CLOUDSMITH_USER "opencpn")
 
 # set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}") - This is the default)
 # Set if  Cloudsmith Base Repository name does not match your Git Repository name.
+# set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
 # set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
 # set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 set (CLOUDSMITH_BASE_REPOSITORY "testplugin")  #without the pi 
