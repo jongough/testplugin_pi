@@ -3,6 +3,13 @@
 # ---------------------------------------------------------------------------
 
 ##
+## ----- When changing this file do NOT change the order in which sections occur        ----- ##
+## ----- Changes should only be made between the section blocks that identify where     ----- ##
+## ----- these changes should be. The whole configuration process relies on this        ----- ##
+## ----- sequence to be successful                                                      ----- ##
+##
+
+##
 ## ----- Modify section below to include all the details for your plugin ----- ##
 ##
 
@@ -18,6 +25,7 @@ if(COMMAND cmake_policy)
   endif(POLICY CMP0077)
 endif(COMMAND cmake_policy)
 
+# define plugin name, owner and versions
 set(VERBOSE_NAME "Testplugin")
 set(COMMON_NAME "testplugin")
 set(TITLE_NAME "testplugin")
@@ -26,7 +34,7 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "102")
+set(VERSION_PATCH "103")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "29/05/2020")
 set(OCPN_MIN_VERSION "ov50")
@@ -47,6 +55,7 @@ set(ALPHA "alpha")  #Standard Repos
 set(CLOUDSMITH_USER "jon-gough")
 # set this if your cloudsmith repository name does not match your git repository name
 #set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
+
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
@@ -86,6 +95,10 @@ include("cmake/PluginSetup.cmake")
 ## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
 ##
 
+##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
+
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
@@ -105,7 +118,7 @@ include("cmake/PluginConfigure.cmake")
 ##
 
 ##
-## ----- Change below to match project requirements ----- ##
+## ----- Change below to match project requirements for source, headers, etc. ----- ##
 ##
 
 add_definitions(-DUSE_S57)
@@ -130,6 +143,7 @@ set(HDRS
     include/tpUtils.h)
 
 set(OCPNSRC ocpnsrc/TexFont.cpp)
+
 set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/TexFont.h)
 
 set(EXTSRC)
@@ -153,14 +167,14 @@ set(LIBHDRS
 add_definitions(-DPLUGIN_USE_SVG)
 
 IF(APPLE)
-    OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
+    OPTION(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
 ELSE(APPLE)
-    OPTION(TP_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
+    OPTION(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
 ENDIF(APPLE)
 
-IF(TP_JSON_SCHEMA_VALIDATOR)
+IF(PI_JSON_SCHEMA_VALIDATOR)
     MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
-    ADD_DEFINITIONS(-DTP_JSON_SCHEMA_VALIDATOR)
+    ADD_DEFINITIONS(-DPI_JSON_SCHEMA_VALIDATOR)
     MESSAGE(STATUS "Adding JSON Schema validation")
 
     SET(EXTSRC
@@ -175,9 +189,9 @@ IF(TP_JSON_SCHEMA_VALIDATOR)
         extinclude/json-schema-validator/json-schema.hpp
     )
     INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
-ELSE(TP_JSON_SCHEMA_VALIDATOR)
+ELSE(PI_JSON_SCHEMA_VALIDATOR)
     MESSAGE(STATUS "Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
-ENDIF(TP_JSON_SCHEMA_VALIDATOR)
+ENDIF(PI_JSON_SCHEMA_VALIDATOR)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
@@ -193,7 +207,7 @@ add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSR
 add_definitions(-DTIXML_USE_STL)
 
 IF(UNIX AND NOT APPLE)
-  IF(TP_JSON_SCHEMA_VALIDATOR)
+  IF(PI_JSON_SCHEMA_VALIDATOR)
     # Change OS/ABI to be UNIX - System V to make it run with OCPN
     SET(lib_name lib${PACKAGE_NAME}.so)
     MESSAGE(STATUS "lib-name: ${lib_name}")
@@ -211,7 +225,7 @@ IF(UNIX AND NOT APPLE)
     ELSE(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
       MESSAGE(STATUS "Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
     ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-  ENDIF(TP_JSON_SCHEMA_VALIDATOR)
+  ENDIF(PI_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
 
 ##

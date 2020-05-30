@@ -43,7 +43,7 @@
 
 #include <stdio.h>
 
-#ifdef TP_JSON_SCHEMA_VALIDATOR
+#ifdef PI_JSON_SCHEMA_VALIDATOR
 #if defined(snprintf) && defined(_MSC_VER)
     #undef snprintf
 #endif
@@ -52,7 +52,7 @@ using nlohmann::json;
 using nlohmann::json_schema::json_validator;
 #endif
 
-#ifdef TP_JSON_SCHEMA_VALIDATOR
+#ifdef PI_JSON_SCHEMA_VALIDATOR
 #include "ODJSONSchemas.h"
 #endif
 
@@ -64,7 +64,7 @@ extern wxJSONValue          g_ReceivedODAPIJSONMsg;
 extern wxString             g_ReceivedJSONMessage;
 extern wxJSONValue          g_ReceivedJSONJSONMsg;
 
-#ifdef TP_JSON_SCHEMA_VALIDATOR
+#ifdef PI_JSON_SCHEMA_VALIDATOR
     json_validator *gTPJSONMsgValidator;
 #endif
 
@@ -72,7 +72,7 @@ tpJSON::tpJSON()
 {
     // ctor
     m_ffOutputFile = NULL;
-#ifdef TP_JSON_SCHEMA_VALIDATOR
+#ifdef PI_JSON_SCHEMA_VALIDATOR
     gTPJSONMsgValidator = NULL;
 #endif
 }
@@ -88,7 +88,7 @@ tpJSON::~tpJSON()
         delete m_ffOutputFile;
     }
 
-#ifdef TP_JSON_SCHEMA_VALIDATOR
+#ifdef PI_JSON_SCHEMA_VALIDATOR
     if(gTPJSONMsgValidator) {
         delete gTPJSONMsgValidator;
         gTPJSONMsgValidator = NULL;
@@ -156,7 +156,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
 
         // now read the JSON text and store it in the 'root' structure
         // check for errors before retreiving values...
-#ifdef TP_JSON_SCHEMA_VALIDATOR
+#ifdef PI_JSON_SCHEMA_VALIDATOR
         if(!gTPJSONMsgValidator) {
             gTPJSONMsgValidator = new json_validator;
             try {
@@ -205,7 +205,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             return;
         }
 
-#ifndef OD_JSON_SCHEMA_VALIDATOR
+#ifndef PI_JSON_SCHEMA_VALIDATOR
         if(!root.HasMember( wxS("Source"))) {
             // Originator
             wxLogMessage( wxS("No Source found in message") );
