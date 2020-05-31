@@ -98,8 +98,36 @@ The following directories and files are not needed from testplugin_pi
      - OCPN_STABLE_REPO=mauro-calvi/squiddio-stable
      - OCPN_UNSTABLE_REPO=mauro-calvi/squiddio-pi
      - OCPN_PKG_REPO=mauro-calvi/squiddio-manual
-    
+  
+# Deployment 
+
+The current setup for Frontend2 plugins does this:
+    - No tag -> Alpha repository
+    - Non-Master branch tag -> Beta repository
+    - Master branch no tag -> Beta repository
+    - Master branch tag -> Prod repository
+
+ There are several ways to issue a "tagged push"
+    - See https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:developer_manual:pi_installer_procedure#deploy_to_prod_repository
+  $ git commit -am "my last changes")
+  $ git tag v[new version number]
+  $ git push <repo-name> <tag-name>  OR  $ git push origin refs/tags/tag_a
+Not preferred:
+  $ git push --tags origin master:master  <--- Is not preferred due to pushing all old tags..
+
+Example:
+1. Change version number and date in  CMakeLists.txt . Save  
+1. git add CMakeLists.txt
+1. git commit -am "v1.9.5.10"
+1. git tag v1.9.5.10
+1. git push origin refs/tags/v1.9.5.10
+  Enumerating objects: 5, done.
+  remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+  To https://github.com/xxxx/weatherfax_pi.git  
+    * [new tag]           v1.9.5.10 -> v1.9.5.10
+1. git push origin master 
    
+
 ### Comparing Plugin Manager "Frontend2" in testplugin_pi to weatherfax_pi,
 to highlight the differences
 
