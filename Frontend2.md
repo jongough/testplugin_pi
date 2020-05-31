@@ -98,7 +98,7 @@ The following directories and files are not needed from testplugin_pi
      - OCPN_STABLE_REPO=mauro-calvi/squiddio-stable
      - OCPN_UNSTABLE_REPO=mauro-calvi/squiddio-pi
      - OCPN_PKG_REPO=mauro-calvi/squiddio-manual
-  
+
 # Deployment 
 
 The current setup for Frontend2 plugins does this:
@@ -127,7 +127,6 @@ Example:
     * [new tag]           v1.9.5.10 -> v1.9.5.10
 1. git push origin master 
    
-
 ### Comparing Plugin Manager "Frontend2" in testplugin_pi to weatherfax_pi,
 to highlight the differences
 
