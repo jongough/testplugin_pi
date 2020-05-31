@@ -1,6 +1,5 @@
 # testplugin_pi
-
-## Plugin to test JSON and ODAPI
+Plugin to test JSON and ODAPI
 
 The idea is really to debug the process to see what happens. 
 The testplugin should 'do' what a plugin would do to create stuff, 
@@ -15,13 +14,3 @@ Only ODAPI is working at the moment. JSON is being developed now.
 4. The object 'should' be created. T
 
 NOTE this is currently a work in progress and should be considered 'Alpha/Beta'. It may have issues at times as new functionality is added. It is a test tool not a production plugin.
-
-## Plugin Example of PI Manager Build and Deploy "Frontend 2" 
-
-Frontend 2 for PI Manager (Build and Deploy to Cloudsmith)
-Frontend configuration to:
-
-  - Build multiple environments (Win, Mac, Fedora, Flatpak, Ubuntu, etc)
-  - Deploy to Cloudsmith Repositories.
-  
-Files used: CMakeLists.txt, CMake, .yml and CI scripts. See Frontend2.md 
