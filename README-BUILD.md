@@ -54,6 +54,7 @@ For Linux:
 * Make sure you are in the correct, clean (empty) directory for a build
 * cmake -DWXWIDGETS_FORCE_VERSION=3.0 -DCMAKE_BUILD_TYPE=Release ..
 * make -j4
+* make package
 * ./cloudsmith-upload.sh
 Under linux change the number of -j4 to how many processors you have, 
 I use -j12 (6 real processors, 2 threads per processor AMD  Ryzen 5 1600). 
