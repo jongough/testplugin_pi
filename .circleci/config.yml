@@ -231,6 +231,14 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        - build-armhf-bionic-64:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
         - build-trusty:
             filters:
                 branches:
