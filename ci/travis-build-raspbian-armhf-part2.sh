@@ -7,7 +7,7 @@
 # bailout on errors and echo commands.
 set -xe
 
-DOCKER_CONTAINER_ID=$(sudo docker ps | grep raspbian | awk '{print $1}')
+DOCKER_CONTAINER_ID=$(sudo docker ps | grep $BUILD_ENV | awk '{print $1}')
 
 echo $TRAVIS_BRANCH
 echo $OCPN_TARGET
