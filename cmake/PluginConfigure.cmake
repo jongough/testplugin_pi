@@ -51,6 +51,7 @@ if("${GIT_REPOSITORY}" STREQUAL "")
     string(REGEX MATCH ".*[\n\r]" FIRST_LINE ${GIT_REPOSITORY_REMOTE})
     if(NOT ${FIRST_LINE} STREQUAL "")
         string(REGEX REPLACE "[\n\r]" "" GIT_REPOSITORY_REMOTE ${FIRST_LINE})
+        string(REGEX REPLACE "\.git" "" FIRST_LINE ${FIRST_LINE})
     endif()
     execute_process(
         COMMAND git remote get-url ${GIT_REPOSITORY_REMOTE}
