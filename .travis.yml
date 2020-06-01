@@ -2,6 +2,7 @@ language: cpp
 
 matrix:
   include:
+# The following 2 env: sections are now being done in circleci but are left here for examples
 #  - env:
 #    - OCPN_TARGET=stretch-armhf
 #    - DOCKER_IMAGE=raspbian/stretch
@@ -24,6 +25,7 @@ matrix:
 #    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part1.sh
 #    script:
 #    - travis_wait 120 sleep infinity & bash ./ci/travis-build-raspbian-armhf-part2.sh
+# The following env: section is for arm64 and cannot yet be run in circleci
   - env:
     - OCPN_TARGET=bionic-armh64
     - DOCKER_IMAGE=arm64v8/ubuntu:18.04

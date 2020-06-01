@@ -37,7 +37,6 @@ jobs:
         - DOCKER_IMAGE=arm64v8/ubuntu:18.04
         - BUILD_FLAGS=-j3
         - BUILD_ENV=ubuntu
-
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
@@ -231,14 +230,15 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
-        - build-armhf-bionic-64:
-            filters:
-                branches:
-                    ignore:
-                    - devel
-                    - tmp
-                tags:
-                    only: /.*/
+# Currently circleci does not build armf64 correctly due to no suitable docker image
+#        - build-armhf-bionic-64:
+#            filters:
+#                branches:
+#                    ignore:
+#                    - devel
+#                    - tmp
+#                tags:
+#                    only: /.*/
         - build-trusty:
             filters:
                 branches:
