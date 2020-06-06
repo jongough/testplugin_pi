@@ -9,7 +9,7 @@ else(NOT ${PACKAGE} MATCHES "(.*)_pi")
 endif(NOT ${PACKAGE} MATCHES "(.*)_pi")
 string(TOUPPER "${PACKAGE}" TITLE_NAME)
 
-project(${PACKAGE_NAME} VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK})
+project(${PACKAGE} VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK})
 message(STATUS "PROJECT_VERSION: ${PROJECT_VERSION}")
 
 set(PACKAGE_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_TWEAK}")
@@ -59,8 +59,6 @@ elseif(UNIX)
   # Some linux dist:
   execute_process(COMMAND "lsb_release" "-is" OUTPUT_VARIABLE PKG_TARGET)
   execute_process(COMMAND "lsb_release" "-rs" OUTPUT_VARIABLE PKG_TARGET_VERSION)
-  #string(REPLACE "_pi" "" PKG_NVR ${PKG_NVR})
-  #set(PKG_NVR "${PKG_NVR}")
 else()
   set(PKG_TARGET "unknown")
   set(PKG_TARGET_VERSION 1)

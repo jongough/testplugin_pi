@@ -29,7 +29,7 @@ else()
         OUTPUT_VARIABLE GIT_REPOSITORY_BRANCH
         OUTPUT_STRIP_TRAILING_WHITESPACE
       )
-    if(${GIT_REPOSITORY_BRANCH} EQUAL "")
+    if("${GIT_REPOSITORY_BRANCH}" STREQUAL "")
         message(STATUS "Setting default GIT repository branch - master")
         set(GIT_REPOSITORY_BRANCH "master")
     endif()
@@ -104,12 +104,6 @@ if($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
 else($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
     set(PKG_TARGET_FULL "${PKG_TARGET}")
 endif($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
-
-message(STATUS "PKG_TARGET_FULL: ${PKG_TARGET_FULL}")
-message(STATUS "*.in files generated in ${CMAKE_CURRENT_BINARY_DIR}")
-configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGING_NAME}.xml)
-configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
-configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/cloudsmith-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/cloudsmith-upload.sh @ONLY)
 
 message(STATUS "Checking OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
 if(OCPN_FLATPAK_CONFIG)
@@ -371,6 +365,35 @@ endif(
   NOT WIN32
   AND NOT APPLE
   AND NOT QT_ANDROID)
+
+if(UNIX)
+    # Handle gtk3 build variant
+    string(STRIP "${PKG_TARGET}" PKG_TARGET)
+    string(TOLOWER "${PKG_TARGET}" PKG_TARGET)
+    if (NOT DEFINED wxWidgets_LIBRARIES)
+        message(FATAL_ERROR "PluginSetup: required wxWidgets_LIBRARIES missing")
+    elseif ("${wxWidgets_LIBRARIES}" MATCHES "gtk3u" AND PKG_TARGET STREQUAL "ubuntu")
+        message(STATUS "PluginSetup: gtk3 found")
+        set(PKG_TARGET "${PKG_TARGET}-gtk3")
+    endif ()
+
+    # Generate architecturally uniques names for linux output packages
+    if(ARCH MATCHES "arm64")
+        set(PKG_TARGET "${PKG_TARGET}-ARM64")
+    elseif(ARCH MATCHES "armhf")
+        set(PKG_TARGET "${PKG_TARGET}-ARMHF")
+    elseif(ARCH MATCHES "i386")
+        set(PKG_TARGET "${PKG_TARGET}-i386")
+    else ()
+        set(PKG_TARGET "${PKG_TARGET}-x86_64")
+    endif ()
+endif()
+
+message(STATUS "PKG_TARGET_FULL: ${PKG_TARGET_FULL}")
+message(STATUS "*.in files generated in ${CMAKE_CURRENT_BINARY_DIR}")
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGING_NAME}.xml)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
+configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/cloudsmith-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/cloudsmith-upload.sh @ONLY)
 
 # On Android, PlugIns need a specific linkage set....
 if(QT_ANDROID)
