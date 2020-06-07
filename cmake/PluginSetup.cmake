@@ -66,8 +66,6 @@ else()
     set(PKG_TARGET_VERSION 1)
 endif()
 
-set(PACKAGE_DEPS "libc6, libwxgtk3.0-0, wx3.0-i18n, libglu1-mesa (>= 7.0.0), libgl1-mesa-glx (>= 7.0.0), zlib1g, bzip2, libportaudio2")
-set(PACKAGE_RECS "xcalib,xdg-utils")
 if(NOT WIN32)
     # default
     set(ARCH "i386")
