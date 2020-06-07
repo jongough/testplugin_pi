@@ -385,7 +385,7 @@ if(UNIX)
 endif()
 
 set(PKG_TARGET_FULL "${PKG_TARGET}${PKG_TARGET_GTK}${PKG_TARGET_ARCH}")
-message(STATUS "${CMLOC}${CMLOC} PKG_TARGET_FULL: ${PKG_TARGET}${PKG_TARGET_ARCH}${PKG_TARGET_GTK}")
+message(STATUS "${CMLOC}PKG_TARGET_FULL: ${PKG_TARGET}${PKG_TARGET_GTK}${PKG_TARGET_ARCH}")
 message(STATUS "${CMLOC}*.in files generated in ${CMAKE_CURRENT_BINARY_DIR}")
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/plugin.xml.in ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGING_NAME}.xml)
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
