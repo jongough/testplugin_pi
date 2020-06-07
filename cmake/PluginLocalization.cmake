@@ -2,11 +2,13 @@
 # Author:      Pavel Kalian / Sean D'Epagnier Copyright: License:     GPLv3+
 # ---------------------------------------------------------------------------
 
+set(CMLOC "PluginLocalization: ")
+
 if(OCPN_FLATPAK_CONFIG)
   return()
 endif(OCPN_FLATPAK_CONFIG)
 
-message(STATUS "Starting POTFILE generation")
+message(STATUS "${CMLOC}Starting POTFILE generation")
 
 set(POTFILE ${CMAKE_CURRENT_SOURCE_DIR}/po/POTFILES.in)
 file(REMOVE ${POTFILE}.test)
@@ -71,7 +73,7 @@ endif(GETTEXT_MSGMERGE_EXECUTABLE)
 set(_gmoFiles)
 macro(GETTEXT_BUILD_MO)
   file(MAKE_DIRECTORY "Resources")
-  message(STATUS "Creating Resources directory")
+  message(STATUS "${CMLOC}Creating Resources directory")
   add_custom_target(
       create_resources_dir ALL
       COMMAND ${CMAKE_COMMAND} -E make_directory "./Resources"
@@ -90,10 +92,10 @@ macro(GETTEXT_BUILD_MO)
 
     if(APPLE)
       install(FILES ${_gmoFile} DESTINATION OpenCPN.app/Contents/Resources/${_poBasename}.lproj RENAME ${PACKAGE_NAME}.mo)
-      message(STATUS "Install language files to: OpenCPN.app/Contents/Resources/${_poBasename}.lproj renamed to: ${PACKAGE_NAME}.mo")
+      message(STATUS "${CMLOC}Install language files to: OpenCPN.app/Contents/Resources/${_poBasename}.lproj renamed to: ${PACKAGE_NAME}.mo")
     else(APPLE)
       install(FILES ${_gmoFile} DESTINATION ${PREFIX_DATA}/locale/${_poBasename}/LC_MESSAGES RENAME ${PACKAGE_NAME}.mo)
-      message(STATUS "Install language files to: ${PREFIX_DATA}/locale/${_poBasename}/LC_MESSAGES renamed to: ${PACKAGE_NAME}.mo")
+      message(STATUS "${CMLOC}Install language files to: ${PREFIX_DATA}/locale/${_poBasename}/LC_MESSAGES renamed to: ${PACKAGE_NAME}.mo")
     endif(APPLE)
 
     set(_gmoFiles ${_gmoFiles} ${_gmoFile})
@@ -107,4 +109,4 @@ if(GETTEXT_MSGFMT_EXECUTABLE)
   add_dependencies(${PACKAGE_NAME} ${I18N_NAME}-i18n)
 endif(GETTEXT_MSGFMT_EXECUTABLE)
 file(MAKE_DIRECTORY "Resources")
-message(STATUS "Creating Resources directory")
+message(STATUS "${CMLOC}Creating Resources directory")

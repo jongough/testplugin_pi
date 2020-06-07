@@ -2,8 +2,10 @@
 # Author:      Pavel Kalian (Based on the work of Sean D'Epagnier) Copyright:   2014 License:     GPLv3+
 # ---------------------------------------------------------------------------
 
+set(CMLOC "PluginPackage: ")
+
 # build a FLATPAK installer package
-message(STATUS "Package: OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
+message(STATUS "${CMLOC}Package: OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
 
 if(OCPN_FLATPAK_CONFIG)
   # On a flatpak build lib libraries such as LibGL and wxWidgets are only available in the flatpak sandbox. Thus, building flatpak must be done before attempts to locate these non-existing libraries
@@ -47,29 +49,29 @@ if(WIN32)
   set(CPACK_NSIS_DISPLAY_NAME "OpenCPN ${PACKAGE_NAME}")
 
   set(CPACK_PACKAGE_FILE_NAME "${PACKAGE_FILE_NAME}_${CPACK_PACKAGE_VERSION}-${OCPN_MIN_VERSION}_win32")
-  message(STATUS "CPACK_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION}")
+  message(STATUS "${CMLOC}CPACK_PACKAGE_VERSION ${CPACK_PACKAGE_VERSION}")
 
   set(CPACK_NSIS_DIR "${PROJECT_SOURCE_DIR}/buildwin/NSIS_Unicode")  #Gunther
   set(CPACK_BUILDWIN_DIR "${PROJECT_SOURCE_DIR}/buildwin") # Gunther
 
-  message(STATUS "FILE: ${CPACK_PACKAGE_FILE_NAME}")
+  message(STATUS "${CMLOC}FILE: ${CPACK_PACKAGE_FILE_NAME}")
 else(WIN32)
   set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PACKAGE_NAME})
 endif(WIN32)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(CPACK_STRIP_FILES "")
-  message(STATUS "Not stripping debug information from module")
+  message(STATUS "${CMLOC}Not stripping debug information from module")
 else(CMAKE_BUILD_TYPE STREQUAL "DEBUG")
   set(CPACK_STRIP_FILES "${PACKAGE_NAME}")
-  message(STATUS "Stripping debug information from module")
+  message(STATUS "${CMLOC}Stripping debug information from module")
 endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/gpl.txt")
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/README")
-  message(STATUS "Using generic cpack package description file.")
+  message(STATUS "${CMLOC}Using generic cpack package description file.")
   set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
   set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README")
 endif()
@@ -100,7 +102,7 @@ endif(UNIX AND NOT APPLE)
 
 if(NOT STANDALONE MATCHES "BUNDLED")
   if(APPLE)
-    message(STATUS "*** Staging to build PlugIn OSX Package ***")
+    message(STATUS "${CMLOC}*** Staging to build PlugIn OSX Package ***")
 
     # Copy a bunch of files so the Packages installer builder can find them relative to ${CMAKE_CURRENT_BINARY_DIR} This avoids absolute paths in the chartdldr_pi.pkgproj file
 
@@ -130,11 +132,11 @@ if(NOT STANDALONE MATCHES "BUNDLED")
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PACKAGE_NAME} PlugIn for OpenCPN")
   set(CPACK_PACKAGE_DESCRIPTION "${PACKAGE_NAME} PlugIn for OpenCPN")
   set(CPACK_PACKAGE_FILE_NAME "${PACKAGING_NAME}")
-  message(STATUS "CPACK_PACKAGE_FILE_NAME: ${CPACK_PACKAGE_FILE_NAME}")
+  message(STATUS "${CMLOC}CPACK_PACKAGE_FILE_NAME: ${CPACK_PACKAGE_FILE_NAME}")
 
   if(WIN32)
     set(CPACK_SET_DESTDIR OFF)
-    message(STATUS "FILE: ${CPACK_PACKAGE_FILE_NAME}")
+    message(STATUS "${CMLOC}FILE: ${CPACK_PACKAGE_FILE_NAME}")
     add_custom_command(
       OUTPUT ${CPACK_PACKAGE_FILE_NAME}
       COMMAND
@@ -148,7 +150,7 @@ if(NOT STANDALONE MATCHES "BUNDLED")
       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${CPACK_PACKAGE_FILE_NAME})
   endif(WIN32)
 
-  message(STATUS "CPACK_PACKAGE_VERSION: ${CPACK_PACKAGE_VERSION}, PACKAGE_VERSION ${PACKAGE_VERSION}, CPACK_PACKAGE_FILE_NAME: ${CPACK_PACKAGE_FILE_NAME}")
+  message(STATUS "${CMLOC}CPACK_PACKAGE_VERSION: ${CPACK_PACKAGE_VERSION}, PACKAGE_VERSION ${PACKAGE_VERSION}, CPACK_PACKAGE_FILE_NAME: ${CPACK_PACKAGE_FILE_NAME}")
   include(CPack)
 
 endif(NOT STANDALONE MATCHES "BUNDLED")

@@ -13,6 +13,8 @@
 ## ----- Modify section below to include all the details for your plugin ----- ##
 ##
 
+set(CMLOC "CMakeLists: ")
+
 # define minimum cmake version
 cmake_minimum_required(VERSION 3.1.1)
 if(COMMAND cmake_policy)
@@ -79,13 +81,13 @@ set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
 option(USE_GL "Enable OpenGL support" OFF)
-message(STATUS "USE_GL: ${USE_GL}")
+message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
-message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
 ##
 ## ----- The statement below is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
@@ -175,9 +177,9 @@ ELSE(APPLE)
 ENDIF(APPLE)
 
 IF(PI_JSON_SCHEMA_VALIDATOR)
-    MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
+    MESSAGE(STATUS "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
     ADD_DEFINITIONS(-DPI_JSON_SCHEMA_VALIDATOR)
-    MESSAGE(STATUS "Adding JSON Schema validation")
+    MESSAGE(STATUS "${CMLOC}Adding JSON Schema validation")
 
     SET(EXTSRC
         ${EXTSRC}
@@ -192,7 +194,7 @@ IF(PI_JSON_SCHEMA_VALIDATOR)
     )
     INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
 ELSE(PI_JSON_SCHEMA_VALIDATOR)
-    MESSAGE(STATUS "Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
+    MESSAGE(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 ENDIF(PI_JSON_SCHEMA_VALIDATOR)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
@@ -212,10 +214,10 @@ IF(UNIX AND NOT APPLE)
   IF(PI_JSON_SCHEMA_VALIDATOR)
     # Change OS/ABI to be UNIX - System V to make it run with OCPN
     SET(lib_name lib${PACKAGE_NAME}.so)
-    MESSAGE(STATUS "lib-name: ${lib_name}")
+    MESSAGE(STATUS "${CMLOC}lib-name: ${lib_name}")
     FIND_FILE(elfedit elfedit)
     IF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-      MESSAGE(STATUS "Will ensure OS/ABI is set to 0 to match OCPN")
+        MESSAGE(STATUS "${CMLOC}Will ensure OS/ABI is set to 0 to match OCPN")
       ADD_CUSTOM_COMMAND(
         TARGET ${PACKAGE_NAME}
         POST_BUILD
@@ -225,7 +227,7 @@ IF(UNIX AND NOT APPLE)
         COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) '
       )
     ELSE(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-      MESSAGE(STATUS "Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
+      MESSAGE(STATUS "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
     ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
   ENDIF(PI_JSON_SCHEMA_VALIDATOR)
 ENDIF(UNIX AND NOT APPLE)
