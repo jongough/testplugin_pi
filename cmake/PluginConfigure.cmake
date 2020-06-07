@@ -368,24 +368,24 @@ endif(
 
 if(UNIX)
     # Handle gtk3 build variant
-    string(STRIP "${PKG_TARGET}" PKG_TARGET)
-    string(TOLOWER "${PKG_TARGET}" PKG_TARGET)
+    string(STRIP "${PKG_TARGET_FULL}" PKG_TARGET_FULL)
+    string(TOLOWER "${PKG_TARGET_FULL}" PKG_TARGET_FULL)
     if (NOT DEFINED wxWidgets_LIBRARIES)
         message(FATAL_ERROR "PluginSetup: required wxWidgets_LIBRARIES missing")
     elseif ("${wxWidgets_LIBRARIES}" MATCHES "gtk3u" AND PKG_TARGET STREQUAL "ubuntu")
         message(STATUS "PluginSetup: gtk3 found")
-        set(PKG_TARGET "${PKG_TARGET}-gtk3")
+        set(PKG_TARGET "${PKG_TARGET_FULL}-gtk3")
     endif ()
 
     # Generate architecturally uniques names for linux output packages
     if(ARCH MATCHES "arm64")
-        set(PKG_TARGET "${PKG_TARGET}-ARM64")
+        set(PKG_TARGET_FULL "${PKG_TARGET_FULL}-ARM64")
     elseif(ARCH MATCHES "armhf")
-        set(PKG_TARGET "${PKG_TARGET}-ARMHF")
+        set(PKG_TARGET_FULL "${PKG_TARGET_FULL}-ARMHF")
     elseif(ARCH MATCHES "i386")
-        set(PKG_TARGET "${PKG_TARGET}-i386")
+        set(PKG_TARGET_FULL "${PKG_TARGET_FULL}-i386")
     else ()
-        set(PKG_TARGET "${PKG_TARGET}-x86_64")
+        set(PKG_TARGET_FULL "${PKG_TARGET_FULL}-x86_64")
     endif ()
 endif()
 
