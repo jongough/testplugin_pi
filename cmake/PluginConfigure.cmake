@@ -104,6 +104,7 @@ if($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
 else($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
     set(PKG_TARGET_FULL "${PKG_TARGET}")
 endif($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
+message(STATUS "PKG_TARGET_FULL: ${PKG_TARGET_FULL}")
 
 message(STATUS "Checking OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
 if(OCPN_FLATPAK_CONFIG)
@@ -374,7 +375,7 @@ if(UNIX)
         message(FATAL_ERROR "PluginSetup: required wxWidgets_LIBRARIES missing")
     elseif ("${wxWidgets_LIBRARIES}" MATCHES "gtk3u" AND PKG_TARGET STREQUAL "ubuntu")
         message(STATUS "PluginSetup: gtk3 found")
-        set(PKG_TARGET "${PKG_TARGET_FULL}-gtk3")
+        set(PKG_TARGET_FULL "${PKG_TARGET_FULL}-gtk3")
     endif ()
 
     # Generate architecturally uniques names for linux output packages
