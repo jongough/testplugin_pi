@@ -2,6 +2,7 @@
 # Author:      Jon Gough (Based on the work of Sean D'Epagnier and Pavel Kalian) Copyright:   2019 License:     GPLv3+
 # ---------------------------------------------------------------------------
 
+set(SAVE_CMLOC ${CMLOC})
 set(CMLOC "PluginConfigure: ")
 
 message(STATUS "${CMLOC}*** Staging to build ${PACKAGE_NAME} ***")
@@ -100,16 +101,6 @@ else($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
     set(PKG_TARGET_GTK "")
 endif($ENV{OCPN_TARGET} MATCHES "(.*)gtk3")
 message(STATUS "${CMLOC}PKG_TARGET_GTK: ${PKG_TARGET_GTK}")
-
-message(STATUS "${CMLOC}Checking OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
-if(OCPN_FLATPAK_CONFIG)
-    configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_CURRENT_BINARY_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
-
-    message(STATUS "${CMLOC}Done OCPN_FLATPAK CONFIG")
-    message(STATUS "${CMLOC}Directory used: ${CMAKE_CURRENT_BINARY_DIR}/flatpak")
-    message(STATUS "${CMLOC}Git Branch: ${GIT_REPOSITORY_BRANCH}")
-    return()
-endif(OCPN_FLATPAK_CONFIG)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -391,6 +382,17 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/plugin.xml.in ${CMAKE_CURRENT_
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURRENT_BINARY_DIR}/pkg_version.sh)
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/cloudsmith-upload.sh.in ${CMAKE_CURRENT_BINARY_DIR}/cloudsmith-upload.sh @ONLY)
 
+message(STATUS "${CMLOC}Checking OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
+if(OCPN_FLATPAK_CONFIG)
+    configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_CURRENT_BINARY_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
+
+    message(STATUS "${CMLOC}Done OCPN_FLATPAK CONFIG")
+    message(STATUS "${CMLOC}Directory used: ${CMAKE_CURRENT_BINARY_DIR}/flatpak")
+    message(STATUS "${CMLOC}Git Branch: ${GIT_REPOSITORY_BRANCH}")
+    set(CMLOC ${SAVE_CMLOC})
+    return()
+endif(OCPN_FLATPAK_CONFIG)
+
 # On Android, PlugIns need a specific linkage set....
 if(QT_ANDROID)
     # These libraries are needed to create PlugIns on Android.
@@ -420,3 +422,5 @@ if(QT_ANDROID)
 endif(QT_ANDROID)
 
 find_package(Gettext REQUIRED)
+
+set(CMLOC ${SAVE_CMLOC})
