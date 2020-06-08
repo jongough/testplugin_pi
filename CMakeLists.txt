@@ -2,13 +2,15 @@
 # Author:      jongough aka. Jon Gough Copyright: License:     wxWidgets License
 # ---------------------------------------------------------------------------
 
-#
-# ----- When changing this file do NOT change the order in which sections occur        ----- ## ----- Changes should only be made between the section blocks that identify where     ----- ## ----- these changes should be. The whole configuration process relies on this        ----- ## ----- sequence to be successful                                                      ----- ##
-#
+## ----- When changing this file do NOT change the order in which sections occur        ----- ##
+## ----- Changes should only be made between the section blocks that identify where     ----- ##
+## ----- these changes should be. The whole configuration process relies on this        ----- ##
+## ----- sequence to be successful                                                      ----- ##
+##
 
-#
-# ----- Modify section below to include all the details for your plugin ----- ##
-#
+##
+## ----- Modify section below to include all the details for your plugin ----- ##
+##
 
 set(CMLOC "CMakeLists: ")
 
@@ -60,13 +62,13 @@ set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_
 set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
 set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
 
-#
-# ----- Modify section above to include all the details for your plugin ----- ##
-#
+##
+## ----- Modify section above to include all the details for your plugin ----- ##
+##
 
-#
-# ----- Modify section below if there are special requirements for the plugin ----- ##
-#
+##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
 
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
@@ -87,37 +89,37 @@ endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
 message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
-#
-# ----- The statement below is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
-#
+##
+## ----- The statement below is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+##
 
 include("cmake/PluginSetup.cmake")
 
-#
-# ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
-#
+##
+## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+##
 
-#
-# ----- Modify section below if there are special requirements for the plugin ----- ##
-#
+##
+## ----- Modify section below if there are special requirements for the plugin ----- ##
+##
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
 
-#
-# ----- Modify section above if there are special requirements for the plugin ----- ##
-#
+##
+## ----- Modify section above if there are special requirements for the plugin ----- ##
+##
 
-#
-# ----- do not change next section - needed to configure build process ----- ##
-#
+##
+## ----- do not change next section - needed to configure build process ----- ##
+##
 
 include("cmake/PluginConfigure.cmake")
 
-#
-# ----- do not change section above - needed to configure build process ----- ##
-#
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##
 
 #
 # ----- Change below to match project requirements for source, headers, etc. ----- ##
@@ -218,18 +220,18 @@ if(UNIX AND NOT APPLE)
     endif(PI_JSON_SCHEMA_VALIDATOR)
 endif(UNIX AND NOT APPLE)
 
-#
-# ----- Change above to match project requirements ----- ##
-#
+##
+## ----- Change above to match project requirements ----- ##
+##
 
-#
-# ----- do not change next section - needed to configure build process ----- ##
-#
+##
+## ----- do not change next section - needed to configure build process ----- ##
+##
 
 include("cmake/PluginInstall.cmake")
 include("cmake/PluginLocalization.cmake")
 include("cmake/PluginPackage.cmake")
 
-#
-# ----- do not change section above - needed to configure build process ----- ##
-#
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##
