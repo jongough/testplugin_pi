@@ -117,6 +117,8 @@ if(UNIX)
     else()
         set(PKG_TARGET_ARCH "-x86_64")
     endif()
+else()
+    set(PKG_TARGET_ARCH "-${ARCH}")
 endif()
 
 set(PKG_TARGET_FULL "${PKG_TARGET}${PKG_TARGET_GTK}${PKG_TARGET_ARCH}")
