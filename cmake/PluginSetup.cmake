@@ -109,7 +109,7 @@ if(NOT WIN32)
 
         if(NOT DEFINED PACKAGE_FORMAT)
             if(EXISTS /etc/redhat-release)
-                message(STATUS "*** Redhat detected  ***")
+                message(STATUS "${CMLOC}*** Redhat detected  ***")
                 set(PACKAGE_FORMAT "RPM")
                 set(PACKAGE_DEPS "opencpn")
                 if(CMAKE_SIZEOF_VOID_P MATCHES "8")
@@ -127,7 +127,7 @@ if(NOT WIN32)
                OR EXISTS /etc/sysconfig/SuSEfirewall2.d
                OR EXISTS /etc/suse-release
                OR EXISTS /etc/SuSE-release)
-                message(STATUS "*** OpenSUSE detected  ***")
+                message(STATUS "${CMLOC}*** OpenSUSE detected  ***")
                 set(PACKAGE_FORMAT "RPM")
                 set(PACKAGE_DEPS "opencpn")
                 if(CMAKE_SIZEOF_VOID_P MATCHES "8")
