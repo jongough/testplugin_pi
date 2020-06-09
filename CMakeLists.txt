@@ -9,6 +9,12 @@
 #    - 30/05/2020 Minor Update for Arch  
 # ---------------------------------------------------------------------------
 
+## ----- When changing this file do NOT change the order in which sections occur        ----- ##
+## ----- Changes should only be made between the section blocks that identify where     ----- ##
+## ----- these changes should be. The whole configuration process relies on this        ----- ##
+## ----- sequence to be successful                                                      ----- ##
+##
+
 ##
 ## --- When changing this file do NOT change the order in which sections occur  ----- ##
 ## --- Changes should only be made between the section blocks that identify where --- ##
@@ -17,16 +23,18 @@
 ##
 ##----- Modify section below to include all the details for your plugin ----- ##
 
+set(CMLOC "CMakeLists: ")
+
 # define minimum cmake version
 cmake_minimum_required(VERSION 3.1.1)
 if(COMMAND cmake_policy)
-  if(POLICY CMP0043)
-    cmake_policy(SET CMP0043 NEW)
-  endif(POLICY CMP0043)
-  cmake_policy(SET CMP0048 NEW)
-  if(POLICY CMP0077)
-    cmake_policy(SET CMP0077 NEW)
-  endif(POLICY CMP0077)
+    if(POLICY CMP0043)
+        cmake_policy(SET CMP0043 NEW)
+    endif(POLICY CMP0043)
+    cmake_policy(SET CMP0048 NEW)
+    if(POLICY CMP0077)
+        cmake_policy(SET CMP0077 NEW)
+    endif(POLICY CMP0077)
 endif(COMMAND cmake_policy)
 
 project(Testplugin)
@@ -39,9 +47,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "105")
+set(VERSION_PATCH "112")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "02/06/2020")
+set(VERSION_DATE "09/06/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -65,6 +73,7 @@ set(ALPHA "alpha")  #Standard Repos
 #set(CLOUDSMITH_USER "jon-gough")
 #set(CLOUDSMITH_USER "rick-gleason")
 set(CLOUDSMITH_USER "opencpn")
+
 # Set if  Cloudsmith Base Repository name does not match your Git Repository name.
 # set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
 # set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
@@ -92,17 +101,21 @@ set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
 option(USE_GL "Enable OpenGL support" OFF)
-message(STATUS "USE_GL: ${USE_GL}")
+message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
-  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
+    set(CMAKE_BUILD_TYPE
+        "Release"
+        CACHE STRING "Choose the type of build" FORCE)
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
-message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
 ##
-## ----- The statement below is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+## ----- The statements below are used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
 ##
+
+project(${PACKAGE})
 
 include("cmake/PluginSetup.cmake")
 
@@ -132,9 +145,9 @@ include("cmake/PluginConfigure.cmake")
 ## ----- do not change section above - needed to configure build process ----- ##
 ##
 
-##
-## ----- Change below to match project requirements for source, headers, etc. ----- ##
-##
+#
+# ----- Change below to match project requirements for source, headers, etc. ----- ##
+#
 
 add_definitions(-DUSE_S57)
 
@@ -163,9 +176,7 @@ set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/T
 
 set(EXTSRC)
 
-set(EXTINCLUDE
-    extinclude/nlohmann/json.hpp
-    extinclude/ODAPI.h)
+set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
@@ -181,32 +192,24 @@ set(LIBHDRS
 
 add_definitions(-DPLUGIN_USE_SVG)
 
-IF(APPLE)
-    OPTION(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
-ELSE(APPLE)
-    OPTION(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
-ENDIF(APPLE)
+if(APPLE)
+    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
+else(APPLE)
+    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
+endif(APPLE)
 
-IF(PI_JSON_SCHEMA_VALIDATOR)
-    MESSAGE(STATUS "Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
-    ADD_DEFINITIONS(-DPI_JSON_SCHEMA_VALIDATOR)
-    MESSAGE(STATUS "Adding JSON Schema validation")
+if(PI_JSON_SCHEMA_VALIDATOR)
+    message(STATUS "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
+    add_definitions(-DPI_JSON_SCHEMA_VALIDATOR)
+    message(STATUS "${CMLOC}Adding JSON Schema validation")
 
-    SET(EXTSRC
-        ${EXTSRC}
-        extsrc/json-schema-validator/json-schema-draft7.json.cpp
-        extsrc/json-schema-validator/json-uri.cpp
-        extsrc/json-schema-validator/json-validator.cpp
-    )
-    SET(EXTINCLUDE
-        ${EXTINCLUDE}
-        extinclude/nlohmann/json.hpp
-        extinclude/json-schema-validator/json-schema.hpp
-    )
-    INCLUDE_DIRECTORIES(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
-ELSE(PI_JSON_SCHEMA_VALIDATOR)
-    MESSAGE(STATUS "Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
-ENDIF(PI_JSON_SCHEMA_VALIDATOR)
+    set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
+    set(EXTINCLUDE ${EXTINCLUDE} extinclude/nlohmann/json.hpp extinclude/json-schema-validator/json-schema.hpp)
+    include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+else(PI_JSON_SCHEMA_VALIDATOR)
+    message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
+endif(PI_JSON_SCHEMA_VALIDATOR)
+
 
 ##
 # Modify/configure 'Include' Directories below for the Plugin
@@ -233,27 +236,27 @@ add_definitions(-DTIXML_USE_STL)
 
 # Every plugin that uses JSON for passing messages should use a validator. The validator  allows the system to ignore non-conformant messages. 
 
-IF(UNIX AND NOT APPLE)
-  IF(PI_JSON_SCHEMA_VALIDATOR)
-    # Change OS/ABI to be UNIX - System V to make it run with OCPN
-    SET(lib_name lib${PACKAGE_NAME}.so)
-    MESSAGE(STATUS "lib-name: ${lib_name}")
-    FIND_FILE(elfedit elfedit)
-    IF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-      MESSAGE(STATUS "Will ensure OS/ABI is set to 0 to match OCPN")
-      ADD_CUSTOM_COMMAND(
-        TARGET ${PACKAGE_NAME}
-        POST_BUILD
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        DEPENDS ${PACKAGE_NAME}
-        COMMENT " Running post build action on ${lib_name}."
-        COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) '
-      )
-    ELSE(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-      MESSAGE(STATUS "Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
-    ENDIF(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-  ENDIF(PI_JSON_SCHEMA_VALIDATOR)
-ENDIF(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE)
+    if(PI_JSON_SCHEMA_VALIDATOR)
+        # Change OS/ABI to be UNIX - System V to make it run with OCPN
+        set(lib_name lib${PACKAGE_NAME}.so)
+        message(STATUS "${CMLOC}lib-name: ${lib_name}")
+        find_file(elfedit elfedit)
+        if(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+            message(STATUS "${CMLOC}Will ensure OS/ABI is set to 0 to match OCPN")
+            add_custom_command(
+                TARGET ${PACKAGE_NAME}
+                POST_BUILD
+                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+                DEPENDS ${PACKAGE_NAME}
+                COMMENT " Running post build action on ${lib_name}."
+                COMMAND sh -c 'elfedit --input-osabi=Linux --output-osabi=none ${lib_name} || (echo 0) ')
+        else(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+            message(STATUS "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
+        endif(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
+    endif(PI_JSON_SCHEMA_VALIDATOR)
+endif(UNIX AND NOT APPLE)
+
 
 #These are NOT used in Testplugin, used for other plugins
 #include("cmake/PluginJSON.cmake")
@@ -274,4 +277,3 @@ include("cmake/PluginPackage.cmake")
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
 ##
-
