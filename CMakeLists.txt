@@ -3,25 +3,21 @@
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
 # ---------------------------------------------------------------------------
-# CMake-CI Number: 0.0.008
+# CMake-CI Number: 0.0.009
 #    - 28/05/2020 Work on Local Build
 #    - 28/05/2020 Move CmakeLists code into PluginSetup.cmake
-#    - 30/05/2020 Minor Update for Arch  
+#    - 30/05/2020 Minor Update for Arch
+#    - 09/06/2020 Fix gtk3 and new build naming  
 # ---------------------------------------------------------------------------
 
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
 ## ----- sequence to be successful                                                      ----- ##
-##
 
 ##
-## --- When changing this file do NOT change the order in which sections occur  ----- ##
-## --- Changes should only be made between the section blocks that identify where --- ##
-## ----- these changes should be. The whole configuration process relies on this  --- ##
-## ----- sequence to be successful                                              ----- ##
-##
 ##----- Modify section below to include all the details for your plugin ----- ##
+##
 
 set(CMLOC "CMakeLists: ")
 
@@ -37,7 +33,6 @@ if(COMMAND cmake_policy)
     endif(POLICY CMP0077)
 endif(COMMAND cmake_policy)
 
-project(Testplugin)
 # define plugin name, owner and versions
 set(VERBOSE_NAME "Testplugin")
 set(COMMON_NAME "testplugin")  # Search "getcommonname"in <plugin_pi>.cpp
@@ -57,11 +52,10 @@ set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
 
-#For setting up your own local webserver with git loaded, for testing purposes.
+#Used to set up a local webserver with git loaded, for testing purposes.
 set(GIT_REPOSITORY_SERVER "github.com")
 
-#set(GIT_USER "mauroc")
-#set(GIT_USER "jongough")
+#No longer needed, queried.
 #set(GIT_USER "rgleason")
 #set(GIT_REPOSITORY_NAME "testplugin_pi")
 
