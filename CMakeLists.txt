@@ -45,12 +45,10 @@ set(TITLE_NAME "testplugin")
 set(PACKAGE_CONTACT "Jon Gough")
 set(PACKAGE "testplugin")
 
-project(${PACKAGE})
-
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "111")
-set(VERSION_TWEAK "1")
+set(VERSION_PATCH "112")
+set(VERSION_TWEAK "0")
 set(VERSION_DATE "09/06/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -114,8 +112,10 @@ set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWi
 message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
 ##
-## ----- The statement below is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
+## ----- The statements below are used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
 ##
+
+project(${PACKAGE})
 
 include("cmake/PluginSetup.cmake")
 
