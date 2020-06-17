@@ -2,14 +2,8 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
+# Frontend2: v1.0.116
 # ---------------------------------------------------------------------------
-# CMake-CI Number: 0.0.009
-#    - 28/05/2020 Work on Local Build
-#    - 28/05/2020 Move CmakeLists code into PluginSetup.cmake
-#    - 30/05/2020 Minor Update for Arch
-#    - 09/06/2020 Fix gtk3 and new build naming  
-# ---------------------------------------------------------------------------
-
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
@@ -42,9 +36,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "112")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "09/06/2020")
+set(VERSION_PATCH "116")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "16/06/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
