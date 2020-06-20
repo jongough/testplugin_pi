@@ -24,9 +24,7 @@ elseif($ENV{APPVEYOR})
     set(GIT_REPOSITORY "$ENV{APPVEYOR_REPO_NAME}")
     set(GIT_REPOSITORY_BRANCH "$ENV{APPVEYOR_REPO_BRANCH}")
     set(GIT_REPOSITORY_TAG "$ENV{APPVEYOR_REPO_TAG_NAME}")
-endif()
-if("${GIT_REPOSITORY}" STREQUAL "" OR "${GIT_REPOSITORY_BRANCH}" STREQUAL "${GIT_REPOSITORY_TAG}")
-    message(STATUS "${CMLOC}Finding Branch from git")
+else()
     # Get the current working branch
     execute_process(
         COMMAND git rev-parse --abbrev-ref HEAD
