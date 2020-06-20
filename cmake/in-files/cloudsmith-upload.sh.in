@@ -129,7 +129,7 @@ fi
 if [ "$BUILD_BRANCH" = "" ]; then
     build_commit=$(git show -s --format=%d $BUILD_TAG)
     is_master=$(echo $build_commit | awk '/\/master/ {print}')
-    if [ "$is_master" != "" ]; then
+    if [ "$is_master" != "" ] || [ "$TRAVIS" ]; then
         BUILD_BRANCH="master"
     fi
 fi
