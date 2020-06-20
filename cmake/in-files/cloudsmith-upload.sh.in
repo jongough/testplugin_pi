@@ -33,7 +33,7 @@ elif [ "$TRAVIS" ]; then
     BUILD_DIR=$TRAVIS_BUILD_DIR/build
     BUILD_BRANCH=$TRAVIS_BRANCH
     BUILD_TAG=$TRAVIS_TAG
-    if [ "$BUILD_BRANCH" = "$BUILD_TAG" ];
+    if [ "$BUILD_BRANCH" = "$BUILD_TAG" ]; then
         # Travis makes BUILD_BRANCH = BUILD_TAG so make BUILD_BRANCH ""
         BUILD_BRANCH=""
     fi
