@@ -34,7 +34,7 @@ elif [ "$TRAVIS" ]; then
     BUILD_BRANCH=$TRAVIS_BRANCH
     BUILD_TAG=$TRAVIS_TAG
     # Travis populates TRAVIS_BRANCH with the tag name for tag builds. So need to assume the branch is master to get output into prod cloudsmith
-    if[ "$BUILD_BRANCH" = "$BUILD_TAG" ]; then
+    if [ "$BUILD_BRANCH" = "$BUILD_TAG" ]; then
         BUILD_BRANCH="master"
     fi
     PKG_EXT=${CLOUDSMITH_PKG_EXT:-'deb'}
