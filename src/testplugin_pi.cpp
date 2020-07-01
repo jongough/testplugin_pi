@@ -317,12 +317,12 @@ bool testplugin_pi::DeInit(void)
 
 int testplugin_pi::GetAPIVersionMajor()
 {
-      return API_VERSION_MAJOR;
+      return OCPN_API_VERSION_MAJOR;
 }
 
 int testplugin_pi::GetAPIVersionMinor()
 {
-      return API_VERSION_MINOR;
+      return OCPN_API_VERSION_MINOR;
 }
 
 int testplugin_pi::GetPlugInVersionMajor()
