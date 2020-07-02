@@ -2,12 +2,13 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.119
+# Frontend2: v1.0.123
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
 ## ----- sequence to be successful                                                      ----- ##
+##  
 
 ##
 ##----- Modify section below to include all the details for your plugin ----- ##
@@ -36,9 +37,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "122")
+set(VERSION_PATCH "123")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "01/07/2020")
+set(VERSION_DATE "02/07/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -58,11 +59,12 @@ set(PROD "prod")    #Standard Repos
 set(BETA "beta")    #Standard Repos
 set(ALPHA "alpha")  #Standard Repos
 
+# Set if your cloudsmith repository name does not match your git repository name set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
 #set(CLOUDSMITH_USER "jon-gough")
 #set(CLOUDSMITH_USER "rick-gleason")
 set(CLOUDSMITH_USER "opencpn")
 
-# Set if  Cloudsmith Base Repository name does not match your Git Repository name.
+# Set if yourCloudsmith Base Repository name does not match your Git Repository name.
 # set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
 # set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
 # set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
