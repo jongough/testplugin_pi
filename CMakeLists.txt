@@ -2,7 +2,7 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.123
+# Frontend2: v1.0.124
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -37,9 +37,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "123")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "02/07/2020")
+set(VERSION_PATCH "124")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "03/07/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
