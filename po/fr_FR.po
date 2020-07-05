@@ -1,0 +1,368 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: opencpn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-04 17:37+1000\n"
+"PO-Revision-Date: 2020-07-02 22:02\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Crowdin-Project: opencpn\n"
+"X-Crowdin-Project-ID: 49843\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /plugins/testplugin_pi/po/testplugin_pi.pot\n"
+"X-Crowdin-File-ID: 344\n"
+#
+#~ msgid "&Close"
+#~ msgstr "Fermer"
+#
+#~ msgid "*.*"
+#~ msgstr "*.*"
+#
+#~ msgid "0"
+#~ msgstr "0"
+#
+#~ msgid "0.5"
+#~ msgstr "0.5"
+#
+#~ msgid "1"
+#~ msgstr "1"
+#
+#~ msgid "10"
+#~ msgstr "10"
+#
+#~ msgid "2"
+#~ msgstr "2"
+#
+#~ msgid "3"
+#~ msgstr "3"
+#
+#~ msgid "4"
+#~ msgstr "4"
+#
+#~ msgid "5"
+#~ msgstr "5"
+#
+#~ msgid "6"
+#~ msgstr "6"
+#
+#~ msgid "7"
+#~ msgstr "7"
+#
+#~ msgid "8"
+#~ msgstr "8"
+#
+#~ msgid "9"
+#~ msgstr "9"
+#
+#~ msgid "Active"
+#~ msgstr "Actif"
+#
+#~ msgid "Always"
+#~ msgstr "Toujours"
+#
+#~ msgid "Append to file"
+#~ msgstr "Ajouter au fichier"
+#
+#~ msgid "Background Colour"
+#~ msgstr "Couleur d'arrière plan"
+#
+#~ msgid "Background Transparancy"
+#~ msgstr "Transparence de l'arrière plan"
+#
+#~ msgid "Blue Anchor"
+#~ msgstr "Ancre bleue"
+#
+#~ msgid "Bottom"
+#~ msgstr "En bas"
+#
+#~ msgid "Bottom Centre"
+#~ msgstr "Centrer en bas"
+#
+#~ msgid "Boundary Point Visible"
+#~ msgstr "Borne visible"
+#
+#~ msgid "Boundary Points"
+#~ msgstr "Borne"
+#
+#~ msgid "Centre"
+#~ msgstr "Centrer"
+#
+#~ msgid ""
+#~ "Close save file after\n"
+#~ "each write"
+#~ msgstr ""
+#~ "Fermer le fichier de sauvegarde après\n"
+#~ "chaque écriture"
+#
+#~ msgid "Corner Lat"
+#~ msgstr "Lat du coin"
+#
+#~ msgid "Corner Lon"
+#~ msgstr "Lon du coin"
+#
+#~ msgid "Create Boundary"
+#~ msgstr "Créer une limite/zone"
+#
+#~ msgid "Create Boundary Point"
+#~ msgstr "Créer une borne"
+#
+#~ msgid "Create JSON"
+#~ msgstr "CréerJSON"
+#
+#~ msgid "Create ODAPI"
+#~ msgstr "Créer ODAPI"
+#
+#~ msgid "Create Text Point"
+#~ msgstr "Créer une note"
+#
+#~ msgid "Delete"
+#~ msgstr "Supprimer"
+#
+#~ msgid "Delete Boundary"
+#~ msgstr "Supprimer la limite"
+#
+#~ msgid "Delete Boundary Point"
+#~ msgstr "Supprimer la borne"
+#
+#~ msgid "Delete JSON"
+#~ msgstr "Supprimer le JSON"
+#
+#~ msgid "Delete ODAPI"
+#~ msgstr "Supprimer ODAPI"
+#
+#~ msgid "Delete Text Point"
+#~ msgstr "Supprimer la note"
+#
+#~ msgid ""
+#~ "Delete config from conf\n"
+#~ "on shutdown"
+#~ msgstr ""
+#~ "Delete config from conf\n"
+#~ "on shutdown"
+#
+#~ msgid "Example"
+#~ msgstr "Exemple"
+#
+#~ msgid "Exclusion"
+#~ msgstr "Exclusion"
+#
+#~ msgid "Failed to load all testplugin_pi icons, check OCPN log for details"
+#~ msgstr ""
+#~ "Impossible de charger toutes les icônes testplugin_pi, consultez le "
+#~ "journal OCPN pour plus de détails"
+#
+#~ msgid "File Input"
+#~ msgstr "Entrée de fichier"
+#
+#~ msgid "File not found"
+#~ msgstr "Fichier non trouvé"
+#
+#~ msgid "Fill Colour"
+#~ msgstr "Couleur de remplissage"
+#
+#~ msgid "Fonts"
+#~ msgstr "Polices"
+#
+#~ msgid "GUID"
+#~ msgstr "GUID"
+#
+#~ msgid "General"
+#~ msgstr "Général"
+#
+#~ msgid "Icon Name"
+#~ msgstr "Nom de l'icône"
+#
+#~ msgid "Import JSON"
+#~ msgstr "Importation JSON"
+#
+#~ msgid "Inclusion"
+#~ msgstr "Inclusion"
+#
+#~ msgid "JSON"
+#~ msgstr "JSON"
+#
+#~ msgid "Kilometers"
+#~ msgstr "Kilomètres"
+#
+#~ msgid "Lat"
+#~ msgstr "Latitude"
+#
+#~ msgid "Left"
+#~ msgstr "A gauche"
+#
+#~ msgid "Line Colour"
+#~ msgstr "Couleur du trait"
+#
+#~ msgid "Lon"
+#~ msgstr "Longitude"
+#
+#~ msgid "Name"
+#~ msgstr "Nom"
+#
+#~ msgid "Nautical Miles"
+#~ msgstr "Milles nautiques"
+#
+#~ msgid "Neither"
+#~ msgstr "Aucun"
+#
+#~ msgid "Never"
+#~ msgstr "Jamais"
+#
+#~ msgid "No file specified for input"
+#~ msgstr "Aucun fichier spécifié en entrée"
+#
+#~ msgid "No file specified for output"
+#~ msgstr "Aucun fichier spécifié en sortie"
+#
+#~ msgid "Number of Points"
+#~ msgstr "Nombre de points"
+#
+#~ msgid "Number of Rings"
+#~ msgstr "Nombre de cercles"
+#
+#~ msgid ""
+#~ "OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, "
+#~ "Minor: %i\n"
+#~ msgstr ""
+#~ "OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, "
+#~ "Minor: %i\n"
+#
+#~ msgid "ODAPI"
+#~ msgstr "ODAPI"
+#
+#~ msgid "OD_AddPointIcon\n"
+#~ msgstr "OD_AddPointIcon\n"
+#
+#~ msgid "OD_CreateBoundary\n"
+#~ msgstr "OD_CreateBoundary\n"
+#
+#~ msgid "OD_CreateBoundaryPoint\n"
+#~ msgstr "OD_CreateBoundaryPoint\n"
+#
+#~ msgid "OD_CreateTextPoint\n"
+#~ msgstr "OD_CreateTextPoint\n"
+#
+#~ msgid "OD_DeletePointIcon\n"
+#~ msgstr "OD_DeletePointIcon\n"
+#
+#~ msgid "OD_FindClosestBoundaryLineCrossing\n"
+#~ msgstr "OD_FindClosestBoundaryLineCrossing\n"
+#
+#~ msgid "OD_FindFirstBoundaryLineCrossing\n"
+#~ msgstr "OD_FindFirstBoundaryLineCrossing\n"
+#
+#~ msgid "OD_FindPointInAnyBoundary\n"
+#~ msgstr "OD_FindPointInAnyBoundary\n"
+#
+#~ msgid "On Rollover Only"
+#~ msgstr "Seulement par survol"
+#
+#~ msgid "OpenCPN Alert"
+#~ msgstr "Alerte OpenCPN"
+#
+#~ msgid "Point Icon"
+#~ msgstr "Icône du point"
+#
+#~ msgid "Right"
+#~ msgstr "A droite"
+#
+#~ msgid "Ring Colour"
+#~ msgstr "Couleur du cercle"
+#
+#~ msgid "Rings Step"
+#~ msgstr "Distance entre deux  cercles"
+#
+#~ msgid "Rings Visible"
+#~ msgstr "Cercles visibles"
+#
+#~ msgid "Save JSON on startup"
+#~ msgstr "Save JSON on startup"
+#
+#~ msgid ""
+#~ "Save incoming JSON\n"
+#~ "messages"
+#~ msgstr "Enregistrer les messages JSON entrants"
+#
+#~ msgid "Select JSON file to import"
+#~ msgstr "Sélectionner le fichier JSON à importer"
+#
+#~ msgid "Select a JSON file"
+#~ msgstr "Sélectionnez un fichier JSON"
+#
+#~ msgid "Select a file"
+#~ msgstr "Sélectionner un fichier"
+#
+#~ msgid "Show Display Text"
+#~ msgstr "Montrer le texte"
+#
+#~ msgid "Step Units"
+#~ msgstr "Unités de pas"
+#
+#~ msgid "TESTPLUGIN"
+#~ msgstr "TESTPLUGIN"
+#
+#~ msgid "Test Link"
+#~ msgstr "Test du lien"
+#
+#~ msgid "Test Link 1"
+#~ msgstr "Test du lien 1"
+#
+#~ msgid "Test Link 2"
+#~ msgstr "Test du lien 2"
+#
+#~ msgid "Test Plugin"
+#~ msgstr "Complément de test"
+#
+#~ msgid "Test Plugin Control Dialog"
+#~ msgstr "Test des Dialogues des compléments"
+#
+#~ msgid "Text Colour"
+#~ msgstr "Couleur du texte"
+#
+#~ msgid "Text Font"
+#~ msgstr "Police de caractère"
+#
+#~ msgid "Text position relative to point"
+#~ msgstr "Position relative du texte par rapport au point"
+#
+#~ msgid "Text to Display with Point"
+#~ msgstr "Texte à afficher avec un point"
+#
+#~ msgid "The following ODAPI's are available: \n"
+#~ msgstr "The following ODAPI's are available: \n"
+#
+#~ msgid "The following ODAPI's are not available:\n"
+#~ msgstr "The following ODAPI's are not available:\n"
+#
+#~ msgid "Top"
+#~ msgstr "En haut"
+#
+#~ msgid "Top Centre"
+#~ msgstr "Centrer en haut"
+#
+#~ msgid "Type"
+#~ msgstr "Type"
+#
+#~ msgid "Visible"
+#~ msgstr "Visible"
+#
+#~ msgid "add"
+#~ msgstr "ajouter"
+#
+#~ msgid "testplugin PlugIn for OpenCPN"
+#~ msgstr "Complément pour tester les compléments d'OpenCPN"
+#
+#~ msgid ""
+#~ "testplugin PlugIn for OpenCPN\n"
+#~ "demonstrates PlugIn processing of NMEA messages."
+#~ msgstr ""
+#~ "Complément d'OpenCPN pour tester les compléments. démonstration du "
+#~ "processus des messages NMEA"
+#
+#~ msgid "testplugin_pi data location"
+#~ msgstr "Emplacement des données testplugin_pi"
