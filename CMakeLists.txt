@@ -2,7 +2,7 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.124
+# Frontend2: v1.0.126
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -37,9 +37,9 @@ set(PACKAGE "testplugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "125")
+set(VERSION_PATCH "126")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "06/07/2020")
+set(VERSION_DATE "06/13/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -59,7 +59,6 @@ set(PROD "prod")    #Standard Repos
 set(BETA "beta")    #Standard Repos
 set(ALPHA "alpha")  #Standard Repos
 
-# Set if your cloudsmith repository name does not match your git repository name set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
 #set(CLOUDSMITH_USER "jon-gough")
 #set(CLOUDSMITH_USER "rick-gleason")
 set(CLOUDSMITH_USER "opencpn")
@@ -107,7 +106,9 @@ message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
 project(${PACKAGE})
 
-include("cmake/PluginSetup.cmake")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;")
+
+include("PluginSetup")
 
 ##
 ## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
@@ -129,7 +130,7 @@ option(Plugin_CXX11 "Use c++11" OFF)
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
 
-include("cmake/PluginConfigure.cmake")
+include("PluginConfigure")
 
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
@@ -249,9 +250,9 @@ endif(UNIX AND NOT APPLE)
 
 
 #These are NOT used in Testplugin, used for other plugins
-#include("cmake/PluginJSON.cmake")
-#include("cmake/PluginXML.cmake")
-#include("cmake/PluginGL.cmake")
+#include("PluginJSON")
+#include("PluginXML")
+#include("PluginGL")
 ##
 ## ----- Change above to match project requirements ----- ##
 ##
@@ -260,9 +261,9 @@ endif(UNIX AND NOT APPLE)
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
 
-include("cmake/PluginInstall.cmake")
-include("cmake/PluginLocalization.cmake")
-include("cmake/PluginPackage.cmake")
+include("PluginInstall")
+include("PluginLocalization")
+include("PluginPackage")
 
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
