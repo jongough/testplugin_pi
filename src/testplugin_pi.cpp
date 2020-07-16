@@ -342,13 +342,12 @@ wxString testplugin_pi::GetCommonName()
 
 wxString testplugin_pi::GetShortDescription()
 {
-      return _("testplugin PlugIn for OpenCPN");
+    return _(PLUGIN_SHORT_DESCRIPTION);
 }
 
 wxString testplugin_pi::GetLongDescription()
 {
-      return _("testplugin PlugIn for OpenCPN\n\
-demonstrates PlugIn processing of NMEA messages.");
+    return _(PLUGIN_LONG_DESCRIPTION);
 
 }
 
