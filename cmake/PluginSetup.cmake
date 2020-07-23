@@ -5,6 +5,11 @@
 set(SAVE_CMLOC ${CMLOC})
 set(CMLOC "PluginSetup: ")
 
+if(NOT DEFINED GIT_REPOSITORY_SERVER)
+    set(GIT_REPOSITORY_SERVER "github.com")
+    message(STATUS "${CMLOC}GIT_REPOSITORY_SERVER not found setting to: ${GIT_REPOSITORY_SERVER}")
+endif()
+
 # Export variables used in plugin setup: GIT_HASH, GIT_COMMIT, PKG_TARGET, PKG_TARGET_VERSION and PKG_NVR
 if(NOT ${PACKAGE} MATCHES "(.*)_pi")
     set(PACKAGE_NAME ${PACKAGE}_pi)
