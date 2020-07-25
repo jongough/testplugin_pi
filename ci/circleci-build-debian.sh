@@ -4,8 +4,8 @@
 # Build the Debian artifacts
 #
 set -xe
-#sudo apt-get -qq update
-#sudo apt-get install devscripts equivs
+sudo apt-get -qq update
+sudo apt-get install devscripts equivs
 
 # Install extra libs
 ME=`echo ${0##*/} | sed 's/\.sh//g'`
@@ -21,7 +21,7 @@ if test -f "$EXTRA_LIBS"; then
         sudo apt-get install $line
     done < $EXTRA_LIBS
 fi
-exit
+
 rm -rf build && mkdir build && cd build
 mk-build-deps ../ci/control
 sudo apt-get --allow-unauthenticated install ./*all.deb  || :
