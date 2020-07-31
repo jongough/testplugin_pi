@@ -25,7 +25,7 @@ if test -f "$EXTRA_LIBS"; then
 fi
 
 mk-build-deps ../ci/control
-exit
+
 sudo apt-get --allow-unauthenticated install ./*all.deb  || :
 sudo apt-get --allow-unauthenticated install -f
 rm -f ./*all.deb
