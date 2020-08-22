@@ -2,7 +2,7 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.126
+# Frontend2: v1.0.132
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -34,12 +34,14 @@ set(COMMON_NAME "testplugin")  # Search "getcommonname"in <plugin_pi>.cpp
 set(TITLE_NAME "testplugin")
 set(PACKAGE_CONTACT "Jon Gough")
 set(PACKAGE "testplugin")
+set(SHORT_DESCRIPTION "Plugin to test examples of the ODAPI and JSON interface for ODRAW")
+set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "126")
+set(VERSION_PATCH "132")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "07/13/2020")
+set(VERSION_DATE "01/08/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -47,8 +49,10 @@ set(TP_COMMENT "  * Release for O5 using CI")
 
 set(PARENT "opencpn")
 
-#Used to set up a local webserver with git loaded, for testing purposes.
-set(GIT_REPOSITORY_SERVER "github.com")
+# The next line allows setup of a local webserver with git for testing purposes.
+# The default is shown below, but it is done in cmake/pluginconfigure.cmake now.
+# This default is needed to build locally and to build flatpak.
+#set(GIT_REPOSITORY_SERVER "github.com")
 
 #No longer needed, queried.
 #set(GIT_USER "rgleason")
@@ -64,20 +68,16 @@ set(ALPHA "alpha")  #Standard Repos
 set(CLOUDSMITH_USER "opencpn")
 
 # Set if yourCloudsmith Base Repository name does not match your Git Repository name.
-# set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
-# set(CLOUDSMITH_BASE_REPOSITORY "squiddio")  # Mauro's customization without the '_pi'
-# set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
-set (CLOUDSMITH_BASE_REPOSITORY "testplugin")  #without the pi 
+
+#set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
+set (CLOUDSMITH_BASE_REPOSITORY "testplugin")  #without the pi
 
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
-set(XML_SUMMARY "Plugin to test examples of the ODAPI and JSON interface for ODRAW 1234#")
-set(XML_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin")
+set(XML_SUMMARY ${SHORT_DESCRIPTION})
+set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 
 ##
 ## ----- Modify section above to include all the details for your plugin ----- ##
-##
-
-##
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
 ##
 
@@ -108,13 +108,11 @@ project(${PACKAGE})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;")
 
+##=======================================
 include("PluginSetup")
-
+##=======================================
 ##
 ## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
-##
-
-##
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
 ##
 
@@ -124,20 +122,14 @@ option(Plugin_CXX11 "Use c++11" OFF)
 
 ##
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
-##
-
-##
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
-
+##=======================================
 include("PluginConfigure")
-
+##=======================================
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
-##
-
-#
-# ----- Change below to match project requirements for source, headers, etc. ----- ##
+## ----- Change below to match project requirements for source, headers, etc. ----- ##
 #
 
 add_definitions(-DUSE_S57)
@@ -201,7 +193,6 @@ else(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 endif(PI_JSON_SCHEMA_VALIDATOR)
 
-
 ##
 # Modify/configure 'Include' Directories below for the Plugin
 ##
@@ -218,10 +209,12 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 ## Statement below is required to collect all the set( headers and SRCS  - Adjust as required
 ## This add_library  can be used in conditionals below.
 ##
-##    SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
+## SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
 ##
 
+##==========================================================================
 add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
+##==========================================================================
 
 add_definitions(-DTIXML_USE_STL)
 
@@ -248,23 +241,22 @@ if(UNIX AND NOT APPLE)
     endif(PI_JSON_SCHEMA_VALIDATOR)
 endif(UNIX AND NOT APPLE)
 
-
-#These are NOT used in Testplugin, used for other plugins
+## These are NOT used in Testplugin, used for other plugins
+##=======================================
 #include("PluginJSON")
 #include("PluginXML")
 #include("PluginGL")
+##=======================================
+
 ##
 ## ----- Change above to match project requirements ----- ##
-##
-
-##
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
-
+##=======================================
 include("PluginInstall")
 include("PluginLocalization")
 include("PluginPackage")
-
+##=======================================
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
 ##
