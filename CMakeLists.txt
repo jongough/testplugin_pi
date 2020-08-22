@@ -8,11 +8,8 @@
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
 ## ----- sequence to be successful                                                      ----- ##
-##  
-
-##
-##----- Modify section below to include all the details for your plugin ----- ##
-##
+##                                                                                      ----- ##
+##----- Modify section below to include all the details for your plugin                 ----- ##
 
 set(CMLOC "CMakeLists: ")
 
@@ -40,8 +37,8 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "132")
-set(VERSION_TWEAK "0")
-set(VERSION_DATE "01/08/2020")
+set(VERSION_TWEAK "1")
+set(VERSION_DATE "08/22/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
