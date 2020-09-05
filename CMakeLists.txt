@@ -2,7 +2,7 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.132
+# Frontend2: v1.0.132.1
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -37,8 +37,8 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "132")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "08/22/2020")
+set(VERSION_TWEAK "2")
+set(VERSION_DATE "09/05/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -65,7 +65,6 @@ set(ALPHA "alpha")  #Standard Repos
 set(CLOUDSMITH_USER "opencpn")
 
 # Set if yourCloudsmith Base Repository name does not match your Git Repository name.
-
 #set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 set (CLOUDSMITH_BASE_REPOSITORY "testplugin")  #without the pi
 
@@ -86,6 +85,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
+														   
 option(USE_GL "Enable OpenGL support" OFF)
 message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
 
@@ -116,6 +116,8 @@ include("PluginSetup")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
+
+#--- For Weatherfax insert Portaudio Section here  
 
 ##
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
@@ -208,7 +210,6 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 ##
 ## SET(EXTSRC  ${EXTSRC}   etc   Can be in an if statement as below
 ##
-
 ##==========================================================================
 add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 ##==========================================================================
@@ -244,7 +245,6 @@ endif(UNIX AND NOT APPLE)
 #include("PluginXML")
 #include("PluginGL")
 ##=======================================
-
 ##
 ## ----- Change above to match project requirements ----- ##
 ## ----- do not change next section - needed to configure build process ----- ##
