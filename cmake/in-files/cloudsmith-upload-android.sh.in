@@ -169,7 +169,7 @@ if [ "$APPVEYOR" ] || [ LOCAL_BUILD=true ]; then
         line=${line//--version--/$VERSION}
         line=${line//--filename--/$tarball_basename}
         echo $line
-    done < "$xml" > xml.tmp && cat xml.tmp && cp xml.tmp $xml && rm xml.tmp
+    done < "$xml" > xml.tmp && cat xml.tmp && sudo cp xml.tmp $xml && rm xml.tmp
 else
     echo 'substituting xml file variables for non-windows build'
     sudo sed -i -e "s|--pkg_repo--|$REPO|"  $xml
@@ -181,31 +181,31 @@ fi
 cat $xml
 ls -l $BUILD_DIR
 cur_dir=$(pwd)
-gunzip -f $tarball
+sudo gunzip -f $tarball
 cd $BUILD_DIR
 rm -f metadata.xml
 tarball_tar=$(ls *.tar)
 xml_here=$(ls *.xml)
-cp -f $xml_here metadata.xml
+sudo cp -f $xml_here metadata.xml
 if [ "$TRAVIS" ] || [ "$CIRCLECI" ]; then
-    mkdir build_tar
-    cp $tarball_tar build_tar/.
+    sudo mkdir build_tar
+    sudo cp $tarball_tar build_tar/.
     cd build_tar
-    tar -xf $tarball_tar
-    rm *.tar
-    rm -rf root
-    cp ../metadata.xml .
-    tar -cf build_tarfile.tar *
-    tar -tf build_tarfile.tar
-    rm ../$tarball_tar
-    cp build_tarfile.tar ../$tarball_tar
+    sudo tar -xf $tarball_tar
+    sudo rm *.tar
+    sudo rm -rf root
+    sudo cp ../metadata.xml .
+    sudo tar -cf build_tarfile.tar *
+    sudo tar -tf build_tarfile.tar
+    sudo rm ../$tarball_tar
+    sudo cp build_tarfile.tar ../$tarball_tar
     cd ..
-    rm -rf build_tar
+    sudo rm -rf build_tar
 else
     tar -rf $tarball_tar metadata.xml
 fi
-tar -tf $tarball_tar
-gzip -f $tarball_tar
+sudo tar -tf $tarball_tar
+sudo gzip -f $tarball_tar
 cd $cur_dir
 pwd
 ls -la
