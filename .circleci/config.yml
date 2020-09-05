@@ -357,13 +357,13 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
-       - build-android-armhf:
-           filters:
-               branches:
-                   ignore:
+        - build-android-armhf:
+            filters:
+                branches:
+                    ignore:
                     - devel
                     - tmp
-               tags:
+                tags:
                     only: /.*/
  
 
