@@ -169,7 +169,7 @@ if [ "$APPVEYOR" ] || [ LOCAL_BUILD=true ]; then
         line=${line//--version--/$VERSION}
         line=${line//--filename--/$tarball_basename}
         echo $line
-    done < "$xml" > xml.tmp && cat xml.tmp && cp xml.tmp $xml && rm xml.tmp
+    done < "$xml" > xml.tmp && cat xml.tmp && sudo cp xml.tmp $xml && rm xml.tmp
 else
     echo 'substituting xml file variables for non-windows build'
     sudo sed -i -e "s|--pkg_repo--|$REPO|"  $xml
@@ -181,7 +181,7 @@ fi
 cat $xml
 ls -l $BUILD_DIR
 cur_dir=$(pwd)
-gunzip -f $tarball
+sudo gunzip -f $tarball
 cd $BUILD_DIR
 rm -f metadata.xml
 tarball_tar=$(ls *.tar)
