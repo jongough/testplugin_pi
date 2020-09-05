@@ -350,20 +350,20 @@ workflows:
                 tags:
                     only: /.*/
         - build-android-arm64:
-          filters:
-            branches:
-                   ignore:
+            filters:
+                branches:
+                    ignore:
                     - devel
                     - tmp
                 tags:
                     only: /.*/
        - build-android-armhf:
-          filters:
-            branches:
+           filters:
+               branches:
                    ignore:
                     - devel
                     - tmp
-                tags:
+               tags:
                     only: /.*/
  
 
