@@ -217,8 +217,9 @@ jobs:
         - OCPN_TARGET:  android-arm64
         steps:
         - checkout
-        - run: ci/circleci-build-android-arm64.sh
-        - run: ci/circleci-upload.sh
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-android-arm64.sh
+        - run: bash ci/cloudsmith-upload.sh
     build-android-armhf:
         docker:
         - image: circleci/android:api-28-ndk 
@@ -226,8 +227,9 @@ jobs:
         - OCPN_TARGET:  android-armhf
         steps:
         - checkout
-        - run: ci/circleci-build-android-armhf.sh
-        - run: ci/circleci-upload.sh
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-android-armhf.sh
+        - run: bash ci/cloudsmith-upload.sh
 
         
 workflows:
