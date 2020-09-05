@@ -188,17 +188,17 @@ tarball_tar=$(ls *.tar)
 xml_here=$(ls *.xml)
 sudo cp -f $xml_here metadata.xml
 if [ "$TRAVIS" ] || [ "$CIRCLECI" ]; then
-    mkdir build_tar
-    cp $tarball_tar build_tar/.
+    sudo mkdir build_tar
+    sudo cp $tarball_tar build_tar/.
     cd build_tar
     tar -xf $tarball_tar
     rm *.tar
     rm -rf root
-    cp ../metadata.xml .
+    sudo cp ../metadata.xml .
     tar -cf build_tarfile.tar *
     tar -tf build_tarfile.tar
     rm ../$tarball_tar
-    cp build_tarfile.tar ../$tarball_tar
+    sudo cp build_tarfile.tar ../$tarball_tar
     cd ..
     rm -rf build_tar
 else
