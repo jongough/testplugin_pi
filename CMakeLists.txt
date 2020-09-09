@@ -2,7 +2,7 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.133.0
+# Frontend2: v1.0.134.0
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -37,7 +37,7 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "134")
-set(VERSION_TWEAK "0")
+set(VERSION_TWEAK "2")
 set(VERSION_DATE "09/06/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -153,24 +153,19 @@ set(HDRS
     include/tpUtils.h)
 
 set(OCPNSRC ocpnsrc/TexFont.cpp)
-
 set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/TexFont.h)
-
 set(EXTSRC)
-
 set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
-
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
-
 set(LIBHDRS
-    libs/GL/include/gl.h
-    libs/GL/include/gl_private.h
-    libs/GL/include/glext.h
-    libs/GL/include/glu.h
-    libs/wx/include/json_defs.h
-    libs/wx/include/jsonreader.h
-    libs/wx/include/jsonval.h
-    libs/wx/include/jsonwriter.h)
+    libs/GL/gl.h
+    libs/GL/gl_private.h
+    libs/GL/glext.h
+    libs/GL/glu.h
+    libs/wx/include/wx/json_defs.h
+    libs/wx/include/wx/jsonreader.h
+    libs/wx/include/wx/jsonval.h
+    libs/wx/include/wx/jsonwriter.h)
 
 add_definitions(-DPLUGIN_USE_SVG)
 
