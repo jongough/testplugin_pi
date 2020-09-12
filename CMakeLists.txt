@@ -2,7 +2,7 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.134.0
+# Frontend2: v1.0.135.0
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -36,8 +36,8 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "134")
-set(VERSION_TWEAK "2")
+set(VERSION_PATCH "135")
+set(VERSION_TWEAK "0")
 set(VERSION_DATE "09/06/2020")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -213,7 +213,7 @@ add_definitions(-DTIXML_USE_STL)
 
 # Every plugin that uses JSON for passing messages should use a validator. The validator  allows the system to ignore non-conformant messages. 
 
-if(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE AND NOT QT_ANDROID)
     if(PI_JSON_SCHEMA_VALIDATOR)
         # Change OS/ABI to be UNIX - System V to make it run with OCPN
         set(lib_name lib${PACKAGE_NAME}.so)
@@ -232,7 +232,7 @@ if(UNIX AND NOT APPLE)
             message(STATUS "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
         endif(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
     endif(PI_JSON_SCHEMA_VALIDATOR)
-endif(UNIX AND NOT APPLE)
+endif(UNIX AND NOT APPLE AND NOT QT_ANDROID)
 
 ## These are NOT used in Testplugin, used for other plugins
 ##=======================================
