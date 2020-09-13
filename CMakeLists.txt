@@ -2,7 +2,7 @@
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.138.0
+# Frontend2: v1.0.137.0
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
