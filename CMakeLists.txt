@@ -8,7 +8,7 @@
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
 ## ----- sequence to be successful                                                      ----- ##
 ##                                                                                      ----- ##
-##----- Modify section below to include all the details for your plugin                 ----- ##
+##----- Modify section below to include all the details for your plugin                ----- ##
 
 set(CMLOC "CMakeLists: ")
 
