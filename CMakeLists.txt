@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
-# Frontend2: v1.0.138.0  Author: Jon Gough
+# Frontend2: v1.0.139.0  Author: Jon Gough
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -35,7 +35,7 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "138")
+set(VERSION_PATCH "139")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "10/13/2020")
 set(OCPN_MIN_VERSION "ov52")
