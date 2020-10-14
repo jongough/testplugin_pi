@@ -1,8 +1,7 @@
 # ---------------------------------------------------------------------------
 # Frontend2 Author: jongough aka. Jon Gough    License:wxWidgets License
 # ---------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough  
-# Frontend2: v1.0.137.0
+# Frontend2: v1.0.138.0  Author: Jon Gough
 # ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
@@ -36,10 +35,10 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "137")
+set(VERSION_PATCH "138")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "09/13/2020")
-set(OCPN_MIN_VERSION "ov50")
+set(VERSION_DATE "10/13/2020")
+set(OCPN_MIN_VERSION "ov52")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
 set(TP_COMMENT "  * Release for O5 using CI")
@@ -51,7 +50,7 @@ set(PARENT "opencpn")
 # This default is needed to build locally and to build flatpak.
 #set(GIT_REPOSITORY_SERVER "github.com")
 
-#No longer needed, queried.
+#No longer needed, queried and found by PluginConfigure.cmake.
 #set(GIT_USER "rgleason")
 #set(GIT_REPOSITORY_NAME "testplugin_pi")
 
@@ -68,6 +67,7 @@ set(CLOUDSMITH_USER "opencpn")
 #set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 set (CLOUDSMITH_BASE_REPOSITORY "testplugin")  #without the pi
 
+# Set Plugin info-url, summary and description
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY ${SHORT_DESCRIPTION})
 set(XML_DESCRIPTION ${LONG_DESCRIPTION})

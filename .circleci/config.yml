@@ -230,8 +230,7 @@ jobs:
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-android-armhf.sh
         - run: bash ci/cloudsmith-upload.sh
-
-        
+             
 workflows:
     version: 2
     build_all:
@@ -367,5 +366,3 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
- 
-
