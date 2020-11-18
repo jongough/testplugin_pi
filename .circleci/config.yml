@@ -51,10 +51,10 @@ parameters:
     run_build_macos:
         type: boolean
         default: true
-    run_build_andriod_arm64:
+    run_build_android_arm64:
         type: boolean
         default: true
-    run_build_andriod_armhf:
+    run_build_android_armhf:
         type: boolean
         default: true
 
