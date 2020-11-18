@@ -9,52 +9,52 @@ parameters:
         type: boolean
         default: false
 
-    run-build-armhf-stetch:
+    run_build_armhf_stetch:
         type: boolean
         default: false
-    run-build-armhf-buster:
+    run_build_armhf_buster:
         type: boolean
         default: true
-    run-build-armhf-bionic-64:
+    run_build_armhf_bionic_64:
         type: boolean
         default: true
-    run-build-trusty:
+    run_build_trusty:
         type: boolean
         default: true
-    run-build-xenial:
+    run_build_xenial:
         type: boolean
         default: true
-    run-build-bionic:
+    run_build_bionic:
         type: boolean
         default: true
-    run-build-bionic-gtk3:
+    run_build_bionic_gtk3:
         type: boolean
         default: true
-    run-build-focal:
+    run_build_focal:
         type: boolean
         default: true
-    run-build-focal-gtk3:
+    run_build_focal_gtk3:
         type: boolean
         default: true
-    run-build-buster:
+    run_build_buster:
         type: boolean
         default: true
-    run-build-flatpack:
+    run_build_flatpack:
         type: boolean
         default: true
-    run-build-fedora:
+    run_build_fedora:
         type: boolean
         default: true
-    run-build-mingw:
+    run_build_mingw:
         type: boolean
         default: true
-    run-build-macos:
+    run_build_macos:
         type: boolean
         default: true
-    run-build-andriod-arm64:
+    run_build_andriod_arm64:
         type: boolean
         default: true
-    run-build-andriod-armhf:
+    run_build_andriod_armhf:
         type: boolean
         default: true
 
@@ -292,32 +292,32 @@ workflows:
     version: 2
     build_1:
         when:
-            condition: <<pipeline.parameters.run-build-armhf-stretch>>
-        jobs:
-        - build-armhf-stretch:
-            filters:
-                branches:
-                    ignore:
-                    - devel
-                    - tmp
-                tags:
-                    only: /.*/
+            condition: <<pipeline.parameters.run_build_armhf_stretch>>
+            jobs:
+            - build-armhf-stretch:
+                filters:
+                    branches:
+                        ignore:
+                        - devel
+                        - tmp
+                    tags:
+                        only: /.*/
     build_2:
         when:
-            condition: <<pipeline.parameters.run-build-armhf-buster>>
-        jobs:
-        - build-armhf-buster:
-            filters:
-                branches:
-                    ignore:
-                    - devel
-                    - tmp
-                tags:
-                    only: /.*/
+            condition: <<pipeline.parameters.run_build_armhf_buster>>
+            jobs:
+            - build-armhf-buster:
+                filters:
+                    branches:
+                        ignore:
+                        - devel
+                        - tmp
+                    tags:
+                        only: /.*/
 # Currently circleci does not build armf64 correctly due to no suitable docker image
 #        build_3:
 #        when:
-#            condition: <<pipeline.parameters.run-build-armhf-stretch>>
+#            condition: <<pipeline.parameters.run_build_armhf_stretch>>
 #        jobs:
 #        - build-armhf-bionic-64:
 #            filters:
@@ -329,7 +329,7 @@ workflows:
 #                    only: /.*/
     build_4:
         when:
-            condition: <<pipeline.parameters.run-build-trusty>>
+            condition: <<pipeline.parameters.run_build_trusty>>
         jobs:
         - build-trusty:
             filters:
@@ -341,7 +341,7 @@ workflows:
                     only: /.*/
     build_5:
         when:
-            condition: <<pipeline.parameters.run-build-xenial>>
+            condition: <<pipeline.parameters.run_build_xenial>>
         jobs:
         - build-xenial:
             filters:
@@ -353,7 +353,7 @@ workflows:
                     only: /.*/
     build_6:
         when:
-            condition: <<pipeline.parameters.run-build-bionic>>
+            condition: <<pipeline.parameters.run_build_bionic>>
         jobs:
         - build-bionic:
             filters:
@@ -365,7 +365,7 @@ workflows:
                     only: /.*/
     build_7:
         when:
-            condition: <<pipeline.parameters.run-build-bionic-gtk3>>
+            condition: <<pipeline.parameters.run_build_bionic_gtk3>>
         jobs:
         - build-bionic-gtk3:
             filters:
@@ -378,7 +378,7 @@ workflows:
 # there is no focal gtk2 available so this will not be built
 #    build_8:
 #        when:
-#            condition: <<pipeline.parameters.run-build-focal>>
+#            condition: <<pipeline.parameters.run_build_focal>>
 #        jobs:
 #        - build-focal:
 #            filters:
@@ -390,7 +390,7 @@ workflows:
 #                    only: /.*/
     build_9:
         when:
-            condition: <<pipeline.parameters.run-build-focal-gtk3>>
+            condition: <<pipeline.parameters.run_build_focal_gtk3>>
         jobs:
         - build-focal-gtk3:
             filters:
@@ -402,7 +402,7 @@ workflows:
                     only: /.*/
     build_10:
         when:
-            condition: <<pipeline.parameters.run-build-buster>>
+            condition: <<pipeline.parameters.run_build_buster>>
         jobs:
         - build-buster:
             filters:
@@ -414,7 +414,7 @@ workflows:
                     only: /.*/
     build_11:
         when:
-            condition: <<pipeline.parameters.run-build-flatpack>>
+            condition: <<pipeline.parameters.run_build_flatpack>>
         jobs:
         - build-flatpak:
             filters:
@@ -427,7 +427,7 @@ workflows:
 # Fedora is being removed from the supplied list of environments so don't build
 #    build_12:
 #        when:
-#            condition: <<pipeline.parameters.run-build-fedora>>
+#            condition: <<pipeline.parameters.run_build_fedora>>
 #        jobs:
 #        - build-fedora:
 #            filters:
@@ -439,7 +439,7 @@ workflows:
 #                    only: /.*/
     build_13:
         when:
-            condition: <<pipeline.parameters.run-build-mingw>>
+            condition: <<pipeline.parameters.run_build_mingw>>
         jobs:
         - build-mingw:
             filters:
@@ -451,7 +451,7 @@ workflows:
                     only: /.*/
     build_14:
         when:
-            condition: <<pipeline.parameters.run-build-macos>>
+            condition: <<pipeline.parameters.run_build_macos>>
         jobs:
         - build-macos:
             filters:
@@ -463,7 +463,7 @@ workflows:
                     only: /.*/
     build_15:
         when:
-            condition: <<pipeline.parameters.run-build-android-arm64>>
+            condition: <<pipeline.parameters.run_build_android_arm64>>
         jobs:
         - build-android-arm64:
             filters:
@@ -475,7 +475,7 @@ workflows:
                     only: /.*/
     build_16:
         when:
-            condition: <<pipeline.parameters.run-build-android-armhf>>
+            condition: <<pipeline.parameters.run_build_android_armhf>>
         jobs:
         - build-android-armhf:
             filters:
