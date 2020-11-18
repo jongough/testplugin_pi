@@ -290,10 +290,10 @@ jobs:
         - run: bash ci/cloudsmith-upload.sh
 workflows:
     version: 2
-    build_all:
+#    build_all:
         when:
             equal: <<pipeline.parameters.run-build-armhf-stretch>>
-        job:
+        jobs:
         - build-armhf-stretch:
             filters:
                 branches:
@@ -304,7 +304,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-armhf-buster>>
-        job:
+        jobs:
         - build-armhf-buster:
             filters:
                 branches:
@@ -316,7 +316,7 @@ workflows:
 # Currently circleci does not build armf64 correctly due to no suitable docker image
 #        when:
 #            equal: <<pipeline.parameters.run-build-armhf-stretch>>
-#        job:
+#        jobs:
 #        - build-armhf-bionic-64:
 #            filters:
 #                branches:
@@ -327,7 +327,7 @@ workflows:
 #                    only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-trusty>>
-        job:
+        jobs:
         - build-trusty:
             filters:
                 branches:
@@ -338,7 +338,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-xenial>>
-        job:
+        jobs:
         - build-xenial:
             filters:
                 branches:
@@ -349,7 +349,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-bionic>>
-        job:
+        jobs:
         - build-bionic:
             filters:
                 branches:
@@ -360,7 +360,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-bionic-gtk3>>
-        job:
+        jobs:
         - build-bionic-gtk3:
             filters:
                 branches:
@@ -372,7 +372,7 @@ workflows:
 # there is no focal gtk2 available so this will not be built
 #        when:
 #            equal: <<pipeline.parameters.run-build-focal>>
-#        job:
+#        jobs:
 #        - build-focal:
 #            filters:
 #                branches:
@@ -383,7 +383,7 @@ workflows:
 #                    only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-focal-gtk3>>
-        job:
+        jobs:
         - build-focal-gtk3:
             filters:
                 branches:
@@ -394,7 +394,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-buster>>
-        job:
+        jobs:
         - build-buster:
             filters:
                 branches:
@@ -405,7 +405,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-flatpack>>
-        job:
+        jobs:
         - build-flatpak:
             filters:
                 branches:
@@ -417,7 +417,7 @@ workflows:
 # Fedora is being removed from the supplied list of environments so don't build
 #        when:
 #            equal: <<pipeline.parameters.run-build-fedora>>
-#        job:
+#        jobs:
 #        - build-fedora:
 #            filters:
 #                branches:
@@ -428,7 +428,7 @@ workflows:
 #                    only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-mingw>>
-        job:
+        jobs:
         - build-mingw:
             filters:
                 branches:
@@ -439,7 +439,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-macos>>
-        job:
+        jobs:
         - build-macos:
             filters:
                 branches:
@@ -450,7 +450,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-android-arm64>>
-        job:
+        jobs:
         - build-android-arm64:
             filters:
                 branches:
@@ -461,7 +461,7 @@ workflows:
                     only: /.*/
         when:
             equal: <<pipeline.parameters.run-build-android-armhf>>
-        job:
+        jobs:
         - build-android-armhf:
             filters:
                 branches:
