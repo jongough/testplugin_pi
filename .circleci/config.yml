@@ -290,9 +290,9 @@ jobs:
         - run: bash ci/cloudsmith-upload.sh
 workflows:
     version: 2
-#    build_all:
+    build_1:
         when:
-            equal: <<pipeline.parameters.run-build-armhf-stretch>>
+            condition: <<pipeline.parameters.run-build-armhf-stretch>>
         jobs:
         - build-armhf-stretch:
             filters:
@@ -302,8 +302,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_2:
         when:
-            equal: <<pipeline.parameters.run-build-armhf-buster>>
+            condition: <<pipeline.parameters.run-build-armhf-buster>>
         jobs:
         - build-armhf-buster:
             filters:
@@ -314,8 +315,9 @@ workflows:
                 tags:
                     only: /.*/
 # Currently circleci does not build armf64 correctly due to no suitable docker image
+#        build_3:
 #        when:
-#            equal: <<pipeline.parameters.run-build-armhf-stretch>>
+#            condition: <<pipeline.parameters.run-build-armhf-stretch>>
 #        jobs:
 #        - build-armhf-bionic-64:
 #            filters:
@@ -325,8 +327,9 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
+    build_4:
         when:
-            equal: <<pipeline.parameters.run-build-trusty>>
+            condition: <<pipeline.parameters.run-build-trusty>>
         jobs:
         - build-trusty:
             filters:
@@ -336,8 +339,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_5:
         when:
-            equal: <<pipeline.parameters.run-build-xenial>>
+            condition: <<pipeline.parameters.run-build-xenial>>
         jobs:
         - build-xenial:
             filters:
@@ -347,8 +351,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_6:
         when:
-            equal: <<pipeline.parameters.run-build-bionic>>
+            condition: <<pipeline.parameters.run-build-bionic>>
         jobs:
         - build-bionic:
             filters:
@@ -358,8 +363,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_7:
         when:
-            equal: <<pipeline.parameters.run-build-bionic-gtk3>>
+            condition: <<pipeline.parameters.run-build-bionic-gtk3>>
         jobs:
         - build-bionic-gtk3:
             filters:
@@ -370,8 +376,9 @@ workflows:
                 tags:
                     only: /.*/
 # there is no focal gtk2 available so this will not be built
+#    build_8:
 #        when:
-#            equal: <<pipeline.parameters.run-build-focal>>
+#            condition: <<pipeline.parameters.run-build-focal>>
 #        jobs:
 #        - build-focal:
 #            filters:
@@ -381,8 +388,9 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
+    build_9:
         when:
-            equal: <<pipeline.parameters.run-build-focal-gtk3>>
+            condition: <<pipeline.parameters.run-build-focal-gtk3>>
         jobs:
         - build-focal-gtk3:
             filters:
@@ -392,8 +400,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_10:
         when:
-            equal: <<pipeline.parameters.run-build-buster>>
+            condition: <<pipeline.parameters.run-build-buster>>
         jobs:
         - build-buster:
             filters:
@@ -403,8 +412,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_11:
         when:
-            equal: <<pipeline.parameters.run-build-flatpack>>
+            condition: <<pipeline.parameters.run-build-flatpack>>
         jobs:
         - build-flatpak:
             filters:
@@ -415,8 +425,9 @@ workflows:
                 tags:
                     only: /.*/
 # Fedora is being removed from the supplied list of environments so don't build
+#    build_12:
 #        when:
-#            equal: <<pipeline.parameters.run-build-fedora>>
+#            condition: <<pipeline.parameters.run-build-fedora>>
 #        jobs:
 #        - build-fedora:
 #            filters:
@@ -426,8 +437,9 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
+    build_13:
         when:
-            equal: <<pipeline.parameters.run-build-mingw>>
+            condition: <<pipeline.parameters.run-build-mingw>>
         jobs:
         - build-mingw:
             filters:
@@ -437,8 +449,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_14:
         when:
-            equal: <<pipeline.parameters.run-build-macos>>
+            condition: <<pipeline.parameters.run-build-macos>>
         jobs:
         - build-macos:
             filters:
@@ -448,8 +461,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_15:
         when:
-            equal: <<pipeline.parameters.run-build-android-arm64>>
+            condition: <<pipeline.parameters.run-build-android-arm64>>
         jobs:
         - build-android-arm64:
             filters:
@@ -459,8 +473,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+    build_16:
         when:
-            equal: <<pipeline.parameters.run-build-android-armhf>>
+            condition: <<pipeline.parameters.run-build-android-armhf>>
         jobs:
         - build-android-armhf:
             filters:
