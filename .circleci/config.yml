@@ -7,11 +7,10 @@ parameters:
         default: false
     run_workflow_deploy:
         type: boolean
-        default: false
-
+        default: true
     run_build_armhf_stetch:
         type: boolean
-        default: false
+        default: true
     run_build_armhf_buster:
         type: boolean
         default: true
@@ -289,31 +288,30 @@ jobs:
         - run: bash ci/circleci-build-android-armhf.sh
         - run: bash ci/cloudsmith-upload.sh
 workflows:
-    version: 2
     build_1:
         when:
-            condition: <<pipeline.parameters.run_build_armhf_stretch>>
-            jobs:
-            - build-armhf-stretch:
-                filters:
-                    branches:
-                        ignore:
-                        - devel
-                        - tmp
-                    tags:
-                        only: /.*/
+            condition: << pipeline.parameters.run_build_armhf_stretch >>
+        jobs:
+        - build-armhf-stretch:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
     build_2:
         when:
             condition: <<pipeline.parameters.run_build_armhf_buster>>
-            jobs:
-            - build-armhf-buster:
-                filters:
-                    branches:
-                        ignore:
-                        - devel
-                        - tmp
-                    tags:
-                        only: /.*/
+        jobs:
+        - build-armhf-buster:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
 # Currently circleci does not build armf64 correctly due to no suitable docker image
 #        build_3:
 #        when:
