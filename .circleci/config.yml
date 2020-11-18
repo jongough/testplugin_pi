@@ -1,5 +1,63 @@
 ---
 version: 2.1
+
+parameters:
+    run_workflow_build:
+        type: boolean
+        default: false
+    run_workflow_deploy:
+        type: boolean
+        default: false
+
+    run-build-armhf-stetch:
+        type: boolean
+        default: true
+    run-build-armhf-buster:
+        type: boolean
+        default: true
+    run-build-armhf-bionic-64:
+        type: boolean
+        default: true
+    run-build-trusty:
+        type: boolean
+        default: true
+    run-build-xenial:
+        type: boolean
+        default: true
+    run-build-bionic:
+        type: boolean
+        default: true
+    run-build-bionic-gtk3:
+        type: boolean
+        default: true
+    run-build-focal:
+        type: boolean
+        default: true
+    run-build-focal-gtk3:
+        type: boolean
+        default: true
+    run-build-buster:
+        type: boolean
+        default: true
+    run-build-flatpack:
+        type: boolean
+        default: true
+    run-build-fedora:
+        type: boolean
+        default: true
+    run-build-mingw:
+        type: boolean
+        default: true
+    run-build-macos:
+        type: boolean
+        default: true
+    run-build-andriod-arm64:
+        type: boolean
+        default: true
+    run-build-andriod-armhf:
+        type: boolean
+        default: true
+
 jobs:
     build-armhf-stretch:
         machine: true
@@ -233,7 +291,9 @@ jobs:
 workflows:
     version: 2
     build_all:
-        jobs:
+        when:
+            equal: <<pipeline.parameters.run-build-armhf-stretch>>
+        job:
         - build-armhf-stretch:
             filters:
                 branches:
@@ -242,6 +302,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-armhf-buster>>
+        job:
         - build-armhf-buster:
             filters:
                 branches:
@@ -251,6 +314,9 @@ workflows:
                 tags:
                     only: /.*/
 # Currently circleci does not build armf64 correctly due to no suitable docker image
+#        when:
+#            equal: <<pipeline.parameters.run-build-armhf-stretch>>
+#        job:
 #        - build-armhf-bionic-64:
 #            filters:
 #                branches:
@@ -259,6 +325,9 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-trusty>>
+        job:
         - build-trusty:
             filters:
                 branches:
@@ -267,6 +336,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-xenial>>
+        job:
         - build-xenial:
             filters:
                 branches:
@@ -275,6 +347,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-bionic>>
+        job:
         - build-bionic:
             filters:
                 branches:
@@ -283,6 +358,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-bionic-gtk3>>
+        job:
         - build-bionic-gtk3:
             filters:
                 branches:
@@ -292,6 +370,9 @@ workflows:
                 tags:
                     only: /.*/
 # there is no focal gtk2 available so this will not be built
+#        when:
+#            equal: <<pipeline.parameters.run-build-focal>>
+#        job:
 #        - build-focal:
 #            filters:
 #                branches:
@@ -300,6 +381,9 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-focal-gtk3>>
+        job:
         - build-focal-gtk3:
             filters:
                 branches:
@@ -308,6 +392,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-buster>>
+        job:
         - build-buster:
             filters:
                 branches:
@@ -316,6 +403,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-flatpack>>
+        job:
         - build-flatpak:
             filters:
                 branches:
@@ -325,6 +415,9 @@ workflows:
                 tags:
                     only: /.*/
 # Fedora is being removed from the supplied list of environments so don't build
+#        when:
+#            equal: <<pipeline.parameters.run-build-fedora>>
+#        job:
 #        - build-fedora:
 #            filters:
 #                branches:
@@ -333,6 +426,9 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-mingw>>
+        job:
         - build-mingw:
             filters:
                 branches:
@@ -341,6 +437,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-macos>>
+        job:
         - build-macos:
             filters:
                 branches:
@@ -349,6 +448,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-android-arm64>>
+        job:
         - build-android-arm64:
             filters:
                 branches:
@@ -357,6 +459,9 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
+        when:
+            equal: <<pipeline.parameters.run-build-android-armhf>>
+        job:
         - build-android-armhf:
             filters:
                 branches:
