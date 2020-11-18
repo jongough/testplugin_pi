@@ -741,8 +741,8 @@ void TPDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x
             gpath.AddArc( xc, yc, l_InnerRadius, l_dSecondAngle, l_dFirstAngle, false);
 
             wxGC->FillPath(gpath);
-#endif
         }
+#endif
     }
 #ifdef ocpnUSE_GL
     else {
