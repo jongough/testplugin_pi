@@ -11,7 +11,7 @@ parameters:
 
     run-build-armhf-stetch:
         type: boolean
-        default: true
+        default: false
     run-build-armhf-buster:
         type: boolean
         default: true
