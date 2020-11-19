@@ -35,7 +35,7 @@ sudo mkdir -p build
 cd build
 
 sudo rm -f CMakeCache.txt
-
+printenv
 sudo cmake  \
   -D_wx_selected_config=androideabi-qt-armhf \
   -DwxQt_Build=build_android_release_19_static_O3 \
