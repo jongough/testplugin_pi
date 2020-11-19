@@ -720,6 +720,7 @@ void TPDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x
         wxDouble  l_OuterRadius = sqrt(pow((y2-yc), 2.0) + pow((x2-xc), 2.0));
         wxDouble l_InnerRadius = sqrt(pow((y1-yc), 2.0) + pow((x1-xc), 2.0));
 
+#if wxUSE_GRAPHICS_CONTEXT
         wxGraphicsContext *wxGC = NULL;
         wxMemoryDC *pmdc = wxDynamicCast(GetDC(), wxMemoryDC);
         if( pmdc ) wxGC = wxGraphicsContext::Create( *pmdc );
@@ -741,6 +742,7 @@ void TPDC::DrawSector( wxCoord xc, wxCoord yc, wxCoord x1, wxCoord y1, wxCoord x
 
             wxGC->FillPath(gpath);
         }
+#endif
     }
 #ifdef ocpnUSE_GL
     else {
@@ -934,6 +936,7 @@ void TPDC::DrawCircle( wxCoord x, wxCoord y, wxCoord radius )
 void TPDC::DrawDisk( wxCoord x, wxCoord y, wxCoord innerRadius, wxCoord outerRadius )
 {
     if( dc ) {
+#if wxUSE_GRAPHICS_CONTEXT
         wxGraphicsContext *wxGC = NULL;
         wxMemoryDC *pmdc = wxDynamicCast(GetDC(), wxMemoryDC);
         if( pmdc ) wxGC = wxGraphicsContext::Create( *pmdc );
@@ -949,6 +952,7 @@ void TPDC::DrawDisk( wxCoord x, wxCoord y, wxCoord innerRadius, wxCoord outerRad
             p.AddCircle( x, y, outerRadius );
             wxGC->FillPath(p);
         }
+#endif
     }
 #ifdef ocpnUSE_GL
     else {
