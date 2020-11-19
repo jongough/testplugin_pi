@@ -211,6 +211,7 @@ endif(NOT WIN32 AND NOT APPLE)
 if(MINGW)
     add_definitions("-Wall -Wno-unused -Wno-cpp -fexceptions")
     add_definitions(" -g -fno-strict-aliasing")
+    add_definitions(" --exclude-all-symbols")
 endif(MINGW)
 
 if(APPLE)
