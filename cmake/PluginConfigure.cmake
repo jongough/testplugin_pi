@@ -179,6 +179,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
 
 set(CMAKE_SHARED_LINKER_FLAGS "")
+set(CMAKE_EXE_LINKER_FLAGS "")
 
 # SET(PROFILING 1)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
@@ -215,6 +216,8 @@ if(MINGW)
     add_definitions(" -g -fno-strict-aliasing")
     add_definitions(" -Wl,--exclude-all-symbols")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--exclude-all-symbols")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}-Wl,--exclude-all-symbols")
+    message(STATUS "${CMLOC}Setting CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 endif(MINGW)
 
 if(APPLE)
