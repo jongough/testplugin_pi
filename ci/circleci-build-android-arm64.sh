@@ -33,9 +33,9 @@ ls -la
 mkdir -p build
 cd build
 
-sudo rm -f CMakeCache.txt
+rm -f CMakeCache.txt
 
-sudo cmake  \
+cmake  \
   -D_wx_selected_config=androideabi-qt-arm64 \
   -DwxQt_Build=build_android_release_64_static_O3 \
   -DQt_Build=build_arm64/qtbase \
@@ -47,8 +47,8 @@ sudo cmake  \
   ..
 
 #sudo make clean
-sudo make
-sudo make package
+make
+make package
 
 #  All below for local docker build
 #ls -l
