@@ -38,8 +38,8 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "140")
-set(VERSION_TWEAK "3")
-set(VERSION_DATE "19/11/2020") # DD/MM/YYYY format
+set(VERSION_TWEAK "4")
+set(VERSION_DATE "20/11/2020") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -227,7 +227,7 @@ if(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
             message(STATUS "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed")
         endif(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
     endif(PI_JSON_SCHEMA_VALIDATOR)
-endif(UNIX AND NOT APPLE AND NOR QT_ANDRIOD)
+endif(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
 
 ##
 ## ----- Change above to match project requirements ----- ##
