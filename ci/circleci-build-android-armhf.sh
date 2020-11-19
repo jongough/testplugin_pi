@@ -31,12 +31,15 @@ ls -la
 #change this for local build, so as not to overwrite any other generic buildin "build".
 #sudo mkdir -p build_android_arm32
 #cd build_android_arm32
-sudo mkdir -p build
+#sudo mkdir -p build
+mkdir -p build
 cd build
 
-sudo rm -f CMakeCache.txt
+#sudo rm -f CMakeCache.txt
+rm -f CMakeCache.txt
 printenv
-sudo cmake  \
+#sudo cmake  \
+cmake  \
   -D_wx_selected_config=androideabi-qt-armhf \
   -DwxQt_Build=build_android_release_19_static_O3 \
   -DQt_Build=build_arm32_19_O3/qtbase \
@@ -49,8 +52,10 @@ sudo cmake  \
 
 
 #sudo make clean
-sudo make
-sudo make package
+#sudo make
+#sudo make package
+make
+make package
 
 #  All below for local docker build
 #ls -l
