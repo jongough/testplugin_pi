@@ -37,8 +37,8 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "134")
-set(VERSION_TWEAK "0")
+set(VERSION_PATCH "140")
+set(VERSION_TWEAK "1")
 set(VERSION_DATE "19/11/2020") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -56,7 +56,12 @@ set(BETA "beta") # Standard Repos
 set(ALPHA "alpha") # Standard Repos
 
 set(CLOUDSMITH_USER "jon-gough")
-# set this if your cloudsmith repository name does not match your git repository name set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
+#set(CLOUDSMITH_USER "OpenCPN")
+# set this if your cloudsmith repository name does not match your git repository name
+#set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
+# Set the following to use OpenCPN cloudsmith repositories instead of own repositories
+#set(CLOUDSMITH_USER "OpenCPN")
+#set(CLOUDSMITH_BASE_REPOSITORY "testplugin")
 
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY ${SHORT_DESCRIPTION})
