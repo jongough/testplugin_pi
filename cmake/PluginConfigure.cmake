@@ -179,6 +179,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
 
 set(CMAKE_SHARED_LINKER_FLAGS "")
+set(CMAKE_EXE_LINKER_FLAGS "")
 
 # SET(PROFILING 1)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
@@ -210,11 +211,11 @@ if(NOT WIN32 AND NOT APPLE)
     # profiling with gprof ADD_DEFINITIONS( -pg ) SET(CMAKE_EXE_LINKER_FLAGS -pg) profiling with gcov ADD_DEFINITIONS( "-fprofile-arcs -ftest-coverage" ) SET(EXTRA_LIBS ${EXTRA_LIBS} "gcov")
 endif(NOT WIN32 AND NOT APPLE)
 
+message(STATUS "${CMLOC}MINGW-value ${MINGW}")
 if(MINGW)
     add_definitions("-Wall -Wno-unused -Wno-cpp -fexceptions")
     add_definitions(" -g -fno-strict-aliasing")
-    add_definitions(" -Wl,--exclude-all-symbols")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--exclude-all-symbols")
+    add_link_options(-Wl,--exclude-all-symbols)
 endif(MINGW)
 
 if(APPLE)
