@@ -215,7 +215,7 @@ message(STATUS "${CMLOC}MINGW-value ${MINGW}")
 if(MINGW)
     add_definitions("-Wall -Wno-unused -Wno-cpp -fexceptions")
     add_definitions(" -g -fno-strict-aliasing")
-    add_link_options(" -Wl,--exclude-all-symbols")
+    add_link_options(-Wl,--exclude-all-symbols)
     message(STATUS "${CMLOC}Add link options")
 endif(MINGW)
 
