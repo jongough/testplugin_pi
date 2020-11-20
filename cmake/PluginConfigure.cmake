@@ -218,16 +218,6 @@ if(MINGW)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--exclude-all-symbols")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}-Wl,--exclude-all-symbols")
     message(STATUS "${CMLOC}Setting CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
-    message(STATUS "${CMLOC}Will ensure library is stripped of all symbols")
-    find_program(STRIP_UTIL NAMES strip REQUIRED)
-    add_custom_command(
-        TARGET ${PACKAGE_NAME}
-        POST_BUILD
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        DEPENDS ${PACKAGE_NAME}
-        COMMENT " Running post build action on ${lib_name}."
-        COMMAND sh -c 'strip ${lib_name}'
-        )
 endif(MINGW)
 
 if(APPLE)

@@ -29,6 +29,16 @@ if(WIN32)
         set(CMAKE_SHARED_LINKER_FLAGS "-L../buildwin")
         # target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
         set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/libopencpn.dll.a")
+        message(STATUS "${CMLOC}Will ensure library is stripped of all symbols")
+        find_program(STRIP_UTIL NAMES strip REQUIRED)
+        add_custom_command(
+            TARGET ${PACKAGE_NAME}
+            POST_BUILD
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            DEPENDS ${PACKAGE_NAME}
+            COMMENT " Running post build action on ${lib_name}."
+            COMMAND sh -c 'strip ${lib_name}'
+            )
     endif(MINGW)
 
     target_link_libraries(${PACKAGE_NAME} ${OPENCPN_IMPORT_LIB})
