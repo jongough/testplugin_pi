@@ -30,9 +30,8 @@ if(WIN32)
         # target_link_libraries(${PACKAGE_NAME} ${OPENGL_LIBRARIES})
         set(OPENCPN_IMPORT_LIB "${CMAKE_SOURCE_DIR}/api-16/libopencpn.dll.a")
         message(STATUS "${CMLOC}Will ensure library is stripped of all symbols")
-        set(MINGW_LIBRARY_NAME "lib${PACKAGE_NAME}.dll")
+        set(MINGW_LIBRARY_NAME "lib${PACKAGE_NAME}.dll1")
         message(STATUS "${CMLOC}Library name: ${MINGW_LIBRARY_NAME}")
-        message(STATUS "${CMLOC}Testing message output")
         find_program(STRIP_UTIL NAMES strip REQUIRED)
         add_custom_command(
             TARGET ${PACKAGE_NAME}
