@@ -32,6 +32,7 @@ if(WIN32)
         message(STATUS "${CMLOC}Will ensure library is stripped of all symbols")
         set(MINGW_LIBRARY_NAME "lib${PACKAGE_NAME}.dll")
         message(STATUS "${CMLOC}Library name: ${MINGW_LIBRARY_NAME}")
+        message(STATUS "${CMLOC}Testing message output")
         find_program(STRIP_UTIL NAMES strip REQUIRED)
         add_custom_command(
             TARGET ${PACKAGE_NAME}
