@@ -55,13 +55,12 @@ set(PROD "prod") # Standard Repos
 set(BETA "beta") # Standard Repos
 set(ALPHA "alpha") # Standard Repos
 
-set(CLOUDSMITH_USER "jon-gough")
-#set(CLOUDSMITH_USER "OpenCPN")
 # set this if your cloudsmith repository name does not match your git repository name
 #set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
+set(CLOUDSMITH_BASE_REPOSITORY "testplugin")
 # Set the following to use OpenCPN cloudsmith repositories instead of own repositories
-#set(CLOUDSMITH_USER "OpenCPN")
-#set(CLOUDSMITH_BASE_REPOSITORY "testplugin")
+set(CLOUDSMITH_USER "OpenCPN")
+#set(CLOUDSMITH_USER "jon-gough")
 
 set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
 set(XML_SUMMARY ${SHORT_DESCRIPTION})
