@@ -211,6 +211,7 @@ if(NOT WIN32 AND NOT APPLE)
     # profiling with gprof ADD_DEFINITIONS( -pg ) SET(CMAKE_EXE_LINKER_FLAGS -pg) profiling with gcov ADD_DEFINITIONS( "-fprofile-arcs -ftest-coverage" ) SET(EXTRA_LIBS ${EXTRA_LIBS} "gcov")
 endif(NOT WIN32 AND NOT APPLE)
 
+message(STATUS "${CMLOC}MINGW-value ${MINGW}")
 if(MINGW)
     add_definitions("-Wall -Wno-unused -Wno-cpp -fexceptions")
     add_definitions(" -g -fno-strict-aliasing")
