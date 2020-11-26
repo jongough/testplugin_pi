@@ -302,7 +302,7 @@ jobs:
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
-        - run: bash ci/circleci-build-macos.sh
+        - run: bash ci/circleci-build-macos-new.sh
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
