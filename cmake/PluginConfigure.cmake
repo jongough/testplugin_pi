@@ -221,7 +221,7 @@ if(MINGW)
     add_definitions("-Wall -Wno-unused -Wno-cpp -fexceptions")
     add_definitions(" -g -fno-strict-aliasing")
     if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
-        add_link_options(-Wl,--exclude-all-symbols)
+        add_link_options(-Wl,--exclude-all-symbols, --strip-debug)
     endif(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
 endif(MINGW)
 
