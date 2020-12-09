@@ -39,7 +39,8 @@ cmake \
 make -sj2
 make package
 
-wget -q http://opencpn.navnux.org/build_deps/Packages.dmg
+#wget -q http://opencpn.navnux.org/build_deps/Packages.dmg
+wget -q https://download.opencpn.org/s/SneCR3z9XM3aRc6/download
 hdiutil attach Packages.dmg
 sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
 make create-pkg
