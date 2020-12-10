@@ -40,8 +40,20 @@ make -sj2
 make package
 
 #wget -q http://opencpn.navnux.org/build_deps/Packages.dmg - unsupported link, replaced with below
-curl -o Packages.dmg https://download.opencpn.org/s/SneCR3z9XM3aRc6/download
-hdiutil attach Packages.dmg
-sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
+#curl -o Packages.dmg https://download.opencpn.org/s/SneCR3z9XM3aRc6/download
+#hdiutil attach Packages.dmg
+#sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
+
+export MACOSX_DEPLOYMENT_TARGET=10.9
+
+if brew list --cask --versions packages; then
+    version=$(pkg_version packages '--cask')
+    sudo installer \
+        -pkg /usr/local/Caskroom/packages/$version/packages/Packages.pkg \
+        -target /
+else
+    brew install --cask packages
+fi
+
 make create-pkg
 
