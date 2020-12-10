@@ -20,8 +20,8 @@ for pkg in cairo cmake gettext libarchive libexif python wget; do
     brew link --overwrite $pkg || brew install $pkg
 done
 
+#wget -q http://opencpn.navnux.org/build_deps/wx312_opencpn50_macos109.tar.xz - unsupported link, replaced with below
 curl -o wx312B_opencpn50_macos109.tar.xz https://download.opencpn.org/s/rwoCNGzx6G34tbC/download
-#wget -q http://opencpn.navnux.org/build_deps/wx312_opencpn50_macos109.tar.xz
 tar xJf wx312B_opencpn50_macos109.tar.xz -C /tmp
 export PATH="/usr/local/opt/gettext/bin:$PATH"
 echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile
@@ -39,7 +39,7 @@ cmake \
 make -sj2
 make package
 
-#wget -q http://opencpn.navnux.org/build_deps/Packages.dmg
+#wget -q http://opencpn.navnux.org/build_deps/Packages.dmg - unsupported link, replaced with below
 curl -o Packages.dmg https://download.opencpn.org/s/SneCR3z9XM3aRc6/download
 hdiutil attach Packages.dmg
 sudo installer -pkg "/Volumes/Packages 1.2.5/Install Packages.pkg" -target "/"
