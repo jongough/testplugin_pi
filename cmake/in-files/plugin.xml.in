@@ -15,8 +15,10 @@
   </description>
 
   <target>${PKG_TARGET_FULL}</target>
+  <build-target>${PKG_BUILD_TARGET}</build-target>
   <target-version>${PKG_TARGET_VERSION}</target-version>
   <target-arch>${ARCH}</target-arch>
+  <build-gtk>${PKG_BUILD_GTK}</build-gtk>
   <tarball-url>
     ${PKG_URL}
   </tarball-url>
