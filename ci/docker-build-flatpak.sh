@@ -11,11 +11,13 @@ cd $TOPDIR
 su -c "dnf install -y sudo cmake gcc-c++ flatpak-builder flatpak make tar"
 flatpak remote-add --user --if-not-exists flathub \
     https://flathub.org/repo/flathub.flatpakrepo
-ocpnfound=$(flatpak list | grep org.opencpn.OpenCPN | awk '{print $1}')
-if [ "" = "$ocpnfound" ]; then
-   flatpak install --user  -y \
-       http://opencpn.duckdns.org/opencpn/opencpn.flatpakref
-fi
+#ocpnfound=$(flatpak list | grep org.opencpn.OpenCPN | awk '{print $1}')
+#if [ "" = "$ocpnfound" ]; then
+#   flatpak install --user  -y \
+#       http://opencpn.duckdns.org/opencpn/opencpn.flatpakref
+#fi
+flatpak install --user -y flathub org.opencpn.OpenCPN > /dev/null
+
 flatpak install --user -y  flathub org.freedesktop.Sdk//18.08
 #rm -rf flatpak/.flatpak-builder && rm -rf build && mkdir build && cd build
 rm -rf build && mkdir build && cd build
