@@ -7,16 +7,24 @@ set(CMLOC "PluginConfigure: ")
 
 message(STATUS "${CMLOC}*** Staging to build ${PACKAGE_NAME} ***")
 
-message(STATUS "${CMLOC}CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
-message(STATUS "${CMLOC}TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
+set(wxWidgets_USE_LIBS
+    base
+    core
+    net
+    xml
+    html
+    adv
+    aui)
 
 set(GIT_REPOSITORY "")
 
-if($ENV{CIRCLECI})
+if(DEFINED ENV{CIRCLECI})
+    message(STATUS "${CMLOC}CIRCLECI: ${CIRCLECLI}, Env CIRCLECI: $ENV{CIRCLECI}")
     set(GIT_REPOSITORY "$ENV{CIRCLE_PROJECT_USERNAME}/$ENV{CIRCLE_PROJECT_REPONAME}")
     set(GIT_REPOSITORY_BRANCH "$ENV{CIRCLE_BRANCH}")
     set(GIT_REPOSITORY_TAG "$ENV{CIRCLE_TAG}")
-elseif($ENV{TRAVIS})
+elseif(DEFINED ENV{TRAVIS})
+    message(STATUS "${CMLOC}TRAVIS: ${TRAVIS}, Env TRAVIS: $ENV{TRAVIS}")
     set(GIT_REPOSITORY "$ENV{TRAVIS_REPO_SLUG}")
     set(GIT_REPOSITORY_BRANCH "$ENV{TRAVIS_BRANCH}")
     set(GIT_REPOSITORY_TAG "$ENV{TRAVIS_TAG}")
@@ -24,11 +32,11 @@ elseif($ENV{TRAVIS})
         # Travis sets TRAVIS_BRANCH to TRAVIS_TAG for tagged builds. Need to clear this setting
         set(GIT_REPOSITORY_BRANCH "")
     endif()
-elseif($ENV{APPVEYOR})
+elseif(DEFINED ENV{APPVEYOR})
     set(GIT_REPOSITORY "$ENV{APPVEYOR_REPO_NAME}")
     set(GIT_REPOSITORY_BRANCH "$ENV{APPVEYOR_REPO_BRANCH}")
     set(GIT_REPOSITORY_TAG "$ENV{APPVEYOR_REPO_TAG_NAME}")
-else()
+elseif(NOT ${USE_RPMBUILD})
     # Get the current working branch
     execute_process(
         COMMAND git rev-parse --abbrev-ref HEAD
@@ -72,30 +80,42 @@ else()
         endif()
     else()
         message(STATUS "${CMLOC}Branch is not tracking a remote branch")
+    endif() 
+endif()
+
+# Warning the last preceding "if" is very different from the preceding endif
+#         "if/elseif" sequence code can be msleading because cmake does not provide a "case" conditional instruction
+if(NOT ${USE_RPMBUILD})
+    message(STATUS "${CMLOC}GIT_REPOSITORY: ${GIT_REPOSITORY}")
+    message(STATUS "${CMLOC}Git Branch: \"${GIT_REPOSITORY_BRANCH}\"")
+    message(STATUS "${CMLOC}Git Tag: \"${GIT_REPOSITORY_TAG}\"")
+
+
+    if("${GIT_REPOSITORY_BRANCH}" STREQUAL "")
+        set(GIT_BRANCH_OR_TAG "tag")
+        set(GIT_REPOSITORY_ITEM ${GIT_REPOSITORY_TAG})
+    else()
+        set(GIT_BRANCH_OR_TAG "branch")
+        set(GIT_REPOSITORY_ITEM ${GIT_REPOSITORY_BRANCH})
     endif()
-endif()
-message(STATUS "${CMLOC}GIT_REPOSITORY: ${GIT_REPOSITORY}")
-message(STATUS "${CMLOC}Git Branch: \"${GIT_REPOSITORY_BRANCH}\"")
-message(STATUS "${CMLOC}Git Tag: \"${GIT_REPOSITORY_TAG}\"")
-if("${GIT_REPOSITORY_BRANCH}" STREQUAL "")
-    set(GIT_BRANCH_OR_TAG "tag")
-    set(GIT_REPOSITORY_ITEM ${GIT_REPOSITORY_TAG})
-else()
-    set(GIT_BRANCH_OR_TAG "branch")
-    set(GIT_REPOSITORY_ITEM ${GIT_REPOSITORY_BRANCH})
-endif()
-message(STATUS "${CMLOC}GIT_BRANCH_OR_TAG: ${GIT_BRANCH_OR_TAG}")
-message(STATUS "${CMLOC}GIT_REPOSITORY_ITEM: ${GIT_REPOSITORY_ITEM}")
+    message(STATUS "${CMLOC}GIT_BRANCH_OR_TAG: ${GIT_BRANCH_OR_TAG}")
+    message(STATUS "${CMLOC}GIT_REPOSITORY_ITEM: ${GIT_REPOSITORY_ITEM}")
 
-if(NOT DEFINED CLOUDSMITH_BASE_REPOSITORY AND NOT ${GIT_REPOSITORY} STREQUAL "")
-    string(FIND ${GIT_REPOSITORY} "/" START_NAME REVERSE)
-    math(EXPR START_NAME "${START_NAME}+1")
-    string(LENGTH ${GIT_REPOSITORY} STRING_LENGTH)
-    message(STATUS "${CMLOC}START_NAME: ${START_NAME}, STRING_LENGTH: ${STRING_LENGTH}")
-    string(SUBSTRING ${GIT_REPOSITORY} ${START_NAME} ${STRING_LENGTH} CLOUDSMITH_BASE_REPOSITORY)
-endif()
-message(STATUS "${CMLOC}CLOUDSMITH_BASE_REPOSITORY: ${CLOUDSMITH_BASE_REPOSITORY}")
-
+    if(NOT DEFINED CLOUDSMITH_BASE_REPOSITORY AND NOT ${GIT_REPOSITORY} STREQUAL "")
+        string(FIND ${GIT_REPOSITORY} "/" START_NAME REVERSE)
+        math(EXPR START_NAME "${START_NAME}+1")
+        string(LENGTH ${GIT_REPOSITORY} STRING_LENGTH)
+        message(STATUS "${CMLOC}START_NAME: ${START_NAME}, STRING_LENGTH: ${STRING_LENGTH}")
+        string(SUBSTRING ${GIT_REPOSITORY} ${START_NAME} ${STRING_LENGTH} CLOUDSMITH_BASE_REPOSITORY)
+    endif()
+    message(STATUS "${CMLOC}CLOUDSMITH_BASE_REPOSITORY: ${CLOUDSMITH_BASE_REPOSITORY}")
+    # configure xml file for circleci
+    message(STATUS "${CMLOC}OCPN_TARGET: $ENV{OCPN_TARGET}")
+    if(NOT DEFINED $ENV{OCPN_TARGET})
+        set($ENV{OCPN_TARGET} ${PKG_TARGET})
+        message(STATUS "${CMLOC}Setting OCPN_TARGET")
+    endif()
+endif(NOT ${USE_RPMBUILD})
 # Process files in in-files sub directory into the build output directory, thereby allowing building from a read-only source tree.
 if(NOT SKIP_VERSION_CONFIG)
     set(BUILD_INCLUDE_PATH ${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY})
@@ -122,16 +142,9 @@ if(NOT SKIP_VERSION_CONFIG)
     include_directories(${BUILD_INCLUDE_PATH}/include)
 endif(NOT SKIP_VERSION_CONFIG)
 
-# configure xml file for circleci
-message(STATUS "${CMLOC}OCPN_TARGET: $ENV{OCPN_TARGET}")
-if(NOT DEFINED $ENV{OCPN_TARGET})
-    set($ENV{OCPN_TARGET} ${PKG_TARGET})
-    message(STATUS "${CMLOC}Setting OCPN_TARGET")
-endif()
-
 if("$ENV{BUILD_GTK3}" STREQUAL "true")
     set(PKG_TARGET_GTK "gtk3")
-    message(STATUS "${CMLOC}Found gtk3")
+    message(STATUS "${CMLOC}requested gtk3")
 else()
     unset(PKG_TARGET_GTK)
 endif()
@@ -183,10 +196,9 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/pkg_version.sh.in ${CMAKE_CURR
 configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/PluginCPackOptions.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/PluginCPackOptions.cmake @ONLY)
 
 
-message(STATUS "${CMLOC}Checking OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
 if(OCPN_FLATPAK_CONFIG)
+    message(STATUS "${CMLOC}Checking OCPN_FLATPAK_CONFIG: ${OCPN_FLATPAK_CONFIG}")
     configure_file(${CMAKE_SOURCE_DIR}/cmake/in-files/org.opencpn.OpenCPN.Plugin.yaml.in ${CMAKE_CURRENT_BINARY_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.${PACKAGE}.yaml)
-
     message(STATUS "${CMLOC}Done OCPN_FLATPAK CONFIG")
     message(STATUS "${CMLOC}Directory used: ${CMAKE_CURRENT_BINARY_DIR}/flatpak")
     message(STATUS "${CMLOC}Git Branch: ${GIT_REPOSITORY_BRANCH}")
@@ -194,8 +206,6 @@ if(OCPN_FLATPAK_CONFIG)
     return()
 endif(OCPN_FLATPAK_CONFIG)
 
-
-set(CMAKE_VERBOSE_MAKEFILE ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/src)
 
@@ -283,15 +293,6 @@ if(WIN32)
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /DEBUG")
     endif(MSVC)
 endif(WIN32)
-
-set(wxWidgets_USE_LIBS
-    base
-    core
-    net
-    xml
-    html
-    adv
-    aui)
 
 # Search for opengles, short of running a program to test the speed of acceleration, I simply use gles on "native linux" arm systems
 if(ARCH MATCHES "arm*"
@@ -497,25 +498,37 @@ else(NOT QT_ANDROID)
 endif(NOT QT_ANDROID)
 
 if(NOT WIN32 AND NOT APPLE AND NOT QT_ANDROID)
+include(FindPkgConfig)
+if (NOT PKG_CONFIG_FOUND)
+    message(FATAL_ERROR "${CMLOC}pgk-config command not found in PATH")
+endif(NOT PKG_CONFIG_FOUND)
     option(OCPN_FORCE_GTK3 "Force the build to use GTK3" OFF)
-
+    # by default GTK2 is used if found.
     if(NOT OCPN_FORCE_GTK3)
-        find_package(GTK2)
+        # using pkg_check_modules would simplify the code and succeed on more configuration
+        pkg_check_modules(GTK QUIET gtk+-2.0)
+        if(GTK2_FOUND)
+            set(wxWidgets_CONFIG_OPTIONS ${wxWidgets_CONFIG_OPTIONS} --toolkit=gtk2)
+            include_directories(${GTK2_INCLUDE_DIRS})
+            set(GTK_LIBRARIES ${GTK2_LIBRARIES})
+            message(STATUS "${CMLOC}Building against GTK2...")
+        else(GTK2_FOUND)
+            message(STATUS "${CMLOC}GTK2 not found trying GTK3...")
+            set(OCPN_FORCE_GTK3 "ON")
+        endif(GTK2_FOUND)
     endif(NOT OCPN_FORCE_GTK3)
-
-    if(GTK2_FOUND)
-        set(wxWidgets_CONFIG_OPTIONS ${wxWidgets_CONFIG_OPTIONS} --toolkit=gtk2)
-        include_directories(${GTK2_INCLUDE_DIRS})
-        set(GTK_LIBRARIES ${GTK2_LIBRARIES})
-        message(STATUS "${CMLOC}Building against GTK2...")
-    else(GTK2_FOUND)
-        find_package(GTK3)
-        include_directories(${GTK3_INCLUDE_DIRS})
-        set(GTK_LIBRARIES ${GTK3_LIBRARIES})
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__WXGTK3__")
-        set(wxWidgets_CONFIG_OPTIONS ${wxWidgets_CONFIG_OPTIONS} --toolkit=gtk3)
-        message(STATUS "${CMLOC}Building against GTK3...")
-    endif(GTK2_FOUND)
+    if(OCPN_FORCE_GTK3 OR NOT GTK2_FOUND)
+        pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
+        if(GTK3_FOUND)
+            include_directories(${GTK3_INCLUDE_DIRS})
+            set(GTK_LIBRARIES ${GTK3_LIBRARIES})
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D__WXGTK3__")
+            set(wxWidgets_CONFIG_OPTIONS ${wxWidgets_CONFIG_OPTIONS} --toolkit=gtk3)
+            message(STATUS "${CMLOC}Building against GTK3...")
+        else(GTK3_FOUND)
+            message(FATAL_ERROR "${CMLOC} Unix: Neither FATAL_ERROR GTK2 nor GTK3")
+        endif(GTK3_FOUND)
+    endif(OCPN_FORCE_GTK3 OR NOT GTK2_FOUND)      
     set(EXTRA_LIBS ${EXTRA_LIBS} ${GTK_LIBRARIES})
 endif(NOT WIN32 AND NOT APPLE AND NOT QT_ANDROID)
 
