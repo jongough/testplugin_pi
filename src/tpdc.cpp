@@ -1103,7 +1103,11 @@ void __CALL_CONVENTION TPDCvertexCallback(GLvoid* arg)
 {
     GLvertex* vertex;
     vertex = (GLvertex*) arg;
+#ifndef __OCPN__ANDROID__
     if(g_bTexture2D) glTexCoord2d( vertex->info.x / g_iTextureWidth, vertex->info.y / g_iTextureHeight );
+#else
+    if(g_bTexture2D) glTexCoord2f( vertex->info.x / g_iTextureWidth, vertex->info.y / g_iTextureHeight );
+#endif
     glVertex2d( vertex->info.x, vertex->info.y );
 }
 
@@ -1142,7 +1146,11 @@ void TPDC::DrawPolygonTessellated( int n, wxPoint points[], wxCoord xoffset, wxC
 
         gluTessNormal( tobj, 0, 0, 1);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+#ifndef __OCPN__ANDROID__
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+#else
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL_NV);
+#endif
         gluTessProperty(tobj, GLU_TESS_BOUNDARY_ONLY, GL_FALSE);
 
         if(glIsEnabled(GL_TEXTURE_2D)) g_bTexture2D = true;
@@ -1198,7 +1206,11 @@ void TPDC::DrawPolygonsTessellated( int n, int npoints[], wxPoint points[], wxCo
 
         gluTessNormal( tobj, 0, 0, 1);
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+        #ifndef __OCPN__ANDROID__
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        #else
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL_NV);
+        #endif
         gluTessProperty(tobj, GLU_TESS_BOUNDARY_ONLY, GL_FALSE);
 
         if(glIsEnabled(GL_TEXTURE_2D)) g_bTexture2D = true;
