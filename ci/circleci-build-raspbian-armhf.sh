@@ -20,7 +20,7 @@ else
 fi
 
 docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw $DOCKER_IMAGE /bin/bash
-DOCKER_CONTAINER_ID=$(docker ps | awk '/balenalib/ {print $1}')
+DOCKER_CONTAINER_ID=$(docker ps | awk '/arm64v8/ {print $1}')
 
 echo $OCPN_TARGET
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
@@ -31,11 +31,7 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     -e "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" \
     -e "GIT_REPOSITORY_SERVER=$GIT_REPOSITORY_SERVER" \
     -e "OCPN_TARGET=$OCPN_TARGET" \
-    -e "BUILD_GTK3=$BUILD_GTK3" \
-    -e "TRAVIS=$TRAVIS" \
-    -e "TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG" \
-    -e "TRAVIS_BRANCH=$TRAVIS_BRANCH" \
-    -e "TRAVIS_TAG=$TRAVIS_TAG"
+    -e "BUILD_GTK3=$BUILD_GTK3"
 
 # Run build script
 cat > build.sh << "EOF"
