@@ -100,7 +100,7 @@ jobs:
         - OCPN_BRANCH=master
         - DOCKER_IMAGE=arm64v8/ubuntu:18.04
         - BUILD_FLAGS=-j3
-        - BUILD_ENV=ubuntu
+        - BUILD_ENV=raspbian
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
