@@ -15,6 +15,9 @@ parameters:
     run_build_armhf_bionic_64:
         type: boolean
         default: true
+    run_build_armhf_bionic_641:
+        type: boolean
+        default: false
     run_build_trusty:
         type: boolean
         default: false
@@ -94,6 +97,24 @@ jobs:
             steps:
             - run: ci/cloudsmith-upload.sh
     build-armhf-bionic-64:
+        machine: true
+        environment:
+        - OCPN_TARGET=bionic-armh64
+        - BUILD_GTK3=true
+        - DOCKER_IMAGE=arm64v8/ubuntu:18.04
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=ubuntu
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - when:
+            condition: <<pipeline.parameters.run_workflow_deploy>>
+            steps:
+            - run: ci/cloudsmith-upload.sh
+    build-armhf-bionic-64-1:
         machine: true
         environment:
         - OCPN_TARGET=bionic-arm64

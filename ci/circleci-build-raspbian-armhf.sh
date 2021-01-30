@@ -6,6 +6,7 @@
 
 # bailout on errors and echo commands.
 set -xe
+sudo apt-get -qq update
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
@@ -19,10 +20,12 @@ else
     docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 fi
 
-docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw $DOCKER_IMAGE /bin/bash
-DOCKER_CONTAINER_ID=$(docker ps | awk '/arm64v8/ {print $1}')
+docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw -v ~/source_top:/source_top $DOCKER_IMAGE /bin/bash
+
+DOCKER_CONTAINER_ID=$(docker ps | grep $DOCKER_IMAGE | awk '{print $1}')
+
 docker ps
-DOCKER_CONTAINER_ID=$(sudo docker ps | grep $BUILD_ENV | awk '{print $1}')
+
 
 echo $OCPN_TARGET
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
@@ -37,10 +40,10 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 
 # Run build script
 cat > build.sh << "EOF"
-curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
-sudo apt-key add raspikey
-curl http://archive.raspbian.org/raspbian.public.key  > raspikey
-sudo apt-key add raspikey
+#curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
+#sudo apt-key add raspikey
+#curl http://archive.raspbian.org/raspbian.public.key  > raspikey
+#sudo apt-key add raspikey
 sudo apt -q update
 sudo apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
