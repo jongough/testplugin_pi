@@ -21,6 +21,8 @@ fi
 
 docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw $DOCKER_IMAGE /bin/bash
 DOCKER_CONTAINER_ID=$(docker ps | awk '/arm64v8/ {print $1}')
+sudo docker ps
+DOCKER_CONTAINER_ID=$(sudo docker ps | grep $BUILD_ENV | awk '{print $1}')
 
 echo $OCPN_TARGET
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
