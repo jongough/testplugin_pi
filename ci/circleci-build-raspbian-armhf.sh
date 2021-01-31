@@ -37,12 +37,12 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 
 # Run build script
 cat > build.sh << "EOF"
-apt-get -q update
-apt install -y curl
-curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
-apt-key add raspikey
-curl http://archive.raspbian.org/raspbian.public.key  > raspikey
-apt-key add raspikey
+#apt-get -q update
+#apt install -y curl gnupg
+#curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
+#apt-key add raspikey
+#curl http://archive.raspbian.org/raspbian.public.key  > raspikey
+#apt-key add raspikey
 apt -q update
 apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
