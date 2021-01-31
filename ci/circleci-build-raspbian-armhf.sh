@@ -24,9 +24,6 @@ docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw -v
 
 DOCKER_CONTAINER_ID=$(docker ps | grep $DOCKER_IMAGE | awk '{print $1}')
 
-docker ps
-
-
 echo $OCPN_TARGET
 docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     -e "CIRCLECI=$CIRCLECI" \
@@ -40,12 +37,14 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 
 # Run build script
 cat > build.sh << "EOF"
-#curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
-#sudo apt-key add raspikey
-#curl http://archive.raspbian.org/raspbian.public.key  > raspikey
-#sudo apt-key add raspikey
-sudo apt -q update
-sudo apt-get -y install --no-install-recommends \
+apt -q update
+apt install curl
+curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
+apt-key add raspikey
+curl http://archive.raspbian.org/raspbian.public.key  > raspikey
+apt-key add raspikey
+apt -q update
+apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF
 
