@@ -37,20 +37,22 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 
 # Run build script
 rm -f build.sh
+USE_SUDO=""
 if [ "$BUILD_ENV" = "raspbian" ]; then
+    USE_SUDO="sudo"
     cat > build.sh << "EOF"
     apt-get -q update
     apt-get -y install curl gnupg
     curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
-    apt-key add raspikey
+    $USE_SUDO apt-key add raspikey
     curl http://archive.raspbian.org/raspbian.public.key  > raspikey
-    apt-key add raspikey
+    $USE_SUDO apt-key add raspikey
 EOF
 fi
 
 cat >> build.sh << "EOF1"
-apt-get -q update
-apt-get -y install --no-install-recommends \
+$USE_SUDO apt-get -q update
+$USE_SUDO apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF1
 
