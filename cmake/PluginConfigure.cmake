@@ -356,8 +356,8 @@ IF(QT_ANDROID)
 
     set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-soname,libgorp.so ")
 
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-    SET(CMAKE_CXX_FLAGS "-pthread")
+    #set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    SET(CMAKE_CXX_FLAGS "-pthread -fPIC")
 
     ## Compiler flags
     add_compile_options("-Wno-inconsistent-missing-override"
@@ -535,7 +535,7 @@ if(NOT WIN32 AND NOT APPLE AND NOT QT_ANDROID)
         include_directories(${GTK2_INCLUDE_DIRS})
         set(GTK_LIBRARIES ${GTK2_LIBRARIES})
         message(STATUS "${CMLOC}Building against GTK2...")
-    else(GTK2_FOUND)
+    else(GTK2_FOUND AND NOT "$ENV{BUILD_GTK3}" STREQUAL "TRUE")
         if(GTK3_FOUND)
             find_package(GTK3)
             include_directories(${GTK3_INCLUDE_DIRS})
@@ -546,7 +546,7 @@ if(NOT WIN32 AND NOT APPLE AND NOT QT_ANDROID)
         else(GTK3_FOUND)
             message(FATAL_ERROR "${CMLOC} Unix: Neither FATAL_ERROR GTK2 nor GTK3")
         endif(GTK3_FOUND)
-    endif(GTK2_FOUND)
+    endif(GTK2_FOUND AND NOT "$ENV{BUILD_GTK3}" STREQUAL "TRUE")
     set(EXTRA_LIBS ${EXTRA_LIBS} ${GTK_LIBRARIES})
 endif(NOT WIN32 AND NOT APPLE AND NOT QT_ANDROID)
 
