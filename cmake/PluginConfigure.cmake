@@ -528,11 +528,9 @@ else(NOT QT_ANDROID)
 endif(NOT QT_ANDROID)
 
 if(NOT WIN32 AND NOT APPLE AND NOT QT_ANDROID)
-    if(NOT $ENV{BUILD_GTK3} STREQUAL "TRUE")
-        find_package(GTK2)
-    endif()
+    find_package(GTK2)
 
-    if(GTK2_FOUND)
+    if(GTK2_FOUND AND NOT "$ENV{BUILD_GTK3}" STREQUAL "TRUE")
         set(wxWidgets_CONFIG_OPTIONS ${wxWidgets_CONFIG_OPTIONS} --toolkit=gtk2)
         include_directories(${GTK2_INCLUDE_DIRS})
         set(GTK_LIBRARIES ${GTK2_LIBRARIES})
