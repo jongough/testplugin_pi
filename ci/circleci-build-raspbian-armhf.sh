@@ -36,22 +36,23 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     -e "BUILD_GTK3=$BUILD_GTK3"
 
 # Run build script
-if [ "$BUILD_ENV" = "raspbian" ];
+rm -f build.sh
+if [ "$BUILD_ENV" = "raspbian" ]; then
     cat > build.sh << "EOF"
     apt-get -q update
-    apt install -y curl gnupg
+    apt-get -y install curl gnupg
     curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
     apt-key add raspikey
     curl http://archive.raspbian.org/raspbian.public.key  > raspikey
     apt-key add raspikey
-    EOF
+EOF
 fi
 
-cat >> build.sh << "EOF"
-apt -q update
+cat >> build.sh << "EOF1"
+apt-get -q update
 apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
-EOF
+EOF1
 
 docker exec -ti \
     $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe /ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
