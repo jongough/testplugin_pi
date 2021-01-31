@@ -37,8 +37,8 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 
 # Run build script
 cat > build.sh << "EOF"
-apt -q update
-apt install curl
+apt-get -q update
+apt install -y curl
 curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
 apt-key add raspikey
 curl http://archive.raspbian.org/raspbian.public.key  > raspikey
