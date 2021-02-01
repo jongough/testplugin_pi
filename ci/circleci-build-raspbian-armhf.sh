@@ -44,17 +44,18 @@ if [ "$BUILD_ENV" = "raspbian" ]; then
     apt-get -q update
     apt-get -y install curl gnupg
     curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
-    $USE_SUDO apt-key add raspikey
+    USE_SUDO apt-key add raspikey
     curl http://archive.raspbian.org/raspbian.public.key  > raspikey
-    $USE_SUDO apt-key add raspikey
+    USE_SUDO apt-key add raspikey
 EOF
 fi
 
 cat >> build.sh << "EOF1"
-$USE_SUDO apt-get -q update
-$USE_SUDO apt-get -y install --no-install-recommends \
+USE_SUDO apt-get -q update
+USE_SUDO apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF1
+sed -i 's/USE_SUDO/'$USE_SUDO'/g' bash.sh
 cat build.sh
 
 docker exec -ti \
