@@ -55,6 +55,7 @@ $USE_SUDO apt-get -q update
 $USE_SUDO apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF1
+cat build.sh
 
 docker exec -ti \
     $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe /ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
