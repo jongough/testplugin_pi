@@ -165,10 +165,10 @@ set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
 set(LIBHDRS
-    libs/GL/include/gl.h
-    libs/GL/include/gl_private.h
-    libs/GL/include/glext.h
-    libs/GL/include/glu.h
+    libs/GL/gl.h
+    libs/GL/gl_private.h
+    libs/GL/glext.h
+    libs/GL/glu.h
     libs/wx/include/json_defs.h
     libs/wx/include/jsonreader.h
     libs/wx/include/jsonval.h
