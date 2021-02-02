@@ -8,19 +8,19 @@ parameters:
 
     run_build_armhf_stretch:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_buster:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_bionic_64:
         type: boolean
-        default: true
+        default: false
     run_build_trusty:
         type: boolean
-        default: true
+        default: false
     run_build_xenial:
         type: boolean
-        default: true
+        default: false
     run_build_bionic:
         type: boolean
         default: true
@@ -29,31 +29,31 @@ parameters:
         default: true
     run_build_focal:
         type: boolean
-        default: true
+        default: false
     run_build_focal_gtk3:
         type: boolean
-        default: true
+        default: false
     run_build_buster:
         type: boolean
-        default: true
+        default: false
     run_build_flatpack:
         type: boolean
-        default: true
+        default: false
     run_build_fedora:
         type: boolean
-        default: true
+        default: false
     run_build_mingw:
         type: boolean
-        default: true
+        default: false
     run_build_macos:
         type: boolean
-        default: true
+        default: false
     run_build_android_arm64:
         type: boolean
-        default: true
+        default: false
     run_build_android_armhf:
         type: boolean
-        default: true
+        default: false
 
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
@@ -159,7 +159,7 @@ jobs:
             - run: ci/cloudsmith-upload.sh
     build-bionic:
         docker:
-        - image: circleci/buildpack-deps:bionic-scm
+        - image: circleci/buildpack-deps:bionic-scm@sha256:3d8e5303b6984bfae23f8fce2b827888fb1d16c10e2c61635eaae4fb9b7f284a
         environment:
         - OCPN_TARGET:  bionic
         - DEPLOY_USE_ORB: true
@@ -182,7 +182,7 @@ jobs:
             - run: ci/cloudsmith-upload.sh
     build-bionic-gtk3:
         docker:
-        - image: circleci/buildpack-deps:bionic-scm
+        - image: circleci/buildpack-deps:bionic-scm@sha256:3d8e5303b6984bfae23f8fce2b827888fb1d16c10e2c61635eaae4fb9b7f284a
         environment:
         - BUILD_GTK3: true
         - OCPN_TARGET:  bionic-gtk3
