@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 08:21+1000\n"
+"POT-Creation-Date: 2021-02-02 16:11+1100\n"
 "PO-Revision-Date: 2021-01-02 01:45\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -359,15 +359,17 @@ msgstr "Ορατό"
 msgid "add"
 msgstr "προσθήκη"
 #
-msgid "testplugin PlugIn for OpenCPN"
-msgstr "πρόσθετο Test για το OCPN"
-#
-msgid ""
-"testplugin PlugIn for OpenCPN\n"
-"demonstrates PlugIn processing of NMEA messages."
-msgstr ""
-"πρόσθετο Test για το OCPN\n"
-"επιδεικνύει την επεξεργασία μηνυμάτων NMEA"
-#
 msgid "testplugin_pi data location"
 msgstr "θέση δεδομένων για το testplugin_pi"
+#
+#
+#~ msgid "testplugin PlugIn for OpenCPN"
+#~ msgstr "πρόσθετο Test για το OCPN"
+#
+#
+#~ msgid ""
+#~ "testplugin PlugIn for OpenCPN\n"
+#~ "demonstrates PlugIn processing of NMEA messages."
+#~ msgstr ""
+#~ "πρόσθετο Test για το OCPN\n"
+#~ "επιδεικνύει την επεξεργασία μηνυμάτων NMEA"

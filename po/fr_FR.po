@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 08:21+1000\n"
+"POT-Creation-Date: 2021-02-02 16:11+1100\n"
 "PO-Revision-Date: 2020-12-01 15:11\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
@@ -363,15 +363,17 @@ msgstr "Visible"
 msgid "add"
 msgstr "ajouter"
 #
-msgid "testplugin PlugIn for OpenCPN"
-msgstr "Complément pour tester les compléments d'OpenCPN"
-#
-msgid ""
-"testplugin PlugIn for OpenCPN\n"
-"demonstrates PlugIn processing of NMEA messages."
-msgstr ""
-"Complément d'OpenCPN pour tester les compléments. démonstration du processus "
-"des messages NMEA"
-#
 msgid "testplugin_pi data location"
 msgstr "Emplacement des données testplugin_pi"
+#
+#
+#~ msgid "testplugin PlugIn for OpenCPN"
+#~ msgstr "Complément pour tester les compléments d'OpenCPN"
+#
+#
+#~ msgid ""
+#~ "testplugin PlugIn for OpenCPN\n"
+#~ "demonstrates PlugIn processing of NMEA messages."
+#~ msgstr ""
+#~ "Complément d'OpenCPN pour tester les compléments. démonstration du "
+#~ "processus des messages NMEA"
