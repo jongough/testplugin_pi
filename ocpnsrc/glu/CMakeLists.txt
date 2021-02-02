@@ -12,29 +12,32 @@ link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 #add_definitions(-g -O2 )
 
-IF(NOT WIN32 AND NOT APPLE )
-  #Removed as duplicating settings 20181231
-  #ADD_DEFINITIONS( "-Wall -Wno-unused -fexceptions -rdynamic" )
-  #ADD_DEFINITIONS( " -g -fno-strict-aliasing -O2")
+IF (NOT WIN32 AND NOT APPLE)
+  ADD_DEFINITIONS( "-Wall -Wno-unused -fexceptions -rdynamic" )
+  ADD_DEFINITIONS( " -g -fno-strict-aliasing -O2")
 ENDIF(NOT WIN32 AND NOT APPLE)
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/ocpnsrc/glu/include)
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/ocpninclude)
+IF(QT_ANDROID)
+  ADD_DEFINITIONS( " -fPIC")
+ENDIF(QT_ANDROID)
 
-IF(WIN32)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+INCLUDE_DIRECTORIES(include)
+
+IF(CMAKE_HOST_WIN32)
     IF(MSVC)
-        SET(CMAKE_C_FLAGS_DEBUG               "/MP /MDd /Ob0 /Od  /D_DEBUG  /Zi /RTC1" )
-        SET(CMAKE_C_FLAGS_MINSIZEREL          "/MP /MD  /O1  /Ob1 /D NDEBUG")
-        SET(CMAKE_C_FLAGS_RELEASE             "/MP /MD  /O2  /Ob2 /D NDEBUG /Zi")
-        SET(CMAKE_C_FLAGS_RELWITHDEBINFO      "/MP /MD  /O2  /Ob1 /D NDEBUG /Zi")
-        SET(CMAKE_CXX_FLAGS_DEBUG             "/MP /MDd /Ob0 /Od  /D_DEBUG  /Zi /RTC1 /EHa")
-        SET(CMAKE_CXX_FLAGS_MINSIZEREL        "/MP /MD  /O1  /Ob1 /D NDEBUG /EHa")
-        SET(CMAKE_CXX_FLAGS_RELEASE           "/MP /MD  /O2  /Ob2 /D NDEBUG /Zi /EHa")
-        SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO    "/MP /MD  /O2  /Ob1 /D NDEBUG /Zi /EHa" )
-        SET(CMAKE_EXE_LINKER_FLAGS /DEBUG)
+        SET(CMAKE_C_FLAGS_DEBUG               "/MDd /Ob0 /Od  /D_DEBUG  /Zi /RTC1" )
+        SET(CMAKE_C_FLAGS_MINSIZEREL          "/MD  /O1  /Ob1 /D NDEBUG")
+        SET(CMAKE_C_FLAGS_RELEASE             "/MD  /O2  /Ob2 /D NDEBUG /Zi")
+        SET(CMAKE_C_FLAGS_RELWITHDEBINFO      "/MD  /O2  /Ob1 /D NDEBUG /Zi")
+        SET(CMAKE_CXX_FLAGS_DEBUG             "/MDd /Ob0 /Od  /D_DEBUG  /Zi /RTC1 /EHa")
+        SET(CMAKE_CXX_FLAGS_MINSIZEREL        "/MD  /O1  /Ob1 /D NDEBUG /EHa")
+        SET(CMAKE_CXX_FLAGS_RELEASE           "/MD  /O2  /Ob2 /D NDEBUG /Zi /EHa")
+        SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO    "/MD  /O2  /Ob1 /D NDEBUG /Zi /EHa" )
+        SET(CMAKE_EXE_LINKER_FLAGS "/DEBUG ${CMAKE_EXE_LINKER_FLAGS}")
 
     ENDIF(MSVC)
-ENDIF(WIN32)
+ENDIF(CMAKE_HOST_WIN32)
 
 SET(GLU_SOURCES
     libutil/error.c
@@ -56,4 +59,5 @@ SET(GLU_SOURCES
     )
 
 add_library(GLU_static STATIC ${GLU_SOURCES})
+add_library(glu_static::glu_static ALIAS GLU_static)
 set_target_properties(GLU_static PROPERTIES OUTPUT_NAME GLU)
