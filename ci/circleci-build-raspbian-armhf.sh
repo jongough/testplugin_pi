@@ -41,7 +41,7 @@ USE_SUDO=""
 if [ "$BUILD_ENV" = "raspbian" ]; then
     USE_SUDO="sudo"
     cat > build.sh << "EOF"
-    apt-get -q update
+    apt-get update
     apt-get -y install curl gnupg
     curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
     APT_KEY
@@ -56,11 +56,11 @@ USE_SUDO apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF1
 if [ "$OCPN_TARGET" != "buster-armhf" ]; then
-    APT_KEY="USE_SUDO apt-key add raspikey"
+    APT_KEY="apt-key add raspikey"
 else
-    APT_KEY=" "
+    APT_KEY=""
 fi
-sed -i 's/USE_SUDO/'$USE_SUDO'/g;s/APT_KEY/'$APT_KEY'/g' build.sh
+sed -i -e 's/USE_SUDO/'$USE_SUDO'/g' -e 's/APT_KEY/'$APT_KEY'/g' build.sh
 
 cat build.sh
 
