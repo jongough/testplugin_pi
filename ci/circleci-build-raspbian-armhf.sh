@@ -53,7 +53,7 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 #fi
 
 cat >> build.sh << "EOF1"
-    apt-get -q update
+    #apt-get -q update
     apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF1
