@@ -39,7 +39,11 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 rm -f build.sh
 USE_SUDO=""
 if [ "$BUILD_ENV" = "raspbian" ]; then
-    USE_SUDO="sudo"
+    if [ "$OCPN_TARGET" = "$buster-armhf" ]; then
+        USE_SUDO=""
+    else
+        USE_SUDO="sudo"
+    fi
     cat > build.sh << "EOF"
     apt-get -q update
     apt-get -y install curl gnupg
