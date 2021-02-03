@@ -36,28 +36,28 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     -e "BUILD_GTK3=$BUILD_GTK3"
 
 # Run build script
-rm -f build.sh
-USE_SUDO=""
-if [ "$BUILD_ENV" = "raspbian" ]; then
-    if [ "$OCPN_TARGET" = '$buster-armhf' ]; then
-        USE_SUDO=""
-    else
-        USE_SUDO="sudo"
-    fi
-    cat > build.sh << "EOF"
-    apt-get -q update
-    apt-get -y install curl gnupg
-    curl http://mirrordirector.raspbian.org/raspbian.public.key  | apt-key add -
-    curl http://archive.raspbian.org/raspbian.public.key  | apt-key add -
-EOF
-fi
+#rm -f build.sh
+#USE_SUDO=""
+#if [ "$BUILD_ENV" = "raspbian" ]; then
+#    if [ "$OCPN_TARGET" = '$buster-armhf' ]; then
+#        USE_SUDO=""
+#    else
+#        USE_SUDO="sudo"
+#    fi
+#    cat > build.sh << "EOF"
+#    apt-get -q update
+#    apt-get -y install curl gnupg
+#    curl http://mirrordirector.raspbian.org/raspbian.public.key  | apt-key add -
+#    curl http://archive.raspbian.org/raspbian.public.key  | apt-key add -
+#EOF
+#fi
 
 cat >> build.sh << "EOF1"
-USE_SUDO apt-get -q update
-USE_SUDO apt-get -y install --no-install-recommends \
+    apt-get -q update
+    apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF1
-sed -i -e 's/USE_SUDO/'$USE_SUDO'/g' build.sh
+#sed -i -e 's/USE_SUDO/'$USE_SUDO'/g' build.sh
 
 cat build.sh
 
