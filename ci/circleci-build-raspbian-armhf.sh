@@ -6,7 +6,7 @@
 
 # bailout on errors and echo commands.
 set -xe
-#sudo apt-get -qq update
+sudo apt-get -qq update
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
@@ -43,6 +43,7 @@ if [ "$BUILD_ENV" = "raspbian" ]; then
 EOF
 else
     cat > build.sh << "EOF"
+    apt-get -qq update
     apt-get -y install --no-install-recommends \
     git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF
