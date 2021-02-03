@@ -39,7 +39,7 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 rm -f build.sh
 USE_SUDO=""
 if [ "$BUILD_ENV" = "raspbian" ]; then
-    if [ "$OCPN_TARGET" = "$buster-armhf" ]; then
+    if [ "$OCPN_TARGET" = '$buster-armhf' ]; then
         USE_SUDO=""
     else
         USE_SUDO="sudo"
@@ -47,10 +47,8 @@ if [ "$BUILD_ENV" = "raspbian" ]; then
     cat > build.sh << "EOF"
     apt-get -q update
     apt-get -y install curl gnupg
-    curl http://mirrordirector.raspbian.org/raspbian.public.key  > raspikey
-    USE_SUDO apt-key add raspikey
-    curl http://archive.raspbian.org/raspbian.public.key  > raspikey
-    USE_SUDO apt-key add raspikey
+    curl http://mirrordirector.raspbian.org/raspbian.public.key  | apt-key add -
+    curl http://archive.raspbian.org/raspbian.public.key  | apt-key add -
 EOF
 fi
 
