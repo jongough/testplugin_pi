@@ -160,7 +160,8 @@ set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/T
 
 set(EXTSRC)
 
-set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
+set(EXTINCLUDE ${EXTINCLUDE} extinclude)
+set(EXTINCLUDE ${EXTINCLUDE} extinclude/ODAPI.h)
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
@@ -196,8 +197,8 @@ endif(PI_JSON_SCHEMA_VALIDATOR)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
