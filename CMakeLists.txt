@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "149")
+set(VERSION_PATCH "155")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "05/01/2021") # DD/MM/YYYY format
+set(VERSION_DATE "09/02/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -78,12 +78,14 @@ option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
 
+# Use local version of GLU library
+set(USE_LOCAL_GLU TRUE)
 # Prefer libGL.so to libOpenGL.so, see CMP0072
 set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
-set(USE_LOCAL_GLU FALSE)
+#set(USE_LOCAL_GLU FALSE)
 
-option(USE_GL "Enable OpenGL support" OFF)
+option(USE_GL "Enable OpenGL support" ON)
 message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
@@ -109,7 +111,7 @@ include("PluginSetup")
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
 ##
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE "Activate verbose mode for make files" ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
 
@@ -158,15 +160,16 @@ set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/T
 
 set(EXTSRC)
 
-set(EXTINCLUDE extinclude/nlohmann/json.hpp extinclude/ODAPI.h)
+set(EXTINCLUDE ${EXTINCLUDE} extinclude)
+set(EXTINCLUDE ${EXTINCLUDE} extinclude/ODAPI.h)
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
 set(LIBHDRS
-    libs/GL/include/gl.h
-    libs/GL/include/gl_private.h
-    libs/GL/include/glext.h
-    libs/GL/include/glu.h
+    libs/GL/gl.h
+    libs/GL/gl_private.h
+    libs/GL/glext.h
+    libs/GL/glu.h
     libs/wx/include/json_defs.h
     libs/wx/include/jsonreader.h
     libs/wx/include/jsonval.h
@@ -192,8 +195,10 @@ else(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 endif(PI_JSON_SCHEMA_VALIDATOR)
 
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
@@ -241,3 +246,8 @@ include("PluginPackage")
 ##
 ## ----- do not change section above - needed to configure build process ----- ##
 ##
+message(STATUS "${CMLOC}include directories: ")
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+    message(STATUS "${CMLOC}dir='${dir}'")
+endforeach()
