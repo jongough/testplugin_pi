@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: testplugin_pi 1.0.125.0\n"
+"Project-Id-Version: testplugin_pi 1.0.152.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 08:21+1000\n"
+"POT-Creation-Date: 2021-02-02 16:45+1100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,68 +26,58 @@ msgstr ""
 msgid "Test Plugin"
 msgstr ""
 
-#: src/testplugin_pi.cpp:345
-msgid "testplugin PlugIn for OpenCPN"
-msgstr ""
-
-#: src/testplugin_pi.cpp:350
-msgid ""
-"testplugin PlugIn for OpenCPN\n"
-"demonstrates PlugIn processing of NMEA messages."
-msgstr ""
-
-#: src/testplugin_pi.cpp:625
+#: src/testplugin_pi.cpp:624
 #, c-format
 msgid ""
 "OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, Minor: "
 "%i\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:626 src/testplugin_pi.cpp:639
+#: src/testplugin_pi.cpp:625 src/testplugin_pi.cpp:638
 msgid "OD_FindPointInAnyBoundary\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:627 src/testplugin_pi.cpp:640
+#: src/testplugin_pi.cpp:626 src/testplugin_pi.cpp:639
 msgid "OD_FindClosestBoundaryLineCrossing\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:628 src/testplugin_pi.cpp:641
+#: src/testplugin_pi.cpp:627 src/testplugin_pi.cpp:640
 msgid "OD_FindFirstBoundaryLineCrossing\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:629 src/testplugin_pi.cpp:642
+#: src/testplugin_pi.cpp:628 src/testplugin_pi.cpp:641
 msgid "OD_CreateBoundary\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:630 src/testplugin_pi.cpp:643
+#: src/testplugin_pi.cpp:629 src/testplugin_pi.cpp:642
 msgid "OD_CreateBoundaryPoint\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:631 src/testplugin_pi.cpp:644
+#: src/testplugin_pi.cpp:630 src/testplugin_pi.cpp:643
 msgid "OD_CreateTextPoint\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:632 src/testplugin_pi.cpp:645
+#: src/testplugin_pi.cpp:631 src/testplugin_pi.cpp:644
 msgid "OD_AddPointIcon\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:633 src/testplugin_pi.cpp:646
+#: src/testplugin_pi.cpp:632 src/testplugin_pi.cpp:645
 msgid "OD_DeletePointIcon\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:635
+#: src/testplugin_pi.cpp:634
 msgid "The following ODAPI's are available: \n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:648
+#: src/testplugin_pi.cpp:647
 msgid "The following ODAPI's are not available:\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:652
+#: src/testplugin_pi.cpp:651
 msgid "TESTPLUGIN"
 msgstr ""
 
-#: src/testplugin_pi.cpp:731 src/tpControlDialogImpl.cpp:907
+#: src/testplugin_pi.cpp:730 src/tpControlDialogImpl.cpp:907
 #: src/tpControlDialogImpl.cpp:916 src/tpJSON.cpp:133
 msgid "File not found"
 msgstr ""
