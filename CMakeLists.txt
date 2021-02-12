@@ -234,7 +234,6 @@ endif(UNIX AND NOT APPLE AND NOT QT_ANDROID)
 ##
 ## ----- Change above to match project requirements ----- ##
 ##
-
 ##
 ## ----- do not change next section - needed to configure build process ----- ##
 
