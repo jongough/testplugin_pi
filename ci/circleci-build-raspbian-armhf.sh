@@ -52,7 +52,7 @@ fi
 cat build.sh
 
 docker exec -ti \
-    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe /ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
+    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe /ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake -D_FILE_OFFSET_BITS=64 ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
 
 echo "Stopping"
 docker ps -a
