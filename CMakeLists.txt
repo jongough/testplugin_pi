@@ -180,7 +180,7 @@ set(LIBHDRS
 
 add_definitions(-DPLUGIN_USE_SVG)
 
-set(EXINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude)
+set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude)
 
 if(APPLE)
     option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
