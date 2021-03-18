@@ -162,7 +162,8 @@ set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/T
 set(EXTSRC
 )
 set(EXTINCLUDE
-
+    extinclude/ODAPI.h
+    extinclude/ODJSONSchemas.h
 )
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
@@ -178,6 +179,8 @@ set(LIBHDRS
     libs/wx/include/jsonwriter.h)
 
 add_definitions(-DPLUGIN_USE_SVG)
+
+set(EXINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude)
 
 if(APPLE)
     option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
