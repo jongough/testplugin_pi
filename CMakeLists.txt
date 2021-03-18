@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "156")
+set(VERSION_PATCH "157")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "02/03/2021") # DD/MM/YYYY format
+set(VERSION_DATE "18/03/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -51,9 +51,9 @@ set(PARENT "opencpn")
 #set(GIT_REPOSITORY_SERVER "github.com")
 
 # Specifies cloudsmith repository sufficies
-set(PROD "prod") # Standard Repos
-set(BETA "beta") # Standard Repos
-set(ALPHA "alpha") # Standard Repos
+set(PROD "prod")    # Standard Repos
+set(BETA "beta")    # Standard Repos
+set(ALPHA "alpha")  # Standard Repos
 
 # set this if your cloudsmith repository name does not match your git repository name
 #set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
@@ -158,10 +158,11 @@ set(OCPNSRC ocpnsrc/TexFont.cpp)
 
 set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/TexFont.h)
 
-set(EXTSRC)
+set(EXTSRC
+)
+set(EXTINCLUDE
 
-set(EXTINCLUDE ${EXTINCLUDE} extinclude)
-set(EXTINCLUDE ${EXTINCLUDE} extinclude/ODAPI.h)
+)
 
 set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
 
@@ -189,8 +190,8 @@ if(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Adding JSON Schema validation")
 
     set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
-    set(EXTINCLUDE ${EXTINCLUDE} extinclude/nlohmann/json.hpp extinclude/json-schema-validator/json-schema.hpp)
-    include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+    set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude/nlohmann extinclude)
+    #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
 else(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 endif(PI_JSON_SCHEMA_VALIDATOR)
@@ -198,7 +199,7 @@ endif(PI_JSON_SCHEMA_VALIDATOR)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE})
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
