@@ -39,7 +39,7 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 rm -f build.sh
 if [ "$BUILD_ENV" = "raspbian" ]; then
     cat > build.sh << "EOF"
-    install_packages git cmake build-essential cmake gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+    install_packages git cmake build-essential devscripts equivs cmake gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF
 else
     cat > build.sh << "EOF"
