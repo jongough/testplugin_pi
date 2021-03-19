@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "157")
+set(VERSION_PATCH "158")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "18/03/2021") # DD/MM/YYYY format
+set(VERSION_DATE "19/03/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -157,7 +157,12 @@ set(HDRS
 
 set(OCPNSRC ocpnsrc/TexFont.cpp)
 
-set(OCPNHDRS ocpninclude/ocpn_plugin.h ocpninclude/pluginmanager.h ocpninclude/TexFont.h)
+set(OCPNHDRS
+    ocpninclude/ocpn_plugin.h
+    ocpninclude/pluginmanager.h
+    ocpninclude/TexFont.h
+    libs/ocpn-api/ocpn_plugin.h
+)
 
 set(EXTSRC
 )
@@ -180,7 +185,7 @@ set(LIBHDRS
 
 add_definitions(-DPLUGIN_USE_SVG)
 
-set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude)
+set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
 
 if(APPLE)
     option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
