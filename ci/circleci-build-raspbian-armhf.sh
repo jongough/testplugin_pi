@@ -39,7 +39,7 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 rm -f build.sh
 if [ "$BUILD_ENV" = "raspbian" ]; then
     cat > build.sh << "EOF"
-    install_packages git cmake build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+    install_packages git cmake=3.13.4-1 cmake-data=3.13.4-1 build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF
 else
     cat > build.sh << "EOF"
@@ -52,7 +52,7 @@ fi
 cat build.sh
 
 docker exec -ti \
-    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe /ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake -D_FILE_OFFSET_BITS=64 ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
+    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe /ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
 
 echo "Stopping"
 docker ps -a
