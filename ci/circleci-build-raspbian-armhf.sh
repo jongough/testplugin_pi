@@ -39,7 +39,13 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 rm -f build.sh
 if [ "$BUILD_ENV" = "raspbian" ]; then
     cat > build.sh << "EOF"
-    install_packages git cmake=3.13.4-1 cmake-data=3.13.4-1 build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+    if [ "$OCPN_TARGET" = "buster-armhf" ]; then
+        # cmake 3.16 has a bug that stops the build to use an older version
+        install_packages cmake=3.13.4-1 cmake-data=3.13.4-1
+    else
+        install_packages cmake cmake-data
+    fi
+    install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF
 else
     cat > build.sh << "EOF"
