@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "158")
+set(VERSION_PATCH "159")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "19/03/2021") # DD/MM/YYYY format
+set(VERSION_DATE "21/03/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -118,16 +118,6 @@ option(Plugin_CXX11 "Use c++11" OFF)
 
 ##
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
-##
-
-##
-## ----- do not change next section - needed to configure build process ----- ##
-##
-
-include("PluginConfigure")
-
-##
-## ----- do not change section above - needed to configure build process ----- ##
 ##
 
 #
@@ -216,7 +206,11 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
 
-add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
+target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
+
+add_subdirectory(libs/tinyxml)
+
+target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
 
 add_definitions(-DTIXML_USE_STL)
 
@@ -249,6 +243,7 @@ endif(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
 
+include("PluginConfigure")
 include("PluginInstall")
 include("PluginLocalization")
 include("PluginPackage")
