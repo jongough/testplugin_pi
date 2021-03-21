@@ -120,6 +120,16 @@ option(Plugin_CXX11 "Use c++11" OFF)
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
 ##
 
+##
+## ----- do not change next section - needed to configure build process ----- ##
+##
+
+include("PluginConfigure")
+
+##
+## ----- do not change section above - needed to configure build process ----- ##
+##
+
 #
 # ----- Change below to match project requirements for source, headers, etc. ----- ##
 #
@@ -243,7 +253,6 @@ endif(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
 
-include("PluginConfigure")
 include("PluginInstall")
 include("PluginLocalization")
 include("PluginPackage")
