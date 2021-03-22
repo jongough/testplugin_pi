@@ -760,12 +760,12 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& 
     jMsgBP[wxT("Lat")] = fromDMM_Plugin( m_textCtrlLatitude->GetValue() );
     jMsgBP[wxT("Lon")] = fromDMM_Plugin( m_textCtrlLongitude->GetValue() );
     jMsgBP[wxT("BoundaryPointType")] = m_choiceBoundaryPointType->GetString(m_choiceBoundaryPointType->GetSelection());
-    jMsgBP[wxT("visible")] = m_checkBoxBoundaryPointVisible->GetValue();
-    jMsgBP[wxT("ringsvisible")] = m_checkBoxRingsVisible->GetValue();
-    jMsgBP[wxT("ringsnumber")] = m_choiceBoundaryPointRingNumber->GetSelection();
-    jMsgBP[wxT("ringssteps")] = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
-    jMsgBP[wxT("ringsunits")] = m_choiceBoundaryPointRingUnits->GetSelection();
-    jMsgBP[wxT("ringscolour")] = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
+    jMsgBP[wxT("Visible")] = m_checkBoxBoundaryPointVisible->GetValue();
+    jMsgBP[wxT("RingsVisible")] = m_checkBoxRingsVisible->GetValue();
+    jMsgBP[wxT("RingsNumber")] = m_choiceBoundaryPointRingNumber->GetSelection();
+    jMsgBP[wxT("RingsSteps")] = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
+    jMsgBP[wxT("RingsUnits")] = m_choiceBoundaryPointRingUnits->GetSelection();
+    jMsgBP[wxT("RingsColour")] = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
 
     jMsg[wxT("BoundaryPoint")] = jMsgBP;
 
