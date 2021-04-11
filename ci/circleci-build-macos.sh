@@ -13,6 +13,8 @@ set -xe
 
 set -o pipefail
 # Check if the cache is with us. If not, re-install brew.
+git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
 brew list --versions libexif || brew update-reset
 
 for pkg in cairo cmake gettext libarchive libexif python wget; do
