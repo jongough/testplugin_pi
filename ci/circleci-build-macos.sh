@@ -5,9 +5,9 @@
 #
 
 # Fix broken ruby on the CircleCI image:
-if [ -n "$CIRCLECI" ]; then
+#if [ -n "$CIRCLECI" ]; then
 #    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-fi
+#fi
 
 set -xe
 
