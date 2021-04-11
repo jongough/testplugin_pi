@@ -6,15 +6,15 @@
 
 # Fix broken ruby on the CircleCI image:
 if [ -n "$CIRCLECI" ]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+#    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 set -xe
 
 set -o pipefail
 # Check if the cache is with us. If not, re-install brew.
-git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
-git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
+#git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core fetch --unshallow
+#git -C /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask fetch --unshallow
 brew list --versions libexif || brew update-reset
 
 for pkg in cairo cmake gettext libarchive libexif python wget; do
