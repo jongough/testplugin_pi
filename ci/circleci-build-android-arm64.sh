@@ -50,7 +50,7 @@ cmake  \
   ..
 
 #sudo make clean
-make
+make -j
 make package
 
 #  All below for local docker build

@@ -38,8 +38,8 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "160")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "12/04/2021") # DD/MM/YYYY format
+set(VERSION_TWEAK "3")
+set(VERSION_DATE "15/04/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -210,11 +210,16 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
+if(QT_ANDROID)
+    include_directories(BEFORE ${qt_android_include})
+endif(QT_ANDROID)
 
 target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
