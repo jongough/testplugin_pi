@@ -208,11 +208,12 @@ else
 fi
 tar -tf $tarball_tar
 gzip -f $tarball_tar
+pwd
 cd "$cur_dir"
 pwd
 ls -la
 
-if [ $LOCAL_BUILD = false ]; then
+if [ $LOCAL_BUILD = false ] && [ ! -n $DONT_DEPLOY ]; then
     cloudsmith push raw --republish --no-wait-for-sync \
         --name @PACKAGE_NAME@-@PACKAGE_VERSION@-@PKG_TARGET@-@ARCH@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
         --version ${VERSION} \
