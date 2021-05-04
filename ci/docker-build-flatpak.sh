@@ -14,7 +14,6 @@ su -c "dnf install -y sudo cmake gcc-c++ flatpak-builder flatpak make tar"
 #flatpak remote-add --user --if-not-exists flathub \
 #    https://flathub.org/repo/flathub.flatpakrepo
 
-sudo apt install flatpak flatpak-builder
 if [ "$FLATPAK_BRANCH" = 'beta' ]; then
         flatpak install --user -y flathub org.freedesktop.Sdk//20.08 >/dev/null
         flatpak remote-add --user --if-not-exists flathub-beta \
