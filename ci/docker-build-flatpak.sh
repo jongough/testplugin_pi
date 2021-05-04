@@ -11,24 +11,24 @@ cd $TOPDIR
 su -c "dnf install -y sudo cmake gcc-c++ flatpak-builder flatpak make tar"
 
 # removed to allow arm64 builds
-#flatpak remote-add --user --if-not-exists flathub \
-#    https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --user --if-not-exists flathub \
+    https://flathub.org/repo/flathub.flatpakrepo
 
-if [ "$FLATPAK_BRANCH" = 'beta' ]; then
-        flatpak install --user -y flathub org.freedesktop.Sdk//20.08 >/dev/null
-        flatpak remote-add --user --if-not-exists flathub-beta \
-            https://flathub.org/beta-repo/flathub-beta.flatpakrepo
-        flatpak install --user -y --or-update flathub-beta \
-            org.opencpn.OpenCPN >/dev/null
-        sed -i '/sdk:/s/18.08/20.08/'  flatpak/org.opencpn.*.yaml
-else
-        flatpak install --user -y flathub org.freedesktop.Sdk//18.08 >/dev/null
-        flatpak remote-add --user --if-not-exists flathub \
-            https://flathub.org/repo/flathub.flatpakrepo
-        flatpak install --user -y --or-update flathub \
-            org.opencpn.OpenCPN >/dev/null
-        FLATPAK_BRANCH='stable'
-fi
+#if [ "$FLATPAK_BRANCH" = 'beta' ]; then
+#        flatpak install --user -y flathub org.freedesktop.Sdk//20.08 >/dev/null
+#        flatpak remote-add --user --if-not-exists flathub-beta \
+#            https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+#        flatpak install --user -y --or-update flathub-beta \
+#            org.opencpn.OpenCPN >/dev/null
+#        sed -i '/sdk:/s/18.08/20.08/'  flatpak/org.opencpn.*.yaml
+#else
+#        flatpak install --user -y flathub org.freedesktop.Sdk//18.08 >/dev/null
+#        flatpak remote-add --user --if-not-exists flathub \
+#            https://flathub.org/repo/flathub.flatpakrepo
+#        flatpak install --user -y --or-update flathub \
+#            org.opencpn.OpenCPN >/dev/null
+#        FLATPAK_BRANCH='stable'
+#fi
 
 ocpnfound=$(flatpak list | grep org.opencpn.OpenCPN | awk '{print $1}')
 if [ "" = "$ocpnfound" ]; then
@@ -36,7 +36,7 @@ if [ "" = "$ocpnfound" ]; then
        http://opencpn.duckdns.org/opencpn/opencpn.flatpakref
 fi
 
-#flatpak install --user -y  flathub org.freedesktop.Sdk//18.08
+flatpak install --user -y  flathub org.freedesktop.Sdk//18.08
 
 
 #rm -rf flatpak/.flatpak-builder && rm -rf build && mkdir build && cd build
