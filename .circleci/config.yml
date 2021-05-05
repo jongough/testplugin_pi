@@ -39,6 +39,9 @@ parameters:
     run_build_flatpack:
         type: boolean
         default: true
+    run_build_flatpack-arm64:
+        type: boolean
+        default: true
     run_build_fedora:
         type: boolean
         default: true
@@ -283,6 +286,23 @@ jobs:
         environment:
         - OCPN_TARGET:  flatpak
         - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 18.08
+        steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-flatpak.sh
+        - when:
+            condition: <<pipeline.parameters.run_workflow_deploy>>
+            steps:
+            - run: ci/cloudsmith-upload.sh
+    build-flatpak-arm64:
+        machine:
+            image: circleci/classic:201808-01
+        environment:
+        - OCPN_TARGET:  flatpak-arm64
+        - FLATPAK_BRANCH: beta
+        - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 20.08
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -489,6 +509,17 @@ workflows:
         when: <<pipeline.parameters.run_build_flatpack>>
         jobs:
         - build-flatpak:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
+    build_12:
+        when: <<pipeline.parameters.run_build_flatpack-arm64>>
+        jobs:
+        - build-flatpak-arm64:
             filters:
                 branches:
                     ignore:
