@@ -26,7 +26,6 @@ if [ "$FLATPAK_BRANCH" = 'beta' ]; then
             https://flathub.org/beta-repo/flathub-beta.flatpakrepo
         flatpak install --user -y flathub-beta \
             org.opencpn.OpenCPN >/dev/null
-        sed -i '/sdk:/s/18.08/20.08/'  flatpak/org.opencpn.*.yaml
 else
         flatpak install --user -y flathub org.freedesktop.Sdk//18.08 >/dev/null
         flatpak remote-add --user --if-not-exists flathub \

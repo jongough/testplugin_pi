@@ -286,6 +286,7 @@ jobs:
         environment:
         - OCPN_TARGET:  flatpak
         - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 18.08
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -301,6 +302,7 @@ jobs:
         - OCPN_TARGET:  flatpak-arm64
         - FLATPAK_BRANCH: beta
         - CLOUDSMITH_PKG_EXT: gz
+        - SDK_VER: 20.08
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
