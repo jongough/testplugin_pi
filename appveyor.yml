@@ -53,9 +53,9 @@ before_build:
 
 build_script:
   - cmake --build . --target package --config Release
-  - python -m ensurepip
-  - python -m pip install -q setuptools
-  - python -m pip install -q cloudsmith-cli
+  - python3 -m ensurepip
+  - python3 -m pip install -q setuptools
+  - python3 -m pip install -q cloudsmith-cli
   - bash ../build/cloudsmith-upload.sh
 
 artifacts:
