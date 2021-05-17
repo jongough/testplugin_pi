@@ -17,10 +17,10 @@ parameters:
         default: false
     run_build_trusty:
         type: boolean
-        default: true
+        default: false
     run_build_xenial:
         type: boolean
-        default: false
+        default: true
     run_build_bionic:
         type: boolean
         default: false
