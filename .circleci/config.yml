@@ -8,55 +8,55 @@ parameters:
 
     run_build_armhf_stretch:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_buster:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_bionic_64:
         type: boolean
-        default: true
+        default: false
     run_build_trusty:
         type: boolean
         default: true
     run_build_xenial:
         type: boolean
-        default: true
+        default: false
     run_build_bionic:
         type: boolean
-        default: true
+        default: false
     run_build_bionic_gtk3:
         type: boolean
-        default: true
+        default: false
     run_build_focal:
         type: boolean
-        default: true
+        default: false
     run_build_focal_gtk3:
         type: boolean
-        default: true
+        default: false
     run_build_buster:
         type: boolean
-        default: true
+        default: false
     run_build_flatpack:
         type: boolean
-        default: true
+        default: false
     run_build_flatpack-arm64:
         type: boolean
-        default: true
+        default: false
     run_build_fedora:
         type: boolean
-        default: true
+        default: false
     run_build_mingw:
         type: boolean
-        default: true
+        default: false
     run_build_macos:
         type: boolean
-        default: true
+        default: false
     run_build_android_arm64:
         type: boolean
-        default: true
+        default: false
     run_build_android_armhf:
         type: boolean
-        default: true
+        default: false
 
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
@@ -139,8 +139,10 @@ jobs:
             - run: sudo add-apt-repository ppa:deadsnakes/ppa -y
             - run: sudo apt update
             - run: sudo apt install -y python3.7
+            - run: ls /usr/bin/python*
             - run: sudo rm /usr/bin/python3
             - run: sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+            - run: ls /usr/bin/python*
             - run: sudo python3 -m pip install --upgrade pip
             - cloudsmith/ensure-api-key
             - cloudsmith/install-cli
