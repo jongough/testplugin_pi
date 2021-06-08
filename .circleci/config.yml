@@ -384,7 +384,6 @@ jobs:
         - image: circleci/android:api-28-ndk
         environment:
         - OCPN_TARGET:  android-arm64
-        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -392,15 +391,12 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
-            - cloudsmith/ensure-api-key
-            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-android-armhf:
         docker:
         - image: circleci/android:api-28-ndk
         environment:
         - OCPN_TARGET:  android-armhf
-        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -408,8 +404,6 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
-            - cloudsmith/ensure-api-key
-            - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
             # the next process relies on circleci local being run with "--volume --volume <full path to directory for build> /circleci-output:/home/circleci/circleci-output"
             # it will copy the generated gz file to the local drive so that it can be tested without neededing cloudsmith for the deployment. It is adised to use the "-e DONT_DEPLOY=true"

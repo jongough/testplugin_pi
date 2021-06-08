@@ -90,10 +90,10 @@ if [ "$CIRCLECI" ] || [ "$TRAVIS" ]; then
             COUNTER=0
             sudo apt install software-properties-common
 #            sudo add-apt-repository ppa:deadsnakes/ppa -y
-#            sudo apt update
-#            sudo apt install -y python3.7
-#            sudo rm /usr/bin/python3
-#            sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+            sudo apt update
+            sudo apt install -y python3.7
+            sudo rm /usr/bin/python3
+            sudo ln -s /usr/bin/python3.7 /usr/bin/python3
             until
                 sudo apt-get install python3-pip python3-setuptools
             do
