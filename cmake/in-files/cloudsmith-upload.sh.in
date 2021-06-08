@@ -67,14 +67,15 @@ if [ "$CIRCLECI" ] || [ "$TRAVIS" ]; then
             if ! pyenv global 3.8.6 2>&1 >/dev/null; then
                 if ! pyenv global 3.7.1 2>&1 >/dev/null; then
                     if ! pyenv global 3.7.0 2>&1>/dev/null; then
-                        sudo apt install software-properties-common
-                        sudo add-apt-repository ppa:deadsnakes/ppa -y
-                        sudo apt update
-                        sudo apt install -y python3.7
-                        sudo rm /usr/bin/python3
-                        sudo ln -s /usr/bin/python3.7 /usr/bin/python3
-                        sudo python3 -m pip install --upgrade pip
-                        pyenv global 3.7
+                        if ! pyenv global 3.5.2 2>&1>/dev/null; then
+                            sudo apt install software-properties-common
+                            sudo apt update
+                            sudo apt install -y python3.5 python3-pip
+                            sudo rm /usr/bin/python3
+                            sudo ln -s /usr/bin/python3.5 /usr/bin/python3
+                            sudo python3 -m pip install --upgrade pip
+                            pyenv global 3.5
+                        fi
                     fi
                 fi
             fi
@@ -90,8 +91,8 @@ if [ "$CIRCLECI" ] || [ "$TRAVIS" ]; then
             sudo add-apt-repository ppa:deadsnakes/ppa -y
             sudo apt update
             sudo apt install -y python3.7
-            sudo rm /usr/bin/python3
-            sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+#            sudo rm /usr/bin/python3
+#            sudo ln -s /usr/bin/python3.7 /usr/bin/python3
             until
                 sudo apt-get install python3-pip python3-setuptools
             do
