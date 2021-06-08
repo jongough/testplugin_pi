@@ -11,46 +11,46 @@ parameters:
         default: true
     run_build_armhf_buster:
         type: boolean
-        default: false
+        default: true
     run_build_armhf_bionic_64:
         type: boolean
-        default: false
+        default: true
     run_build_trusty:
         type: boolean
         default: false
     run_build_xenial:
         type: boolean
-        default: false
+        default: true
     run_build_bionic:
         type: boolean
-        default: false
+        default: true
     run_build_bionic_gtk3:
         type: boolean
-        default: false
+        default: true
     run_build_focal:
         type: boolean
-        default: false
+        default: true
     run_build_focal_gtk3:
         type: boolean
-        default: false
+        default: true
     run_build_buster:
         type: boolean
-        default: false
+        default: true
     run_build_flatpack:
         type: boolean
-        default: false
+        default: true
     run_build_flatpack-arm64:
         type: boolean
-        default: false
+        default: true
     run_build_fedora:
         type: boolean
-        default: false
+        default: true
     run_build_mingw:
         type: boolean
-        default: false
+        default: true
     run_build_macos:
         type: boolean
-        default: false
+        default: true
     run_build_android_arm64:
         type: boolean
         default: true
@@ -444,17 +444,18 @@ workflows:
 #                    - tmp
 #                tags:
 #                    only: /.*/
-    build_4:
-        when: <<pipeline.parameters.run_build_trusty>>
-        jobs:
-        - build-trusty:
-            filters:
-                branches:
-                    ignore:
-                    - devel
-                    - tmp
-                tags:
-                    only: /.*/
+# Trusty is depricated so will not be built
+#    build_4:
+#        when: <<pipeline.parameters.run_build_trusty>>
+#        jobs:
+#        - build-trusty:
+#            filters:
+#                branches:
+#                    ignore:
+#                    - devel
+#                    - tmp
+#                tags:
+#                    only: /.*/
     build_5:
         when: <<pipeline.parameters.run_build_xenial>>
         jobs:
