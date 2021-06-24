@@ -31,9 +31,9 @@ fi
 #rm -rf flatpak/.flatpak-builder && rm -rf build && mkdir build && cd build
 rm -rf build && mkdir build && cd build
 if [ "$FLATPAK_BRANCH" = 'beta' ]; then
-  cmake -DOCPN_FLATPAK_BUILD=ON -DSDK_VER=20.08 ..
+  cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=20.08 ..
 else
-  cmake -DOCPN_FLATPAK_BUILD=ON -DSDK_VER=18.08 ..
+  cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=18.08 ..
 fi
 
 make flatpak-build
