@@ -41,10 +41,10 @@ parameters:
         default: false
     run_build_flatpak_x86_1808:
         type: boolean
-        default: true
+        default: false
     run_build_flatpak_x86_2008:
         type: boolean
-        default: true
+        default: false
     run_build_flatpack-arm64:
         type: boolean
         default: true
