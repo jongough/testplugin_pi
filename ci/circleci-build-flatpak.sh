@@ -12,11 +12,11 @@
 
 # bailout on errors and echo commands.
 set -xe
-##sudo apt-get -qq update
+sudo apt-get -qq update
 
 #PLUGIN=bsb4
 
-sudo apt install flatpak flatpak-builder cmake gcc g++ make tar
+sudo apt install flatpak flatpak-builde
 
 flatpak remote-add --user --if-not-exists \
     flathub https://flathub.org/repo/flathub.flatpakrepo
