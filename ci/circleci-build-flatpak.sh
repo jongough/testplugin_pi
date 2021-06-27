@@ -23,16 +23,16 @@ flatpak remote-add --user --if-not-exists \
 
 
 if [ "$FLATPAK_BRANCH" = "beta" ]; then
-        flatpak install --user -v -y flathub org.freedesktop.Sdk//20.08 >/dev/null
+        flatpak install --user -y flathub org.freedesktop.Sdk//20.08 >/dev/null
         flatpak remote-add --user --if-not-exists flathub-beta \
             https://flathub.org/beta-repo/flathub-beta.flatpakrepo
-        flatpak install --user -v -y flathub-beta \
+        flatpak install --user -y flathub-beta \
             org.opencpn.OpenCPN >/dev/null
 else
-        flatpak install --user -v -y flathub org.freedesktop.Sdk//18.08 >/dev/null
+        flatpak install --user -y flathub org.freedesktop.Sdk//18.08 >/dev/null
         flatpak remote-add --user --if-not-exists flathub \
             https://flathub.org/repo/flathub.flatpakrepo
-        flatpak install --user -v -y flathub \
+        flatpak install --user -y flathub \
             org.opencpn.OpenCPN >/dev/null
         FLATPAK_BRANCH='stable'
 fi

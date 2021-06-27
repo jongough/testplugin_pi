@@ -41,13 +41,13 @@ parameters:
         default: false
     run_build_flatpak_x86_1808:
         type: boolean
-        default: false
+        default: true
     run_build_flatpak_x86_2008:
         type: boolean
         default: true
     run_build_flatpack-arm64:
         type: boolean
-        default: false
+        default: true
     run_build_fedora:
         type: boolean
         default: false
@@ -306,8 +306,8 @@ jobs:
             - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-flatpak:
-        docker:
-        - image: circleci/buildpack-deps:focal-scm
+        machine:
+            image: ubuntu-2004:202010-01
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -322,8 +322,8 @@ jobs:
             steps:
             - run: ci/cloudsmith-upload.sh
     build-flatpak-x86-1808:
-        docker:
-        - image: circleci/buildpack-deps:focal-scm
+        machine:
+            image: ubuntu-2004:202010-01
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -346,7 +346,6 @@ jobs:
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 20.08
         steps:
-#        - run: echo "Acquire::http::Proxy \"http://192.168.1.1:3142\"; Acquire::https::Proxy \"http://192.168.1.1:3142\";" | sudo tee  /etc/apt/apt.conf.d/00aptcacher
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
