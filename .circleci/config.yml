@@ -4,65 +4,65 @@ version: 2.1
 parameters:
     run_workflow_deploy:
         type: boolean
-        default: true
+        default: false
 
     run_build_armhf_stretch:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_buster:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_bionic_64:
         type: boolean
-        default: true
+        default: false
     run_build_trusty:
         type: boolean
         default: false
     run_build_xenial:
         type: boolean
-        default: true
+        default: false
     run_build_bionic:
         type: boolean
-        default: true
+        default: false
     run_build_bionic_gtk3:
         type: boolean
-        default: true
+        default: false
     run_build_focal:
         type: boolean
-        default: true
+        default: false
     run_build_focal_gtk3:
         type: boolean
-        default: true
+        default: false
     run_build_buster:
         type: boolean
-        default: true
+        default: false
     run_build_flatpack:
         type: boolean
         default: false
     run_build_flatpak_x86_1808:
         type: boolean
-        default: true
+        default: false
     run_build_flatpak_x86_2008:
         type: boolean
         default: true
     run_build_flatpack-arm64:
         type: boolean
-        default: true
+        default: false
     run_build_fedora:
         type: boolean
-        default: true
+        default: false
     run_build_mingw:
         type: boolean
-        default: true
+        default: false
     run_build_macos:
         type: boolean
-        default: true
+        default: false
     run_build_android_arm64:
         type: boolean
-        default: true
+        default: false
     run_build_android_armhf:
         type: boolean
-        default: true
+        default: false
 
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
@@ -306,8 +306,8 @@ jobs:
             - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
     build-flatpak:
-        machine:
-            image: circleci/classic:201808-01
+        docker:
+        - image: circleci/buildpack-deps:focal-scm
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -322,8 +322,8 @@ jobs:
             steps:
             - run: ci/cloudsmith-upload.sh
     build-flatpak-x86-1808:
-        machine:
-            image: circleci/classic:201808-01
+        docker:
+        - image: circleci/buildpack-deps:focal-scm
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -338,24 +338,27 @@ jobs:
             steps:
             - run: ci/cloudsmith-upload.sh
     build-flatpak-x86-2008:
-        machine:
-            image: circleci/classic:201808-01
+        docker:
+        - image: circleci/buildpack-deps:buster-scm
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: beta
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 20.08
         steps:
+#        - run: echo "Acquire::http::Proxy \"http://192.168.1.1:3142\"; Acquire::https::Proxy \"http://192.168.1.1:3142\";" | sudo tee  /etc/apt/apt.conf.d/00aptcacher
         - checkout
         - run: chmod a+x ci/*.sh
-        - run: bash ci/circleci-build-flatpak.sh
+        - run:
+            command: bash ci/circleci-build-flatpak.sh
+            no_output_timeout: 30m
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
             - run: ci/cloudsmith-upload.sh
     build-flatpak-arm64:
-        machine:
-            image: ubuntu-2004:202101-01
+        docker:
+        - image: ubuntu-2004:202101-01
         resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak-arm64
