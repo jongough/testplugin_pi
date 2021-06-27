@@ -356,8 +356,8 @@ jobs:
             steps:
             - run: ci/cloudsmith-upload.sh
     build-flatpak-arm64:
-        docker:
-        - image: ubuntu-2004:202101-01
+        machine:
+            image: ubuntu-2004:202010-01
         resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak-arm64
