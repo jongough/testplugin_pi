@@ -16,7 +16,7 @@ sudo apt-get -qq update
 
 #PLUGIN=bsb4
 
-sudo apt install flatpak flatpak-builde
+sudo apt install flatpak flatpak-builder
 
 flatpak remote-add --user --if-not-exists \
     flathub https://flathub.org/repo/flathub.flatpakrepo
