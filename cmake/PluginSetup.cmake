@@ -202,7 +202,7 @@ else(NOT WIN32 AND NOT QT_ANDROID)
     set(ARCH "x86_64")
     if(_wx_selected_config MATCHES "androideabi-qt-arm64")
         set(ARCH "arm64")
-	    set(LIB_INSTALL_DIR "lib")
+        set(LIB_INSTALL_DIR "lib")
         # android cannot used graphics context is wxWidgets as it does not exist
         set(wxUSE_GRAPHICS_CONTEXT 0)
     endif(_wx_selected_config MATCHES "androideabi-qt-arm64")
