@@ -157,13 +157,18 @@ set(HDRS
     include/tpShaders.h
     include/tpUtils.h)
 
-set(OCPNSRC ocpnsrc/TexFont.cpp)
+set(OCPNSRC
+    ocpnsrc/cutil.cpp
+    ocpnsrc/TexFont.cpp
+)
 
 set(OCPNHDRS
+    ocpninclude/cutil.h
     ocpninclude/ocpn_plugin.h
     ocpninclude/pluginmanager.h
     ocpninclude/shaders.h
     ocpninclude/TexFont.h
+    ocpninclude/vector2D.h
     libs/ocpn-api/ocpn_plugin.h
 )
 
