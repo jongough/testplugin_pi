@@ -168,6 +168,7 @@ set(OCPNHDRS
     ocpninclude/pluginmanager.h
     ocpninclude/shaders.h
     ocpninclude/TexFont.h
+    ocpninclude/vector2D.h
     libs/ocpn-api/ocpn_plugin.h
 )
 
