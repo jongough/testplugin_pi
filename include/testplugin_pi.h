@@ -120,6 +120,24 @@ std::cout << x  << std::endl ; } while (0)
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 
+#ifdef __WXMSW__
+#include "GL/gl.h"            // local copy for Windows
+#include <GL/glu.h>
+#else
+
+#ifdef USE_ANDROID_GLES2
+#include <gl2.h>
+#endif
+
+#ifndef __OCPN__ANDROID__
+#include <GL/gl.h>
+#include <GL/glu.h>
+#else
+#include "qopengl.h"                  // this gives us the qt runtime gles2.h
+#include "GL/gl_private.h"
+#endif
+#endif
+
 #include "wxWTranslateCatalog.h"
 
 #include "ocpn_plugin.h"
@@ -135,26 +153,11 @@ std::cout << x  << std::endl ; } while (0)
 #include <wx/dynarray.h>
 
 #include "ODAPI.h"
+#include "globals.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
-class tpicons;
-class tpControlDialogImpl;
-
-#define testplugin_POSITION -1
-#define ID_NONE -1
-//    Constants for right click menus
-
-#define SELTYPE_UNKNOWN             0x0001
-#define SELTYPE_ODPOINT             0x0002
-#define SELTYPE_PATHSEGMENT         0x0004
-#define SELTYPE_PATHCREATE          0x0008
-#define SELTYPE_BOUNDARYLIST        0x0010
-#define SELTYPE_PIL                 0x0020
-#define TYPE_PATHMGR_PATH_DLG       0x0040
-#define TYPE_PATHMGR_POINT_DLG      0x0080
-#define TYPE_PATHMGR_LAYER_DLG      0x0100
 
 //#define PI 3.14159265
 

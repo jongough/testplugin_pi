@@ -28,7 +28,7 @@ endif(COMMAND cmake_policy)
 
 # define plugin name, owner and versions
 set(VERBOSE_NAME "Testplugin")
-set(COMMON_NAME "testplugin")
+set(COMMON_NAME "Testplugin")
 set(TITLE_NAME "testplugin")
 set(PACKAGE_CONTACT "Jon Gough")
 set(PACKAGE "testplugin")
@@ -37,9 +37,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "174")
+set(VERSION_PATCH "175")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "22/07/2021") # DD/MM/YYYY format
+set(VERSION_DATE "14/09/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -142,6 +142,7 @@ set(SRCS
     src/tpControlDialogImpl.cpp
     src/tpicons.cpp
     src/tpJSON.cpp
+    src/tpShaders.cpp
     src/testplugin_pi.cpp
     src/tpUtils.cpp)
 
@@ -153,6 +154,7 @@ set(HDRS
     include/tpIconCombo.h
     include/tpJSON.h
     include/tpdc.h
+    include/tpShaders.h
     include/tpUtils.h)
 
 set(OCPNSRC ocpnsrc/TexFont.cpp)
@@ -160,6 +162,7 @@ set(OCPNSRC ocpnsrc/TexFont.cpp)
 set(OCPNHDRS
     ocpninclude/ocpn_plugin.h
     ocpninclude/pluginmanager.h
+    ocpninclude/shaders.h
     ocpninclude/TexFont.h
     libs/ocpn-api/ocpn_plugin.h
 )
@@ -210,6 +213,7 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
@@ -217,6 +221,12 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude/wxcurl/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/lz4)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/bitmaps)
+if(QT_ANDROID)
+    include_directories(BEFORE ${qt_android_include})
+    include_directories( ${CMAKE_SOURCE_DIR}/extinclude/GLES2)
+
+    #    #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/glshim/include/GLES)
+endif(QT_ANDROID)
 
 target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
