@@ -405,3 +405,35 @@ int ArcSectorPoints( wxPoint *&points, wxCoord xc, wxCoord yc, wxCoord x1, wxCoo
     points[ npoints[0] -1 ].y = y1;
     return npoints[0];
 }
+
+void checkGlError(const char* op, const char* filename, int linenumber) {
+    #ifdef ANDROID
+    bool berror = false;
+
+    wxString l_ErrorTxt = "";
+    for (GLint error = glGetError(); error; error = glGetError()) {
+        berror = true;
+        switch(error) {
+            case GL_INVALID_ENUM:
+                l_ErrorTxt +=_("GL_INVALID_ENUM ");
+                break;
+            case GL_INVALID_VALUE:
+                l_ErrorTxt += _("GL_INVALID_VALUE ");
+                break;
+            case GL_INVALID_OPERATION:
+                l_ErrorTxt += _("GL_INVALID_OPERATION ");
+                break;
+            case GL_INVALID_FRAMEBUFFER_OPERATION:
+                l_ErrorTxt += _("GL_INVALID_FRAMEBUFFER_OPERATION ");
+                break;
+            case GL_OUT_OF_MEMORY:
+                l_ErrorTxt += _("GL_OUT_OF_MEMORY ");
+                break;
+        }
+    }
+    #ifdef _DEBUG
+    if(berror == true)
+        wxLogMessage( _("%s:%i %s(), %s\n"), filename, linenumber, op, l_ErrorTxt);
+    #endif
+    #endif
+}

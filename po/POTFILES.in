@@ -3,6 +3,7 @@ src/tpControlDialogDef.cpp
 src/tpControlDialogImpl.cpp
 src/tpicons.cpp
 src/tpJSON.cpp
+src/tpShaders.cpp
 src/testplugin_pi.cpp
 src/tpUtils.cpp
 include/testplugin_pi.h
@@ -12,4 +13,5 @@ include/tpControlDialogImpl.h
 include/tpIconCombo.h
 include/tpJSON.h
 include/tpdc.h
+include/tpShaders.h
 include/tpUtils.h
