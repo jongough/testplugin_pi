@@ -65,7 +65,7 @@ if(OCPN_FLATPAK_CONFIG OR OCPN_FLATPAK_BUILD)
     set(PKG_TARGET_VERSION "${SDK_VER}") # As of flatpak/*yaml
     message(STATUS "${CMLOC}PKG_TARGET_VERSION: ${PKG_TARGET_VERSION}")
 elseif(MINGW)
-    set(PKG_TARGET "mingw")
+    set(PKG_TARGET "mingw-x86_64")
     if(CMAKE_SYSTEM_VERSION)
         set(PKG_TARGET_VERSION ${CMAKE_SYSTEM_VERSION})
     else()
