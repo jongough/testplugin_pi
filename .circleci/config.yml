@@ -57,6 +57,9 @@ parameters:
     run_build_macos:
         type: boolean
         default: true
+    run_build_macos_wx315:
+        type: boolean
+        default: true
     run_build_android_arm64:
         type: boolean
         default: true
@@ -669,6 +672,17 @@ workflows:
                 tags:
                     only: /.*/
     build_18:
+        when: <<pipeline.parameters.run_build_macos_wx315>>
+        jobs:
+        - build-macos-wx315:
+            filters:
+                branches:
+                    ignore:
+                    - devel
+                    - tmp
+                tags:
+                    only: /.*/
+    build_19:
         when: <<pipeline.parameters.run_build_android_arm64>>
         jobs:
         - build-android-arm64:
@@ -679,7 +693,7 @@ workflows:
                     - tmp
                 tags:
                     only: /.*/
-    build_19:
+    build_20:
         when: <<pipeline.parameters.run_build_android_armhf>>
         jobs:
         - build-android-armhf:
