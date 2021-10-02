@@ -2,7 +2,7 @@
  * updated: 4-5-2012
  * Project:  OpenCPN
  * Purpose:  test Plugin
- * Author:   David Register
+ * Author:   Jon Gough
  *
  ***************************************************************************
  *   Copyright (C) 2010 by David S. Register   *

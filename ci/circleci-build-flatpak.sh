@@ -12,7 +12,7 @@
 
 # bailout on errors and echo commands.
 set -xe
-sudo apt-get -qq update
+sudo apt-get -q -y --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages update
 
 #PLUGIN=bsb4
 
