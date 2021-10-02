@@ -16,7 +16,7 @@ sudo apt-get -q -y --allow-unauthenticated --allow-downgrades --allow-remove-ess
 
 #PLUGIN=bsb4
 
-sudo apt install flatpak flatpak-builder
+sudo apt --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages install flatpak flatpak-builder
 
 flatpak remote-add --user --if-not-exists \
     flathub https://flathub.org/repo/flathub.flatpakrepo
