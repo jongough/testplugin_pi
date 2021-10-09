@@ -62,7 +62,7 @@ parameters:
         default: true
     run_build_android_arm64:
         type: boolean
-        default: false
+        default: true
     run_build_android_armhf:
         type: boolean
         default: true
@@ -276,8 +276,6 @@ jobs:
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main"
             | sudo tee -a /etc/apt/sources.list
-#        - run: >
-#            echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | sudo tee -a /etc/apt/apt.conf.d/00aptproxy
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
