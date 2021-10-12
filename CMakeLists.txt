@@ -15,12 +15,13 @@
 set(CMLOC "CMakeLists: ")
 
 # define minimum cmake version
-cmake_minimum_required(VERSION 3.1.1)
+cmake_minimum_required(VERSION 3.13)
 if(COMMAND cmake_policy)
     if(POLICY CMP0043)
         cmake_policy(SET CMP0043 NEW)
     endif(POLICY CMP0043)
     cmake_policy(SET CMP0048 NEW)
+    cmake_policy(SET CMP0076 NEW)
     if(POLICY CMP0077)
         cmake_policy(SET CMP0077 NEW)
     endif(POLICY CMP0077)
@@ -37,9 +38,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "176")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "09/10/2021") # DD/MM/YYYY format
+set(VERSION_PATCH "178")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "12/10/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")

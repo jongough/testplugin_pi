@@ -231,7 +231,11 @@ ls -la ~/.
 if [ ! -z ${LOCAL_DEPLOY+x} ]; then
     if [ -d "/home/circleci/circleci-output" ]; then
         sudo cp build/*.gz ~/circleci-output
-        sudo cp build/*.deb ~/circleci-output
+        if [ -s "build/*.deb" ]; then
+            sudo cp build/*.deb ~/circleci-output
+        elif [ -s "build/*.exe" ]; then
+            sudo cp build/*.exe ~/circleci-output
+        fi
     else
         echo "Directory ~/circleci-output not found"
     fi
