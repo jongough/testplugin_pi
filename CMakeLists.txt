@@ -39,9 +39,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "178")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "27/10/2021") # DD/MM/YYYY format
+set(VERSION_PATCH "179")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE "28/10/2021") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -197,6 +197,10 @@ add_definitions(-DPLUGIN_USE_SVG)
 
 set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
 
+#
+# ----- If using JSON validation in plugin section below is needed ----- ##
+#
+
 if(APPLE)
     option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
 else(APPLE)
@@ -215,6 +219,10 @@ else(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 endif(PI_JSON_SCHEMA_VALIDATOR)
 
+#
+# ----- If using JSON validation in plugin section above is needed ----- ##
+#
+
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
@@ -223,12 +231,19 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
-if(QT_ANDROID)
-    include_directories(BEFORE ${qt_android_include})
-    include_directories( ${PROJECT_SOURCE_DIR}/extinclude/GLES2)
 
-    #    #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/glshim/include/GLES)
+#
+# ----- Change below to match project requirements for android build ----- ##
+#
+
+if(QT_ANDROID)
+    include_directories( ${PROJECT_SOURCE_DIR}/extinclude/GLES2)
 endif(QT_ANDROID)
+
+##
+## ----- Change above to match project requirements for android build ----- ##
+##
+
 
 target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
@@ -242,6 +257,10 @@ if(NOT OCPN_FLATPAK_CONFIG)
 endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
+
+#
+# ----- If using JSON validation in plugin section below is needed ----- ##
+#
 
 if(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
     if(PI_JSON_SCHEMA_VALIDATOR)
@@ -263,6 +282,10 @@ if(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
         endif(NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
     endif(PI_JSON_SCHEMA_VALIDATOR)
 endif(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
+
+#
+# ----- If using JSON validation in plugin section above is needed ----- ##
+#
 
 ##
 ## ----- Change above to match project requirements ----- ##
