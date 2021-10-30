@@ -6,52 +6,6 @@ parameters:
         type: boolean
         default: true
 
-    run_build_armhf_stretch:
-        type: boolean
-        default: true
-    run_build_armhf_buster:
-        type: boolean
-        default: true
-    run_build_armhf_bionic_64:
-        type: boolean
-        default: true
-    run_build_xenial:
-        type: boolean
-        default: true
-    run_build_bionic:
-        type: boolean
-        default: true
-    run_build_bionic_gtk3:
-        type: boolean
-        default: false
-    run_build_focal_gtk3:
-        type: boolean
-        default: true
-    run_build_buster:
-        type: boolean
-        default: true
-    run_build_flatpak_x86_1808:
-        type: boolean
-        default: true
-    run_build_flatpak_x86_2008:
-        type: boolean
-        default: true
-    run_build_flatpak_arm64:
-        type: boolean
-        default: true
-    run_build_macos:
-        type: boolean
-        default: true
-    run_build_macos_wx315:
-        type: boolean
-        default: true
-    run_build_android_arm64:
-        type: boolean
-        default: true
-    run_build_android_armhf:
-        type: boolean
-        default: true
-
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
 
@@ -107,15 +61,12 @@ jobs:
         - BUILD_ENV=raspbian
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_armhf_stretch>>
-            steps:
-            - checkout
-            - run: chmod a+x ./ci/*.sh
-            - run:
-                command: ci/circleci-build-raspbian-armhf.sh
-                no_output_timeout: 30m
-            - deploy-code
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
     build-armhf-buster:
         machine:
             image: ubuntu-2004:202104-01
@@ -126,15 +77,12 @@ jobs:
         - BUILD_ENV=raspbian
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_armhf_buster>>
-            steps:
-            - checkout
-            - run: chmod a+x ./ci/*.sh
-            - run:
-                command: ci/circleci-build-raspbian-armhf.sh
-                no_output_timeout: 30m
-            - deploy-code
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
     build-armhf-bionic-64:
         machine:
             image: ubuntu-2004:202104-01
@@ -146,18 +94,15 @@ jobs:
         - BUILD_ENV=ubuntu
         - DEPLOY_USE_ORB: false
         steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
         - when:
-            condition: <<pipeline.parameters.run_build_armhf_bionic_64>>
+            condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
-            - checkout
-            - run: chmod a+x ./ci/*.sh
-            - run:
-                command: ci/circleci-build-raspbian-armhf.sh
-                no_output_timeout: 30m
-            - when:
-                condition: <<pipeline.parameters.run_workflow_deploy>>
-                steps:
-                - run: ci/cloudsmith-upload.sh
+            - run: ci/cloudsmith-upload.sh
     build-xenial:
         docker:
         - image: circleci/buildpack-deps:xenial-scm
@@ -165,21 +110,18 @@ jobs:
         - OCPN_TARGET:  xenial
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_xenial>>
-            steps:
-            - checkout
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-debian.sh
-            - deploy-code:
-                install-python: true
+        - checkout
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ xenial-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code:
+            install-python: true
     build-bionic:
         docker:
         - image: circleci/buildpack-deps:bionic-scm
@@ -187,20 +129,17 @@ jobs:
         - OCPN_TARGET:  bionic
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_bionic>>
-            steps:
-            - checkout
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
-                | sudo tee -a /etc/apt/sources.list#    build_15:
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-debian.sh
-            - deploy-code
+        - checkout
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
+            | sudo tee -a /etc/apt/sources.list#    build_15:
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code
     build-bionic-gtk3:
         docker:
         - image: circleci/buildpack-deps:bionic-scm
@@ -209,21 +148,17 @@ jobs:
         - OCPN_TARGET:  bionic-gtk3
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_bionic_gtk3>>
-            steps:
-            - checkout
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-debian.sh
-            - deploy-code
-#        - run: echo 1
+        - checkout
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code
     build-focal-gtk3:
         docker:
         - image: circleci/buildpack-deps:focal-scm
@@ -232,18 +167,15 @@ jobs:
         - OCPN_TARGET: focal-gtk3
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_focal_gtk3>>
-            steps:
-            - checkout
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
-            - run: >
-                echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main" | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-debian.sh
-            - deploy-code
+        - checkout
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal main" | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main" | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code
     build-buster:
         docker:
         - image: circleci/buildpack-deps:buster-scm
@@ -251,20 +183,17 @@ jobs:
         - OCPN_TARGET:  buster
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_buster>>
-            steps:
-            - checkout
-            - run: >
-                echo "deb-src http://ftp.us.debian.org/debian buster main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: >
-                echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
-                | sudo tee -a /etc/apt/sources.list
-            - run: cat /etc/apt/sources.list
-            - run: chmod a+x ci/*.sh
-            - run: ci/circleci-build-debian.sh
-            - deploy-code
+        - checkout
+        - run: >
+            echo "deb-src http://ftp.us.debian.org/debian buster main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code
     build-flatpak:
         machine:
             image: ubuntu-2004:202010-01
@@ -274,16 +203,13 @@ jobs:
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 20.08
         steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-flatpak.sh
         - when:
-            condition: <<pipeline.parameters.run_build_flatpak>>
+            condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run: bash ci/circleci-build-flatpak.sh
-            - when:
-                condition: <<pipeline.parameters.run_workflow_deploy>>
-                steps:
-                - run: ci/cloudsmith-upload.sh
+            - run: ci/cloudsmith-upload.sh
     build-flatpak-x86-1808:
         machine:
             image: ubuntu-2004:202010-01
@@ -294,13 +220,10 @@ jobs:
         - SDK_VER: 18.08
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_flatpak_x86_1808>>
-            steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run: bash ci/circleci-build-flatpak.sh
-            - deploy-code
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-flatpak.sh
+        - deploy-code
     build-flatpak-x86-2008:
         machine:
             image: ubuntu-2004:202010-01
@@ -311,15 +234,12 @@ jobs:
         - SDK_VER: 20.08
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_flatpak_x86_2008>>
-            steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run:
-                command: bash ci/circleci-build-flatpak.sh
-                no_output_timeout: 30m
-            - deploy-code
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run:
+            command: bash ci/circleci-build-flatpak.sh
+            no_output_timeout: 30m
+        - deploy-code
     build-flatpak-arm64:
         machine:
             image: ubuntu-2004:202101-01
@@ -331,13 +251,10 @@ jobs:
         - SDK_VER: 20.08
         - DEPLOY_USE_ORB: true
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_flatpak_arm64>>
-            steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run: bash ci/circleci-build-flatpak.sh
-            - deploy-code
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-flatpak.sh
+        - deploy-code
     build-macos:
         macos:
             xcode: "12.5.1"
@@ -347,13 +264,10 @@ jobs:
         - DEPLOY_USE_ORB: true
         - WXVERSION: 312
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_macos>>
-            steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run: bash ci/circleci-build-macos.sh
-            - deploy-code
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-macos.sh
+        - deploy-code
     build-macos-wx315:
         macos:
             xcode: "12.5.1"
@@ -363,45 +277,36 @@ jobs:
         - DEPLOY_USE_ORB: true
         - WXVERSION: 315
         steps:
-        - when:
-            condition: <<pipeline.parameters.run_build_macos_wx315>>
-            steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run: bash ci/circleci-build-macos.sh
-            - deploy-code
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-macos.sh
+        - deploy-code
     build-android-arm64:
         docker:
         - image: circleci/android:api-28-ndk
         environment:
         - OCPN_TARGET:  android-arm64
         steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-android-arm64.sh
         - when:
-            condition: <<pipeline.parameters.run_build_android_arm64>>
+            condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run: bash ci/circleci-build-android-arm64.sh
-            - when:
-                condition: <<pipeline.parameters.run_workflow_deploy>>
-                steps:
-                - run: ci/cloudsmith-upload.sh
+            - run: ci/cloudsmith-upload.sh
     build-android-armhf:
         docker:
         - image: circleci/android:api-28-ndk
         environment:
         - OCPN_TARGET:  android-armhf
         steps:
+        - checkout
+        - run: chmod a+x ci/*.sh
+        - run: bash ci/circleci-build-android-armhf.sh
         - when:
-            condition: <<pipeline.parameters.run_build_android_armhf>>
+            condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
-            - checkout
-            - run: chmod a+x ci/*.sh
-            - run: bash ci/circleci-build-android-armhf.sh
-            - when:
-                condition: <<pipeline.parameters.run_workflow_deploy>>
-                steps:
-                - run: ci/cloudsmith-upload.sh
+            - run: ci/cloudsmith-upload.sh
 
 std-filters: &std-filters
     filters:
@@ -419,11 +324,16 @@ workflows:
             <<: *std-filters
         - build-armhf-buster:
             <<: *std-filters
+## Currently circleci does not build armf64 correctly due to no suitable docker image
+##        - build-armhf-bionic-64:
+##            <<: *std-filters
         - build-xenial:
             <<: *std-filters
         - build-bionic:
             <<: *std-filters
         - build-bionic-gtk3:
+            <<: *std-filters
+        - build-focal-gtk3:
             <<: *std-filters
         - build-buster:
             <<: *std-filters
@@ -441,88 +351,4 @@ workflows:
             <<: *std-filters
         - build-android-armhf:
             <<: *std-filters
-
-
-#    build_1:
-#        when: <<pipeline.parameters.run_build_armhf_stretch>>
-#        jobs:
-#        - build-armhf-stretch:
-#            <<: *std-filters
-#    build_2:
-#        when: <<pipeline.parameters.run_build_armhf_buster>>
-#        jobs:
-#        - build-armhf-buster:
-#            <<: *std-filters
-## Currently circleci does not build armf64 correctly due to no suitable docker image
-##    build_3:
-##        when: <<pipeline.parameters.run_build_armhf_bionic_64>>
-##        jobs:
-##        - build-armhf-bionic-64:
-##            <<: *std-filters
-#    build_4:
-#        when: <<pipeline.parameters.run_build_xenial>>
-#        jobs:
-#        - build-xenial:
-#            <<: *std-filters
-#    build_5:
-#        when: <<pipeline.parameters.run_build_bionic>>
-#        jobs:
-#        - build-bionic:
-#            <<: *std-filters
-#    build_6:
-#        when: <<pipeline.parameters.run_build_bionic_gtk3>>
-#        jobs:
-#        - build-bionic-gtk3:
-#            <<: *std-filters
-#    build_7:
-#        when: <<pipeline.parameters.run_build_focal_gtk3>>#    build_15:
-#        when: <<pipeline.parameters.run_build_android_armhf>>
-#        jobs:
-
-#        jobs:
-#        - build-focal-gtk3:
-#            <<: *std-filters
-#    build_8:
-#        when: <<pipeline.parameters.run_build_buster>>
-#        jobs:
-#        - build-buster:
-#            <<: *std-filters
-#    build_9:
-#        when: <<pipeline.parameters.run_build_flatpak-arm64>>
-#        jobs:
-#        - build-flatpak-arm64:
-#            <<: *std-filters
-#    build_10:
-#        when: <<pipeline.parameters.run_build_flatpak_x86_2008>>#    build_15:
-#        when: <<pipeline.parameters.run_build_android_armhf>>
-#        jobs:
-
-#        jobs:
-#        - build-flatpak-x86-2008:
-#            <<: *std-filters
-#    build_11:
-#        when: <<pipeline.parameters.run_build_flatpak_x86_1808>>
-#        jobs:
-#        - build-flatpak-x86-1808:
-#            <<: *std-filters
-#    build_12:
-#        when: <<pipeline.parameters.run_build_macos>>
-#        jobs:
-#        - build-macos:
-#            <<: *std-filters
-#    build_13:
-#        when: <<pipeline.parameters.run_build_macos_wx315>>
-#        jobs:
-#        - build-macos-wx315:
-#            <<: *std-filters
-#    build_14:
-#        when: <<pipeline.parameters.run_build_android_arm64>>
-#        jobs:
-#        - build-android-arm64:
-#            <<: *std-filters
-#    build_15:
-#        when: <<pipeline.parameters.run_build_android_armhf>>
-#        jobs:
-#        - build-android-armhf:
-#            <<: *std-filters
 
