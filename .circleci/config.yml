@@ -23,7 +23,7 @@ parameters:
         default: true
     run_build_bionic_gtk3:
         type: boolean
-        default: true
+        default: false
     run_build_focal_gtk3:
         type: boolean
         default: true
@@ -223,6 +223,7 @@ jobs:
             - run: chmod a+x ci/*.sh
             - run: ci/circleci-build-debian.sh
             - deploy-code
+        - run: echo 1
     build-focal-gtk3:
         docker:
         - image: circleci/buildpack-deps:focal-scm
