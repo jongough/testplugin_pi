@@ -1,2 +1,5 @@
 build*
 po/POTFILES.in.test
+temp
+tmp
+
