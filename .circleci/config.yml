@@ -6,52 +6,6 @@ parameters:
         type: boolean
         default: true
 
-    run_build_armhf_stretch:
-        type: boolean
-        default: true
-    run_build_armhf_buster:
-        type: boolean
-        default: true
-    run_build_armhf_bionic_64:
-        type: boolean
-        default: true
-    run_build_xenial:
-        type: boolean
-        default: true
-    run_build_bionic:
-        type: boolean
-        default: true
-    run_build_bionic_gtk3:
-        type: boolean
-        default: true
-    run_build_focal_gtk3:
-        type: boolean
-        default: true
-    run_build_buster:
-        type: boolean
-        default: true
-    run_build_flatpak_x86_1808:
-        type: boolean
-        default: true
-    run_build_flatpak_x86_2008:
-        type: boolean
-        default: true
-    run_build_flatpak-arm64:
-        type: boolean
-        default: true
-    run_build_macos:
-        type: boolean
-        default: true
-    run_build_macos_wx315:
-        type: boolean
-        default: true
-    run_build_android_arm64:
-        type: boolean
-        default: true
-    run_build_android_armhf:
-        type: boolean
-        default: true
-
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
 
@@ -178,7 +132,7 @@ jobs:
         - checkout
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
-            | sudo tee -a /etc/apt/sources.list
+            | sudo tee -a /etc/apt/sources.list#    build_15:
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
             | sudo tee -a /etc/apt/sources.list
@@ -364,80 +318,37 @@ std-filters: &std-filters
             only: /.*/
 
 workflows:
-    build_1:
-        when: <<pipeline.parameters.run_build_armhf_stretch>>
+    build_all:
         jobs:
         - build-armhf-stretch:
             <<: *std-filters
-    build_2:
-        when: <<pipeline.parameters.run_build_armhf_buster>>
-        jobs:
         - build-armhf-buster:
             <<: *std-filters
-# Currently circleci does not build armf64 correctly due to no suitable docker image
-#    build_3:
-#        when: <<pipeline.parameters.run_build_armhf_bionic_64>>
-#        jobs:
-#        - build-armhf-bionic-64:
-#            <<: *std-filters
-    build_4:
-        when: <<pipeline.parameters.run_build_xenial>>
-        jobs:
+## Currently circleci does not build armf64 correctly due to no suitable docker image
+##        - build-armhf-bionic-64:
+##            <<: *std-filters
         - build-xenial:
             <<: *std-filters
-    build_5:
-        when: <<pipeline.parameters.run_build_bionic>>
-        jobs:
         - build-bionic:
             <<: *std-filters
-    build_6:
-        when: <<pipeline.parameters.run_build_bionic_gtk3>>
-        jobs:
         - build-bionic-gtk3:
             <<: *std-filters
-    build_7:
-        when: <<pipeline.parameters.run_build_focal_gtk3>>
-        jobs:
         - build-focal-gtk3:
             <<: *std-filters
-    build_8:
-        when: <<pipeline.parameters.run_build_buster>>
-        jobs:
         - build-buster:
             <<: *std-filters
-    build_9:
-        when: <<pipeline.parameters.run_build_flatpak-arm64>>
-        jobs:
         - build-flatpak-arm64:
             <<: *std-filters
-    build_10:
-        when: <<pipeline.parameters.run_build_flatpak_x86_2008>>
-        jobs:
         - build-flatpak-x86-2008:
             <<: *std-filters
-    build_11:
-        when: <<pipeline.parameters.run_build_flatpak_x86_1808>>
-        jobs:
         - build-flatpak-x86-1808:
             <<: *std-filters
-    build_12:
-        when: <<pipeline.parameters.run_build_macos>>
-        jobs:
         - build-macos:
             <<: *std-filters
-    build_13:
-        when: <<pipeline.parameters.run_build_macos_wx315>>
-        jobs:
         - build-macos-wx315:
             <<: *std-filters
-    build_14:
-        when: <<pipeline.parameters.run_build_android_arm64>>
-        jobs:
         - build-android-arm64:
             <<: *std-filters
-    build_15:
-        when: <<pipeline.parameters.run_build_android_armhf>>
-        jobs:
         - build-android-armhf:
             <<: *std-filters
 
