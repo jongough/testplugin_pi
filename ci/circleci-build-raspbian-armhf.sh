@@ -68,7 +68,7 @@ fi
 
 cat build.sh
 pwd
-ls -la /
+ls -la
 sudo mk-build-deps -ir ci-source/control
 
 if type nproc &> /dev/null
