@@ -67,6 +67,8 @@ EOF4
 fi
 
 cat build.sh
+sudo chmod a+x build.sh
+./build.sh
 pwd
 ls -la
 sudo chmod -R a+rw ci-source
