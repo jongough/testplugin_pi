@@ -67,9 +67,9 @@ EOF4
 fi
 
 cat build.sh
-
+pwd
 ls -la /
-sudo mk-build-deps -ir /ci-source/control
+sudo mk-build-deps -ir ci-source/control
 
 if type nproc &> /dev/null
 then
