@@ -139,6 +139,7 @@ jobs:
         - DOCKER_IMAGE=balenalib/raspberry-pi-debian:bullseye
         - BUILD_FLAGS=-j3
         - BUILD_ENV=raspbian
+        - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
         - checkout

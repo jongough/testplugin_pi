@@ -6,7 +6,8 @@
 
 # bailout on errors and echo commands.
 set -xe
-sudo apt-get -qq update
+#sudo apt-get -qq update
+sudo apt-get update
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
@@ -20,7 +21,7 @@ else
     docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 fi
 
-docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw -v ~/source_top:/source_top $DOCKER_IMAGE /bin/bash
+docker run --privileged -d -ti -e "container=docker"  -v $(pwd)/ci:/ci-source:rw -v ~/source_top:/source_top $DOCKER_IMAGE /bin/bash
 
 DOCKER_CONTAINER_ID=$(docker ps | grep $DOCKER_IMAGE | awk '{print $1}')
 
@@ -48,18 +49,27 @@ EOF
         install_packages cmake cmake-data
 EOF1
     fi
-    cat >> build.sh << "EOF2"
-    install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+    if [ "$OCPN_TARGET" = "bullseye-armhf" ]; then
+        cat >> build.sh << "EOF2"
+        install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF2
+    else
+    cat >> build.sh << "EOF3"
+    install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+EOF3
+    fi
 else
-    cat > build.sh << "EOF3"
+    cat > build.sh << "EOF4"
     apt-get -qq update
     apt-get -y install --no-install-recommends \
     git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
-EOF3
+EOF4
 fi
 
 cat build.sh
+
+ls -la /
+sudo mk-build-deps -ir /ci-source/control
 
 if type nproc &> /dev/null
 then
