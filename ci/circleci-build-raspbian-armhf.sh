@@ -21,7 +21,7 @@ else
     docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 fi
 
-docker run --privileged -d -ti -e "container=docker"  -v $(pwd)/ci:/ci-source:rw -v ~/source_top:/source_top $DOCKER_IMAGE /bin/bash
+docker run --privileged -d -ti -e "container=docker"  -v $(pwd)/ci-source:/ci-source:rw -v ~/source_top:/source_top $DOCKER_IMAGE /bin/bash
 
 DOCKER_CONTAINER_ID=$(docker ps | grep $DOCKER_IMAGE | awk '{print $1}')
 
