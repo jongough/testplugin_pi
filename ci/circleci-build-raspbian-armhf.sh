@@ -21,7 +21,7 @@ else
     docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 fi
 
-docker run --privileged -d -ti -e "container=docker"  -v $(pwd)/ci-source:/ci-source:rw -v ~/source_top:/source_top $DOCKER_IMAGE /bin/bash
+docker run --privileged -d -ti -e "container=docker"  -v $(pwd):/ci-source:rw -v ~/source_top:/source_top $DOCKER_IMAGE /bin/bash
 
 DOCKER_CONTAINER_ID=$(docker ps | grep $DOCKER_IMAGE | awk '{print $1}')
 
@@ -51,7 +51,12 @@ EOF1
     fi
     if [ "$OCPN_TARGET" = "bullseye-armhf" ]; then
         cat >> build.sh << "EOF2"
-        install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+        curl http://mirrordirector.raspbian.org/raspbian.public.key  | apt-key add -
+        curl http://archive.raspbian.org/raspbian.public.key  | apt-key add -
+        sudo apt -q update
+        sudo apt install devscripts equivs wget git lsb-release
+        sudo mk-build-deps -ir ci-source/ci/control
+        sudo apt-get --allow-unauthenticated install -f
 EOF2
     else
     cat >> build.sh << "EOF3"
@@ -67,12 +72,6 @@ EOF4
 fi
 
 cat build.sh
-sudo chmod a+x build.sh
-./build.sh
-pwd
-ls -la
-sudo chmod -R a+rw ci-source
-sudo mk-build-deps -ir ci-source/control
 
 if type nproc &> /dev/null
 then
@@ -80,7 +79,7 @@ then
 fi
 
 docker exec -ti \
-    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe /ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
+    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe ci-source/build.sh; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
 
 echo "Stopping"
 docker ps -a
