@@ -58,16 +58,25 @@ EOF1
         sudo apt-get --allow-unauthenticated install -f
 EOF2
     else
-    cat >> build.sh << "EOF3"
-    install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+            cat >> build.sh << "EOF3"
+            install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF3
     fi
 else
-    cat > build.sh << "EOF4"
-    apt-get -qq update
-    apt-get -y install --no-install-recommends \
-    git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+    if [ "$OCPN_TARGET" = "focal-arm64" ]; then
+        cat > build.sh << "EOF4"
+        apt-get -qq update
+        apt-get -y install --no-install-recommends \
+        git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-gtk3-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+
 EOF4
+    else
+        cat > build.sh << "EOF5"
+        apt-get -qq update
+        apt-get -y install --no-install-recommends \
+        git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+EOF5
+    fi
 fi
 
 cat build.sh

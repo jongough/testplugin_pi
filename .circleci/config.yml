@@ -18,39 +18,41 @@ std-filters: &std-filters
 workflows:
     build_all:
         jobs:
-        - build-armhf-stretch:
-            <<: *std-filters
-        - build-armhf-buster:
-            <<: *std-filters
-        - build-armhf-bullseye:
-            <<: *std-filters
+#        - build-armhf-stretch:
+#            <<: *std-filters
+#        - build-armhf-buster:
+#            <<: *std-filters
+#        - build-armhf-bullseye:
+#            <<: *std-filters
 ## Currently circleci does not build armf64 correctly due to no suitable docker image
 ##        - build-armhf-bionic-64:
 ##            <<: *std-filters
-        - build-xenial:
+        - build-armhf-focal-64:
             <<: *std-filters
-        - build-bionic:
-            <<: *std-filters
-        - build-bionic-gtk3:
-            <<: *std-filters
-        - build-focal-gtk3:
-            <<: *std-filters
-        - build-buster:
-            <<: *std-filters
-        - build-flatpak-arm64:
-            <<: *std-filters
-        - build-flatpak-x86-2008:
-            <<: *std-filters
-        - build-flatpak-x86-1808:
-            <<: *std-filters
-        - build-macos:
-            <<: *std-filters
-        - build-macos-wx315:
-            <<: *std-filters
-        - build-android-arm64:
-            <<: *std-filters
-        - build-android-armhf:
-            <<: *std-filters
+#        - build-xenial:
+#            <<: *std-filters
+#        - build-bionic:
+#            <<: *std-filters
+#        - build-bionic-gtk3:
+#            <<: *std-filters
+#        - build-focal-gtk3:
+#            <<: *std-filters
+#        - build-buster:
+#            <<: *std-filters
+#        - build-flatpak-arm64:
+#            <<: *std-filters
+#        - build-flatpak-x86-2008:
+#            <<: *std-filters
+#        - build-flatpak-x86-1808:
+#            <<: *std-filters
+#        - build-macos:
+#            <<: *std-filters
+#        - build-macos-wx315:
+#            <<: *std-filters
+#        - build-android-arm64:
+#            <<: *std-filters
+#        - build-android-armhf:
+#            <<: *std-filters
 
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
@@ -157,6 +159,27 @@ jobs:
         - DOCKER_IMAGE=arm64v8/ubuntu:18.04
         - BUILD_FLAGS=-j3
         - BUILD_ENV=ubuntu
+        - DEPLOY_USE_ORB: false
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - when:
+            condition: <<pipeline.parameters.run_workflow_deploy>>
+            steps:
+            - run: ci/cloudsmith-upload.sh
+    build-armhf-focal-64:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=focal-arm64
+        - OCPN_BRANCH=master
+        - DOCKER_IMAGE=arm64v8/ubuntu:20.04
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=ubuntu
+        - BUILD_GTK3: true
         - DEPLOY_USE_ORB: false
         steps:
         - checkout
