@@ -33,7 +33,9 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     -e "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" \
     -e "GIT_REPOSITORY_SERVER=$GIT_REPOSITORY_SERVER" \
     -e "OCPN_TARGET=$OCPN_TARGET" \
-    -e "BUILD_GTK3=$BUILD_GTK3"
+    -e "BUILD_GTK3=$BUILD_GTK3" \
+    -e "TZ=$TZ" \
+    -e "DEBIAN_FRONTEND=$DEBIAN_FRONTEND"
 
 # Run build script
 rm -f build.sh
@@ -65,7 +67,8 @@ EOF3
 else
     if [ "$OCPN_TARGET" = "focal-arm64" ]; then
         cat > build.sh << "EOF4"
-        apt-get -qq update
+        echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+        apt-get -qq update && DEBIAN_FRONTEND="noninteractive" TZ="America/New_York" apt-get -y --no-install-recommends install tzdata
         apt-get -y install --no-install-recommends \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-gtk3-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 

@@ -179,6 +179,8 @@ jobs:
         - DOCKER_IMAGE=arm64v8/ubuntu:20.04
         - BUILD_FLAGS=-j3
         - BUILD_ENV=ubuntu
+        - TZ=America/New_York
+        - DEBIAN_FRONTEND=noninteractive
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: false
         steps:
