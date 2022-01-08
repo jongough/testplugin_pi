@@ -182,7 +182,7 @@ jobs:
         - TZ=America/New_York
         - DEBIAN_FRONTEND=noninteractive
         - BUILD_GTK3: true
-        - DEPLOY_USE_ORB: false
+        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: chmod a+x ./ci/*.sh
