@@ -65,20 +65,41 @@ EOF2
 EOF3
     fi
 else
-    if [ "$OCPN_TARGET" = "focal-arm64" ]; then
-        cat > build.sh << "EOF4"
+    if [ "$OCPN_TARGET" = "focal-arm64" ] || [ "$OCPN_TARGET" = "focal-armhf" ]; then
+        cat >> build.sh << "EOF4"
+        echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee -a /etc/apt/apt.conf.d/00aptproxy
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-        apt-get -qq update && DEBIAN_FRONTEND="noninteractive" TZ="America/New_York" apt-get -y --no-install-recommends install tzdata
-        apt-get -y install --no-install-recommends \
-        git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-gtk3-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
-
+        apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends install tzdata
+        apt-get -y --no-install-recommends --fix-missing install \
+        software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-gtk3-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF4
-    else
-        cat > build.sh << "EOF5"
-        apt-get -qq update
-        apt-get -y install --no-install-recommends \
-        git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+        if [ "$OCPN_TARGET" = "focal-armhf" ]; then
+            cat >> build.sh << "EOF5"
+            CURRENT_DIR=$(pwd)
+            version=3.22
+            build=1
+            mkdir ~/temp
+            cd ~/temp
+            wget --no-check-certificate https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+            tar -xzvf cmake-$version.$build.tar.gz
+            cd cmake-$version.$build/
+            ./bootstrap
+            make -j$(nproc)
+            make install
+            cmake --version
+            cd $CURRENT_DIR
 EOF5
+        else
+            cat >> build.sh << "EOF6"
+            apt install -y cmake
+EOF6
+        fi
+    else
+        cat > build.sh << "EOF7"
+        apt-get -qq update
+        apt-get -y --no-install-recommends install \
+        git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+EOF7
     fi
 fi
 
