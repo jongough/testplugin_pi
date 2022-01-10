@@ -66,8 +66,9 @@ EOF3
     fi
 else
     if [ "$OCPN_TARGET" = "focal-arm64" ] || [ "$OCPN_TARGET" = "focal-armhf" ]; then
+#        cat >> build.sh << "EOF4"
+#        echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee -a /etc/apt/apt.conf.d/00aptproxy
         cat >> build.sh << "EOF4"
-        echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee -a /etc/apt/apt.conf.d/00aptproxy
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
         apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends install tzdata
         apt-get -y --no-install-recommends --fix-missing install \
