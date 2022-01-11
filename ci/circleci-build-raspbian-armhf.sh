@@ -76,10 +76,11 @@ else
 EOF4
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
             cat >> build.sh << "EOF5"
+            CMAKE_VERSION=3.20.5-0kitware1ubuntu20.04.1
             wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc --no-check-certificate 2>/dev/null | apt-key add -
             apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
             apt-get update
-            apt install cmake=3.20.5-0kitware1ubuntu20.04.1 cmake-data=3.20.5-0kitware1ubuntu20.04.1
+            apt install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
 EOF5
         else
             cat >> build.sh << "EOF6"
