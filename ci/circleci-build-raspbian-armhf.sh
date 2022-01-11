@@ -33,7 +33,9 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
     -e "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" \
     -e "GIT_REPOSITORY_SERVER=$GIT_REPOSITORY_SERVER" \
     -e "OCPN_TARGET=$OCPN_TARGET" \
-    -e "BUILD_GTK3=$BUILD_GTK3"
+    -e "BUILD_GTK3=$BUILD_GTK3" \
+    -e "TZ=$TZ" \
+    -e "DEBIAN_FRONTEND=$DEBIAN_FRONTEND"
 
 # Run build script
 rm -f build.sh
@@ -58,16 +60,40 @@ EOF1
         sudo apt-get --allow-unauthenticated install -f
 EOF2
     else
-    cat >> build.sh << "EOF3"
-    install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+            cat >> build.sh << "EOF3"
+            install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF3
     fi
 else
-    cat > build.sh << "EOF4"
-    apt-get -qq update
-    apt-get -y install --no-install-recommends \
-    git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+    if [ "$OCPN_TARGET" = "focal-arm64" ] || [ "$OCPN_TARGET" = "focal-armhf" ]; then
+#        cat >> build.sh << "EOF4"
+#        echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee -a /etc/apt/apt.conf.d/00aptproxy
+        cat >> build.sh << "EOF4"
+        echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+        apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends install tzdata
+        apt-get -y --no-install-recommends --fix-missing install \
+        software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-gtk3-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF4
+        if [ "$OCPN_TARGET" = "focal-armhf" ]; then
+            cat >> build.sh << "EOF5"
+            CMAKE_VERSION=3.20.5-0kitware1ubuntu20.04.1
+            wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc --no-check-certificate 2>/dev/null | apt-key add -
+            apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
+            apt-get update
+            apt install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
+EOF5
+        else
+            cat >> build.sh << "EOF6"
+            apt install -y cmake
+EOF6
+        fi
+    else
+        cat > build.sh << "EOF7"
+        apt-get -qq update
+        apt-get -y --no-install-recommends install \
+        git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+EOF7
+    fi
 fi
 
 cat build.sh
