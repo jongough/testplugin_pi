@@ -40,9 +40,9 @@ docker exec -ti $DOCKER_CONTAINER_ID /bin/bash -xec \
 # Run build script
 rm -f build.sh
 echo "export BUILD_GTK3=$BUILD_GTK3" | tee -a build.sh
-cat >> build.sh << "EOF"
-echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee -a /etc/apt/apt.conf.d/00aptproxy
-EOF
+#cat >> build.sh << "EOF"
+#echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee -a /etc/apt/apt.conf.d/00aptproxy
+#EOF
 
 if [ "$BUILD_ENV" = "raspbian" ]; then
     if [ "$OCPN_TARGET" = "buster-armhf" ]; then
@@ -92,7 +92,6 @@ EOF7
         fi
     else
         cat > build.sh << "EOF8"
-        echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee -a /etc/apt/apt.conf.d/00aptproxy
         apt-get -qq update
         apt-get -y --no-install-recommends install \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
