@@ -22,15 +22,15 @@ workflows:
 #            <<: *std-filters
 #        - build-armhf-buster:
 #            <<: *std-filters
-#        - build-armhf-buster-ubuntu:
-#            <<: *std-filters
+        - build-armhf-buster-ubuntu:
+            <<: *std-filters
 #        - build-armhf-bullseye:
 #            <<: *std-filters
 ## Currently circleci does not build armf64 correctly due to no suitable docker image
 ##        - build-armhf-bionic-64:
 ##            <<: *std-filters
-        - build-armhf-focal:
-            <<: *std-filters
+#        - build-armhf-focal:
+#            <<: *std-filters
 #        - build-armhf-focal-64:
 #            <<: *std-filters
 #        - build-xenial:
@@ -142,7 +142,7 @@ jobs:
             image: ubuntu-2004:202104-01
         environment:
         - OCPN_TARGET=buster-armhf
-        - DOCKER_IMAGE=arm32v7/ubuntu:18.04
+        - DOCKER_IMAGE=jongough/ubuntu-armhf:18.04
         - BUILD_FLAGS=-j3
         - BUILD_ENV=ubuntu
         - DEPLOY_USE_ORB: true
