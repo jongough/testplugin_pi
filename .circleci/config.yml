@@ -20,18 +20,22 @@ workflows:
         jobs:
         - build-armhf-stretch:
             <<: *std-filters
-## Derecated in favour of ubuntu-armhf:18.04 build - 14/01/2022
+## Derecated in favour of debian-armhf:10 build - 14/01/2022
 ##        - build-armhf-buster:
 ##            <<: *std-filters
-        - build-armhf-buster-ubuntu:
+        - build-armhf-buster-debian:
             <<: *std-filters
-## Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
+        - build-armhf-bionic-ubuntu:
+            <<: *std-filters
+## Derecated in favour of debian-armhf:11 build - 14/01/2022
 ##        - build-armhf-bullseye:
 ##            <<: *std-filters
+        - build-armhf-bullseye-debian:
+            <<: *std-filters
 ## Currently circleci does not build armf64 correctly due to no suitable docker image
 ##        - build-armhf-bionic-64:
 ##            <<: *std-filters
-        - build-armhf-focal:
+        - build-armhf-focal-ubuntu:
             <<: *std-filters
 ## Not required as flatpak build used instead - 14/01/2022
 ##        - build-armhf-focal-64:
@@ -140,11 +144,27 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    build-armhf-buster-ubuntu:
+    build-armhf-buster-debian:
         machine:
             image: ubuntu-2004:202104-01
         environment:
         - OCPN_TARGET=buster-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:buster
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-armhf-bionic-ubuntu:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=bionic-armhf
         - DOCKER_IMAGE=jongough/ubuntu-armhf:18.04
         - BUILD_FLAGS=-j3
         - BUILD_ENV=ubuntu
@@ -173,6 +193,23 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
+    build-armhf-bullseye-debian:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=bullseye-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:bullseye
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
     build-armhf-bionic-64:
         machine:
             image: ubuntu-2004:202104-01
@@ -190,7 +227,7 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    build-armhf-focal:
+    build-armhf-focal-ubuntu:
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -199,8 +236,6 @@ jobs:
         - DOCKER_IMAGE=jongough/ubuntu-armhf:20.04
         - BUILD_FLAGS=-j3
         - BUILD_ENV=ubuntu
-        - TZ="America/New_York"
-        - DEBIAN_FRONTEND="noninteractive"
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
