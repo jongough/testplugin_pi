@@ -193,7 +193,7 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    build-armhf-debain-bullseye:
+    build-armhf-debian-bullseye:
         machine:
             image: ubuntu-2004:202104-01
         environment:
