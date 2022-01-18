@@ -40,8 +40,9 @@ workflows:
 ## Not required as flatpak build used instead - 14/01/2022
 ##        - build-armhf-ubuntu-focal-64:
 ##            <<: *std-filters
-        - build-xenial:
-            <<: *std-filters
+## Removed as no suitable python3 version for xenial available - 19/01/2022
+##        - build-xenial:
+##            <<: *std-filters
         - build-bionic:
             <<: *std-filters
         - build-bionic-gtk3:
