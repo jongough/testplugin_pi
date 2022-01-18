@@ -21,23 +21,28 @@ workflows:
         - build-armhf-stretch:
             <<: *std-filters
 ## Derecated in favour of ubuntu-armhf:18.04 build - 14/01/2022
-##        - build-armhf-buster:
+##        - build-armhf-raspbian-buster:
 ##            <<: *std-filters
-        - build-armhf-buster-ubuntu:
+        - build-armhf-ubuntu-buster:
+            <<: *std-filters
+        - build-armhf-debian-buster:
             <<: *std-filters
 ## Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
 ##        - build-armhf-bullseye:
 ##            <<: *std-filters
+        - build-armhf-debian-bullseye:
+            <<: *std-filters
 ## Currently circleci does not build armf64 correctly due to no suitable docker image
 ##        - build-armhf-bionic-64:
 ##            <<: *std-filters
-        - build-armhf-focal:
+        - build-armhf-ubuntu-focal:
             <<: *std-filters
 ## Not required as flatpak build used instead - 14/01/2022
-##        - build-armhf-focal-64:
+##        - build-armhf-ubuntu-focal-64:
 ##            <<: *std-filters
-        - build-xenial:
-            <<: *std-filters
+## Removed as no suitable python3 version for xenial available - 19/01/2022
+##        - build-xenial:
+##            <<: *std-filters
         - build-bionic:
             <<: *std-filters
         - build-bionic-gtk3:
@@ -124,7 +129,7 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    build-armhf-buster:
+    build-armhf-raspbian-buster:
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -140,7 +145,7 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    build-armhf-buster-ubuntu:
+    build-armhf-ubuntu-buster:
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -148,6 +153,22 @@ jobs:
         - DOCKER_IMAGE=jongough/ubuntu-armhf:18.04
         - BUILD_FLAGS=-j3
         - BUILD_ENV=ubuntu
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-armhf-debian-buster:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=buster-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:buster
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
@@ -164,6 +185,23 @@ jobs:
         - DOCKER_IMAGE=balenalib/raspberry-pi-debian:bullseye
         - BUILD_FLAGS=-j3
         - BUILD_ENV=raspbian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-armhf-debian-bullseye:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=bullseye-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:bullseye
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -190,7 +228,7 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    build-armhf-focal:
+    build-armhf-ubuntu-focal:
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -210,7 +248,7 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    build-armhf-focal-64:
+    build-armhf-ubuntu-focal-64:
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -247,8 +285,7 @@ jobs:
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
-        - deploy-code:
-            install-python: true
+        - deploy-code
     build-bionic:
         docker:
         - image: cimg/base:stable-18.04

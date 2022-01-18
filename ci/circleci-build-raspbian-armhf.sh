@@ -70,7 +70,10 @@ EOF3
 EOF4
     fi
 else
-    if [ "$OCPN_TARGET" = "focal-arm64" ] || [ "$OCPN_TARGET" = "focal-armhf" ]; then
+    if [ "$OCPN_TARGET" = "focal-arm64" ] ||
+       [ "$OCPN_TARGET" = "focal-armhf" ] ||
+       [ "$OCPN_TARGET" = "bullseye-armhf" ] ||
+       [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
         apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends install tzdata
@@ -107,7 +110,7 @@ then
 fi
 
 docker exec -ti \
-    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe ci-source/build.sh; export BUILD_GTK3=$BUILD_GTK3; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
+    $DOCKER_CONTAINER_ID /bin/bash -xec "bash -xe ci-source/build.sh; export BUILD_ENV=$BUILD_ENV; export BUILD_GTK3=$BUILD_GTK3; rm -rf ci-source/build; mkdir ci-source/build; cd ci-source/build; cmake ..; make $BUILD_FLAGS; make package; chmod -R a+rw ../build;"
 
 echo "Stopping"
 docker ps -a
