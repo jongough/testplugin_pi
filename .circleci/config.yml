@@ -284,8 +284,7 @@ jobs:
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
-        - deploy-code:
-            install-python: true
+        - deploy-code
     build-bionic:
         docker:
         - image: cimg/base:stable-18.04
