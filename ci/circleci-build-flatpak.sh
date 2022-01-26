@@ -33,13 +33,13 @@ flatpak remote-add --user --if-not-exists \
 
 
 if [ "$FLATPAK_BRANCH" = "beta" ]; then
-    flatpak install --user -y flathub org.freedesktop.Sdk//20.08 >/dev/null
+    flatpak install --user -y flathub org.freedesktop.Sdk//$SDK_VER >/dev/null
     flatpak remote-add --user --if-not-exists flathub-beta \
         https://dl.flathub.org/beta-repo/flathub-beta.flatpakrepo
     flatpak install --user -y flathub-beta \
         org.opencpn.OpenCPN >/dev/null
 else
-    flatpak install --user -y flathub org.freedesktop.Sdk//18.08 >/dev/null
+    flatpak install --user -y flathub org.freedesktop.Sdk//$SDK_VER >/dev/null
     flatpak remote-add --user --if-not-exists flathub \
         https://dl.flathub.org/repo/flathub.flatpakrepo
     flatpak install --user -y flathub \
@@ -49,9 +49,13 @@ fi
 
 rm -rf build && mkdir build && cd build
 if [ "$FLATPAK_BRANCH" = 'beta' ]; then
-  cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=20.08 ..
+    if [ NOT "$WXWIDGETS_FORCE_VERSION" = "" ]; then
+        cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=20.08 -DWXWIDGETS_FORCE_VERSION=$WXWIDGETS_FORCE_VERSION ..
+    else
+        cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=20.08 ..
+    fi
 else
-  cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=18.08 ..
+    cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=18.08 ..
 fi
 
 make flatpak-build
