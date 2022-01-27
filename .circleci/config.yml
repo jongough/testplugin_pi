@@ -43,7 +43,7 @@ workflows:
 ## Removed as no suitable python3 version for xenial available - 19/01/2022
 ##        - build-xenial:
 ##            <<: *std-filters
-       - build-bionic:
+        - build-bionic:
             <<: *std-filters
         - build-bionic-gtk3:
             <<: *std-filters
