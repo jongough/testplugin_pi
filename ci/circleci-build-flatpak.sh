@@ -49,13 +49,9 @@ fi
 
 rm -rf build && mkdir build && cd build
 if [ "$FLATPAK_BRANCH" = 'beta' ]; then
-    if [ NOT "$WXWIDGETS_FORCE_VERSION" = "" ]; then
-        cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=20.08 -DWXWIDGETS_FORCE_VERSION=$WXWIDGETS_FORCE_VERSION ..
-    else
-        cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=20.08 ..
-    fi
+    cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=$SDK_VER ..
 else
-    cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=18.08 ..
+    cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=$SDK_VER ..
 fi
 
 make flatpak-build
