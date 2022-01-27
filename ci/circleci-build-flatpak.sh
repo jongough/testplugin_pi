@@ -48,10 +48,10 @@ else
 fi
 
 rm -rf build && mkdir build && cd build
-if [ not "$FLATPAK_BRANCH" = '' ]; then
-    cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=$SDK_VER -DFLATPAK_BRANCH=$FLATPAK_BRANCH ..
-else
+if [ "$FLATPAK_BRANCH" = '' ]; then
     cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=$SDK_VER -DFLATPAK_BRANCH='beta' ..
+else
+    cmake -DOCPN_FLATPAK_CONFIG=ON -DSDK_VER=$SDK_VER -DFLATPAK_BRANCH=$FLATPAK_BRANCH ..
 fi
 
 make flatpak-build
