@@ -124,9 +124,9 @@ echo $tarball_basename
 
 source $BUILD_DIR/pkg_version.sh
 if [ -n "${OCPN_TARGET}" ]; then
-    tarball_name=@PACKAGE_NAME@-@PACKAGE_VERSION@-${PKG_TARGET}-@ARCH@-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
+    tarball_name=@PACKAGE_NAME@-@PACKAGE_VERSION@-${PKG_TARGET}-@ARCH@@PKG_TARGET_WX_VER@-${PKG_TARGET_VERSION}-${OCPN_TARGET}-tarball
 else
-    tarball_name=@PACKAGE_NAME@-@PACKAGE_VERSION@-${PKG_TARGET}-@ARCH@-${PKG_TARGET_VERSION}-tarball
+    tarball_name=@PACKAGE_NAME@-@PACKAGE_VERSION@-${PKG_TARGET}-@ARCH@@PKG_TARGET_WX_VER@-${PKG_TARGET_VERSION}-tarball
 fi
 
 if [ "$(ls $BUILD_DIR/*.${PKG_EXT})" ]; then
