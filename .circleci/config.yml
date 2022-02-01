@@ -413,6 +413,7 @@ jobs:
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: beta
+        - WX_VER: wx315
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 20.08
         - DEPLOY_USE_ORB: true
