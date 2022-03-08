@@ -274,11 +274,12 @@ if(APPLE)
     add_definitions(" -g -fno-strict-aliasing")
     add_definitions(" -Wno-deprecated -Wno-deprecated-declarations -Wno-unknown-pragmas")
     add_definitions(" -D_WCHAR_H_CPLUSPLUS_98_CONFORMANCE_")
+    add_definitions(-DAPPLE)
     add_compile_options(-DAPPLE)
     message(STATUS "${CMLOC}Added -DAPPLE to compile options")
     get_cmake_property(CURRENT_COMPILE_OPTIONS COMPILE_OPTIONS)
     message(STATUS "${CMLOC}Current compile options: ${CURRENT_COMPILE_OPTIONS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DAPPLE")
+    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DAPPLE")
 endif(APPLE)
 
 # Add some definitions to satisfy MS
