@@ -278,6 +278,7 @@ if(APPLE)
     message(STATUS "${CMLOC}Added -DAPPLE to compile options")
     get_cmake_property(CURRENT_COMPILE_OPTIONS COMPILE_OPTIONS)
     message(STATUS "${CMLOC}Current compile options: ${CURRENT_COMPILE_OPTIONS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DAPPLE")
 endif(APPLE)
 
 # Add some definitions to satisfy MS
