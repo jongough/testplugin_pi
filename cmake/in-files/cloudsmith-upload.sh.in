@@ -261,7 +261,7 @@ elif [ $LOCAL_BUILD = false ]; then
 
         if [ "${PKG_EXT}" != "gz" ] && [ "$pkg" != "" ]; then
             cloudsmith push raw --republish --no-wait-for-sync \
-                --name opencpn-package-@PACKAGE@-@PACKAGE_VERSION@-@PKG_TARGET@-@ARCH@PKG_TARGET_WX_VER@-@PKG_TARGET_VERSION@-${OCPN_TARGET}.${PKG_EXT} \
+                --name opencpn-package-@PACKAGE@-@PACKAGE_VERSION@-@PKG_TARGET@-@ARCH@@PKG_TARGET_WX_VER@-@PKG_TARGET_VERSION@-${OCPN_TARGET}.${PKG_EXT} \
                 --version ${VERSION} \
                 --summary "@PACKAGE@ .${PKG_EXT} installation package" \
                 $REPO $pkg
