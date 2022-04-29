@@ -28,8 +28,8 @@ workflows:
         - build-armhf-debian-buster:
             <<: *std-filters
 ## Ready to build gtk3 version of armhf debian buster
-#        - build-armhf-debian-buster-gtk3:
-#            <<: *std-filters
+        - build-armhf-debian-buster-gtk3:
+            <<: *std-filters
 ## Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
 ##        - build-armhf-bullseye:
 ##            <<: *std-filters
@@ -182,7 +182,7 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-    bstuild-armhf-debian-buer-gtk3:
+    build-armhf-debian-buster-gtk3:
         machine:
             image: ubuntu-2004:202104-01
         environment:
