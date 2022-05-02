@@ -15,11 +15,15 @@ sudo apt-get -y install git cmake gettext unzip
 
 # Get the OCPN Android build support package.
 # FOR LOCAL BUILD - have a local version to avoid big download each run - need to stage it but not commit it. DO NOT COMMIT AND PUSH master.zip
-echo "CIRCLECI_LOCAL: $CIRCLECI_LOCAL"
-if [ -z "$CIRCLECI_LOCAL" ]; then
-   wget https://github.com/bdbcat/OCPNAndroidCommon/archive/master.zip
+if [ "${CIRCLECI_LOCAL,,}" = "true" ]; then
+    if [[ -d "/home/circleci/circleci-cache" ]]  && [[ -f "/home/circleci/circleci-cache/master.zip" ]]; then
+        echo "in circleci-cache for master.zip"
+        unzip -qq -o /home/circleci/circleci-cache/master.zip
+    else
+        wget https://github.com/bdbcat/OCPNAndroidCommon/archive/master.zip
+        unzip -qq -o master.zip
+    fi
 fi
-unzip -qq -o master.zip
 
 pwd
 ls -la

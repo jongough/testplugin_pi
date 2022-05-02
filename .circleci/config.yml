@@ -90,15 +90,8 @@ commands:
                 - when:
                     condition: <<parameters.install-python>>
                     steps:
-                    - run: sudo apt install software-properties-common
-                    - run: sudo add-apt-repository ppa:deadsnakes/ppa -y
-                    - run: sudo apt update
-                    - run: sudo apt install -y python3.7
-                    - run: ls -la /usr/bin/python*
-                    - run: sudo rm /usr/bin/python3
-                    - run: sudo ln -s /usr/bin/python3.7 /usr/bin/python3
-                    - run: ls -la /usr/bin/python*
-                    - run: sudo apt install -y python3.7 python3-pip
+                    - run: sudo apt install -y python3-pip
+                    - run: python3.8 -m pip install cloudsmith-cli
                 - when:
                     condition: <<parameters.use-orb>>
                     steps:
@@ -506,7 +499,6 @@ jobs:
         resource_class: large
         environment:
         - OCPN_TARGET:  android-armhf
-        - DEPLOY_USE_ORB: true
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
