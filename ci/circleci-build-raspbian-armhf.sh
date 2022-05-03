@@ -81,11 +81,14 @@ else
         software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF5
         if [ "$OCPN_TARGET" = "buster-armhf" ]; then
-            if [ -v $BUILD_GTK3 ] || [ "$BUILD_GTK3" = "false" ]; then
+            echo "BUILD_GTK3: $BUILD_GTK3"
+            if [ ! -n "$BUILD_GTK3" ] || [ "$BUILD_GTK3" = "false" ]; then
+                echo "Building for GTK2"
                 cat >> build.sh << "EOF6"
                 apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-dev
 EOF6
             else
+                echo "Building for GTK3"
                 cat >> build.sh << "EOF7"
                 apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-gtk3-dev
 EOF7
