@@ -28,7 +28,7 @@ if [ "${CIRCLECI_LOCAL,,}" = "true" ]; then
         #unzip -qq -o /home/circleci/circleci-cache/master.zip
     fi
 else
-    MASTER_LOC=pwd
+    MASTER_LOC=$(pwd)
     wget https://github.com/bdbcat/OCPNAndroidCommon/archive/master.zip
     #unzip -qq -o master.zip
 fi
