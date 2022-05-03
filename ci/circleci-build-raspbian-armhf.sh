@@ -80,15 +80,16 @@ else
         apt-get -y --no-install-recommends --fix-missing install \
         software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF5
-        if [ "$OCPN_TARGET" = "buster-armhf" ] &&
-           [ [[ -v $BUILD_GTK3 ]] || [[ "$BUILD_GTK3" = "false" ]] ]; then
-           cat >> build.sh << "EOF6"
-           apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-dev
+        if [ "$OCPN_TARGET" = "buster-armhf" ]; then
+            if [ -v $BUILD_GTK3 ] || [ "$BUILD_GTK3" = "false" ]; then
+                cat >> build.sh << "EOF6"
+                apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-dev
 EOF6
-        else
-            cat >> build.sh << "EOF7"
-            apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-gtk3-dev
+            else
+                cat >> build.sh << "EOF7"
+                apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-gtk3-dev
 EOF7
+            fi
         fi
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
             cat >> build.sh << "EOF8"
