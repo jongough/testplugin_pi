@@ -36,7 +36,7 @@ unzip -qq -o $MASTER_LOC/master.zip
 sudo apt-get -q update
 sudo apt-get -y install git cmake gettext unzip
 
-# Install extra libs
+# Install extra build libs
 ME=$(echo ${0##*/} | sed 's/\.sh//g')
 EXTRA_LIBS=../ci/extras/extra_libs.txt
 if test -f "$EXTRA_LIBS"; then
@@ -50,7 +50,6 @@ if test -f "$EXTRA_LIBS"; then
         sudo apt-get install $line
     done < $EXTRA_LIBS
 fi
-
 
 pwd
 ls -la
