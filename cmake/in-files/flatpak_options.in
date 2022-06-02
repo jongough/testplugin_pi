@@ -1,0 +1,5 @@
+# add flatpak-options args in here like this:
+#build-options:
+#    build-args:
+#        - --share=network
+# be carefull about indents and naming.
