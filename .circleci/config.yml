@@ -62,13 +62,13 @@ workflows:
             <<: *std-filters
         - build-flatpak-arm64:
             <<: *std-filters
-       - build-macos:
+        - build-macos:
            <<: *std-filters
-       - build-macos-wx315:
+        - build-macos-wx315:
            <<: *std-filters
-       - build-android-arm64:
+        - build-android-arm64:
            <<: *std-filters
-       - build-android-armhf:
+        - build-android-armhf:
            <<: *std-filters
 
 orbs:
