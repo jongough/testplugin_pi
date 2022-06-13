@@ -230,6 +230,11 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
 
+# Needed for all android builds
+if(QT_ANDROID)
+    include_directories(BEFORE ${qt_android_include})
+endif(QT_ANDROID)
+
 #
 # ----- Change below to match project requirements for android build ----- ##
 #
@@ -292,11 +297,6 @@ endif(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
 ##
 ## ----- do not change next section - needed to configure build process ----- ##
 ##
-
-# Needed for android builds
-if(QT_ANDROID)
-    include_directories(BEFORE ${qt_android_include})
-endif(QT_ANDROID)
 
 # Needed for all builds
 include("PluginInstall")
