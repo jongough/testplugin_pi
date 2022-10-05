@@ -78,7 +78,7 @@ else
         software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF5
         if [ "$OCPN_TARGET" = "buster-armhf" ] ||
-        if [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
+           [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
             echo "BUILD_GTK3: $BUILD_GTK3"
             if [ ! -n "$BUILD_GTK3" ] || [ "$BUILD_GTK3" = "false" ]; then
                 echo "Building for GTK2"
