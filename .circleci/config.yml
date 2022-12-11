@@ -60,8 +60,8 @@ workflows:
             <<: *std-filters
         - build-flatpak-x86-2008:
             <<: *std-filters
-        - build-flatpak-x86-2008-beta:
-            <<: *std-filters
+#        - build-flatpak-x86-2008-beta:
+#            <<: *std-filters
         - build-flatpak-x86-1808:
             <<: *std-filters
         - build-flatpak-arm64:
