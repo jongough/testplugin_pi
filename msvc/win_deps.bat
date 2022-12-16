@@ -117,5 +117,6 @@ if not exist "%WXWIN%" (
       7z x wxWidgets-3.1.2.7z -o%WXWIN%
   )
 )
-
+dir cache
+cat cache/wx-config
 ::refreshenv
