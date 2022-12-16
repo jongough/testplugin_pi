@@ -16,7 +16,7 @@ path %SCRIPTDIR%.local\bin;%PATH%;"C:\Program Files\CMake\bin"
 dir "C:\Program Files\CMake\bin"
 dir %SCRIPTDIR%
 dir %SCRIPTDIR%..\cache
-print "%SCRIPTDIR..\cache\wx-config.bat"
+type "%SCRIPTDIR..\cache\wx-config.bat"
 echo "did it show?"
 call "%SCRIPTDIR%..\cache\wx-config.bat"
 path

@@ -118,5 +118,5 @@ if not exist "%WXWIN%" (
   )
 )
 dir cache
-print cache/wx-config
+type cache/wx-config
 ::refreshenv
