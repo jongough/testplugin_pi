@@ -14,7 +14,9 @@ dir %SCRIPTDIR%\..\msvc
 call "%SCRIPTDIR%\..\msvc\win_deps" %wx_vers%
 path %SCRIPTDIR%\.local\bin;%PATH%;"C:\Program Files\CMake\bin"
 dir "C:\Program Files\CMake\bin"
-call %SCRIPTDIR%..\cache\wx-config.bat
+dir %SCRIPTDIR%
+dir %SCRIPTDIR%cache
+call %SCRIPTDIR%\..\cache\wx-config.bat
 path
 echo USING wxWidgets_LIB_DIR: !wxWidgets_LIB_DIR!
 echo USING wxWidgets_ROOT_DIR: !wxWidgets_ROOT_DIR!
