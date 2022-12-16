@@ -544,5 +544,11 @@ jobs:
             install-python: true
     build-msvc-2022:
         executor: win/server-2022
+        environment:
+        - OCPN_TARGET: MSVC
+        - MSVC_VERSION: 2022
+        - WXVERSION: 32
+        - DEPLOY_USE_ORB: true
         steps:
-        - run: Write-Host 'Hello, Windows'
+        - checkout
+        - run: ci/circleci-build-msvc
