@@ -10,7 +10,7 @@ echo Building %wx_vers%
 
 PATH %SCRIPTDIR%\.local\bin;%PATH%
 dir %SCRIPTDIR%\..
-dir %SCRIPTDIR%\..\mdsvc
+dir %SCRIPTDIR%\..\msvc
 exit
 call %SCRIPTDIR%\..\msvc\win_deps.bat %wx_vers%
 path
