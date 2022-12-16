@@ -118,4 +118,4 @@ if not exist "%WXWIN%" (
   )
 )
 
-refreshenv
+::refreshenv
