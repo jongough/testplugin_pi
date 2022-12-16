@@ -13,6 +13,7 @@ dir %SCRIPTDIR%\..
 dir %SCRIPTDIR%\..\msvc
 call %SCRIPTDIR%\..\msvc\win_deps %wx_vers%
 path
+dir C:\Program Files\CMake
 exit
 call %SCRIPTDIR%..\cache\wx-config.bat
 path
