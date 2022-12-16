@@ -12,7 +12,7 @@ PATH %SCRIPTDIR%\.local\bin;%PATH%
 dir %SCRIPTDIR%\..
 dir %SCRIPTDIR%\..\msvc
 exit
-call %SCRIPTDIR%\..\msvc\win_deps.bat %wx_vers%
+call %SCRIPTDIR%\..\msvc\win_deps %wx_vers%
 path
 call %SCRIPTDIR%..\cache\wx-config.bat
 path
