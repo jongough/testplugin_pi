@@ -547,5 +547,3 @@ jobs:
         executor: win/server-2022
         steps:
         - run: Write-Host 'Hello, Windows'
-
-
