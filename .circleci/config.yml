@@ -77,7 +77,6 @@ workflows:
         - build-msvc-2022:
             <<: *std-filters
 
-    win: circleci/windows@5.0
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
     win: circleci/windows@5.0
