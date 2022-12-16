@@ -14,7 +14,8 @@ call %SCRIPTDIR%..\cache\wx-config.bat
 echo USING wxWidgets_LIB_DIR: !wxWidgets_LIB_DIR!
 echo USING wxWidgets_ROOT_DIR: !wxWidgets_ROOT_DIR!
 echo USING OCPN_TARGET_TUPLE: !TARGET_TUPLE!
-path
+pathman list
+call "c:\program files\cmake\bin\cmake" --version
 ::pause
 exit
 nmake /?  >nul 2>&1
