@@ -16,11 +16,13 @@ path %SCRIPTDIR%.local\bin;%PATH%;"C:\Program Files\CMake\bin"
 dir "C:\Program Files\CMake\bin"
 dir %SCRIPTDIR%
 dir %SCRIPTDIR%..\cache
+print "%SCRIPTDIR..\cache\wx-config.bat"
+echo "did it show?"
 call "%SCRIPTDIR%..\cache\wx-config.bat"
 path
-echo USING wxWidgets_LIB_DIR: !wxWidgets_LIB_DIR!
-echo USING wxWidgets_ROOT_DIR: !wxWidgets_ROOT_DIR!
-echo USING OCPN_TARGET_TUPLE: !TARGET_TUPLE!
+echo USING wxWidgets_LIB_DIR: %wxWidgets_LIB_DIR%
+echo USING wxWidgets_ROOT_DIR: %wxWidgets_ROOT_DIR%
+echo USING OCPN_TARGET_TUPLE: %TARGET_TUPLE%
 
 nmake /?  >nul 2>&1
 if errorlevel 1 (
