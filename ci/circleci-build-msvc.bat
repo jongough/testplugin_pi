@@ -9,7 +9,9 @@ set wx_vers="wx%WXVERSION%"
 echo Building %wx_vers%
 
 PATH %SCRIPTDIR%\.local\bin;%PATH%
-dir %SCRIPTDIR%
+dir %SCRIPTDIR%\..
+dir %SCRIPTDIR%\..\mdsvc
+exit
 call %SCRIPTDIR%\..\msvc\win_deps.bat %wx_vers%
 path
 call %SCRIPTDIR%..\cache\wx-config.bat
