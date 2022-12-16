@@ -10,7 +10,9 @@ echo Building %wx_vers%
 
 PATH %SCRIPTDIR%\.local\bin;%PATH%
 call %SCRIPTDIR%..\msvc\win_deps.bat %wx_vers%
+path
 call %SCRIPTDIR%..\cache\wx-config.bat
+path
 echo USING wxWidgets_LIB_DIR: !wxWidgets_LIB_DIR!
 echo USING wxWidgets_ROOT_DIR: !wxWidgets_ROOT_DIR!
 echo USING OCPN_TARGET_TUPLE: !TARGET_TUPLE!
