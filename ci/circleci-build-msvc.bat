@@ -13,13 +13,7 @@ dir %SCRIPTDIR%..
 dir %SCRIPTDIR%..\msvc
 call "%SCRIPTDIR%..\msvc\win_deps" %wx_vers%
 path %SCRIPTDIR%.local\bin;%PATH%;"C:\Program Files\CMake\bin"
-dir "C:\Program Files\CMake\bin"
-dir %SCRIPTDIR%
-dir %SCRIPTDIR%..\cache
-type "%SCRIPTDIR..\cache\wx-config.bat"
-echo "did it show?"
 call "%SCRIPTDIR%..\cache\wx-config.bat"
-path
 echo USING wxWidgets_LIB_DIR: %wxWidgets_LIB_DIR%
 echo USING wxWidgets_ROOT_DIR: %wxWidgets_ROOT_DIR%
 echo USING OCPN_TARGET_TUPLE: %TARGET_TUPLE%
@@ -36,8 +30,8 @@ mkdir build && cd build
 cmake -A Win32 -G "Visual Studio 17 2022" ^
     -DCMAKE_GENERATOR_PLATFORM=Win32 ^
     -DCMAKE_BUILD_TYPE=%CONFIGURATION% ^
-    -DwxWidgets_LIB_DIR=!wxWidgets_LIB_DIR! ^
-    -DwxWidgets_ROOT_DIR=!wxWidgets_ROOT_DIR! ^
-    -DOCPN_TARGET_TUPLE=!TARGET_TUPLE! ^
+    -DwxWidgets_LIB_DIR=%wxWidgets_LIB_DIR% ^
+    -DwxWidgets_ROOT_DIR=%wxWidgets_ROOT_DIR% ^
+    -DOCPN_TARGET_TUPLE=%TARGET_TUPLE! ^
     ..
 cmake --build . --target tarball --config %CONFIGURATION%
