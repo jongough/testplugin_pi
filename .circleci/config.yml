@@ -545,7 +545,7 @@ jobs:
             install-python: true
     build-msvc-2022:
         executor: win/server-2022
-        step:
+        steps:
         - run: Write-Host 'Hello, Windows'
 
 
