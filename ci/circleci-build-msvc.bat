@@ -1,11 +1,11 @@
-#
-# Build the msvc artifacts
-#
+::
+:: Build the msvc artifacts
+::
 set "SCRIPTDIR=%~dp0"
 set "GIT_HOME=C:\Program Files\Git"
 if "%CONFIGURATION%" == "" set "CONFIGURATION=RelWithDebInfo"
 
-set "wx_vers=wx32"
+set wx_vers="wx32"
 echo Building !wx_vers!
 
 call %SCRIPTDIR%..\msvc\win_deps.bat !wx_vers!
