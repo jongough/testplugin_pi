@@ -5,15 +5,15 @@ set "SCRIPTDIR=%~dp0"
 set "GIT_HOME=C:\Program Files\Git"
 if "%CONFIGURATION%" == "" set "CONFIGURATION=RelWithDebInfo"
 
-set wx_vers="wx32"
-echo Building !wx_vers!
+set wx_vers="wx%WXVERSION""
+echo Building %wx_vers%
 
-call %SCRIPTDIR%..\msvc\win_deps.bat !wx_vers!
+call %SCRIPTDIR%..\msvc\win_deps.bat %wx_vers%
 call %SCRIPTDIR%..\cache\wx-config.bat
 echo USING wxWidgets_LIB_DIR: !wxWidgets_LIB_DIR!
 echo USING wxWidgets_ROOT_DIR: !wxWidgets_ROOT_DIR!
 echo USING OCPN_TARGET_TUPLE: !TARGET_TUPLE!
-
+pause
 nmake /?  >nul 2>&1
 if errorlevel 1 (
   set "VS_HOME=C:\Program Files\Microsoft Visual Studio\2022"
