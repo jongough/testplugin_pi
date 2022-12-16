@@ -12,11 +12,11 @@ PATH %SCRIPTDIR%\.local\bin;%PATH%
 dir %SCRIPTDIR%\..
 dir %SCRIPTDIR%\..\msvc
 call %SCRIPTDIR%\..\msvc\win_deps %wx_vers%
-path
-dir "C:\Program Files\CMake"
-exit
+path %SCRIPTDIR%\.local\bin;%PATH%;"C:\Program Files\CMake\bin"
+path dir "C:\Program Files\CMake\bin"
 call %SCRIPTDIR%..\cache\wx-config.bat
 path
+exit
 echo USING wxWidgets_LIB_DIR: !wxWidgets_LIB_DIR!
 echo USING wxWidgets_ROOT_DIR: !wxWidgets_ROOT_DIR!
 echo USING OCPN_TARGET_TUPLE: !TARGET_TUPLE!
