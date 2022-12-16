@@ -16,7 +16,7 @@ path %SCRIPTDIR%.local\bin;%PATH%;"C:\Program Files\CMake\bin"
 dir "C:\Program Files\CMake\bin"
 dir %SCRIPTDIR%
 dir %SCRIPTDIR%..\cache
-call %SCRIPTDIR%..\cache\wx-config.bat
+call "%SCRIPTDIR%..\cache\wx-config.bat"
 path
 echo USING wxWidgets_LIB_DIR: !wxWidgets_LIB_DIR!
 echo USING wxWidgets_ROOT_DIR: !wxWidgets_ROOT_DIR!
