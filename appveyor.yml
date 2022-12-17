@@ -40,11 +40,11 @@ for:
     - choco install poedit
     - choco install git
 
-    - cmd: Start-FileDownload https://download.opencpn.org/s/54HsBDLNzRZLL6i/download  -FileName nsis-3.04-setup.exe
+    - ps: Start-FileDownload https://download.opencpn.org/s/54HsBDLNzRZLL6i/download  -FileName nsis-3.04-setup.exe
     - cmd: nsis-3.04-setup.exe /S
 
   # Download and unzip wxwidgets
-    - cmd: Start-FileDownload https://download.opencpn.org/s/E2p4nLDzeqx4SdX/download -FileName wxWidgets-3.1.2.7z
+    - ps: Start-FileDownload https://download.opencpn.org/s/E2p4nLDzeqx4SdX/download -FileName wxWidgets-3.1.2.7z
     - cmd: 7z x wxWidgets-3.1.2.7z -o%WXWIN% > null
 
 -
