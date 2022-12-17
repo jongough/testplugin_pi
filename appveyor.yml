@@ -82,9 +82,8 @@ for:
   # http://opencpn.navnux.org/build_deps/wxWidgets-3.1.2.7z - no longer available, replaced with below
   - ps: Start-FileDownload https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1 -FileName wxWidgets-3.2.1-headers.7z
   - ps: Start-FileDownload https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1 -FileName wxMSW-3.2.1_vc14x_Dev.7z
-  - ps: wget /h
-  - ps: wget -nv https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxMSW-3.2.1_vc14x_Dev.7z
-  - ps: wget -nv https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1-headers.7z
+  - ps: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxMSW-3.2.1_vc14x_Dev.7z
+  - ps: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1-headers.7z
   - cmd: 7z x wxMSW-3.2.1_vc14x_Dev.7z -o%WXWIN% > null
   - cmd: 7z x wxWidgets-3.2.1-headers.7z -o%WXWIN% > null
 
