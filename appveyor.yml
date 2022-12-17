@@ -37,6 +37,7 @@ for:
     - set WXWIN=C:\wxWidgets-3.1.2
     - set wxWidgets_ROOT_DIR=%WXWIN%
     - set wxWidgets_LIB_DIR=%WXWIN%\lib\vc_dll
+    - set cmake_parms=" -T v141_xp "
     - cmd: SET PATH=%PATH%;%WXWIN%;%wxWidgets_LIB_DIR%;C:\Program Files (x86)\Poedit\Gettexttools\bin
 
   # install dependencies:
@@ -65,6 +66,7 @@ for:
   - set WXWIN=C:\wxWidgets-3.2.1
   - set wxWidgets_ROOT_DIR=%WXWIN%
   - set wxWidgets_LIB_DIR=%WXWIN%\lib\vc_dll
+  - set cmake_parms=" -A Win32 "
   - cmd: SET PATH=%PATH%;%WXWIN%;%wxWidgets_LIB_DIR%;C:\Program Files (x86)\Poedit\Gettexttools\bin
 
   # install dependencies:
@@ -72,8 +74,8 @@ for:
   - choco install git
 
   # http://opencpn.navnux.org/build_deps/nsis-3.04-setup.exe - no longer available, replaced with below
-  - ps: Start-FileDownload https://download.opencpn.org/s/54HsBDLNzRZLL6i/download  -FileName nsis-3.04-setup.exe
-  - cmd: nsis-3.04-setup.exe /S
+  #- ps: Start-FileDownload https://download.opencpn.org/s/54HsBDLNzRZLL6i/download  -FileName nsis-3.04-setup.exe
+  #- cmd: nsis-3.04-setup.exe /S
 
   # Download and unzip wxwidgets
   # http://opencpn.navnux.org/build_deps/wxWidgets-3.1.2.7z - no longer available, replaced with below
@@ -94,7 +96,7 @@ before_build:
   # http://opencpn.navnux.org/build_deps/OpenCPN_buildwin-4.99a.7z - no longer available, replaced with below
   - ps: Start-FileDownload https://download.opencpn.org/s/oibxM3kzfzKcSc3/download -FileName OpenCPN_buildwin-4.99a.7z
   - cmd: 7z x -y OpenCPN_buildwin-4.99a.7z -oc:\project\ocpn_project\buildwin
-  - cmake -T v141_xp ..
+  - cmake %cmake_parms% ..
 
 build_script:
   - cmake --build . --target package --config Release
