@@ -81,8 +81,8 @@ for:
 
   # Download and unzip wxwidgets
   # http://opencpn.navnux.org/build_deps/wxWidgets-3.1.2.7z - no longer available, replaced with below
-  - ps: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxMSW-3.2.1_vc14x_Dev.7z
-  - ps: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1-headers.7z
+  - cmd: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxMSW-3.2.1_vc14x_Dev.7z
+  - cmd: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1-headers.7z
   - cmd: dir
   - cmd: md %WXWIN%
   - cmd: dir %WXWIN%
