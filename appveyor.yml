@@ -59,7 +59,7 @@ for:
     only:
     - image: Visual Studio 2022
   install:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
 
   # sent environment variables for wxWidgets
   - set WXWIN=C:\wxWidgets-3.2.1
