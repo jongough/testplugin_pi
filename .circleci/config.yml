@@ -74,8 +74,8 @@ workflows:
 #             <<: *std-filters
 #        - build-android-armhf:
 #             <<: *std-filter
-        - build-msvc-2022:
-            <<: *std-filters
+#        - build-msvc-2022:
+#            <<: *std-filters
 
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
