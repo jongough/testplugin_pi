@@ -86,9 +86,9 @@ for:
   - cmd: dir
   - cmd: md %WXWIN%
   - cmd: dir %WXWIN%
-  - cmd: 7z x wxMSW-3.2.1_vc14x_Dev.7z -o%WXWIN%
+  - cmd: 7z x -o%WXWIN% wxMSW-3.2.1_vc14x_Dev.7z
   - cmd: dir %WXWIN%
-  - cmd: 7z x wxWidgets-3.2.1-headers.7z -o%WXWIN%
+  - cmd: 7z x -o%WXWIN% wxWidgets-3.2.1-headers.7z
   - cmd: dir %WXWIN%
 
   - set
