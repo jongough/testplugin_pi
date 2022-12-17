@@ -84,9 +84,11 @@ for:
   - ps: wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.1/wxWidgets-3.2.1-headers.7z
   - cmd: dir C:\
   - cmd: md %WXWIN%
-  - cmd: dir C:\
-  - cmd: 7z x wxMSW-3.2.1_vc14x_Dev.7z -o%WXWIN% > null
-  - cmd: 7z x wxWidgets-3.2.1-headers.7z -o%WXWIN% > null
+  - cmd: dir %WXWIN%
+  - cmd: 7z x wxMSW-3.2.1_vc14x_Dev.7z -o %WXWIN%
+  - cmd: dir %WXWIN%
+  - cmd: 7z x wxWidgets-3.2.1-headers.7z -o%WXWIN%
+  - cmd: dir %WXWIN%
 
   - set
 
