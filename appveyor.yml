@@ -17,8 +17,8 @@ environment:
   OCPN_TARGET: MSVC
   build_cloud: QEMU_WIN10
 #  APPVEYOR_BUILD_WORKER_IMAGE: install_vs2022.ps1
-  build_cloud: QEMU-WIN10
   image: Windows
+  docker_pull: always
 
 matrix:
 # allow either job to fail and the other to complete
