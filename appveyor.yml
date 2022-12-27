@@ -16,7 +16,7 @@ test: OFF
 environment:
   OCPN_TARGET: MSVC
   build_cloud: QEMU_WIN10
-  APPVEYOR_BUILD_WORKER_IMAGE: vs2022-master
+  APPVEYOR_BUILD_WORKER_IMAGE: install_vs2022.ps1
 #  image: Windows
 
 matrix:
