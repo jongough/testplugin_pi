@@ -16,7 +16,8 @@ test: OFF
 environment:
   OCPN_TARGET: MSVC
   build_cloud: QEMU_WIN10
-  image: Windows
+  APPVEYOR_BUILD_WORKER_IMAGE: vs2022-master
+#  image: Windows
 
 matrix:
 # allow either job to fail and the other to complete
