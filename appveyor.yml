@@ -13,7 +13,7 @@ platform:
 configuration: Release
 test: OFF
 
-build_cloud: docker
+#build_cloud: docker
 
 environment:
   OCPN_TARGET: MSVC
