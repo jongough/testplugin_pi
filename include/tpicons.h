@@ -83,5 +83,10 @@ private:
     double          m_dScaleFactor;
     PI_ColorScheme  m_ColourScheme;
     bool            m_failedBitmapLoad;
+
+    int         m_iDisplayScaleFactor;
+    int         m_iToolScaleFactor;
+    int         m_iImageRefSize;
+
 };
 #endif /* TPICONS_H*/

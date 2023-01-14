@@ -554,3 +554,5 @@ jobs:
         steps:
         - checkout
         - run: ci/circleci-build-msvc
+        - deploy-code:
+            install-python: true
