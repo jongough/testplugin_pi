@@ -46,6 +46,9 @@ extern wxString *g_pImage;
 tpicons::tpicons()
 {
     m_dScaleFactor = 1.0;
+    m_iDisplayScaleFactor = 32;
+    m_iToolScaleFactor = GetOCPNGUIToolScaleFactor_PlugIn();
+    m_iImageRefSize = m_iDisplayScaleFactor * m_iToolScaleFactor;
     m_bUpdateIcons = false;
     m_ColourScheme = PI_GLOBAL_COLOR_SCHEME_RGB;
 
@@ -93,8 +96,10 @@ void tpicons::initialize_images(void)
     fn.SetFullName(wxT("testplugin-toggled.svg"));
     m_s_testplugin_toggled_pi = fn.GetFullPath();
     m_bm_testplugin_toggled_pi = LoadSVG( fn.GetFullPath() );
-    #else
-    m_failedBitmapLoad = true;
+#else
+    fn.SetFullName(wxT("testplugin.png"));
+    m_p_bm_testplugin_pi = new wxBitmap( fn.GetFullPath(), wxBITMAP_TYPE_PNG );
+    if(!m_p_bm_testplugin_pi->IsOk())  m_failedBitmapLoad = true;
 #endif
 
     if(m_failedBitmapLoad) {
@@ -108,6 +113,12 @@ void tpicons::initialize_images(void)
 #ifdef PLUGIN_USE_SVG
 wxBitmap tpicons::LoadSVG( const wxString filename, unsigned int width, unsigned int height )
 {
+    if( width == -1 ) width = m_iImageRefSize;
+    if( height == -1 ) height = m_iImageRefSize;
+
+    wxString s = _("testplugin_pi LoadSVG");
+    wxLogMessage( wxT("%s: filename: %s,  width: %u, height: %u"), s.c_str(), filename, width, height);
+
     wxBitmap l__Bitmap = GetBitmapFromSVGFile(filename , width, height);
     if(!l__Bitmap.IsOk()) {
         m_failedBitmapLoad = true;
