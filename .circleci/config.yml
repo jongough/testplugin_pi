@@ -27,6 +27,8 @@ workflows:
             <<: *std-filters
         - build-armhf-debian-buster:
             <<: *std-filters
+        - build-arm64-debian-buster:
+            <<: *std-filters
 ## Ready to build gtk3 version of armhf debian buster
         - build-armhf-debian-buster-gtk3:
             <<: *std-filters
@@ -224,6 +226,23 @@ jobs:
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
         - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-arm64-debian-buster:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=buster-arm64
+        - DOCKER_IMAGE=jongough/debian-arm64:buster
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - BUILD_GTK3: false
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
