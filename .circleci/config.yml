@@ -385,6 +385,7 @@ jobs:
         - image: cimg/base:edge-22.04
         environment:
         - BUILD_GTK3: true
+        - WX_VER: wx32
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
