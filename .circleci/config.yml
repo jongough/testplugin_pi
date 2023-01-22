@@ -62,6 +62,8 @@ workflows:
             <<: *std-filters
         - build-buster:
             <<: *std-filters
+        - build-bullseye:
+            <<: *std-filters
         - build-flatpak-x86-2008:
             <<: *std-filters
 ## Been removed from allowable environments
@@ -431,6 +433,24 @@ jobs:
             | sudo tee -a /etc/apt/sources.list
         - run: >
             echo "deb-src http://ftp.us.debian.org/debian buster-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code
+    build-bullseye:
+        docker:
+        - image: circleci/buildpack-deps:bullseye-scm
+        environment:
+        - OCPN_TARGET:  bullseye
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: >
+            echo "deb-src http://ftp.us.debian.org/debian bullseye main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://ftp.us.debian.org/debian bullseye-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
