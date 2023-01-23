@@ -443,6 +443,7 @@ jobs:
         - image: circleci/buildpack-deps:bullseye-scm
         environment:
         - OCPN_TARGET:  bullseye
+        - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
