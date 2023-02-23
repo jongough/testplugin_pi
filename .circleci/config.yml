@@ -186,8 +186,6 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-        - build-buster:
-            <<: *std-filters
     build-armhf-debian-buster-gtk3:
         machine:
             image: ubuntu-2004:202104-01
@@ -255,8 +253,6 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
-        - build-buster:
-            <<: *std-filters
     build-arm64-debian-bullseye:
         machine:
             image: ubuntu-2004:202104-01
