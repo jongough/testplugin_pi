@@ -154,13 +154,6 @@ else()
 endif()
 message(STATUS "${CMLOC}PKG_TARGET_GTK: ${PKG_TARGET_GTK}")
 
-message(STATUS "${CMLOC}ENV WX_VER: $ENV{WX_VER}")
-if(NOT "$ENV{WX_VER}" STREQUAL "")
-    set(PKG_TARGET_WX_VER "-$ENV{WX_VER}")
-else()
-    set(PKG_TARGET_WX_VER "")
-endif()
-
 if(UNIX AND NOT APPLE)
     # Handle gtk3 build variant
     string(STRIP "${PKG_TARGET}" PKG_TARGET)
