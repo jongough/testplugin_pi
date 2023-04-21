@@ -249,7 +249,7 @@ jobs:
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=bookworm-armhf
-        - DOCKER_IMAGE=arm32v7/debian:bookworm
+        - DOCKER_IMAGE=arm32v8/debian:bookworm
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
         - WX_VER: 32
