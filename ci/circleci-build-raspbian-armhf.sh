@@ -86,7 +86,7 @@ EOF5
                 echo "Building for GTK2"
                 cat >> build.sh << "EOF6"
                 apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-dev
-EOF6--allow-change-held-packages
+EOF6
             else
                 echo "Building for GTK3"
                 cat >> build.sh << "EOF7"
