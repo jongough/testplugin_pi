@@ -252,6 +252,7 @@ jobs:
         - DOCKER_IMAGE=arm32v7/debian:bookworm
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
+        - WX_VER: 32
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -303,6 +304,7 @@ jobs:
         - DOCKER_IMAGE=arm64v8/debian:bookworm
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
+        - WX_VER: 32
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
