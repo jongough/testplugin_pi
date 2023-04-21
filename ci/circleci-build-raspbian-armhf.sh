@@ -103,7 +103,7 @@ EOF8
         elif [ "$WX_VER" = "32" ]; then
             echo "Building for WX32"
             cat >> build.sh << "EOF9"
-            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxbase3.2-1-dev
+            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.2-dev
 EOF9
         fi
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
