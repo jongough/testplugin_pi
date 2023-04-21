@@ -5,8 +5,8 @@
 #
 
 # bailout on errors and echo commands.
-set -xe
-sudo apt-get -qq update
+set -x
+sudo apt-get -y update
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
@@ -61,8 +61,8 @@ EOF2
         sudo apt-get --allow-unauthenticated install -f
 EOF3
     else
-            cat >> build.sh << "EOF4"
-            install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+        cat >> build.sh << "EOF4"
+        install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF4
     fi
 else
@@ -92,25 +92,37 @@ EOF6
 EOF7
             fi
         fi
-        if [ "$OCPN_TARGET" = "focal-armhf" ]; then
+        echo "WX_VER: $WX_VER"
+        if [ ! -n "$WX_VER" ] || [ "$WX_VER" = "30" ]; then
+            echo "Building for WX30"
             cat >> build.sh << "EOF8"
+            apt-get -y --no-install-recommends --fix-missing install libwxbase3.0-dev
+EOF8
+        elif [ "$WX_VER" = "32" ]; then
+            echo "Building for WX32"
+            cat >> build.sh << "EOF9"
+            apt-get -y --no-install-recommends --fix-missing install libwxbase3.2-dev
+EOF9
+        fi
+        if [ "$OCPN_TARGET" = "focal-armhf" ]; then
+            cat >> build.sh << "EOF10"
             CMAKE_VERSION=3.20.5-0kitware1ubuntu20.04.1
             wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc --no-check-certificate 2>/dev/null | apt-key add -
             apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
             apt-get update
             apt install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
-EOF8
+EOF10
         else
-            cat >> build.sh << "EOF9"
+            cat >> build.sh << "EOF11"
             apt install -y cmake
-EOF9
+EOF11
         fi
     else
-        cat > build.sh << "EOF10"
+        cat > build.sh << "EOF12"
         apt-get -qq update
         apt-get -y --no-install-recommends install \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
-EOF10
+EOF12
     fi
 fi
 
