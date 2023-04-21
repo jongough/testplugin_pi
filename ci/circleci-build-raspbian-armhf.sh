@@ -75,8 +75,8 @@ else
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-        apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends install tzdata
-        apt-get -y --no-install-recommends --fix-missing install \
+        apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends --allow-change-held-packages install tzdata
+        apt-get -y --no-install-recommends --fix-missing install --allow-change-held-packages \
         software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF5
         if [ "$OCPN_TARGET" = "buster-armhf" ] ||
@@ -85,12 +85,12 @@ EOF5
             if [ ! -n "$BUILD_GTK3" ] || [ "$BUILD_GTK3" = "false" ]; then
                 echo "Building for GTK2"
                 cat >> build.sh << "EOF6"
-                apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-dev
-EOF6
+                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-dev
+EOF6--allow-change-held-packages
             else
                 echo "Building for GTK3"
                 cat >> build.sh << "EOF7"
-                apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-gtk3-dev
+                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-gtk3-dev
 EOF7
             fi
         fi
@@ -98,12 +98,12 @@ EOF7
         if [ ! -n "$WX_VER" ] || [ "$WX_VER" = "30" ]; then
             echo "Building for WX30"
             cat >> build.sh << "EOF8"
-            apt-get -y --no-install-recommends --fix-missing install libwxbase3.0-dev
+            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxbase3.0-dev
 EOF8
         elif [ "$WX_VER" = "32" ]; then
             echo "Building for WX32"
             cat >> build.sh << "EOF9"
-            apt-get -y --no-install-recommends --fix-missing install libwxbase3.2-dev
+            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxbase3.2-1-dev
 EOF9
         fi
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
@@ -122,7 +122,7 @@ EOF11
     else
         cat > build.sh << "EOF12"
         apt-get -qq update
-        apt-get -y --no-install-recommends install \
+        apt-get -y --no-install-recommends --allow-change-held-packages install \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF12
     fi
