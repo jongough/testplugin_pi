@@ -79,8 +79,8 @@ else
         apt-get -y --no-install-recommends --fix-missing install --allow-change-held-packages \
         software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF5
-        if [ "$OCPN_TARGET" = "buster-armhf" ] ||
-           [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
+#        if [ "$OCPN_TARGET" = "buster-armhf" ] ||
+#           [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
             echo "BUILD_GTK3: $BUILD_GTK3"
             if [ ! -n "$BUILD_GTK3" ] || [ "$BUILD_GTK3" = "false" ]; then
                 echo "Building for GTK2"
@@ -93,7 +93,7 @@ EOF6
                 apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-gtk3-dev
 EOF7
             fi
-        fi
+#        fi
         echo "WX_VER: $WX_VER"
         if [ ! -n "$WX_VER" ] || [ "$WX_VER" = "30" ]; then
             echo "Building for WX30"
