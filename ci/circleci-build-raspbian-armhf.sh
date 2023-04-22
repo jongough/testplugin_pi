@@ -5,8 +5,8 @@
 #
 
 # bailout on errors and echo commands.
-set -xe
-sudo apt-get -qq update
+set -x
+sudo apt-get -y update
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
@@ -61,8 +61,8 @@ EOF2
         sudo apt-get --allow-unauthenticated install -f
 EOF3
     else
-            cat >> build.sh << "EOF4"
-            install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
+        cat >> build.sh << "EOF4"
+        install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF4
     fi
 else
@@ -70,12 +70,14 @@ else
        [ "$OCPN_TARGET" = "focal-armhf" ] ||
        [ "$OCPN_TARGET" = "bullseye-armhf" ] ||
        [ "$OCPN_TARGET" = "bullseye-arm64" ] ||
+       [ "$OCPN_TARGET" = "bookworm-armhf" ] ||
+       [ "$OCPN_TARGET" = "bookworm-arm64" ] ||
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-        apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends install tzdata
-        apt-get -y --no-install-recommends --fix-missing install \
-        software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
+        apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends --allow-change-held-packages install tzdata
+        apt-get -y --no-install-recommends --fix-missing install --allow-change-held-packages \
+        software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF5
         if [ "$OCPN_TARGET" = "buster-armhf" ] ||
            [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
@@ -83,34 +85,46 @@ EOF5
             if [ ! -n "$BUILD_GTK3" ] || [ "$BUILD_GTK3" = "false" ]; then
                 echo "Building for GTK2"
                 cat >> build.sh << "EOF6"
-                apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-dev
+                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-dev
 EOF6
             else
                 echo "Building for GTK3"
                 cat >> build.sh << "EOF7"
-                apt-get -y --no-install-recommends --fix-missing install libwxgtk3.0-gtk3-dev
+                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-gtk3-dev
 EOF7
             fi
         fi
-        if [ "$OCPN_TARGET" = "focal-armhf" ]; then
+        echo "WX_VER: $WX_VER"
+        if [ ! -n "$WX_VER" ] || [ "$WX_VER" = "30" ]; then
+            echo "Building for WX30"
             cat >> build.sh << "EOF8"
+            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxbase3.0-dev
+EOF8
+        elif [ "$WX_VER" = "32" ]; then
+            echo "Building for WX32"
+            cat >> build.sh << "EOF9"
+            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.2-dev
+EOF9
+        fi
+        if [ "$OCPN_TARGET" = "focal-armhf" ]; then
+            cat >> build.sh << "EOF10"
             CMAKE_VERSION=3.20.5-0kitware1ubuntu20.04.1
             wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc --no-check-certificate 2>/dev/null | apt-key add -
             apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
             apt-get update
             apt install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
-EOF8
+EOF10
         else
-            cat >> build.sh << "EOF9"
+            cat >> build.sh << "EOF11"
             apt install -y cmake
-EOF9
+EOF11
         fi
     else
-        cat > build.sh << "EOF10"
+        cat > build.sh << "EOF12"
         apt-get -qq update
-        apt-get -y --no-install-recommends install \
+        apt-get -y --no-install-recommends --allow-change-held-packages install \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
-EOF10
+EOF12
     fi
 fi
 

@@ -35,10 +35,14 @@ workflows:
 ## Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
 ##        - build-armhf-bullseye:
 ##            <<: *std-filters
-        - build-armhf-debian-bullseye:
-            <<: *std-filters
+       - build-armhf-debian-bullseye:
+           <<: *std-filters
+       - build-armhf-debian-bookworm:
+           <<: *std-filters
         - build-arm64-debian-bullseye:
             <<: *std-filters
+       - build-arm64-debian-bookworm:
+           <<: *std-filters
 ## Currently circleci does not build armf64 correctly due to no suitable docker image
 ##        - build-armhf-bionic-64:
 ##            <<: *std-filters
@@ -61,6 +65,8 @@ workflows:
         - build-buster:
             <<: *std-filters
         - build-bullseye:
+            <<: *std-filters
+        - build-bookworm:
             <<: *std-filters
         - build-flatpak-x86-2008:
             <<: *std-filters
@@ -237,12 +243,32 @@ jobs:
             command: ci/circleci-build-raspbian-armhf.sh
             no_output_timeout: 30m
         - deploy-code
+    build-armhf-debian-bookworm:
+        machine:
+            image: ubuntu-2004:202104-01
+        resource_class: arm.medium
+        environment:
+        - OCPN_TARGET=bookworm-armhf
+        - DOCKER_IMAGE=arm32v7/debian:bookworm
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - WX_VER: 32
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
     build-arm64-debian-buster:
         machine:
             image: ubuntu-2004:202104-01
+        resource_class: arm.medium
         environment:
         - OCPN_TARGET=buster-arm64
-        - DOCKER_IMAGE=jongough/debian-arm64:buster
+        - DOCKER_IMAGE=debian-arm64:buster
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
         - DEPLOY_USE_ORB: true
@@ -261,6 +287,24 @@ jobs:
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-raspbian-armhf.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-arm64-debian-bookworm:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=bookworm-arm64
+        - DOCKER_IMAGE=arm64v8/debian:bookworm
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - WX_VER: 32
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -454,6 +498,25 @@ jobs:
             | sudo tee -a /etc/apt/sources.list
         - run: >
             echo "deb-src http://ftp.us.debian.org/debian bullseye-updates main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code
+    build-bookworm:
+        docker:
+        - image: circleci/buildpack-deps:bookworm-scm
+        environment:
+        - OCPN_TARGET:  bookworm
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: >
+            echo "deb-src http://ftp.us.debian.org/debian bookworm main"
+            | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://ftp.us.debian.org/debian bookworm-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
