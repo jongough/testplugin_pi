@@ -18,79 +18,79 @@ std-filters: &std-filters
 workflows:
     build_all:
         jobs:
-#        - build-armhf-stretch:
-#            <<: *std-filters
-### Derecated in favour of ubuntu-armhf:18.04 build - 14/01/2022
-###        - build-armhf-raspbian-buster:
-###            <<: *std-filters
-#        - build-armhf-ubuntu-buster:
-#            <<: *std-filters
-#        - build-armhf-debian-buster:
-#            <<: *std-filters
-#        - build-arm64-debian-buster:
-#            <<: *std-filters
-### Ready to build gtk3 version of armhf debian buster
-#        - build-armhf-debian-buster-gtk3:
-#            <<: *std-filters
-### Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
-###        - build-armhf-bullseye:
-###            <<: *std-filters
-#        - build-armhf-debian-bullseye:
-#            <<: *std-filters
-        - build-armhf-debian-bookworm:
+        - build-armhf-stretch:
             <<: *std-filters
-#        - build-arm64-debian-bullseye:
-#            <<: *std-filters
-        - build-arm64-debian-bookworm:
+## Derecated in favour of ubuntu-armhf:18.04 build - 14/01/2022
+##        - build-armhf-raspbian-buster:
+##            <<: *std-filters
+        - build-armhf-ubuntu-buster:
             <<: *std-filters
-### Currently circleci does not build armf64 correctly due to no suitable docker image
-###        - build-armhf-bionic-64:
-###            <<: *std-filters
-#        - build-armhf-ubuntu-focal:
-#            <<: *std-filters
-### Not required as flatpak build used instead - 14/01/2022
-###        - build-armhf-ubuntu-focal-64:
-###            <<: *std-filters
-### Removed as no suitable python3 version for xenial available - 19/01/2022
-###        - build-xenial:
-###            <<: *std-filters
-#        - build-bionic:
-#            <<: *std-filters
-#        - build-bionic-gtk3:
-#            <<: *std-filters
-#        - build-focal-gtk3:
-#            <<: *std-filters
-#        - build-jammy:
-#            <<: *std-filters
-#        - build-buster:
-#            <<: *std-filters
-#        - build-bullseye:
-#            <<: *std-filters
-#        - build-bookworm:
-#            <<: *std-filters
-#        - build-flatpak-x86-2008:
-#            <<: *std-filters
-#        - build-flatpak-x86-2208:
-#            <<: *std-filters
-### Been removed from allowable environments
-###        - build-flatpak-x86-2008-beta:
-###            <<: *std-filters
-### Obsolete not available anymore
-###        - build-flatpak-x86-1808:
-###            <<: *std-filters
-#        - build-flatpak-arm64:
-#            <<: *std-filters
-#        - build-macos:
-#             <<: *std-filters
-#        - build-macos-wx32:
-#             <<: *std-filters
-#        - build-android-arm64:
-#             <<: *std-filters
-#        - build-android-armhf:
-#             <<: *std-filters
-### Work in progress to allow circleci to do windows builds
-###        - build-msvc-2022:
-###            <<: *std-filters
+        - build-armhf-debian-buster:
+            <<: *std-filters
+        - build-arm64-debian-buster:
+            <<: *std-filters
+## Ready to build gtk3 version of armhf debian buster
+        - build-armhf-debian-buster-gtk3:
+            <<: *std-filters
+## Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
+##        - build-armhf-bullseye:
+##            <<: *std-filters
+       - build-armhf-debian-bullseye:
+           <<: *std-filters
+       - build-armhf-debian-bookworm:
+           <<: *std-filters
+        - build-arm64-debian-bullseye:
+            <<: *std-filters
+       - build-arm64-debian-bookworm:
+           <<: *std-filters
+## Currently circleci does not build armf64 correctly due to no suitable docker image
+##        - build-armhf-bionic-64:
+##            <<: *std-filters
+        - build-armhf-ubuntu-focal:
+            <<: *std-filters
+## Not required as flatpak build used instead - 14/01/2022
+##        - build-armhf-ubuntu-focal-64:
+##            <<: *std-filters
+## Removed as no suitable python3 version for xenial available - 19/01/2022
+##        - build-xenial:
+##            <<: *std-filters
+        - build-bionic:
+            <<: *std-filters
+        - build-bionic-gtk3:
+            <<: *std-filters
+        - build-focal-gtk3:
+            <<: *std-filters
+        - build-jammy:
+            <<: *std-filters
+        - build-buster:
+            <<: *std-filters
+        - build-bullseye:
+            <<: *std-filters
+        - build-bookworm:
+            <<: *std-filters
+        - build-flatpak-x86-2008:
+            <<: *std-filters
+        - build-flatpak-x86-2208:
+            <<: *std-filters
+## Been removed from allowable environments
+##        - build-flatpak-x86-2008-beta:
+##            <<: *std-filters
+## Obsolete not available anymore
+##        - build-flatpak-x86-1808:
+##            <<: *std-filters
+        - build-flatpak-arm64:
+            <<: *std-filters
+        - build-macos:
+             <<: *std-filters
+        - build-macos-wx32:
+             <<: *std-filters
+        - build-android-arm64:
+             <<: *std-filters
+        - build-android-armhf:
+             <<: *std-filters
+## Work in progress to allow circleci to do windows builds
+##        - build-msvc-2022:
+##            <<: *std-filters
 
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
