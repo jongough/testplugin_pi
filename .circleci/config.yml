@@ -35,14 +35,14 @@ workflows:
 ## Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
 ##        - build-armhf-bullseye:
 ##            <<: *std-filters
-       - build-armhf-debian-bullseye:
-           <<: *std-filters
-       - build-armhf-debian-bookworm:
-           <<: *std-filters
+        - build-armhf-debian-bullseye:
+            <<: *std-filters
+        - build-armhf-debian-bookworm:
+            <<: *std-filters
         - build-arm64-debian-bullseye:
             <<: *std-filters
-       - build-arm64-debian-bookworm:
-           <<: *std-filters
+        - build-arm64-debian-bookworm:
+            <<: *std-filters
 ## Currently circleci does not build armf64 correctly due to no suitable docker image
 ##        - build-armhf-bionic-64:
 ##            <<: *std-filters
