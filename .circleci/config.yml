@@ -508,7 +508,7 @@ jobs:
         docker:
         - image: cimg/base:edge-22.04
         environment:
-        - OCPN_TARGET:  bookworm
+        - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
