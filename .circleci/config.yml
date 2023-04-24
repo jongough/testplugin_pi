@@ -498,7 +498,7 @@ jobs:
             echo "deb-src http://ftp.us.debian.org/debian bullseye main"
             | sudo tee -a /etc/apt/sources.list
         - run: >
-            echo "deb-src http://ftp.us,debian.org/debian bullseye-updates main"
+            echo "deb-src http://ftp.us.debian.org/debian bullseye-updates main"
             | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
@@ -514,12 +514,12 @@ jobs:
         - BUILD_ENV=debian
         steps:
         - checkout
-        - run: >
-            echo "deb-src http://ftp.debian.org/debian bookworm main"
-            | sudo tee -a /etc/apt/sources.list
-        - run: >
-            echo "deb-src http://ftp.debian.org/debian bookworm-updates main"
-            | sudo tee -a /etc/apt/sources.list
+#        - run: >
+#            echo "deb-src http://ftp.debian.org/debian bookworm main"
+#            | sudo tee -a /etc/apt/sources.list
+#        - run: >
+#            echo "deb-src http://ftp.debian.org/debian bookworm-updates main"
+#            | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
