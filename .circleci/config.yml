@@ -512,6 +512,7 @@ jobs:
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
+        - WX_VER: 32
         steps:
         - checkout
 #        - run: >
