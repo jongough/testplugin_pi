@@ -268,7 +268,7 @@ jobs:
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=buster-arm64
-        - DOCKER_IMAGE=debian-arm64:buster
+        - DOCKER_IMAGE=jongough/debian-arm64:buster
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
         - DEPLOY_USE_ORB: true
@@ -491,6 +491,7 @@ jobs:
         - OCPN_TARGET:  bullseye
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
+        - BUILD_ENV=debian
         steps:
         - checkout
         - run: >
@@ -505,11 +506,12 @@ jobs:
         - deploy-code
     build-bookworm:
         docker:
-        - image: circleci/buildpack-deps:bookworm-scm
+        - image: cimg/base:edge-22.04
         environment:
         - OCPN_TARGET:  bookworm
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
+        - BUILD_ENV=debian
         steps:
         - checkout
         - run: >
