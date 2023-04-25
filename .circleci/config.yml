@@ -27,21 +27,29 @@ workflows:
             <<: *std-filters
         - build-armhf-debian-buster:
             <<: *std-filters
+#        - build-armhf-debian-buster-wx32:
+#            <<: *std-filters
         - build-arm64-debian-buster:
             <<: *std-filters
 ## Ready to build gtk3 version of armhf debian buster
         - build-armhf-debian-buster-gtk3:
             <<: *std-filters
+#        - build-armhf-debian-buster-gtk3-wx32:
+#            <<: *std-filters
 ## Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
 ##        - build-armhf-bullseye:
 ##            <<: *std-filters
         - build-armhf-debian-bullseye:
             <<: *std-filters
+#        - build-armhf-debian-bullseye-wx32:
+#            <<: *std-filters
         - build-armhf-debian-bookworm:
             <<: *std-filters
         - build-arm64-debian-bullseye:
             <<: *std-filters
-        - build-arm64-debian-bookworm:
+#        - build-arm64-debian-bullseye-wx32:
+#            <<: *std-filters
+        - build-arm64-debian-bookworm-wx32:
             <<: *std-filters
 ## Currently circleci does not build armf64 correctly due to no suitable docker image
 ##        - build-armhf-bionic-64:
@@ -193,7 +201,41 @@ jobs:
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
+    build-armhf-debian-buster-wx32:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=buster-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:buster
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - WX_VER: 32
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-ubuntu-docker.sh
+            no_output_timeout: 30m
+        - deploy-code
     build-armhf-debian-buster-gtk3:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=buster-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:buster
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-ubuntu-docker.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-armhf-debian-buster-gtk3-wx32:
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -229,6 +271,23 @@ jobs:
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-bullseye:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=bullseye-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:bullseye
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-ubuntu-docker.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-armhf-debian-bullseye-wx32:
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -292,7 +351,6 @@ jobs:
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
         - BUILD_GTK3: true
-        - WX_VER: 32
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
@@ -301,7 +359,24 @@ jobs:
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
-    build-arm64-debian-bookworm:
+    build-arm64-debian-bullseye-wx32:
+        machine:
+            image: ubuntu-2004:202104-01
+        environment:
+        - OCPN_TARGET=bullseye-arm64
+        - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            command: ci/circleci-build-ubuntu-docker.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-arm64-debian-bookworm-wx32:
         machine:
             image: ubuntu-2004:202104-01
         environment:
