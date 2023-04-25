@@ -505,14 +505,19 @@ jobs:
         - run: ci/circleci-build-debian.sh
         - deploy-code
     build-bookworm:
+#        machine:
+#            image: ubuntu-2004:202104-01
+#        docker:
+#        - image: cimg/base:edge-22.04
         docker:
-        - image: cimg/base:edge-22.04
+        - image: debian:bookworm
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
+        - WX_VER: 32
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
-        - WX_VER: 32
+        - DOCKER_IMAGE=debian:$OCPN_TARGET
         steps:
         - checkout
 #        - run: >

@@ -114,6 +114,7 @@ elseif(UNIX)
     # Some linux dist:
     if("$ENV{BUILD_ENV}" STREQUAL "debian" OR "$ENV{BUILD_ENV}" STREQUAL "DEBIAN")
         set(PKG_TARGET "$ENV{BUILD_ENV}")
+        message(STATUS "${CMLOC}PKG_TARGET_WX_VER: ${PKG_TARGET_WX_VER}, WX_VER: $ENV{WX_VER}")
     else()
         execute_process(COMMAND "lsb_release" "-is" OUTPUT_VARIABLE PKG_TARGET)
     endif()
