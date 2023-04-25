@@ -192,7 +192,6 @@ jobs:
         - DOCKER_IMAGE=jongough/debian-armhf:buster
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
-        - WX_VER: 32
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
