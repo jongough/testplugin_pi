@@ -17,7 +17,7 @@ sleep 5;
 if [ "$BUILD_ENV" = "raspbian" ]; then
     docker run --rm --privileged multiarch/qemu-user-static:register --reset
 else
-    docker run --rm --privileged multiarch/qemu-user-st--allow-unauthenticated atic --reset -p yes
+    docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 fi
 
 docker run --privileged -d -ti -e "container=docker"  \
