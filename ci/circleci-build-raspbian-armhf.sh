@@ -29,6 +29,7 @@ docker run --privileged -d -ti -e "container=docker"  \
     -e "GIT_REPOSITORY_SERVER=$GIT_REPOSITORY_SERVER" \
     -e "OCPN_TARGET=$OCPN_TARGET" \
     -e "BUILD_GTK3=$BUILD_GTK3" \
+    -e "WX_VER=$WX_VER" \
     -e "BUILD_ENV=$BUILD_ENV" \
     -e "TZ=$TZ" \
     -e "DEBIAN_FRONTEND=$DEBIAN_FRONTEND" \
