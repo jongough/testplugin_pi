@@ -5,6 +5,9 @@ parameters:
     run_workflow_deploy:
         type: boolean
         default: true
+    docker_image:
+        type: string
+        default: "echo $BUILD_ENV:$OCPN_TARGET"
 
 std-filters: &std-filters
     filters:
@@ -513,7 +516,7 @@ jobs:
         - WX_VER: 32
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
-        - DOCKER_IMAGE=debian:bookworm
+        - DOCKER_IMAGE=<< parameters.docker_image >>
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
