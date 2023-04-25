@@ -505,11 +505,6 @@ jobs:
         - run: ci/circleci-build-debian.sh
         - deploy-code
     build-bookworm:
-        parameters:
-            docker_image:
-                type: string
-                default: "echo $BUILD_ENV:$OCPN_TARGET"
-
         machine:
             image: ubuntu-2004:202104-01
         environment:
@@ -518,7 +513,7 @@ jobs:
         - WX_VER: 32
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
-        - DOCKER_IMAGE=<< parameters.docker_image >>
+        - DOCKER_IMAGE=debian:bookworm
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
