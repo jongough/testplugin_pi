@@ -513,7 +513,7 @@ jobs:
         - WX_VER: 32
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
-        - DOCKER_IMAGE=debian:$OCPN_TARGET
+        - DOCKER_IMAGE=debian:bookworm
         steps:
         - checkout
 #        - run: >
