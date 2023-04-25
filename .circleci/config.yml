@@ -505,12 +505,8 @@ jobs:
         - run: ci/circleci-build-debian.sh
         - deploy-code
     build-bookworm:
-#        machine:
-#            image: ubuntu-2004:202104-01
-#        docker:
-#        - image: cimg/base:edge-22.04
-        docker:
-        - image: debian:bookworm
+        machine:
+            image: ubuntu-2004:202104-01
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
@@ -528,7 +524,8 @@ jobs:
 #            | sudo tee -a /etc/apt/sources.list
 #        - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
-        - run: ci/circleci-build-debian.sh
+#        - run: ci/circleci-build-debian.sh
+        - run: ci/circleci-build-raspbian-armhf.sh
         - deploy-code
     build-flatpak:
         machine:
