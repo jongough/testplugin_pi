@@ -6,7 +6,7 @@
 
 # bailout on errors and echo commands.
 set -x
-sudo apt-get -y update
+sudo apt-get -y --allow-unauthenticated update
 
 DOCKER_SOCK="unix:///var/run/docker.sock"
 
@@ -17,7 +17,7 @@ sleep 5;
 if [ "$BUILD_ENV" = "raspbian" ]; then
     docker run --rm --privileged multiarch/qemu-user-static:register --reset
 else
-    docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    docker run --rm --privileged multiarch/qemu-user-st--allow-unauthenticated atic --reset -p yes
 fi
 
 docker run --privileged -d -ti -e "container=docker"  \
@@ -55,8 +55,8 @@ EOF2
         cat >> build.sh << "EOF3"
         curl http://mirrordirector.raspbian.org/raspbian.public.key  | apt-key add -
         curl http://archive.raspbian.org/raspbian.public.key  | apt-key add -
-        sudo apt -q update
-        sudo apt install devscripts equivs wget git lsb-release
+        sudo apt -q --allow-unauthenticated update
+        sudo apt --allow-unauthenticated install devscripts equivs wget git lsb-release
         sudo mk-build-deps -ir ci-source/ci/control
         sudo apt-get --allow-unauthenticated install -f
 EOF3
@@ -75,8 +75,8 @@ else
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-        apt-get -qq update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends --allow-change-held-packages install tzdata
-        apt-get -y --no-install-recommends --fix-missing install --allow-change-held-packages \
+        apt-get -qq --allow-unauthenticated update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends --allow-change-held-packages install tzdata
+        apt-get -y --no-install-recommends --fix-missing install --allow-change-held-packages --allow-unauthenticated  \
         software-properties-common devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF5
         if [ "$OCPN_TARGET" = "buster-armhf" ] ||
@@ -85,12 +85,12 @@ EOF5
             if [ ! -n "$BUILD_GTK3" ] || [ "$BUILD_GTK3" = "false" ]; then
                 echo "Building for GTK2"
                 cat >> build.sh << "EOF6"
-                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-dev
+                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.0-dev
 EOF6
             else
                 echo "Building for GTK3"
                 cat >> build.sh << "EOF7"
-                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.0-gtk3-dev
+                apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.0-gtk3-dev
 EOF7
             fi
         fi
@@ -98,12 +98,12 @@ EOF7
         if [ ! -n "$WX_VER" ] || [ "$WX_VER" = "30" ]; then
             echo "Building for WX30"
             cat >> build.sh << "EOF8"
-            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxbase3.0-dev
+            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxbase3.0-dev
 EOF8
         elif [ "$WX_VER" = "32" ]; then
             echo "Building for WX32"
             cat >> build.sh << "EOF9"
-            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages install libwxgtk3.2-dev
+            apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF9
         fi
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
@@ -111,18 +111,18 @@ EOF9
             CMAKE_VERSION=3.20.5-0kitware1ubuntu20.04.1
             wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc --no-check-certificate 2>/dev/null | apt-key add -
             apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
-            apt-get update
-            apt install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
+            apt-get --allow-unauthenticated update
+            apt --allow-unauthenticated install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
 EOF10
         else
             cat >> build.sh << "EOF11"
-            apt install -y cmake
+            apt install -y --allow-unauthenticated cmake
 EOF11
         fi
     else
         cat > build.sh << "EOF12"
-        apt-get -qq update
-        apt-get -y --no-install-recommends --allow-change-held-packages install \
+        apt-get -qq --allow-unauthenticated update
+        apt-get -y --no-install-recommends --allow-change-held-packages --allow-unauthenticated install \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF12
     fi
