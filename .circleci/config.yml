@@ -526,7 +526,7 @@ jobs:
 #        - run: >
 #            echo "deb-src http://ftp.debian.org/debian bookworm-updates main"
 #            | sudo tee -a /etc/apt/sources.list
-        - run: cat /etc/apt/sources.list
+#        - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
         - deploy-code
