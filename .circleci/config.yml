@@ -5,9 +5,6 @@ parameters:
     run_workflow_deploy:
         type: boolean
         default: true
-    docker_image:
-        type: string
-        default: "echo $BUILD_ENV:$OCPN_TARGET"
 
 std-filters: &std-filters
     filters:
@@ -508,6 +505,11 @@ jobs:
         - run: ci/circleci-build-debian.sh
         - deploy-code
     build-bookworm:
+        parameters:
+            docker_image:
+                type: string
+                default: "echo $BUILD_ENV:$OCPN_TARGET"
+
         machine:
             image: ubuntu-2004:202104-01
         environment:
