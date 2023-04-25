@@ -72,6 +72,7 @@ else
        [ "$OCPN_TARGET" = "bullseye-arm64" ] ||
        [ "$OCPN_TARGET" = "bookworm-armhf" ] ||
        [ "$OCPN_TARGET" = "bookworm-arm64" ] ||
+       [ "$OCPN_TARGET" = "bookworm" ] ||
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
