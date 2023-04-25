@@ -141,7 +141,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-raspbian-buster:
@@ -157,7 +157,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-ubuntu-buster:
@@ -173,7 +173,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-buster:
@@ -189,7 +189,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-buster-gtk3:
@@ -206,7 +206,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-bullseye:
@@ -223,7 +223,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-bullseye:
@@ -240,7 +240,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-bookworm:
@@ -259,7 +259,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-arm64-debian-buster:
@@ -276,7 +276,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-arm64-debian-bullseye:
@@ -293,7 +293,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-arm64-debian-bookworm:
@@ -311,7 +311,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-bionic-64:
@@ -328,7 +328,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-ubuntu-focal:
@@ -348,7 +348,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-ubuntu-focal-64:
@@ -368,7 +368,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            command: ci/circleci-build-raspbian-armhf.sh
+            command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-xenial:
@@ -516,16 +516,10 @@ jobs:
         - DOCKER_IMAGE=debian:bookworm
         steps:
         - checkout
-#        - run: >
-#            echo "deb-src http://ftp.debian.org/debian bookworm main"
-#            | sudo tee -a /etc/apt/sources.list
-#        - run: >
-#            echo "deb-src http://ftp.debian.org/debian bookworm-updates main"
-#            | sudo tee -a /etc/apt/sources.list
-#        - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
-#        - run: ci/circleci-build-debian.sh
-        - run: ci/circleci-build-raspbian-armhf.sh
+        - run:
+            command: ci/circleci-build-ubuntu-docker.sh
+            no_output_timeout: 30m
         - deploy-code
     build-flatpak:
         machine:
