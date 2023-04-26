@@ -139,6 +139,7 @@ jobs:
     build-armhf-stretch:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=stretch-armhf
         - DOCKER_IMAGE=balenalib/raspberry-pi-debian:stretch
@@ -149,12 +150,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-raspbian-buster:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=balenalib/raspberry-pi-debian:buster
@@ -165,12 +168,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-ubuntu-buster:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/ubuntu-armhf:18.04
@@ -181,12 +186,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-buster:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -197,12 +204,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-buster-wx32:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -214,12 +223,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-buster-gtk3:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -231,12 +242,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-buster-gtk3-wx32:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -249,12 +262,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-bullseye:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=balenalib/raspberry-pi-debian:bullseye
@@ -266,12 +281,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-bullseye:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
@@ -283,12 +300,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-bullseye-wx32:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
@@ -301,12 +320,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-bookworm:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=bookworm-armhf
@@ -320,12 +341,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-arm64-debian-buster:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=buster-arm64
@@ -338,12 +361,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-arm64-debian-bullseye:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
@@ -355,12 +380,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-arm64-debian-bullseye-wx32:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
@@ -372,12 +399,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-arm64-debian-bookworm-wx32:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bookworm-arm64
         - DOCKER_IMAGE=arm64v8/debian:bookworm
@@ -390,12 +419,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-bionic-64:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bionic-arm64
         - OCPN_BRANCH=master
@@ -407,12 +438,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-ubuntu-focal:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=focal-armhf
         - OCPN_BRANCH=master
@@ -427,12 +460,14 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-armhf-ubuntu-focal-64:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET=focal-arm64
         - OCPN_BRANCH=master
@@ -447,6 +482,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -586,6 +622,7 @@ jobs:
     build-bookworm:
         machine:
             image: ubuntu-2004:202104-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
@@ -594,15 +631,18 @@ jobs:
         - BUILD_ENV=debian
         - DOCKER_IMAGE=debian:bookworm
         steps:
+
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
+            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
     build-flatpak:
         machine:
             image: ubuntu-2004:202010-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -612,7 +652,9 @@ jobs:
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
-        - run: bash ci/circleci-build-flatpak.sh
+        - run:
+            name: build Elixir image
+            command: bash ci/circleci-build-flatpak.sh
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
@@ -620,6 +662,7 @@ jobs:
     build-flatpak-x86-1808:
         machine:
             image: ubuntu-2004:202010-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -629,11 +672,14 @@ jobs:
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
-        - run: bash ci/circleci-build-flatpak.sh
+        - run:
+            name: build Elixir image
+            command: bash ci/circleci-build-flatpak.sh
         - deploy-code
     build-flatpak-x86-2008:
         machine:
             image: ubuntu-2004:202010-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -644,12 +690,14 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
+            name: build Elixir image
             command: bash ci/circleci-build-flatpak.sh
             no_output_timeout: 30m
         - deploy-code
     build-flatpak-x86-2008-beta:
         machine:
             image: ubuntu-2004:202010-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: beta
@@ -661,12 +709,14 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
+            name: build Elixir image
             command: bash ci/circleci-build-flatpak.sh
             no_output_timeout: 30m
         - deploy-code
     build-flatpak-x86-2208:
         machine:
             image: ubuntu-2004:202010-01
+            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: beta
@@ -677,12 +727,14 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
+            name: build Elixir image
             command: bash ci/circleci-build-flatpak.sh
             no_output_timeout: 30m
         - deploy-code
     build-flatpak-arm64:
         machine:
             image: ubuntu-2004:202101-01
+            docker_layer_caching: true
         resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak-arm64
@@ -693,7 +745,9 @@ jobs:
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
-        - run: bash ci/circleci-build-flatpak.sh
+        - run:
+            name: build Elixir image
+            command: bash ci/circleci-build-flatpak.sh
         - deploy-code
     build-macos:
         macos:
