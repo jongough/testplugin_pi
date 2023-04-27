@@ -36,7 +36,11 @@ workflows:
 ##            <<: *std-filters
         - build-armhf-debian-bullseye:
             <<: *std-filters
+        - build-armhf-debian-bullseye-wx32:
+            <<: *std-filters
         - build-arm64-debian-bullseye:
+            <<: *std-filters
+        - build-arm64-debian-bullseye-wx32:
             <<: *std-filters
         - build-armhf-debian-bookworm:
             <<: *std-filters
@@ -221,24 +225,6 @@ jobs:
             name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
-        - deploy-code    build-armhf-bullseye:
-        machine:
-            image: ubuntu-2004:202104-01
-            docker_layer_caching: true
-        environment:
-        - OCPN_TARGET=bullseye-armhf
-        - DOCKER_IMAGE=balenalib/raspberry-pi-debian:bullseye
-        - BUILD_FLAGS=-j3
-        - BUILD_ENV=raspbian
-        - BUILD_GTK3: true
-        - DEPLOY_USE_ORB: true
-        steps:
-        - checkout
-        - run: chmod a+x ./ci/*.sh
-        - run:
-            name: build Elixir image
-            command: ci/circleci-build-ubuntu-docker.sh
-            no_output_timeout: 30m
         - deploy-code
     build-armhf-debian-bullseye:
         machine:
@@ -249,6 +235,26 @@ jobs:
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            name: build Elixir image
+            command: ci/circleci-build-ubuntu-docker.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-armhf-debian-bullseye-wx32:
+        machine:
+            image: ubuntu-2004:202104-01
+            docker_layer_caching: true
+        environment:
+        - OCPN_TARGET=bullseye-armhf
+        - DOCKER_IMAGE=jongough/debian-armhf:bullseye
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - WX_VER: 32
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -289,6 +295,26 @@ jobs:
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
+        - BUILD_GTK3: true
+        - DEPLOY_USE_ORB: true
+        steps:
+        - checkout
+        - run: chmod a+x ./ci/*.sh
+        - run:
+            name: build Elixir image
+            command: ci/circleci-build-ubuntu-docker.sh
+            no_output_timeout: 30m
+        - deploy-code
+    build-arm64-debian-bullseye-wx32:
+        machine:
+            image: ubuntu-2004:202104-01
+            docker_layer_caching: true
+        environment:
+        - OCPN_TARGET=bullseye-arm64
+        - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
+        - BUILD_FLAGS=-j3
+        - BUILD_ENV=debian
+        - WX_VER: 32
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
