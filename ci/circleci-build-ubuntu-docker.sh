@@ -100,7 +100,6 @@ EOF7
         if [ ! -n "$WX_VER" ] || [ "$WX_VER" = "30" ]; then
             echo "Building for WX30"
             cat >> build.sh << "EOF8"
-            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxbase3.0-dev
 EOF8
         elif [ "$WX_VER" = "32" ]; then
@@ -111,6 +110,7 @@ EOF8
 #EOF9
 #            fi
             cat >> build.sh << "EOF10"
+            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF10
         fi
