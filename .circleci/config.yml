@@ -290,6 +290,9 @@ jobs:
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
+        - run: >
+            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
+            | sudo tee -a /etc/apt/sources.list
         - run: chmod a+x ./ci/*.sh
         - run:
 
@@ -310,6 +313,9 @@ jobs:
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
+        - run: >
+            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
+            | sudo tee -a /etc/apt/sources.list
         - run: chmod a+x ./ci/*.sh
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
