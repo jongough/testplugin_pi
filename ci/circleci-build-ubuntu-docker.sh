@@ -37,7 +37,7 @@ docker run --privileged -d -ti -e "container=docker"  \
 
 DOCKER_CONTAINER_ID=$(docker ps | grep $DOCKER_IMAGE | awk '{print $1}')
 
-echo $OCPN_TARGET
+echo "Target build: $OCPN_TARGET"
 # Construct and run build script
 rm -f build.sh
 
