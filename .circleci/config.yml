@@ -130,7 +130,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -148,7 +147,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -166,7 +164,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -184,7 +181,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -203,7 +199,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -222,7 +217,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -241,7 +235,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -261,7 +254,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -282,7 +274,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -301,7 +292,7 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
+
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -321,7 +312,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -341,7 +331,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -363,7 +352,6 @@ jobs:
         - checkout
         - run: chmod a+x ./ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -498,7 +486,6 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
-            name: build Elixir image
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
@@ -516,7 +503,6 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
-            name: build Elixir image
             command: bash ci/circleci-build-flatpak.sh
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
@@ -536,7 +522,6 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
-            name: build Elixir image
             command: bash ci/circleci-build-flatpak.sh
             no_output_timeout: 30m
         - deploy-code
@@ -554,7 +539,6 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
-            name: build Elixir image
             command: bash ci/circleci-build-flatpak.sh
             no_output_timeout: 30m
         - deploy-code
@@ -573,7 +557,6 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run:
-            name: build Elixir image
             command: bash ci/circleci-build-flatpak.sh
         - deploy-code
     build-macos:
