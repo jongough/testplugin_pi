@@ -110,7 +110,7 @@ EOF8
 #EOF9
 #            fi
             cat >> build.sh << "EOF10"
-            sudo add-apt-repository ppa:opencpn/opencpn
+            add-apt-repository ppa:opencpn/opencpn
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF10
         fi
