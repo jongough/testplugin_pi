@@ -319,10 +319,11 @@ jobs:
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
-        - run: >
-            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
-            | sudo tee -a /etc/apt/sources.list
-        - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
+#        - run: >
+#            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
+#            | sudo tee -a /etc/apt/sources.list
+        -run: sudo add-apt-repository ppa:opencpn/opencpn
+#        - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
         - run: chmod a+x ./ci/*.sh
 #        - run:
 #            name: build Elixir image
