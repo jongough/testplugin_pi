@@ -324,9 +324,9 @@ jobs:
             | sudo tee -a /etc/apt/sources.list
         - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
         - run: chmod a+x ./ci/*.sh
-        - run:
-            name: build Elixir image
-            command: docker build arm64v8/debian:bullseys-backports
+#        - run:
+#            name: build Elixir image
+#            command: docker build arm64v8/debian:bullseys-backports
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
