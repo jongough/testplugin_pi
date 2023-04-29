@@ -72,7 +72,7 @@ else
        [ "$OCPN_TARGET" = "bullseye-armhf" ] ||
        [ "$OCPN_TARGET" = "bullseye-arm64" ] ||
        [ "$OCPN_TARGET" = "bookworm-armhf" ] ||
-       [ "$OCPN_TARGET" = "bookworm-arm64" ] ||
+       [ "$OCPN_TARGET" = "bookworm-arm64" ] ||arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
        [ "$OCPN_TARGET" = "bookworm" ] ||
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
@@ -111,6 +111,7 @@ EOF8
 #            fi
             cat >> build.sh << "EOF10"
             add-apt-repository -y ppa:opencpn/opencpn
+            apt-get y --allow-unauthenticated update
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF10
         fi

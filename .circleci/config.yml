@@ -319,6 +319,8 @@ jobs:
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
+        - restore_cache:
+            key: arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
 #        - run: >
 #            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
 #            | sudo tee -a /etc/apt/sources.list
@@ -330,6 +332,10 @@ jobs:
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
         - deploy-code
+        - save_cache:
+            keys:
+                - arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
+                -arm64-debian-bullseye-wx32-
     build-arm64-debian-bookworm:
         machine:
             image: ubuntu-2004:202104-01
