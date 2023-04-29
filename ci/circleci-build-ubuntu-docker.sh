@@ -111,7 +111,7 @@ EOF8
 #            fi
             cat >> build.sh << "EOF10"
             add-apt-repository -y ppa:opencpn/opencpn
-            apt-get y --allow-unauthenticated update
+            apt-get -y --allow-unauthenticated update
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF10
         fi
