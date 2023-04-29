@@ -110,6 +110,7 @@ EOF8
 #EOF9
 #            fi
             cat >> build.sh << "EOF10"
+            echo "Acquire::AllowInsecureRepositories 'true';" | tee -a 99myinsed
             add-apt-repository -y ppa:opencpn/opencpn
             apt-get -y --allow-unauthenticated update
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
