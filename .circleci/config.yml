@@ -335,7 +335,7 @@ jobs:
         - save_cache:
             keys:
                 - arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
-                -arm64-debian-bullseye-wx32-
+                - arm64-debian-bullseye-wx32-
     build-arm64-debian-bookworm:
         machine:
             image: ubuntu-2004:202104-01
