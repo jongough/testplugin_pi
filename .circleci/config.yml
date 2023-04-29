@@ -34,12 +34,12 @@ workflows:
 ### Derecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
 ###        - build-armhf-bullseye:
 ###            <<: *std-filters
-        - build-armhf-debian-bullseye:
-            <<: *std-filters
-        - build-armhf-debian-bullseye-wx32:
-            <<: *std-filters
-        - build-arm64-debian-bullseye:
-            <<: *std-filters
+#        - build-armhf-debian-bullseye:
+#            <<: *std-filters
+#        - build-armhf-debian-bullseye-wx32:
+#            <<: *std-filters
+#        - build-arm64-debian-bullseye:
+#            <<: *std-filters
         - build-arm64-debian-bullseye-wx32:
             <<: *std-filters
 #        - build-armhf-debian-bookworm:
@@ -324,6 +324,9 @@ jobs:
             | sudo tee -a /etc/apt/sources.list
         - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
         - run: chmod a+x ./ci/*.sh
+        - run:
+            name: build Elixir image
+            command: docker build -t arm64v8/debian:bullseys-backports
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
