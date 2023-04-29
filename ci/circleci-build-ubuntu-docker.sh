@@ -110,7 +110,6 @@ EOF8
 #EOF9
 #            fi
             cat >> build.sh << "EOF10"
-            apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF10
         fi
