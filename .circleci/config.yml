@@ -326,7 +326,7 @@ jobs:
         - run: chmod a+x ./ci/*.sh
         - run:
             name: build Elixir image
-            command: docker build -t arm64v8/debian:bullseys-backports
+            command: docker build arm64v8/debian:bullseys-backports
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
