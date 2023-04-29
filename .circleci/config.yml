@@ -320,6 +320,7 @@ jobs:
         steps:
         - checkout
         - restore_cache:
+            name: Restore build machine dependencies
             keys:
                 - arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
 #                - arm64-debian-bullseye-wx32-
@@ -335,7 +336,9 @@ jobs:
             no_output_timeout: 30m
         - deploy-code
         - save_cache:
+            name: Save build machine cache
             key: arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
+            paths: ./
     build-arm64-debian-bookworm:
         machine:
             image: ubuntu-2004:202104-01
