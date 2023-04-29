@@ -72,7 +72,7 @@ else
        [ "$OCPN_TARGET" = "bullseye-armhf" ] ||
        [ "$OCPN_TARGET" = "bullseye-arm64" ] ||
        [ "$OCPN_TARGET" = "bookworm-armhf" ] ||
-       [ "$OCPN_TARGET" = "bookworm-arm64" ] ||arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
+       [ "$OCPN_TARGET" = "bookworm-arm64" ] ||
        [ "$OCPN_TARGET" = "bookworm" ] ||
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
