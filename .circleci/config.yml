@@ -306,7 +306,7 @@ jobs:
             image: ubuntu-2004:2023.04.2
         environment:
         - OCPN_TARGET=bullseye-arm64
-        - DOCKER_IMAGE=arm32v7/debian:bullseye
+        - DOCKER_IMAGE=arm64v8/debian:bullseye
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
         - WX_VER: 32
