@@ -38,8 +38,8 @@ workflows:
 #            <<: *std-filters
 #        - build-armhf-debian-bullseye-wx32:
 #            <<: *std-filters
-#        - build-arm64-debian-bullseye:
-#            <<: *std-filters
+        - build-arm64-debian-bullseye:
+            <<: *std-filters
         - build-arm64-debian-bullseye-wx32:
             <<: *std-filters
 #        - build-armhf-debian-bookworm:
@@ -287,7 +287,6 @@ jobs:
     build-arm64-debian-bullseye:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
@@ -297,9 +296,6 @@ jobs:
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
-        - run: >
-            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
-            | sudo tee -a /etc/apt/sources.list
         - run: chmod a+x ./ci/*.sh
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
@@ -308,7 +304,6 @@ jobs:
     build-arm64-debian-bullseye-wx32:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
