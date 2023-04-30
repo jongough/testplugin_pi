@@ -76,7 +76,6 @@ else
        [ "$OCPN_TARGET" = "bookworm" ] ||
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
-        echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee /etc/apt/apt.conf.d/01proxy
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
         apt-get -qq --allow-unauthenticated update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends --allow-change-held-packages install tzdata
         apt-get -y --no-install-recommends --fix-missing install --allow-change-held-packages --allow-unauthenticated  \
