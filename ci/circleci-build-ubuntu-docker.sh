@@ -76,6 +76,7 @@ else
        [ "$OCPN_TARGET" = "bookworm" ] ||
        [ "$OCPN_TARGET" = "buster-armhf" ]; then
         cat >> build.sh << "EOF5"
+        echo "Acquire::http::Proxy \"http://192.168.1.1:3142\";" | tee /etc/apt/apt.conf.d/01proxy
         echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
         apt-get -qq --allow-unauthenticated update && DEBIAN_FRONTEND='noninteractive' TZ='America/New_York' apt-get -y --no-install-recommends --allow-change-held-packages install tzdata
         apt-get -y --no-install-recommends --fix-missing install --allow-change-held-packages --allow-unauthenticated  \
@@ -112,6 +113,9 @@ EOF8
             cat >> build.sh << "EOF10"
             echo "Acquire::AllowInsecureRepositories 'true';" | tee -a 99myinsed
             add-apt-repository -y ppa:opencpn/opencpn
+            add-apt-repository -y ppa:bdbcat/opencpn
+            echo "deb https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
+            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
             apt-get -y --allow-unauthenticated update
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF10

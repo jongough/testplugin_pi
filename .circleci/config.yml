@@ -324,13 +324,7 @@ jobs:
             keys:
                 - arm64-debian-bullseye-wx32-{{ checksum "CMakeLists.txt" }}
 #                - arm64-debian-bullseye-wx32-
-#        - run: >
-#            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
-#            | sudo tee -a /etc/apt/sources.list
         - run: chmod a+x ./ci/*.sh
-#        - run:
-#            name: build Elixir image
-#            command: docker build arm64v8/debian:bullseys-backports
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
             no_output_timeout: 30m
@@ -389,7 +383,7 @@ jobs:
         - checkout
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic main"
-            | sudo tee -a /etc/apt/sources.list#    build_15:
+            | sudo tee -a /etc/apt/sources.list
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ bionic-updates main"
             | sudo tee -a /etc/apt/sources.list
