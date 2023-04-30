@@ -121,7 +121,6 @@ jobs:
     build-armhf-stretch:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=stretch-armhf
         - DOCKER_IMAGE=balenalib/raspberry-pi-debian:stretch
@@ -138,7 +137,6 @@ jobs:
     build-armhf-raspbian-buster:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=balenalib/raspberry-pi-debian:buster
@@ -155,7 +153,6 @@ jobs:
     build-armhf-ubuntu-buster:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/ubuntu-armhf:18.04
@@ -172,7 +169,6 @@ jobs:
     build-armhf-debian-buster:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -189,7 +185,6 @@ jobs:
     build-armhf-debian-buster-gtk3:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -207,7 +202,6 @@ jobs:
     build-arm64-debian-buster:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=buster-arm64
@@ -225,7 +219,6 @@ jobs:
     build-armhf-debian-bullseye:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
@@ -235,9 +228,6 @@ jobs:
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
-        - run: >
-            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
-            | sudo tee -a /etc/apt/sources.list
         - run: chmod a+x ./ci/*.sh
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
@@ -246,7 +236,6 @@ jobs:
     build-armhf-debian-bullseye-wx32:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
@@ -257,10 +246,6 @@ jobs:
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
-        - run: >
-            echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main"
-            | sudo tee -a /etc/apt/sources.list
-        - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 67E4A52AC865EB40
         - run: chmod a+x ./ci/*.sh
         - run:
             command: ci/circleci-build-ubuntu-docker.sh
@@ -269,7 +254,6 @@ jobs:
     build-armhf-debian-bookworm:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=bookworm-armhf
@@ -288,7 +272,7 @@ jobs:
         - deploy-code
     build-arm64-debian-bullseye:
         machine:
-            image: ubuntu-2004:2023.04.2
+            image: ubuntu-2004:202104-01
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
@@ -333,7 +317,6 @@ jobs:
     build-arm64-debian-bookworm:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=bookworm-arm64
         - DOCKER_IMAGE=arm64v8/debian:bookworm
@@ -352,7 +335,6 @@ jobs:
     build-armhf-ubuntu-focal:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET=focal-armhf
         - OCPN_BRANCH=master
@@ -488,7 +470,6 @@ jobs:
     build-bookworm:
         machine:
             image: ubuntu-2004:202104-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
@@ -507,7 +488,6 @@ jobs:
     build-flatpak:
         machine:
             image: ubuntu-2004:202010-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -526,7 +506,6 @@ jobs:
     build-flatpak-x86-2008:
         machine:
             image: ubuntu-2004:202010-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: stable
@@ -543,7 +522,6 @@ jobs:
     build-flatpak-x86-2208:
         machine:
             image: ubuntu-2004:202010-01
-            docker_layer_caching: true
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: beta
@@ -560,7 +538,6 @@ jobs:
     build-flatpak-arm64:
         machine:
             image: ubuntu-2004:202101-01
-            docker_layer_caching: true
         resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak-arm64
