@@ -105,33 +105,35 @@ EOF08
         elif [ "$WX_VER" = "32" ]; then
             echo "Building for WX32"
             if [ "$OCPN_TARGET" = "bullseye-armhf" ] || [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
-            cat >> build.sh << "EOF09"
-            echo "Acquire::AllowInsecureRepositories 'true';" | tee -a 99myinsed
-            echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
-            echo "deb-src [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
-            apt-get -y --allow-unauthenticated update
-            apt-get -y --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
+                cat >> build.sh << "EOF09"
+                echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
+                echo "deb-src [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
+                apt-get -y --allow-unauthenticated update
 EOF09
+            fi
+            cat >> build.sh << "EOF10"
+            apt-get -y --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
+EOF10
         fi
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
-            cat >> build.sh << "EOF10"
+            cat >> build.sh << "EOF11"
             CMAKE_VERSION=3.20.5-0kitware1ubuntu20.04.1
             wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc --no-check-certificate 2>/dev/null | apt-key add -
             apt-add-repository 'deb https://apt.kitware.com/ubuntu/ focal main'
             apt-get --allow-unauthenticated update
             apt --allow-unauthenticated install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
-EOF10
-        else
-            cat >> build.sh << "EOF11"
-            apt install -y --allow-unauthenticated cmake
 EOF11
+        else
+            cat >> build.sh << "EOF12"
+            apt install -y --allow-unauthenticated cmake
+EOF12
         fi
     else
-        cat > build.sh << "EOF12"
+        cat > build.sh << "EOF13"
         apt-get -qq --allow-unauthenticated update
         apt-get -y --no-install-recommends --allow-change-held-packages --allow-unauthenticated install \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
-EOF12
+EOF13
     fi
 fi
 
