@@ -111,8 +111,6 @@ EOF8
 #            fi
             cat >> build.sh << "EOF10"
             echo "Acquire::AllowInsecureRepositories 'true';" | tee -a 99myinsed
-            add-apt-repository -y ppa:opencpn/opencpn
-            add-apt-repository -y ppa:bdbcat/opencpn
             echo "deb https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
             echo "deb-src https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
             apt-get -y --allow-unauthenticated update
