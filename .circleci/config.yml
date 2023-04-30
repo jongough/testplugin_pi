@@ -36,12 +36,13 @@ workflows:
 ###            <<: *std-filters
 #        - build-armhf-debian-bullseye:
 #            <<: *std-filters
-#        - build-armhf-debian-bullseye-wx32:
-#            <<: *std-filters
+        - build-armhf-debian-bullseye-wx32:
+            <<: *std-filters
 #        - build-arm64-debian-bullseye:
 #            <<: *std-filters
-        - build-arm64-debian-bullseye-wx32:
-            <<: *std-filters
+## Cannot build due to dependencies not being met. - 30/04/2023
+##        - build-arm64-debian-bullseye-wx32:
+##            <<: *std-filters
 #        - build-armhf-debian-bookworm:
 #            <<: *std-filters
 #        - build-arm64-debian-bookworm:
