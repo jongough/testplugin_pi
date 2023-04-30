@@ -286,7 +286,7 @@ jobs:
         - deploy-code
     build-arm64-debian-bullseye:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2004:2023.04.2
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
@@ -303,7 +303,7 @@ jobs:
         - deploy-code
     build-arm64-debian-bullseye-wx32:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2004:2023.04.2
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
