@@ -554,6 +554,7 @@ jobs:
     build-macos:
         macos:
             xcode: "12.5.1"
+        resource_class: macos.x86.medium.gen2
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
@@ -567,6 +568,7 @@ jobs:
     build-macos-wx32:
         macos:
             xcode: "12.5.1"
+        resource_class: macos.x86.medium.gen2
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
