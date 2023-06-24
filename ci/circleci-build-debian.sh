@@ -32,7 +32,7 @@ if test -f "$EXTRA_LIBS"; then
     done < "$EXTRA_LIBS"
 fi
 echo ${CIRCLE_JOB}
-EXTRA_LIBS=./ci/extras/circleci_${CIRCLE_JOB}_extra_libs.txt
+EXTRA_LIBS=./ci/extras/${CIRCLE_JOB}_extra_libs.txt
 echo $EXTRA_LIBS
 if test -f "$EXTRA_LIBS"; then
     echo "Found circleci_build-jammy_extra_libs.txt"
