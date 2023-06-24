@@ -554,11 +554,12 @@ jobs:
     build-macos:
         macos:
             xcode: "12.5.1"
+        resource_class: macos.x86.medium.gen2
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
         - DEPLOY_USE_ORB: true
-        - WX_VER: 312
+        - WX_VER: 31
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -567,6 +568,7 @@ jobs:
     build-macos-wx32:
         macos:
             xcode: "12.5.1"
+        resource_class: macos.x86.medium.gen2
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
