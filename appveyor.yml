@@ -5,7 +5,6 @@ clone_depth: 10
 image:
   - Visual Studio 2017
 #  - Visual Studio 2022
-  - dummy
 
 
 platform:
@@ -36,7 +35,7 @@ for:
 -
   matrix:
     only:
-    - image: Visual Studio 2017
+      - image: Visual Studio 2017
   install:
     - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
     - set WX_VER=
@@ -60,7 +59,7 @@ for:
 -
   matrix:
     only:
-    - image: Visual Studio 2022
+      - image: Visual Studio 2022
   install:
     - call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
     - set WX_VER=32
