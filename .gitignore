@@ -1,5 +1,4 @@
-build*
-.directory
+./build*
 po/POTFILES.in.test
 temp
 tmp

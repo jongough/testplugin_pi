@@ -24,7 +24,7 @@ std-filters: &std-filters
 workflows:
     build_all:
         jobs:
-##  --------------------
+###  --------------------
 ## OpenCPN 5.8 Plugins
 ## ---------------------
         - build-android-arm64:
@@ -40,8 +40,9 @@ workflows:
 ## No flatpak-armhf - Insufficient performance.
 ## See appveyor for Windows build.
 ## Work in progress to allow circleci to do windows builds
-##        - build-msvc-wx32-2022:
-##            <<: *std-filters
+# Not supported under circleci
+        - build-msvc-wx32-2022:
+            <<: *std-filters
         - build-debian-arm64-12-bookworm:
             <<: *std-filters
         - build-debian-armhf-12-bookworm:
@@ -99,23 +100,18 @@ workflows:
         - build-raspian-armhf-913-stretch:
             <<: *std-filters
 ##
-## UBUNTU OS
-## Frozen - 28/05/2023  DROP
+## UBUNTU OS  All Frozen - 28/05/2023  DROP
 ##        - build-ubuntu-armhf-1804-buster:
 ##            <<: *std-filters
-## Frozen - 28/05/2023  DROP
 ##        - build-ubuntu-x86_64-1804-bionic:
 ##            <<: *std-filters
-## Frozen - 28/05/2023  DROP
 ##        - build-ubuntu-x86_64-1804-bionic-gtk3:
 ##            <<: *std-filters
-## Frozen - 28/05/2023  DROP
 ##        - build-ubuntu-armhf-2004-focal-gtk3:
 ##            <<: *std-filters
-## Frozen - 28/05/2023 DROP
 ##        - build-ubuntu-x86_64-2004-focal-gtk3:
 ##            <<: *std-filters
-## Frozen - 28/05/2023 KEEP (an unfortunate special case)
+##  KEEP (an unfortunate special case)
         - build-ubuntu-x86_64-2204-jammy:
             <<: *std-filters
 ## Deprecated in favour of ubuntu-armhf:18.04 buster build - 14/01/2022
@@ -124,8 +120,7 @@ workflows:
 ## Deprecated in favour of ubuntu-armhf:20.04 build - 14/01/2022
 ##        - build-armhf-bullseye:
 ##            <<: *std-filters
-
-
+#
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
     win: circleci/windows@5.0
@@ -136,9 +131,9 @@ commands:
             install-python:
                 type: boolean
                 default: false
-            use-orb:
-                type: env_var_name
-                default: DEPLOY_USE_ORB
+            DEPLOY-USE-ORB:
+                type: boolean
+                default: true
         steps:
             - when:
                 condition: <<pipeline.parameters.run_workflow_deploy>>
@@ -149,11 +144,11 @@ commands:
                     - run: sudo apt install -y python3-pip
                     - run: python3.8 -m pip install cloudsmith-cli
                 - when:
-                    condition: <<parameters.use-orb>>
+                    condition: <<parameters.DEPLOY-USE-ORB>>
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
-                - run: ci/cloudsmith-upload.sh
+                - run: bash ci/cloudsmith-upload.sh
 
     # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
     #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
