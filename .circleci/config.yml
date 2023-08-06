@@ -210,7 +210,7 @@ jobs:
         - checkout
         - run: ci/circleci-build-msvc
         - deploy-code:
-            install-python: true
+              DEPLOY-USE-ORB: false
     build-flatpak-arm64-2208:
         machine:
             image: ubuntu-2004:202101-01
