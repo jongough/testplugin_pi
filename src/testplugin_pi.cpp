@@ -55,10 +55,8 @@
 #include "tpicons.h"
 #include "tpControlDialogImpl.h"
 
-#include "jsonwriter.h"
+#include "wx/jsonwriter.h"
 
-
-//#include "pluginmanager.h"
 
 #ifndef DECL_EXP
 #ifdef __WXMSW__
@@ -74,7 +72,6 @@ static const long long lNaN = 0xfff8000000000000;
 #endif
 
 testplugin_pi           *g_testplugin_pi;
-//PlugInManager           *g_tp_pi_manager;
 wxString                *g_PrivateDataDir;
 
 wxString                *g_pHome_Locn;
