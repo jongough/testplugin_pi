@@ -134,7 +134,7 @@ std::cout << x  << std::endl ; } while (0)
 //#include <GL/glu.h>
 #else
 #include "qopengl.h"                  // this gives us the qt runtime gles2.h
-#include "GL/gl_private.h"
+//#include "GL/gl_private.h"
 #endif
 #endif
 
