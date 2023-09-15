@@ -126,15 +126,15 @@ std::cout << x  << std::endl ; } while (0)
 #else
 
 #ifdef USE_ANDROID_GLES2
-//#include <gl2.h>
+#include <gl2.h>
 #endif
 
 #ifndef __OCPN__ANDROID__
-//#include <GL/gl.h>
-//#include <GL/glu.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #else
-//#include "qopengl.h"                  // this gives us the qt runtime gles2.h
-//#include "GL/gl_private.h"
+#include "qopengl.h"                  // this gives us the qt runtime gles2.h
+#include "GL/gl_private.h"
 #endif
 #endif
 

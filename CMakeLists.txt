@@ -270,6 +270,9 @@ if(NOT OCPN_FLATPAK_CONFIG)
     add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/wxJSON)
     target_link_libraries(${PACKAGE_NAME} ocpn::wxjson)
 
+    add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/plugingl)
+    target_link_libraries(${PACKAGE_NAME} ocpn::plugingl)
+
 endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
