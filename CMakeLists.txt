@@ -273,6 +273,9 @@ if(NOT OCPN_FLATPAK_CONFIG)
     add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/plugingl)
     target_link_libraries(${PACKAGE_NAME} ocpn::plugingl)
 
+    add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/glu)
+    target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
+
 endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
