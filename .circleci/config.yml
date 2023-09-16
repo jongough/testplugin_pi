@@ -136,7 +136,7 @@ commands:
 ## OpenCPN 5.8 Plugins
 ## ---------------------
 jobs:
-    build-msvc-wx32-2022:
+    build-msvc-2022:
         executor:
             name: win/server-2022
             shell: cmd.exe
