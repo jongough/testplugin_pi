@@ -139,12 +139,10 @@ include("PluginConfigure")
 add_definitions(-DUSE_S57)
 
 set(SRCS
-    #src/tpdc.cpp
     src/tpControlDialogDef.cpp
     src/tpControlDialogImpl.cpp
     src/tpicons.cpp
     src/tpJSON.cpp
-    #src/tpShaders.cpp
     src/testplugin_pi.cpp
     src/tpUtils.cpp)
 
@@ -155,47 +153,9 @@ set(HDRS
     include/tpControlDialogImpl.h
     include/tpIconCombo.h
     include/tpJSON.h
-    #include/tpdc.h
-    #include/tpShaders.h
     include/tpUtils.h)
 
-#set(OCPNSRC
-#    ocpnsrc/cutil.cpp
-#    ocpnsrc/TexFont.cpp
-#)
-
-#set(OCPNHDRS
-#    ocpninclude/cutil.h
-#    ocpninclude/ocpn_plugin.h
-#    ocpninclude/pluginmanager.h
-#    ocpninclude/shaders.h
-#    ocpninclude/TexFont.h
-#    ocpninclude/vector2D.h
-#    libs/ocpn-api/ocpn_plugin.h
-#)
-
-#set(EXTSRC
-#)
-#set(EXTINCLUDE
-#    extinclude/ODAPI.h
-#    extinclude/ODJSONSchemas.h
-#)
-
-#set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
-
-#set(LIBHDRS
-#    libs/GL/gl.h
-#    libs/GL/gl_private.h
-#    libs/GL/glext.h
-#    libs/GL/glu.h
-#    libs/wxJSON/include/json_defs.h
-#    libs/wxJSON/include/jsonreader.h
-#    libs/wxJSON/include/jsonval.h
-#    libs/wxJSON/include/jsonwriter.h)
-
 add_definitions(-DPLUGIN_USE_SVG)
-
-#set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
 
 #
 # ----- If using JSON validation in plugin section below is needed ----- ##
@@ -217,9 +177,6 @@ if(PI_JSON_SCHEMA_VALIDATOR)
     add_subdirectory(opencpn-libs/json-schema-validator)
     target_link_libraries(${PACKAGE_NAME} ocpn::json-schema-validator)
 
-    #set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
-    #set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude/nlohmann extinclude)
-    #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
 else(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 endif(PI_JSON_SCHEMA_VALIDATOR)
@@ -228,20 +185,11 @@ endif(PI_JSON_SCHEMA_VALIDATOR)
 # ----- If using JSON validation in plugin section above is needed ----- ##
 #
 
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
-
 #
 # ----- Change below to match project requirements for android build ----- ##
 #
 
 if(QT_ANDROID)
-#    include_directories( ${PROJECT_SOURCE_DIR}/extinclude/GLES2)
 endif(QT_ANDROID)
 
 ##
