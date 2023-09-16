@@ -374,8 +374,9 @@ set(BUILD_SHARED_LIBS TRUE)
 
 # Allow multiprocess compile
 if(MSVC)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /showIncludes")
 endif(MSVC)
 
 if(WIN32)
