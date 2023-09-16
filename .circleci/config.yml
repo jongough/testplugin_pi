@@ -318,18 +318,22 @@ jobs:
         - deploy-code
 ## Appveyor builds Windows including WinXT.
 ## If below is used, will WinXT work?
-    build-msvc-2022:
-       executor: win/server-2022
+    build-msvc-wx32-2022:
+        executor:
+            name: win/server-2022
+            shell: cmd.exe
         environment:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
         - WX_VER: 31
-        - DEPLOY_USE_ORB: true
         steps:
         - checkout
-        - run: ci/circleci-build-msvc
+        - run:
+            privileged: False
+            shell: cmd.exe
+            command: ci\circleci-build-msvc.bat
         - deploy-code:
-            install-python: true
+            DEPLOY-USE-ORB: false
 ## Appveyor builds Windows including WinXT.
 ## If below is used, WinXT will not work.
 #    build-msvc-2022:
