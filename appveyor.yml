@@ -16,7 +16,7 @@ environment:
 # use enviornment matrix with job_name to allow build of one or more environments
   matrix:
   - job_name: Visual Studio 2017
-    APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    APPVEYOR_BUILD_WORKER_IMAGE: Previous Visual Studio 2017
 
 ## This can be built in Circleci and is currently the FE2 default
 ##
