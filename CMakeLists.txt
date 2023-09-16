@@ -39,7 +39,7 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "254")
+set(VERSION_PATCH "255")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "05/09/2023") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
@@ -139,12 +139,10 @@ include("PluginConfigure")
 add_definitions(-DUSE_S57)
 
 set(SRCS
-    src/tpdc.cpp
     src/tpControlDialogDef.cpp
     src/tpControlDialogImpl.cpp
     src/tpicons.cpp
     src/tpJSON.cpp
-    src/tpShaders.cpp
     src/testplugin_pi.cpp
     src/tpUtils.cpp)
 
@@ -155,47 +153,9 @@ set(HDRS
     include/tpControlDialogImpl.h
     include/tpIconCombo.h
     include/tpJSON.h
-    include/tpdc.h
-    include/tpShaders.h
     include/tpUtils.h)
 
-set(OCPNSRC
-    ocpnsrc/cutil.cpp
-    ocpnsrc/TexFont.cpp
-)
-
-set(OCPNHDRS
-    ocpninclude/cutil.h
-    ocpninclude/ocpn_plugin.h
-    ocpninclude/pluginmanager.h
-    ocpninclude/shaders.h
-    ocpninclude/TexFont.h
-    ocpninclude/vector2D.h
-    libs/ocpn-api/ocpn_plugin.h
-)
-
-set(EXTSRC
-)
-set(EXTINCLUDE
-    extinclude/ODAPI.h
-    extinclude/ODJSONSchemas.h
-)
-
-set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
-
-set(LIBHDRS
-    libs/GL/gl.h
-    libs/GL/gl_private.h
-    libs/GL/glext.h
-    libs/GL/glu.h
-    libs/wxJSON/include/json_defs.h
-    libs/wxJSON/include/jsonreader.h
-    libs/wxJSON/include/jsonval.h
-    libs/wxJSON/include/jsonwriter.h)
-
 add_definitions(-DPLUGIN_USE_SVG)
-
-set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
 
 #
 # ----- If using JSON validation in plugin section below is needed ----- ##
@@ -207,14 +167,16 @@ else(APPLE)
     option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
 endif(APPLE)
 
+set(PI_JSON_SCHEMA_VALIDATOR ON)
+
 if(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
     add_definitions(-DPI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Adding JSON Schema validation")
 
-    set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
-    set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude/nlohmann extinclude)
-    #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+    add_subdirectory(opencpn-libs/json-schema-validator)
+    target_link_libraries(${PACKAGE_NAME} ocpn::json-schema-validator)
+
 else(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 endif(PI_JSON_SCHEMA_VALIDATOR)
@@ -223,20 +185,11 @@ endif(PI_JSON_SCHEMA_VALIDATOR)
 # ----- If using JSON validation in plugin section above is needed ----- ##
 #
 
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
-
 #
 # ----- Change below to match project requirements for android build ----- ##
 #
 
 if(QT_ANDROID)
-    include_directories( ${PROJECT_SOURCE_DIR}/extinclude/GLES2)
 endif(QT_ANDROID)
 
 ##
@@ -244,14 +197,33 @@ endif(QT_ANDROID)
 ##
 
 
-target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
+target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS})
 
 if(NOT OCPN_FLATPAK_CONFIG)
     # Build environment not available when flatpak is being configured so following statements will not work
     message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
-    add_subdirectory(libs/tinyxml)
+    add_subdirectory(opencpn-libs/WindowsHeaders)
+    target_link_libraries(${PACKAGE_NAME} windows::headers)
+
+    add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/api-16)
+    target_link_libraries(${PACKAGE_NAME} ocpn::api)
+
+    add_subdirectory(opencpn-libs/tinyxml)
     target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
+
+    add_subdirectory(opencpn-libs/ODAPI)
+    target_link_libraries(${PACKAGE_NAME} ocpn::odapi)
+
+    add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/jsonlib)
+    target_link_libraries(${PACKAGE_NAME} ocpn::jsonlib)
+
+    add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/wxJSON)
+    target_link_libraries(${PACKAGE_NAME} ocpn::wxjson)
+
+    add_subdirectory(${PROJECT_SOURCE_DIR}/opencpn-libs/plugingl)
+    target_link_libraries(${PACKAGE_NAME} ocpn::plugingl)
+
 endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
