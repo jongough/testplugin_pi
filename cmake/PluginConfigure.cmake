@@ -492,7 +492,7 @@ if((NOT OPENGLES_FOUND) AND (NOT QT_ANDROID))
     endif(USE_GL MATCHES "ON")
 
     if(USE_LOCAL_GLU)
-        message(STATUS "${CMLOC}    Adding local glu")
+        message(STATUS "${CMLOC}    Adding local GLU")
         add_subdirectory(opencpn-libs/glu)
         message(STATUS "${CMLOC}PACKAGE_NAME: ${PACKAGE_NAME}")
         target_link_libraries(${PACKAGE_NAME} ocpn::glu_static)
