@@ -62,7 +62,7 @@ set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
-set(TP_COMMENT "  * Release for O5 using CI")
+set(TP_COMMENT "  * Release using CI")
 
 set(PARENT "opencpn")
 
@@ -79,6 +79,7 @@ set(ALPHA "alpha") #Standard Repos
 #set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 #set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")  #Ricks's customization
 set(CLOUDSMITH_BASE_REPOSITORY "testplugin")    #without the pi
+
 # Set the following to use OpenCPN cloudsmith repositories instead of own repositories
 set(CLOUDSMITH_USER "opencpn")
 #set(CLOUDSMITH_USER "jon-gough")
@@ -87,8 +88,8 @@ set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_
 set(XML_SUMMARY ${SHORT_DESCRIPTION})
 set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 
-## ----- Modify section above to include all the details for your plugin ----- ##
-## ----- Modify section below if there are special requirements for the plugin ----- ##
+## ----- Modify section above to include all the details for your plugin ------- ##
+## ----- Modify section below if there are special requirements for the plugin --##
 
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
@@ -130,6 +131,9 @@ option(Plugin_CXX11 "Use c++11" OFF)
 ## ----- Modify section above if there are special requirements for the plugin --##
 ## ----- Do not change next section - needed to configure build process ---------##
 ##===========================================================
+
+## --Below needed for build process.
+#===========================================================
 
 include("PluginConfigure")
 
@@ -183,13 +187,7 @@ else(PI_JSON_SCHEMA_VALIDATOR)
     message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
 endif(PI_JSON_SCHEMA_VALIDATOR)
 
-#
-# ----- If using JSON validation in plugin section above is needed ----- ##
-#
-
-#
-# ----- Change below to match project requirements for android build ----- ##
-#
+## ----- If using JSON validation in plugin section above is needed --------##
 
 if(QT_ANDROID)
 endif(QT_ANDROID)
