@@ -66,7 +66,7 @@ fi
 
 export MACOSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET
 
-# MacOS .pkg installer is deprecated in OCPN
+# MacOS .pkg installer is deprecated in OCPN 5.6.2+
 # use brew to get Packages.pkg
 #if brew list --cask --versions packages; then
 #    version=$(brew list --cask --versions packages)
