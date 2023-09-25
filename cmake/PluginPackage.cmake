@@ -111,7 +111,9 @@ if(UNIX AND NOT APPLE)
 
 endif(UNIX AND NOT APPLE)
 
-if(NOT STANDALONE MATCHES "BUNDLED")
+# MacOS .pkg installer is deprecated in OCPN
+#if(NOT STANDALONE MATCHES "BUNDLED")
+if(FALSE)
     if(APPLE)
         message(STATUS "${CMLOC}*** Staging to build PlugIn OSX Package ***")
 
