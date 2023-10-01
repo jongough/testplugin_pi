@@ -61,7 +61,7 @@ set(VERSION_DATE "19/09/2023") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
-set(OCPN_API_VERSION_MINOR "16")
+set(OCPN_API_VERSION_MINOR "17")
 set(TP_COMMENT "  * Release using CI")
 
 set(PARENT "opencpn")
@@ -217,7 +217,7 @@ if(NOT OCPN_FLATPAK_CONFIG)
     add_subdirectory(opencpn-libs/WindowsHeaders)
     target_link_libraries(${PACKAGE_NAME} windows::headers)
 
-    add_subdirectory(opencpn-libs/api-16)
+    add_subdirectory(opencpn-libs/api-17)
     target_link_libraries(${PACKAGE_NAME} ocpn::api)
 
     add_subdirectory(opencpn-libs/tinyxml)

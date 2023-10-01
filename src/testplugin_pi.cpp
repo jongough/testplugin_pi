@@ -133,7 +133,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //---------------------------------------------------------------------------------------------------------
 
 testplugin_pi::testplugin_pi(void *ppimgr)
-:opencpn_plugin_116(ppimgr)
+:opencpn_plugin_117(ppimgr)
 {
     // Create the PlugIn icons
     g_ppimgr = ppimgr;
@@ -331,6 +331,16 @@ int testplugin_pi::GetPlugInVersionMinor()
 {
       return PLUGIN_VERSION_MINOR;
 }
+
+int testplugin_pi::GetPlugInVersionPatch()
+{
+    return PLUGIN_VERSION_PATCH;
+};
+
+int testplugin_pi::GetPlugInVersionPost()
+{
+    return PLUGIN_VERSION_TWEAK;
+};
 
 wxString testplugin_pi::GetCommonName()
 {
