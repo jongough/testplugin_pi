@@ -161,7 +161,7 @@ std::cout << x  << std::endl ; } while (0)
 
 //#define PI 3.14159265
 
-class testplugin_pi : public opencpn_plugin_116
+class testplugin_pi : public opencpn_plugin_117
 {
 public:
 
@@ -179,6 +179,9 @@ public:
 
     int GetPlugInVersionMajor();
     int GetPlugInVersionMinor();
+    int GetPlugInVersionPatch();
+    int GetPlugInVersionPost();
+
     int GetAPIVersionMajor();
     int GetAPIVersionMinor();
     wxBitmap *GetPlugInBitmap();
