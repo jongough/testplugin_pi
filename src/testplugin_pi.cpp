@@ -335,12 +335,12 @@ int testplugin_pi::GetPlugInVersionMinor()
 int testplugin_pi::GetPlugInVersionPatch()
 {
     return PLUGIN_VERSION_PATCH;
-};
+}
 
 int testplugin_pi::GetPlugInVersionPost()
 {
     return PLUGIN_VERSION_TWEAK;
-};
+}
 
 wxString testplugin_pi::GetCommonName()
 {
