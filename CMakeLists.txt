@@ -55,9 +55,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "270")
+set(VERSION_PATCH "271")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE  "09/10/2023")#DD/MM/YYYY format
+set(VERSION_DATE  "12/10/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
