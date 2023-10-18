@@ -66,37 +66,37 @@
 
 #if !defined(NAN)
 static const long long lNaN = 0xfff8000000000000;
-#define NAN (*(double *)&lNaN)
+#define NAN (*(double*)&lNaN)
 #endif
 
-testplugin_pi *g_testplugin_pi;
-wxString      *g_PrivateDataDir;
+testplugin_pi* g_testplugin_pi;
+wxString* g_PrivateDataDir;
 
-wxString *g_pHome_Locn;
-wxString *g_pData;
-wxString *g_SData_Locn;
-wxString *g_pLayerDir;
+wxString* g_pHome_Locn;
+wxString* g_pData;
+wxString* g_SData_Locn;
+wxString* g_pLayerDir;
 
-PlugIn_ViewPort *g_pVP;
-PlugIn_ViewPort  g_VP;
-wxString        *g_tplocale;
-void            *g_ppimgr;
+PlugIn_ViewPort* g_pVP;
+PlugIn_ViewPort g_VP;
+wxString* g_tplocale;
+void* g_ppimgr;
 
-tpJSON   *g_ptpJSON;
-ODAPI    *g_ptpAPI;
-double    g_dVar;
-int       g_iLocaleDepth;
-wxString *g_tpLocale;
-bool      g_bSaveJSONOnStartup;
+tpJSON* g_ptpJSON;
+ODAPI* g_ptpAPI;
+double g_dVar;
+int g_iLocaleDepth;
+wxString* g_tpLocale;
+bool g_bSaveJSONOnStartup;
 
-wxFont *g_pFontTitle;
-wxFont *g_pFontData;
-wxFont *g_pFontLabel;
-wxFont *g_pFontSmall;
+wxFont* g_pFontTitle;
+wxFont* g_pFontData;
+wxFont* g_pFontLabel;
+wxFont* g_pFontSmall;
 
-wxString    g_ReceivedODAPIMessage;
+wxString g_ReceivedODAPIMessage;
 wxJSONValue g_ReceivedODAPIJSONMsg;
-wxString    g_ReceivedJSONMessage;
+wxString g_ReceivedJSONMessage;
 wxJSONValue g_ReceivedJSONJSONMsg;
 
 // Needed for ocpndc.cpp to compile. Normally would be in glChartCanvas.cpp
@@ -104,11 +104,11 @@ float g_GLMinSymbolLineWidth;
 
 // the class factories, used to create and destroy instances of the PlugIn
 
-extern "C" DECL_EXP opencpn_plugin *create_pi(void *ppimgr) {
+extern "C" DECL_EXP opencpn_plugin* create_pi(void* ppimgr) {
   return new testplugin_pi(ppimgr);
 }
 
-extern "C" DECL_EXP void destroy_pi(opencpn_plugin *p) { delete p; }
+extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) { delete p; }
 
 //---------------------------------------------------------------------------------------------------------
 //
@@ -122,13 +122,13 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin *p) { delete p; }
 //
 //---------------------------------------------------------------------------------------------------------
 
-testplugin_pi::testplugin_pi(void *ppimgr) : opencpn_plugin_117(ppimgr) {
+testplugin_pi::testplugin_pi(void* ppimgr) : opencpn_plugin_117(ppimgr) {
   // Create the PlugIn icons
   g_ppimgr = ppimgr;
   //    g_tp_pi_manager = (PlugInManager *) ppimgr;
   g_testplugin_pi = this;
 
-  wxString *l_pDir = new wxString(*GetpPrivateApplicationDataLocation());
+  wxString* l_pDir = new wxString(*GetpPrivateApplicationDataLocation());
   appendOSDirSlash(l_pDir);
   l_pDir->Append(_T("plugins"));
   appendOSDirSlash(l_pDir);
@@ -326,15 +326,15 @@ void testplugin_pi::OnToolbarToolUpCallback(int id) {
   return;
 }
 
-void testplugin_pi::ShowPreferencesDialog(wxWindow *parent) {}
+void testplugin_pi::ShowPreferencesDialog(wxWindow* parent) {}
 
-void testplugin_pi::SetPluginMessage(wxString &message_id,
-                                     wxString &message_body) {
+void testplugin_pi::SetPluginMessage(wxString& message_id,
+                                     wxString& message_body) {
   g_ptpJSON->ProcessMessage(message_id, message_body);
   return;
 }
 
-bool testplugin_pi::KeyboardEventHook(wxKeyEvent &event) {
+bool testplugin_pi::KeyboardEventHook(wxKeyEvent& event) {
   bool bret = FALSE;
 
   if (event.GetKeyCode() < 128)  // ascii
@@ -359,7 +359,7 @@ bool testplugin_pi::KeyboardEventHook(wxKeyEvent &event) {
   return bret;
 }
 
-bool testplugin_pi::MouseEventHook(wxMouseEvent &event) {
+bool testplugin_pi::MouseEventHook(wxMouseEvent& event) {
   bool bret = FALSE;
 
   if (m_tpControlDialogImpl->IsVisible()) {
@@ -385,11 +385,11 @@ void testplugin_pi::SetCursorLatLon(double lat, double lon) {
   }
 }
 
-wxBitmap *testplugin_pi::GetPlugInBitmap() {
+wxBitmap* testplugin_pi::GetPlugInBitmap() {
   return &m_ptpicons->m_bm_testplugin_pi;
 }
 
-void testplugin_pi::appendOSDirSlash(wxString *pString) {
+void testplugin_pi::appendOSDirSlash(wxString* pString) {
   wxChar sep = wxFileName::GetPathSeparator();
 
   if (pString->Last() != sep) pString->Append(sep);
@@ -411,7 +411,7 @@ void testplugin_pi::ToggleToolbarIcon(void) {
 
 void testplugin_pi::SaveConfig() {
 #ifndef __WXMSW__
-  wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
+  wxString* l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
 #if wxCHECK_VERSION(3, 0, 0) && !defined(_WXMSW_)
   //#if wxCHECK_VERSION(3,0,0)
   wxSetlocale(LC_NUMERIC, "C");
@@ -420,7 +420,7 @@ void testplugin_pi::SaveConfig() {
 #endif
 #endif
 
-  wxFileConfig *pConf = m_pTPConfig;
+  wxFileConfig* pConf = m_pTPConfig;
 
   if (pConf) {
     pConf->SetPath(wxS("/Settings/testplugin_pi"));
@@ -441,7 +441,7 @@ void testplugin_pi::SaveConfig() {
 
 void testplugin_pi::LoadConfig() {
 #ifndef __WXMSW__
-  wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
+  wxString* l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
 #if wxCHECK_VERSION(3, 0, 0)
   wxSetlocale(LC_NUMERIC, "C");
 #else
@@ -449,7 +449,7 @@ void testplugin_pi::LoadConfig() {
 #endif
 #endif
 
-  wxFileConfig *pConf = m_pTPConfig;
+  wxFileConfig* pConf = m_pTPConfig;
 
   if (pConf) {
     wxString val;
@@ -480,9 +480,9 @@ void testplugin_pi::LoadConfig() {
   }
 }
 void testplugin_pi::GetODAPI() {
-  wxJSONValue  jMsg;
+  wxJSONValue jMsg;
   wxJSONWriter writer;
-  wxString     MsgString;
+  wxString MsgString;
 
   jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
   jMsg[wxT("Type")] = wxT("Request");
@@ -620,64 +620,64 @@ void testplugin_pi::GetODAPI() {
 }
 
 void testplugin_pi::FindClosestBoundaryLineCrossing(
-    FindClosestBoundaryLineCrossing_t *pFCPBLC) {
+    FindClosestBoundaryLineCrossing_t* pFCPBLC) {
   if ((*m_pODFindClosestBoundaryLineCrossing)(pFCPBLC)) {
     delete pFCPBLC;
   }
   delete pFCPBLC;
 }
 
-bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP) {
+bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP) {
   bool l_bRet = (*m_pODCreateBoundaryPoint)(pCBP);
   DEBUGST("Boundary Point created: ");
   DEBUGEND(l_bRet);
   return true;
 }
 
-bool testplugin_pi::CreateBoundary(CreateBoundary_t *pCB) {
+bool testplugin_pi::CreateBoundary(CreateBoundary_t* pCB) {
   wxString l_GUID;
-  bool     l_bRet = (*m_pODCreateBoundary)(pCB);
+  bool l_bRet = (*m_pODCreateBoundary)(pCB);
   DEBUGST("Boundary GUID: ");
   DEBUGEND(pCB->GUID);
   return l_bRet;
   ;
 }
 
-bool testplugin_pi::CreateTextPoint(CreateTextPoint_t *pCTP) {
+bool testplugin_pi::CreateTextPoint(CreateTextPoint_t* pCTP) {
   wxString l_GUID;
-  bool     l_bRet = (*m_pODCreateTextPoint)(pCTP);
+  bool l_bRet = (*m_pODCreateTextPoint)(pCTP);
   DEBUGST("Text Point GUID: ");
   DEBUGEND(l_GUID);
   return true;
 }
 
-bool testplugin_pi::DeleteBoundaryPoint(DeleteBoundaryPoint_t *pDBP) {
+bool testplugin_pi::DeleteBoundaryPoint(DeleteBoundaryPoint_t* pDBP) {
   bool l_bRet = (*m_pODDeleteBoundaryPoint)(pDBP);
   DEBUGST("Boundary Point Deleted: ");
   DEBUGEND(l_bRet);
   return true;
 }
 
-bool testplugin_pi::DeleteBoundary(DeleteBoundary_t *pDB) {
+bool testplugin_pi::DeleteBoundary(DeleteBoundary_t* pDB) {
   bool l_bRet = (*m_pODDeleteBoundary)(pDB);
   DEBUGST("Boundary deleted: ");
   DEBUGEND(l_bRet);
   return true;
 }
 
-bool testplugin_pi::DeleteTextPoint(DeleteTextPoint_t *pDTP) {
+bool testplugin_pi::DeleteTextPoint(DeleteTextPoint_t* pDTP) {
   bool l_bRet = (*m_pODDeleteTextPoint)(pDTP);
   DEBUGST("Text Point created: ");
   DEBUGEND(l_bRet);
   return true;
 }
 
-void testplugin_pi::AddPointIcon(AddPointIcon_t *pAPI) {
+void testplugin_pi::AddPointIcon(AddPointIcon_t* pAPI) {
   (*m_pODAddPointIcon)(pAPI);
   return;
 }
 
-void testplugin_pi::DeletePointIcon(DeletePointIcon_t *pDPI) {
+void testplugin_pi::DeletePointIcon(DeletePointIcon_t* pDPI) {
   (*m_pODDeletePointIcon)(pDPI);
   return;
 }
@@ -699,9 +699,9 @@ bool testplugin_pi::ImportJSONFile() {
           //wxStringTokenizer tokenizer("first:second:third:fourth", ":");
       }
   */
-  wxJSONValue  jMsg;
+  wxJSONValue jMsg;
   wxJSONWriter writer;
-  wxString     MsgString;
+  wxString MsgString;
 
   writer.Write(jMsg, MsgString);
   SendPluginMessage(wxS("OCPN_DRAW_PI"), l_str);

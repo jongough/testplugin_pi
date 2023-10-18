@@ -19,7 +19,7 @@
 ## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough 
-# Testplugn(TP) v1.0.259.0 01/10/2023 DD/MM/YYYY format
+# Testplugn(TP) v1.0.263.0 19/10/2023 DD/MM/YYYY format
 # buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 ## -- When changing this file do NOT change the order of the sections.    -- ##
@@ -55,9 +55,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "261")
+set(VERSION_PATCH "263")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "08/10/2023") # DD/MM/YYYY format
+set(VERSION_DATE "19/10/2023") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
