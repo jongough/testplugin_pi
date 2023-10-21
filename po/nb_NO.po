@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-02 22:04+1000\n"
-"PO-Revision-Date: 2020-11-04 20:00\n"
+"PO-Revision-Date: 2023-10-04 18:33\n"
 "Last-Translator: \n"
 "Language-Team: Norwegian Bokmal\n"
 "Language: nb_NO\n"
@@ -19,16 +19,16 @@ msgstr ""
 
 #: include/tpControlDialogDef.h:196
 msgid "Test Plugin Control Dialog"
-msgstr ""
+msgstr "Testutvidelse kontrolldialog"
 
 #: src/testplugin_pi.cpp:251 src/testplugin_pi.cpp:252 src/testplugin_pi.cpp:254
 #: src/testplugin_pi.cpp:255
 msgid "Test Plugin"
-msgstr ""
+msgstr "Testutvidelse"
 
 #: src/testplugin_pi.cpp:345
 msgid "testplugin PlugIn for OpenCPN"
-msgstr ""
+msgstr "testutvidelse for OpenCPN"
 
 #: src/testplugin_pi.cpp:350
 msgid "testplugin PlugIn for OpenCPN\n"

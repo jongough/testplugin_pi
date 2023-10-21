@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-02 22:04+1000\n"
-"PO-Revision-Date: 2020-07-02 22:02\n"
+"PO-Revision-Date: 2023-10-04 18:33\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -19,470 +19,475 @@ msgstr ""
 
 #: include/tpControlDialogDef.h:196
 msgid "Test Plugin Control Dialog"
-msgstr ""
+msgstr "Testar diálogo de Controle de Plugin"
 
 #: src/testplugin_pi.cpp:251 src/testplugin_pi.cpp:252 src/testplugin_pi.cpp:254
 #: src/testplugin_pi.cpp:255
 msgid "Test Plugin"
-msgstr ""
+msgstr "Plugin de teste"
 
 #: src/testplugin_pi.cpp:345
 msgid "testplugin PlugIn for OpenCPN"
-msgstr ""
+msgstr "testplugin PlugIn para OpenCPN"
 
 #: src/testplugin_pi.cpp:350
 msgid "testplugin PlugIn for OpenCPN\n"
 "demonstrates PlugIn processing of NMEA messages."
-msgstr ""
+msgstr "testplugin PlugIn para OpenCPN\n"
+"demonstra o processamento PlugIn de mensagens NMEA."
 
 #: src/testplugin_pi.cpp:625
 #, c-format
 msgid "OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, Minor: %i\n"
-msgstr ""
+msgstr "Versão OD: Maior: %i, Menor: %i, Patch: %i, ODAPI Versão: Major: %i, Minor: %i\n"
 
 #: src/testplugin_pi.cpp:626 src/testplugin_pi.cpp:639
 msgid "OD_FindPointInAnyBoundary\n"
-msgstr ""
+msgstr "OD_FindPointInAnyBoundary\n"
 
 #: src/testplugin_pi.cpp:627 src/testplugin_pi.cpp:640
 msgid "OD_FindClosestBoundaryLineCrossing\n"
-msgstr ""
+msgstr "OD_FindClosestBoundaryLineCrossing\n"
 
 #: src/testplugin_pi.cpp:628 src/testplugin_pi.cpp:641
 msgid "OD_FindFirstBoundaryLineCrossing\n"
-msgstr ""
+msgstr "OD_FindFirstBoundaryLineCrossing\n"
 
 #: src/testplugin_pi.cpp:629 src/testplugin_pi.cpp:642
 msgid "OD_CreateBoundary\n"
-msgstr ""
+msgstr "OD_CreateBoundary\n"
 
 #: src/testplugin_pi.cpp:630 src/testplugin_pi.cpp:643
 msgid "OD_CreateBoundaryPoint\n"
-msgstr ""
+msgstr "OD_CreateBoundaryPoint\n"
 
 #: src/testplugin_pi.cpp:631 src/testplugin_pi.cpp:644
 msgid "OD_CreateTextPoint\n"
-msgstr ""
+msgstr "OD_CreateTextPoint\n"
 
 #: src/testplugin_pi.cpp:632 src/testplugin_pi.cpp:645
 msgid "OD_AddPointIcon\n"
-msgstr ""
+msgstr "OD_AddPointIcon\n"
 
 #: src/testplugin_pi.cpp:633 src/testplugin_pi.cpp:646
 msgid "OD_DeletePointIcon\n"
-msgstr ""
+msgstr "OD_DeletePointIcon\n"
 
 #: src/testplugin_pi.cpp:635
 msgid "The following ODAPI's are available: \n"
-msgstr ""
+msgstr "Estão disponíveis as seguintes ODAPIs:\n"
 
 #: src/testplugin_pi.cpp:648
 msgid "The following ODAPI's are not available:\n"
-msgstr ""
+msgstr "Não estão disponíveis as seguintes ODAPIs:\n"
 
 #: src/testplugin_pi.cpp:652
 msgid "TESTPLUGIN"
-msgstr ""
+msgstr "TESTPLUGIN"
 
 #: src/testplugin_pi.cpp:731 src/tpControlDialogImpl.cpp:907
 #: src/tpControlDialogImpl.cpp:916 src/tpJSON.cpp:133
 msgid "File not found"
-msgstr ""
+msgstr "Ficheiro não encontrado"
 
 #: src/tpControlDialogDef.cpp:32
 msgid "Save JSON on startup"
-msgstr ""
+msgstr "Guardar JSON ao iniciar"
 
 #: src/tpControlDialogDef.cpp:35
 msgid "Delete config from conf\n"
 "on shutdown"
-msgstr ""
+msgstr "Apagar configuração de conf\n"
+"ao terminar"
 
 #: src/tpControlDialogDef.cpp:42
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/tpControlDialogDef.cpp:49
 msgid "Select JSON file to import"
-msgstr ""
+msgstr "Selecione ficheiro JSON a importar"
 
 #: src/tpControlDialogDef.cpp:53 src/tpControlDialogDef.cpp:59
 msgid "*.*"
-msgstr ""
+msgstr "*.*"
 
 #: src/tpControlDialogDef.cpp:53
 msgid "Select a JSON file"
-msgstr ""
+msgstr "Selecione um ficheiro JSON"
 
 #: src/tpControlDialogDef.cpp:56
 msgid "Save incoming JSON\n"
 "messages"
-msgstr ""
+msgstr "Salvar mensagens JSON\n"
+"recebidas"
 
 #: src/tpControlDialogDef.cpp:59
 msgid "Select a file"
-msgstr ""
+msgstr "Selecione um ficheiro"
 
 #: src/tpControlDialogDef.cpp:62
 msgid "Close save file after\n"
 "each write"
-msgstr ""
+msgstr "Fechar arquivo de gravação após\n"
+"cada escrita"
 
 #: src/tpControlDialogDef.cpp:66
 msgid "Append to file"
-msgstr ""
+msgstr "Acrescentar ao ficheiro"
 
 #: src/tpControlDialogDef.cpp:70
 msgid "Import JSON"
-msgstr ""
+msgstr "Importar JSON"
 
 #: src/tpControlDialogDef.cpp:77
 msgid "File Input"
-msgstr ""
+msgstr "Entrada de ficheiro"
 
 #: src/tpControlDialogDef.cpp:93 src/tpControlDialogDef.cpp:326
 #: src/tpControlDialogDef.cpp:533
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/tpControlDialogDef.cpp:100 src/tpControlDialogDef.cpp:338
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: src/tpControlDialogDef.cpp:104 src/tpControlDialogDef.cpp:342
 msgid "Exclusion"
-msgstr ""
+msgstr "Exclusão"
 
 #: src/tpControlDialogDef.cpp:104 src/tpControlDialogDef.cpp:342
 msgid "Inclusion"
-msgstr ""
+msgstr "Inclusão"
 
 #: src/tpControlDialogDef.cpp:104 src/tpControlDialogDef.cpp:342
 msgid "Neither"
-msgstr ""
+msgstr "Nem"
 
 #: src/tpControlDialogDef.cpp:110
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #: src/tpControlDialogDef.cpp:114 src/tpControlDialogDef.cpp:398
 #: src/tpControlDialogDef.cpp:579
 msgid "Visible"
-msgstr ""
+msgstr "Visível"
 
 #: src/tpControlDialogDef.cpp:123
 msgid "Line Colour"
-msgstr ""
+msgstr "Cor da linha"
 
 #: src/tpControlDialogDef.cpp:138
 msgid "Fill Colour"
-msgstr ""
+msgstr "Cor de enchimento"
 
 #: src/tpControlDialogDef.cpp:148
 msgid "Boundary Points"
-msgstr ""
+msgstr "Ponto de limite"
 
 #: src/tpControlDialogDef.cpp:160
 msgid "Corner Lat"
-msgstr ""
+msgstr "Lat do Canto"
 
 #: src/tpControlDialogDef.cpp:175
 msgid "Corner Lon"
-msgstr ""
+msgstr "Lon do Canto"
 
 #: src/tpControlDialogDef.cpp:185
 msgid "Number of Points"
-msgstr ""
+msgstr "Número de pontos"
 
 #: src/tpControlDialogDef.cpp:189 src/tpControlDialogDef.cpp:211
 #: src/tpControlDialogDef.cpp:415
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/tpControlDialogDef.cpp:189 src/tpControlDialogDef.cpp:211
 #: src/tpControlDialogDef.cpp:415
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: src/tpControlDialogDef.cpp:189 src/tpControlDialogDef.cpp:211
 #: src/tpControlDialogDef.cpp:415
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: src/tpControlDialogDef.cpp:189 src/tpControlDialogDef.cpp:211
 #: src/tpControlDialogDef.cpp:415
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: src/tpControlDialogDef.cpp:189 src/tpControlDialogDef.cpp:211
 #: src/tpControlDialogDef.cpp:415
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: src/tpControlDialogDef.cpp:195
 msgid "Boundary Point Visible"
-msgstr ""
+msgstr "Ponto Limite Visível"
 
 #: src/tpControlDialogDef.cpp:199
 msgid "Boundary Point\n"
 "Range Rings Visible"
-msgstr ""
+msgstr "Ponto Limite\n"
+"Anéis de Alcance Visíveis"
 
 #: src/tpControlDialogDef.cpp:207 src/tpControlDialogDef.cpp:411
 msgid "Number of Rings"
-msgstr ""
+msgstr "Número de anéis"
 
 #: src/tpControlDialogDef.cpp:211 src/tpControlDialogDef.cpp:415
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: src/tpControlDialogDef.cpp:211 src/tpControlDialogDef.cpp:415
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/tpControlDialogDef.cpp:211 src/tpControlDialogDef.cpp:415
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: src/tpControlDialogDef.cpp:211 src/tpControlDialogDef.cpp:415
 msgid "7"
-msgstr ""
+msgstr "7"
 
 #: src/tpControlDialogDef.cpp:211 src/tpControlDialogDef.cpp:415
 msgid "8"
-msgstr ""
+msgstr "8"
 
 #: src/tpControlDialogDef.cpp:211 src/tpControlDialogDef.cpp:415
 msgid "9"
-msgstr ""
+msgstr "9"
 
 #: src/tpControlDialogDef.cpp:225 src/tpControlDialogDef.cpp:429
 msgid "Rings Step"
-msgstr ""
+msgstr "Passo dos Anéis"
 
 #: src/tpControlDialogDef.cpp:229 src/tpControlDialogDef.cpp:433
 msgid "0.5"
-msgstr ""
+msgstr "0.5"
 
 #: src/tpControlDialogDef.cpp:248 src/tpControlDialogDef.cpp:266
 #: src/tpControlDialogDef.cpp:470
 msgid "Ring Colour"
-msgstr ""
+msgstr "Cor do anel"
 
 #: src/tpControlDialogDef.cpp:252 src/tpControlDialogDef.cpp:456
 msgid "Kilometers"
-msgstr ""
+msgstr "Kilómetros"
 
 #: src/tpControlDialogDef.cpp:252 src/tpControlDialogDef.cpp:456
 msgid "Nautical Miles"
-msgstr ""
+msgstr "Milhas náuticas"
 
 #: src/tpControlDialogDef.cpp:276 src/tpControlDialogDef.cpp:480
 #: src/tpControlDialogDef.cpp:666
 msgid "Create ODAPI"
-msgstr ""
+msgstr "Criar ODAPI"
 
 #: src/tpControlDialogDef.cpp:279 src/tpControlDialogDef.cpp:483
 #: src/tpControlDialogDef.cpp:669
 msgid "Create JSON"
-msgstr ""
+msgstr "Criar JSON"
 
 #: src/tpControlDialogDef.cpp:286
 msgid "Create Boundary"
-msgstr ""
+msgstr "Criar limite"
 
 #: src/tpControlDialogDef.cpp:294 src/tpControlDialogDef.cpp:501
 #: src/tpControlDialogDef.cpp:687
 msgid "GUID"
-msgstr ""
+msgstr "GUID"
 
 #: src/tpControlDialogDef.cpp:301 src/tpControlDialogDef.cpp:508
 #: src/tpControlDialogDef.cpp:694
 msgid "Delete ODAPI"
-msgstr ""
+msgstr "Eliminar ODAPI"
 
 #: src/tpControlDialogDef.cpp:304 src/tpControlDialogDef.cpp:511
 #: src/tpControlDialogDef.cpp:697
 msgid "Delete JSON"
-msgstr ""
+msgstr "Eliminar JSON"
 
 #: src/tpControlDialogDef.cpp:311
 msgid "Delete Boundary"
-msgstr ""
+msgstr "Eliminar limite"
 
 #: src/tpControlDialogDef.cpp:356 src/tpControlDialogDef.cpp:540
 msgid "Icon Name"
-msgstr ""
+msgstr "Nome do Ícone"
 
 #: src/tpControlDialogDef.cpp:372 src/tpControlDialogDef.cpp:553
 msgid "Lat"
-msgstr ""
+msgstr "Lat"
 
 #: src/tpControlDialogDef.cpp:388 src/tpControlDialogDef.cpp:569
 msgid "Lon"
-msgstr ""
+msgstr "Lon"
 
 #: src/tpControlDialogDef.cpp:402
 msgid "Rings Visible"
-msgstr ""
+msgstr "Anéis Visíveis"
 
 #: src/tpControlDialogDef.cpp:452
 msgid "Step Units"
-msgstr ""
+msgstr "Unidade de passo"
 
 #: src/tpControlDialogDef.cpp:493
 msgid "Create Boundary Point"
-msgstr ""
+msgstr "Criar ponto de limite"
 
 #: src/tpControlDialogDef.cpp:518
 msgid "Delete Boundary Point"
-msgstr ""
+msgstr "Eliminar ponto de limite"
 
 #: src/tpControlDialogDef.cpp:586
 msgid "Text to Display with Point"
-msgstr ""
+msgstr "Texto a apresentar com o ponto"
 
 #: src/tpControlDialogDef.cpp:599
 msgid "Text position relative to point"
-msgstr ""
+msgstr "Posição do texto em relação ao ponto"
 
 #: src/tpControlDialogDef.cpp:603
 msgid "Bottom"
-msgstr ""
+msgstr "Em baixo"
 
 #: src/tpControlDialogDef.cpp:603
 msgid "Bottom Centre"
-msgstr ""
+msgstr "Inferior Central"
 
 #: src/tpControlDialogDef.cpp:603
 msgid "Centre"
-msgstr ""
+msgstr "Centro"
 
 #: src/tpControlDialogDef.cpp:603
 msgid "Left"
-msgstr ""
+msgstr "Esquerda"
 
 #: src/tpControlDialogDef.cpp:603
 msgid "Right"
-msgstr ""
+msgstr "Direita"
 
 #: src/tpControlDialogDef.cpp:603
 msgid "Top"
-msgstr ""
+msgstr "Topo"
 
 #: src/tpControlDialogDef.cpp:603
 msgid "Top Centre"
-msgstr ""
+msgstr "Centro no topo"
 
 #: src/tpControlDialogDef.cpp:609
 msgid "Text Colour"
-msgstr ""
+msgstr "Cor do texto"
 
 #: src/tpControlDialogDef.cpp:616
 msgid "Background Colour"
-msgstr ""
+msgstr "Cor do fundo"
 
 #: src/tpControlDialogDef.cpp:623
 msgid "Background Transparancy"
-msgstr ""
+msgstr "Transparência do fundo"
 
 #: src/tpControlDialogDef.cpp:636
 msgid "Text Font"
-msgstr ""
+msgstr "Fonte do texto"
 
 #: src/tpControlDialogDef.cpp:640
 msgid "Example"
-msgstr ""
+msgstr "Exemplo"
 
 #: src/tpControlDialogDef.cpp:647
 msgid "Fonts"
-msgstr ""
+msgstr "Fontes"
 
 #: src/tpControlDialogDef.cpp:650
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 #: src/tpControlDialogDef.cpp:650
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: src/tpControlDialogDef.cpp:650
 msgid "On Rollover Only"
-msgstr ""
+msgstr "Apenas no arrastamento"
 
 #: src/tpControlDialogDef.cpp:652
 msgid "Show Display Text"
-msgstr ""
+msgstr "Apresentar Texto"
 
 #: src/tpControlDialogDef.cpp:679
 msgid "Create Text Point"
-msgstr ""
+msgstr "Criar ponto de texto"
 
 #: src/tpControlDialogDef.cpp:704
 msgid "Delete Text Point"
-msgstr ""
+msgstr "Eliminar ponto de texto"
 
 #: src/tpControlDialogDef.cpp:717
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/tpControlDialogDef.cpp:717
 msgid "add"
-msgstr ""
+msgstr "adicionar"
 
 #: src/tpControlDialogDef.cpp:733
 msgid "ODAPI"
-msgstr ""
+msgstr "ODAPI"
 
 #: src/tpControlDialogDef.cpp:736
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: src/tpControlDialogDef.cpp:746
 msgid "Point Icon"
-msgstr ""
+msgstr "Ícone de ponto"
 
 #: src/tpControlDialogDef.cpp:754
 msgid "User Input"
-msgstr ""
+msgstr "Entrada de utilizador"
 
 #: src/tpControlDialogDef.cpp:766
 msgid "&Close"
-msgstr ""
+msgstr "&Fechar"
 
 #: src/tpControlDialogImpl.cpp:441 src/tpControlDialogImpl.cpp:858
 msgid "Blue Anchor"
-msgstr ""
+msgstr "Âncora Azul"
 
 #: src/tpControlDialogImpl.cpp:506
 msgid "Test Link"
-msgstr ""
+msgstr "Test Link"
 
 #: src/tpControlDialogImpl.cpp:817
 msgid "Test Link 1"
-msgstr ""
+msgstr "Test Link 1"
 
 #: src/tpControlDialogImpl.cpp:820
 msgid "Test Link 2"
-msgstr ""
+msgstr "Test Link 2"
 
 #: src/tpControlDialogImpl.cpp:907
 msgid "No file specified for output"
-msgstr ""
+msgstr "Nenhum ficheiro especificado para a saída"
 
 #: src/tpControlDialogImpl.cpp:916
 msgid "No file specified for input"
-msgstr ""
+msgstr "Nenhum ficheiro especificado para a entrada"
 
 #: src/tpicons.cpp:81
 msgid "testplugin_pi data location"
-msgstr ""
+msgstr "localização de dados testplugin_pi"
 
 #: src/tpicons.cpp:101
 msgid "Failed to load all testplugin_pi icons, check OCPN log for details"
-msgstr ""
+msgstr "Falha ao carregar todos os ícones testplugin_pi, verifique o log OCPN para obter detalhes"
 
 #: src/tpicons.cpp:101
 msgid "OpenCPN Alert"
-msgstr ""
+msgstr "Alerta OpenCPN"
 
