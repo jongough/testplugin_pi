@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-06-02 22:04+1000\n"
-"PO-Revision-Date: 2021-01-02 01:46\n"
+"PO-Revision-Date: 2023-10-19 09:18\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -43,35 +43,35 @@ msgstr "Versión OD: mayor: %i, menor: %i, parche: %i, versión ODAPI: mayor: %i
 
 #: src/testplugin_pi.cpp:626 src/testplugin_pi.cpp:639
 msgid "OD_FindPointInAnyBoundary\n"
-msgstr ""
+msgstr "OD_FindPointInAnylimit\n"
 
 #: src/testplugin_pi.cpp:627 src/testplugin_pi.cpp:640
 msgid "OD_FindClosestBoundaryLineCrossing\n"
-msgstr ""
+msgstr "OD_FindClosestBoundaryLineCrossing\n"
 
 #: src/testplugin_pi.cpp:628 src/testplugin_pi.cpp:641
 msgid "OD_FindFirstBoundaryLineCrossing\n"
-msgstr ""
+msgstr "OD_FindFirstLineeCrossing\n"
 
 #: src/testplugin_pi.cpp:629 src/testplugin_pi.cpp:642
 msgid "OD_CreateBoundary\n"
-msgstr ""
+msgstr "Crear perímetro\n"
 
 #: src/testplugin_pi.cpp:630 src/testplugin_pi.cpp:643
 msgid "OD_CreateBoundaryPoint\n"
-msgstr ""
+msgstr "Crear punto perimetral\n"
 
 #: src/testplugin_pi.cpp:631 src/testplugin_pi.cpp:644
 msgid "OD_CreateTextPoint\n"
-msgstr ""
+msgstr "Crear punto de texto\n"
 
 #: src/testplugin_pi.cpp:632 src/testplugin_pi.cpp:645
 msgid "OD_AddPointIcon\n"
-msgstr ""
+msgstr "Añadir icono de punto de OD\n"
 
 #: src/testplugin_pi.cpp:633 src/testplugin_pi.cpp:646
 msgid "OD_DeletePointIcon\n"
-msgstr ""
+msgstr "Eliminar el icono de PointIcono\n"
 
 #: src/testplugin_pi.cpp:635
 msgid "The following ODAPI's are available: \n"
