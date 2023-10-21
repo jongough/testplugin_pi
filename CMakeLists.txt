@@ -19,7 +19,7 @@
 ## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough 
-# Testplugn(TP) v1.0.265.0 19/10/2023 DD/MM/YYYY format
+# Testplugin(TP) v1.0.260 07/10/2023 DD/MM/YYYY format
 # buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 ## -- When changing this file do NOT change the order of the sections.    -- ##
@@ -55,9 +55,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "265")
+set(VERSION_PATCH "271")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "19/10/2023") # DD/MM/YYYY format
+set(VERSION_DATE  "12/10/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -214,6 +214,9 @@ if(NOT OCPN_FLATPAK_CONFIG)
 	# so following statements will not work
     message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
+#    add_subdirectory(opencpn-libs/WindowsHeaders)
+#    target_link_libraries(${PACKAGE_NAME} windows::headers)
+
     add_subdirectory(opencpn-libs/api-17)
     target_link_libraries(${PACKAGE_NAME} ocpn::api)
 
@@ -261,9 +264,6 @@ if(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
     endif(PI_JSON_SCHEMA_VALIDATOR)
 endif(UNIX AND NOT APPLE AND NOT QT_ANDRIOD)
 
-#
-# ----- If using JSON validation in plugin section above is needed ----- ##
-#
 
 ##------- Change below to match project requirements --------------------##
 
@@ -287,3 +287,4 @@ get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTO
 foreach(dir ${dirs})
     message(STATUS "${CMLOC}dir='${dir}'")
 endforeach()
+
