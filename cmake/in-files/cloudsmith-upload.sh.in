@@ -231,7 +231,7 @@ function have_any() {
     [ $# -gt 0 ]
 }
 
-if [ ! -z ${LOCAL_DEPLOY+x} ]; then
+if [ $LOCAL_DEPLOY = true ]; then
     if [ -d "/home/circleci/circleci-output" ]; then
         sudo cp build/*.gz ~/circleci-output
         if have_any ./build/*.deb; then

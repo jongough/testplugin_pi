@@ -1,1 +1,1 @@
-circleci local execute build-ubuntu-x86_64-1804-bionic -e CIRCLECI_LOCAL=true -v "/home/jon/opencpn/circleci-output:/home/circleci/circleci-output" -e LOCAL_DEPLOY -e CLOUDSMITH_API_KEY="123"
+circleci local execute build-ubuntu-x86_64-1804-bionic -e CIRCLECI_LOCAL=true -v "/home/jon/opencpn/circleci-output:/home/circleci/circleci-output" -e LOCAL_DEPLOY=true -e CLOUDSMITH_API_KEY="123"
