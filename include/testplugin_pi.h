@@ -120,6 +120,7 @@ std::cout << x  << std::endl ; } while (0)
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 
+#if 0           // Tentatively remove all GL references here
 #ifdef __WXMSW__
 #include "GL/gl.h"            // local copy for Windows
 #include <GL/glu.h>
@@ -136,6 +137,8 @@ std::cout << x  << std::endl ; } while (0)
 #include "qopengl.h"                  // this gives us the qt runtime gles2.h
 //#include "GL/gl_private.h"
 #endif
+#endif
+
 #endif
 
 #include "wxWTranslateCatalog.h"
