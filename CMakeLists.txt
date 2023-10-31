@@ -19,7 +19,7 @@
 ## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough 
-# Testplugin(TP) v1.0.278.0 31/10/2023 DD/MM/YYYY format
+# Testplugin(TP) v1.0.279.0 01/11/2023 DD/MM/YYYY format
 # buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 ## -- When changing this file do NOT change the order of the sections.    -- ##
@@ -37,7 +37,6 @@ if(COMMAND cmake_policy)
         cmake_policy(SET CMP0043 NEW)
     endif(POLICY CMP0043)
     cmake_policy(SET CMP0048 NEW)
-# Need cmake 3.13 to implement this, but raspbian builds are at 3.7.2 and bionic at 3.10 and xenial builds at 3.5.1
     if(POLICY CMP0076)
         cmake_policy(SET CMP0076 NEW)
     endif(POLICY CMP0076)
@@ -57,9 +56,9 @@ set(LONG_DESCRIPTION "testplugin Plugin is used to test out the ODraw API and de
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "278")
-set(VERSION_TWEAK "11")
-set(VERSION_DATE  "31/10/2023")#DD/MM/YYYY format
+set(VERSION_PATCH "279")
+set(VERSION_TWEAK "0")
+set(VERSION_DATE  "01/11/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
