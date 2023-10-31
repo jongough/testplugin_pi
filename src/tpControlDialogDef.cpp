@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Oct 26 2018)
+// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -9,8 +9,22 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+tpControlDialogDef::tpControlDialogDef()
 {
+}
+
+tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style )
+{
+	this->Create( parent, id, title, pos, size, style );
+}
+
+bool tpControlDialogDef::Create( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style )
+{
+	if ( !wxDialog::Create( parent, id, title, pos, size, style ) )
+	{
+		return false;
+	}
+
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
 	m_SizerControl = new wxBoxSizer( wxVERTICAL );
@@ -515,7 +529,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelDeleteBoundaryPoint->SetSizer( fgSizer35 );
 	m_panelDeleteBoundaryPoint->Layout();
 	fgSizer35->Fit( m_panelDeleteBoundaryPoint );
-	m_notebookUI->AddPage( m_panelDeleteBoundaryPoint, _("Delete Boundary Point"), true );
+	m_notebookUI->AddPage( m_panelDeleteBoundaryPoint, _("Delete Boundary Point"), false );
 	m_panelUICreateTextPoint = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	m_fgSizerTextPoint = new wxFlexGridSizer( 0, 1, 0, 0 );
 	m_fgSizerTextPoint->AddGrowableCol( 0 );
@@ -610,7 +624,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_staticTextTextPointTextColour->Wrap( -1 );
 	fgSizer22->Add( m_staticTextTextPointTextColour, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-	m_colourPickerTextPointTextColour = new wxColourPickerCtrl( m_panelUICreateTextPoint, wxID_ANY, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
+	m_colourPickerTextPointTextColour = new wxColourPickerCtrl( m_panelUICreateTextPoint, wxID_ANY, wxColour( 0, 0, 0 ), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE );
 	fgSizer22->Add( m_colourPickerTextPointTextColour, 1, wxALIGN_RIGHT|wxALL, 5 );
 
 	m_staticTextTextPointBackgroundColour = new wxStaticText( m_panelUICreateTextPoint, wxID_ANY, _("Background Colour"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -676,7 +690,7 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_panelUICreateTextPoint->SetSizer( m_fgSizerTextPoint );
 	m_panelUICreateTextPoint->Layout();
 	m_fgSizerTextPoint->Fit( m_panelUICreateTextPoint );
-	m_notebookUI->AddPage( m_panelUICreateTextPoint, _("Create Text Point"), false );
+	m_notebookUI->AddPage( m_panelUICreateTextPoint, _("Create Text Point"), true );
 	m_panelDeleteTextPoint = new wxPanel( m_notebookUI, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxFlexGridSizer* fgSizer37;
 	fgSizer37 = new wxFlexGridSizer( 0, 2, 0, 0 );
@@ -806,6 +820,8 @@ tpControlDialogDef::tpControlDialogDef( wxWindow* parent, wxWindowID id, const w
 	m_buttonPointIconODAPI->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickPointIconODAPI ), NULL, this );
 	m_buttonPointIconJSON->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::OnButtonClickPointIconJSON ), NULL, this );
 	m_buttonClose->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( tpControlDialogDef::tpControlCloseClick ), NULL, this );
+
+	return true;
 }
 
 tpControlDialogDef::~tpControlDialogDef()
