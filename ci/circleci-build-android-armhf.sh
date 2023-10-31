@@ -77,7 +77,6 @@ mkdir -p build
 cd build
 
 rm -f CMakeCache.txt
-COMPDIR=$(find ~/. -regex ".*/ndk/22.[0-9].[0-9]*")
 
 # Install python to get a recent version of cmake
 sudo apt install python3-pip
