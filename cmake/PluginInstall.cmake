@@ -44,37 +44,6 @@ if(UNIX)
     endif(PROFILING)
 endif(UNIX)
 
-if(FALSE)
-    message(STATUS "${CMLOC}Install Prefix: ${CMAKE_INSTALL_PREFIX}")
-    install(
-        TARGETS ${PACKAGE_NAME}
-        RUNTIME
-        LIBRARY DESTINATION OpenCPN.app/Contents/PlugIns)
-    if(EXISTS ${PROJECT_SOURCE_DIR}/data)
-        install(DIRECTORY data DESTINATION OpenCPN.app/Contents/SharedSupport/plugins/${PACKAGE_NAME})
-    endif()
-
-    if(EXISTS ${PROJECT_SOURCE_DIR}/UserIcons)
-        install(DIRECTORY UserIcons DESTINATION OpenCPN.app/Contents/SharedSupport/plugins/${PACKAGE_NAME})
-    endif()
-
-    find_package(ZLIB REQUIRED)
-    target_link_libraries(${PACKAGE_NAME} ${ZLIB_LIBRARIES})
-
-endif(FALSE)
-
-# On macos, fix paths which points to the build environment, make sure they
-# refers to runtime locations
-#message(STATUS "BUILD_TYPE_PACKAGE:  ${BUILD_TYPE}")
-
-#if(${BUILD_TYPE} STREQUAL "tarball" AND APPLE)
-#if(APPLE)
-#    message(STATUS "Adjusting MacOS library paths")
-#    install(CODE "execute_process(
-#      COMMAND bash -c ${PROJECT_SOURCE_DIR}/cmake/fix-macos-libs.sh
-#    )")
-#endif()
-
 if(UNIX AND NOT APPLE AND NOT QT_ANDROID)
     find_package(BZip2 REQUIRED)
     include_directories(${BZIP2_INCLUDE_DIR})
@@ -172,6 +141,8 @@ if(APPLE)
         endforeach(_currentDataFile)
     endif()
 
+    # On macos, fix paths which points to the build environment, make sure they
+    # refers to runtime locations
     message(STATUS "Adjusting MacOS library paths")
     install(CODE "execute_process(
       COMMAND bash -c ${PROJECT_SOURCE_DIR}/cmake/fix-macos-libs.sh
@@ -182,18 +153,6 @@ if(APPLE)
         RUNTIME
         LIBRARY DESTINATION OpenCPN.app/Contents/PlugIns)
     message(STATUS "${CMLOC}Install Target: OpenCPN.app/Contents/PlugIns")
-
-    # On macos, fix paths which points to the build environment, make sure they
-    # refers to runtime locations
-    message(STATUS "BUILD_TYPE_PACKAGE:  ${BUILD_TYPE_PACKAGE}")
-
-    #if(${BUILD_TYPE} STREQUAL "tarball" AND APPLE)
-#    if(APPLE)
-#        message(STATUS "Adjusting MacOS library paths")
-#        install(CODE "execute_process(
-#      COMMAND bash -c ${PROJECT_SOURCE_DIR}/cmake/fix-macos-libs.sh
-#    )")
- #   endif()
 
 endif(APPLE)
 
