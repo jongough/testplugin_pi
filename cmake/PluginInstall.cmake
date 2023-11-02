@@ -44,7 +44,8 @@ if(UNIX)
     endif(PROFILING)
 endif(UNIX)
 
-if(APPLE)
+if(FALSE)
+    message(STATUS "${CMLOC}Install Prefix: ${CMAKE_INSTALL_PREFIX}")
     install(
         TARGETS ${PACKAGE_NAME}
         RUNTIME
@@ -60,7 +61,19 @@ if(APPLE)
     find_package(ZLIB REQUIRED)
     target_link_libraries(${PACKAGE_NAME} ${ZLIB_LIBRARIES})
 
-endif(APPLE)
+endif(FALSE)
+
+# On macos, fix paths which points to the build environment, make sure they
+# refers to runtime locations
+#message(STATUS "BUILD_TYPE_PACKAGE:  ${BUILD_TYPE}")
+
+#if(${BUILD_TYPE} STREQUAL "tarball" AND APPLE)
+#if(APPLE)
+#    message(STATUS "Adjusting MacOS library paths")
+#    install(CODE "execute_process(
+#      COMMAND bash -c ${PROJECT_SOURCE_DIR}/cmake/fix-macos-libs.sh
+#    )")
+#endif()
 
 if(UNIX AND NOT APPLE AND NOT QT_ANDROID)
     find_package(BZip2 REQUIRED)
@@ -129,6 +142,8 @@ if(UNIX AND NOT APPLE)
 endif(UNIX AND NOT APPLE)
 
 if(APPLE)
+    message(STATUS "${CMLOC}Install Prefix: ${CMAKE_INSTALL_PREFIX}")
+
     # For Apple build, we need to copy the "data" directory contents to the build directory, so that the packager can pick them up.
     if(NOT EXISTS "${PROJECT_BINARY_DIR}/data/")
         file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/data/")
@@ -157,11 +172,28 @@ if(APPLE)
         endforeach(_currentDataFile)
     endif()
 
+    message(STATUS "Adjusting MacOS library paths")
+    install(CODE "execute_process(
+      COMMAND bash -c ${PROJECT_SOURCE_DIR}/cmake/fix-macos-libs.sh
+    )")
+
     install(
         TARGETS ${PACKAGE_NAME}
         RUNTIME
         LIBRARY DESTINATION OpenCPN.app/Contents/PlugIns)
     message(STATUS "${CMLOC}Install Target: OpenCPN.app/Contents/PlugIns")
+
+    # On macos, fix paths which points to the build environment, make sure they
+    # refers to runtime locations
+    message(STATUS "BUILD_TYPE_PACKAGE:  ${BUILD_TYPE_PACKAGE}")
+
+    #if(${BUILD_TYPE} STREQUAL "tarball" AND APPLE)
+#    if(APPLE)
+#        message(STATUS "Adjusting MacOS library paths")
+#        install(CODE "execute_process(
+#      COMMAND bash -c ${PROJECT_SOURCE_DIR}/cmake/fix-macos-libs.sh
+#    )")
+ #   endif()
 
 endif(APPLE)
 
