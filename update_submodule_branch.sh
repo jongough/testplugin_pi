@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$#" -eq "1" ] && [[ "$1" -eq "-h "] || [[ "$1" -eq "-help" ]]; then
-    echo "Will update opencpn-libs current banch to latest version."
+    echo "Will update opencpn-libs current branch to latest version."
 fi
 
 git submodule update --remote --merge opencpn-libs
