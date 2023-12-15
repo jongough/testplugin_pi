@@ -1,4 +1,4 @@
-build*
+cmake-build*
 .directory
 po/POTFILES.in.test
 temp
