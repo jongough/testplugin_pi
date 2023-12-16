@@ -111,7 +111,7 @@ commands:
                     condition: <<parameters.install-python>>
                     steps:
                     - run: sudo apt install -y python3-pip
-                    - run: python3.8 -m pip install cloudsmith-cli
+                    - run: python3 -m pip install cloudsmith-cli
                 - when:
                     condition: <<parameters.DEPLOY-USE-ORB>>
                     steps:
@@ -144,7 +144,7 @@ jobs:
             install-python: true
     build-android-armhf:
         docker:
-        - image: cimg/android:2021.10.2-ndk
+        - image: cimg/android:2023.12-ndk
         resource_class: large
         environment:
         - OCPN_TARGET:  android-armhf
