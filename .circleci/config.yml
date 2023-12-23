@@ -26,7 +26,7 @@ std-filters: &std-filters
 workflows:
     build_all:
         jobs:
-###  --------------------0
+###  --------------------
 ## OpenCPN 5.8 Plugins
 ## ----------------------
         - build-android-arm64:
@@ -130,7 +130,7 @@ commands:
 
 jobs:
 ##  --------------------
-## OpenCPN 5.8 Plugins0
+## OpenCPN 5.8 Plugins
 ## ---------------------
     build-android-arm64:
         docker:
