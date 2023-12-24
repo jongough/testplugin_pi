@@ -26,7 +26,7 @@ std-filters: &std-filters
 workflows:
     build_all:
         jobs:
-###  --------------------0
+## ----------------------
 ## OpenCPN 5.8 Plugins
 ## ----------------------
         - build-android-arm64:
@@ -129,12 +129,12 @@ commands:
     # provide the wxWidgets QT information.
 
 jobs:
-##  --------------------
-## OpenCPN 5.8 Plugins0
+## ---------------------
+## OpenCPN 5.8 Plugins
 ## ---------------------
     build-android-arm64:
         docker:
-        - image: cimg/android:2021.10.2-ndk
+        - image: cimg/android:2023.12-ndk
         resource_class: large
         environment:
         - OCPN_TARGET:  android-arm64
