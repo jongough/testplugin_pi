@@ -172,10 +172,9 @@ jobs:
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-macos.sh
         - deploy-code
-
     build-macos-universal:
         macos:
-            xcode: "12.5.1"
+            xcode: "13.4"
         environment:
             - OCPN_TARGET: macos
             - CMAKE_BUILD_PARALLEL_LEVEL: 2
@@ -187,6 +186,7 @@ jobs:
                   key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
               -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
               -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
+            - run: chmod a+x ci/*.sh
             - run: ci/circleci-build-macos-universal.sh
             - save_cache:
                   key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
@@ -200,7 +200,6 @@ jobs:
             - run: >
                   sh -c "cat build/*.xml"
             - deploy-code
-
     build-msvc-wx32-2022:
         executor:
             name: win/server-2022
