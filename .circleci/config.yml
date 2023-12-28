@@ -26,15 +26,16 @@ std-filters: &std-filters
 workflows:
     build_all:
         jobs:
-###  --------------------0
+###  --------------------
 ## OpenCPN 5.8 Plugins
 ## ----------------------
         - build-android-arm64:
              <<: *std-filters
         - build-android-armhf:
              <<: *std-filters
-        - build-macos-wx32:
-             <<: *std-filters
+# Duplicate  macos-universal covers this.
+#        - build-macos-wx32:
+#             <<: *std-filters
         - build-flatpak-arm64-2208:
             <<: *std-filters
         - build-flatpak-x86-2208:
@@ -130,11 +131,11 @@ commands:
 
 jobs:
 ##  --------------------
-## OpenCPN 5.8 Plugins0
+## OpenCPN 5.8 Plugins
 ## ---------------------
     build-android-arm64:
         docker:
-        - image: cimg/android:2021.10.2-ndk
+        - image: cimg/android:2023.12-ndk
         resource_class: large
         environment:
         - OCPN_TARGET:  android-arm64
