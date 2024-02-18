@@ -77,8 +77,9 @@ workflows:
             <<: *std-filters
         - build-debian-arm64-10-buster:
             <<: *std-filters
-        - build-debian-x86_64-10-buster:
-            <<: *std-filters
+## Cloudsmith-cli not currently working, appears to be a python3 error: jg 19/02/2024
+#        - build-debian-x86_64-10-buster:
+#            <<: *std-filters
 
 ## -------------------------------------
 ## UBUNTU OS  Frozen - 28/05/2023  DROP
