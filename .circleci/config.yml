@@ -62,7 +62,10 @@ workflows:
         - build-macos-universal:
               <<: *std-filters
 
-## -------------------------------------------
+## ------------## Cloudsmith-cli not currently working, appears to be a python3 error: jg 19/02/2024
+#        - build-debian-x86_64-10-buster:
+#            <<: *std-filters
+-------------------------------
 ## OpenCPN 5.6.2 Plugins  Frozen - 28/05/2023
 ## ------------------------------------------
 ## Circleci will not build for macos 11 so removed - 18/10/2023
@@ -71,12 +74,13 @@ workflows:
 ## Appveyor no longer builds for Windows.
         - build-msvc-2022:
             <<: *std-filters
-        - build-debian-armhf-10-buster:
-            <<: *std-filters
-        - build-debian-armhf-10-buster-gtk3:
-            <<: *std-filters
-        - build-debian-arm64-10-buster:
-            <<: *std-filters
+## Removed as old and all parts of the build system are depricated
+#        - build-debian-armhf-10-buster:
+#            <<: *std-filters
+#        - build-debian-armhf-10-buster-gtk3:
+#            <<: *std-filters
+#        - build-debian-arm64-10-buster:
+#            <<: *std-filters
 ## Cloudsmith-cli not currently working, appears to be a python3 error: jg 19/02/2024
 #        - build-debian-x86_64-10-buster:
 #            <<: *std-filters
