@@ -137,7 +137,7 @@ jobs:
 ## ---------------------
     build-android-arm64:
         docker:
-        - image: cimg/android:2023.12-ndk
+        - image: android:default
         resource_class: large
         environment:
         - OCPN_TARGET:  android-arm64
@@ -150,7 +150,7 @@ jobs:
             install-python: true
     build-android-armhf:
         docker:
-        - image: cimg/android:2023.12-ndk
+        - image: android:default
         resource_class: large
         environment:
         - OCPN_TARGET:  android-armhf
@@ -221,7 +221,7 @@ jobs:
             DEPLOY-USE-ORB: false
     build-flatpak-arm64-2208:
         machine:
-            image: ubuntu-2004:202101-01
+            image: ubuntu-2204:current
         resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak-arm64
@@ -253,7 +253,7 @@ jobs:
         - deploy-code
     build-debian-arm64-12-bookworm:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:current
         environment:
         - OCPN_TARGET=bookworm-arm64
         - DOCKER_IMAGE=arm64v8/debian:bookworm
@@ -271,7 +271,7 @@ jobs:
         - deploy-code
     build-debian-armhf-12-bookworm:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:current
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=bookworm-armhf
@@ -290,7 +290,7 @@ jobs:
         - deploy-code
     build-debian-x86_64-12-bookworm:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:current
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
@@ -307,7 +307,7 @@ jobs:
         - deploy-code
     build-debian-armhf-11-bullseye:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:current
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
@@ -324,7 +324,7 @@ jobs:
         - deploy-code
     build-debian-arm64-11-bullseye:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:202104-01
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
@@ -401,7 +401,7 @@ jobs:
 ## If below is used, WinXT will not work.
     build-msvc-2022:
         executor:
-            name: win/server-2022
+            name: windows-server-2022-gui:current
             shell: cmd.exe
         environment:
         - OCPN_TARGET: MSVC
@@ -422,7 +422,7 @@ jobs:
 ## KEEP needed for Raspbian OpenCPN v5.6
     build-ubuntu-armhf-1804-buster:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:current
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/ubuntu-armhf:18.04
