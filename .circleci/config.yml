@@ -401,7 +401,7 @@ jobs:
 ## If below is used, WinXT will not work.
     build-msvc-2022:
         executor:
-            name: win/server-2022
+            name: windows-server-2022-gui:current
             shell: cmd.exe
         environment:
         - OCPN_TARGET: MSVC
