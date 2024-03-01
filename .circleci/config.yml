@@ -70,10 +70,10 @@ workflows:
 ## UBUNTU OS  Frozen - 28/05/2023  DROP
 ## -------------------------------------
 ## KEEP needed for Raspbian OpenCPN v5.6
-        - build-ubuntu-armhf-1804-buster:
-            <<: *std-filters
+#        - build-ubuntu-armhf-1804-buster:
+#            <<: *std-filters
 orbs:
-    cloudsmith: cloudsmith/cloudsmith@1.0.4
+    cloudsmith: cloudsmith/cloudsmith@1.0.5
     win: circleci/windows@5.0
 
 commands:
