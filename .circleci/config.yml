@@ -94,16 +94,21 @@ commands:
                     steps:
                     - run: sudo apt install -y python3-pip
                     - run: python3 -m pip install cloudsmith-cli
+#                - when:
+#                    condition: <<parameters.DEPLOY-USE-ORB>>
+#                    steps:
+#                    - cloudsmith/ensure-api-key
+#                    - cloudsmith/install-cli
+#
                 - when:
                     condition: <<parameters.DEPLOY-USE-ORB>>
                     steps:
-                    - cloudsmith/ensure-api-key
                     - run:
                         command: |
                             if [[ $(command -v cloudsmith) == "" ]]; then
                                 export PIP=$(which pip pip3 | head -1)
                                 if [[ -n $PIP ]]; then
-                                    sudo -H $PIP install cloudsmith-cli --upgrade --user
+                                    $PIP install cloudsmith-cli --break-system-packages --upgrade --user
                                 else
                                     echo "Unable to install Cloudsmith CLI. Please install pip."
                                     exit 1
