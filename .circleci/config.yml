@@ -109,6 +109,8 @@ commands:
                                 export PIP=$(which pip pip3 | head -1)
                                 if [[ -n $PIP ]]; then
                                     $PIP install cloudsmith-cli --break-system-packages --upgrade --user
+                                    export PATH=/Users/distiller/Library/Python/3.12/bin;$PATH
+                                    echo $PATH
                                 else
                                     echo "Unable to install Cloudsmith CLI. Please install pip."
                                     exit 1
