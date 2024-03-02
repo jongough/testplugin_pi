@@ -98,11 +98,6 @@ commands:
                     condition: <<parameters.DEPLOY-USE-ORB>>
                     steps:
                     - cloudsmith/ensure-api-key
-                    - cloudsmith/install-cli
-
-                - when:
-                    condition: <<parameters.DEPLOY-USE-ORB>>
-                    steps:
                     - run:
                         command: |
                             if [[ $(command -v cloudsmith) == "" ]]; then
