@@ -6,7 +6,7 @@ parameters:
         type: boolean
         default: true
 
-## Start of build control of O58 and O562 plugins
+## Start of build control of O58 and O562 pluginsrun_workflow_deploy
 ## run_workflow_deploy_O58
 ##    type: boolean
 ##    default: true
@@ -19,7 +19,7 @@ std-filters: &std-filters
         branches:
             ignore:
             - devel
-            - tmp
+            - tmprun_workflow_deploy
         tags:
             only: /.*/
 
@@ -61,8 +61,8 @@ workflows:
 ## OpenCPN 5.6.2 Plugins  Frozen - 28/05/2023
 ## ------------------------------------------
 ## Circleci will not build for macos 11 so removed - 18/10/2023
-        - build-macos:
-             <<: *std-filters
+#        - build-macos:
+#             <<: *std-filters
 #        - build-msvc-2022:
 #            <<: *std-filters
 
@@ -89,16 +89,36 @@ commands:
             - when:
                 condition: <<pipeline.parameters.run_workflow_deploy>>
                 steps:
+#                - when:
+#                    condition: <<parameters.install-python>>
+#                    steps:
+#                    - run: sudo apt install -y python3-pip
+#                    - run: python3 -m pip install cloudsmith-cli
+#                - when:
+#                    condition: <<parameters.DEPLOY-USE-ORB>>
+#                    steps:
+#                    - cloudsmith/ensure-api-key
+#                    - cloudsmith/install-cli
                 - when:
-                    condition: <<parameters.install-python>>
                     steps:
-                    - run: sudo apt install -y python3-pip
-                    - run: python3 -m pip install cloudsmith-cli
-                - when:
-                    condition: <<parameters.DEPLOY-USE-ORB>>
-                    steps:
-                    - cloudsmith/ensure-api-key
-                    - cloudsmith/install-cli
+                    - run:
+                        command: |
+                            if [[ $(command -v cloudsmith) == "" ]]; then
+                                export PIP=$(which pip pip3 | head -1)
+                                if [[ -n $PIP ]]; then
+#                                    if which sudo > /dev/null; then
+#                                        sudo $PIP install cloudsmith-cli --upgrade
+#                                    else
+                                        $PIP install cloudsmith-cli --upgrade --user
+#                                   fi
+                                else
+                                    echo "Unable to install Cloudsmith CLI. Please install pip."
+                                    exit 1
+                                fi
+                            else
+                                echo "Cloudsmith CLI is already installed."
+                            fi
+                        name: Install Cloudsmith CLI
                 - run: bash ci/cloudsmith-upload.sh
 
     # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
