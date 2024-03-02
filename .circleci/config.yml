@@ -94,28 +94,11 @@ commands:
                     steps:
                     - run: sudo apt install -y python3-pip
                     - run: python3 -m pip install cloudsmith-cli
-#                - when:
-#                    condition: <<parameters.DEPLOY-USE-ORB>>
-#                    steps:
-#                    - cloudsmith/ensure-api-key
-#                    - cloudsmith/install-cli
-#                - when:
-#                    condition: <<parameters.DEPLOY-USE-ORB>>
-#                    steps:
-#                    - run:
-#                        command: |
-#                            if [[ $(command -v cloudsmith) == "" ]]; then
-#                                export PIP=$(which pip pip3 | head -1)
-#                                if [[ -n $PIP ]]; then
-#                                    $PIP install cloudsmith-cli --upgrade --user
-#                                else
-#                                    echo "Unable to install Cloudsmith CLI. Please install pip."
-#                                    exit 1
-#                                fi
-#                            else
-#                                echo "Cloudsmith CLI is already installed."
-#                            fi
-#                        name: Install Cloudsmith CLI
+                - when:
+                    condition: <<parameters.DEPLOY-USE-ORB>>
+                    steps:
+                    - cloudsmith/ensure-api-key
+                    - cloudsmith/install-cli
                 - run: bash ci/cloudsmith-upload.sh
 
     # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require

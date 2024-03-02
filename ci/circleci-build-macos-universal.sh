@@ -32,7 +32,7 @@ exec > >(tee build/build.log) 2>&1
 
 export MACOSX_DEPLOYMENT_TARGET=10.10
 
-# Return latest version of $1, optionally using option $2
+# Return latest version of $1, optionally using option $2 install cloudsmith-cli --upgrade --user
 pkg_version() { brew list --versions $2 $1 | tail -1 | awk '{print $2}'; }
 
 #
@@ -40,7 +40,7 @@ pkg_version() { brew list --versions $2 $1 | tail -1 | awk '{print $2}'; }
 brew list --versions libexif || brew update-reset
 
 # Install packaged dependencies
-for pkg in cmake gettext libarchive libexif python wget openssl@3; do
+for pkg in cmake gettext libarchive libexif python wget openssl@3 ruby ruby-dev rubygems; do
     brew list --versions $pkg || brew install $pkg || brew install $pkg || :
     brew link --overwrite $pkg || brew install $pkg
 done
