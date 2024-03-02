@@ -99,13 +99,31 @@ commands:
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
-                - run: bash ci/cloudsmith-upload.sh
 
-    # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
-    #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
-    # on the circleci local command line so that the docker image script can have access to the directory
-    # if you are on a slow or data limited internet link you can put a copy of master.zip here, or allow one to be downloaded by the script, as it is used by the android builds to
-    # provide the wxWidgets QT information.
+                - when:
+                    condition: <<parameters.DEPLOY-USE-ORB>>
+                    steps:
+                    - run:
+                        command: |
+                            if [[ $(command -v cloudsmith) == "" ]]; then
+                                export PIP=$(which pip pip3 | head -1)
+                                if [[ -n $PIP ]]; then
+                                    sudo -H $PIP install cloudsmith-cli --upgrade --user
+                                else
+                                    echo "Unable to install Cloudsmith CLI. Please install pip."
+                                    exit 1
+                                fi
+                            else
+                                echo "Cloudsmith CLI is already installed."
+                            fi
+                        name: Install Cloudsmith CLI
+                    - run: bash ci/cloudsmith-upload.sh
+
+# if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
+#    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
+# on the circleci local command line so that the docker image script can have access to the directory
+# if you are on a slow or data limited internet link you can put a copy of master.zip here, or allow one to be downloaded by the script, as it is used by the android builds to
+# provide the wxWidgets QT information.
 
 jobs:
 ## ---------------------
@@ -152,7 +170,7 @@ jobs:
         - deploy-code
     build-macos-universal:
         macos:
-            xcode: "12.5.1"
+            xcode: "13.4"
         environment:
         - OCPN_TARGET: macos
         - CMAKE_BUILD_PARALLEL_LEVEL: 2
