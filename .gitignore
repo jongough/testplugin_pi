@@ -1,7 +1,9 @@
 cmake-build*
 build/*
+.idea*
 .directory
 po/POTFILES.in.test
 temp
 tmp
 master.zip
+OCPNAndroidCommon*

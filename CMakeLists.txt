@@ -187,8 +187,6 @@ endif(PI_JSON_SCHEMA_VALIDATOR)
 
 ## ----- If using JSON validation in plugin section above is needed --------##
 
-if(QT_ANDROID)
-endif(QT_ANDROID)
 
 ##=============================================================
 ## Change as required to collect all the set( headers and SRCS
@@ -290,4 +288,3 @@ get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTO
 foreach(dir ${dirs})
     message(STATUS "${CMLOC}dir='${dir}'")
 endforeach()
-
