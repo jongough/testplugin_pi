@@ -106,11 +106,7 @@ commands:
                             if [[ $(command -v cloudsmith) == "" ]]; then
                                 export PIP=$(which pip pip3 | head -1)
                                 if [[ -n $PIP ]]; then
-#                                    if which sudo > /dev/null; then
-#                                        sudo $PIP install cloudsmith-cli --upgrade
-#                                    else
-                                        $PIP install cloudsmith-cli --upgrade --user
-#                                   fi
+                                    $PIP install cloudsmith-cli --upgrade --user
                                 else
                                     echo "Unable to install Cloudsmith CLI. Please install pip."
                                     exit 1
