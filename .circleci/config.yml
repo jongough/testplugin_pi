@@ -94,31 +94,11 @@ commands:
                     steps:
                     - run: sudo apt install -y python3-pip
                     - run: python3 -m pip install cloudsmith-cli
-#                - when:
-#                    condition: <<parameters.DEPLOY-USE-ORB>>
-#                    steps:
-#                    - cloudsmith/ensure-api-key
-#                    - cloudsmith/install-cli
-#
                 - when:
                     condition: <<parameters.DEPLOY-USE-ORB>>
                     steps:
-                    - run:
-                        command: |
-                            if [[ $(command -v cloudsmith) == "" ]]; then
-                                export PIP=$(which pip pip3 | head -1)
-                                if [[ -n $PIP ]]; then
-                                    $PIP install cloudsmith-cli --break-system-packages --upgrade --user
-                                    export PATH=/Users/distiller/Library/Python/3.12/bin;$PATH
-                                    echo $PATH
-                                else
-                                    echo "Unable to install Cloudsmith CLI. Please install pip."
-                                    exit 1
-                                fi
-                            else
-                                echo "Cloudsmith CLI is already installed."
-                            fi
-                        name: Install Cloudsmith CLI
+                    - cloudsmith/ensure-api-key
+                    - cloudsmith/install-cli
                     - run: bash ci/cloudsmith-upload.sh
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
@@ -198,6 +178,11 @@ jobs:
               sh -c "otool -L build/*.dylib"
         - run: >
               sh -c "cat build/*.xml"
+        - run: brew update
+        - run: brew install pyenv
+        - run: pyenv install 3.8.0
+        - run: pyenv virtualenv 3.8.0 my-env
+        - run: pyenv activate my-env
         - deploy-code
     build-msvc-wx32-2022:
         executor:
