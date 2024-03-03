@@ -179,6 +179,9 @@ jobs:
         - run: >
               sh -c "cat build/*.xml"
         - run: brew update
+        - run: https://app.circleci.com/pipelines/github/jongough/testplugin_pi/1579/workflows/20430174-4298-4eb3-bcd2-b97da01e4386/jobs/13019?invite=true#step-111-19
+        - run: sudo chown -R distiller /usr/local/bin /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig /usr/local/share /usr/local/share/aclocal /usr/local/share/doc /usr/local/share/locale /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
+        - run: chmod u+w /usr/local/bin /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig /usr/local/share /usr/local/share/aclocal /usr/local/share/doc /usr/local/share/locale /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
         - run: brew install pyenv
         - run: pyenv install 3.8.0
         - run: pyenv virtualenv 3.8.0 my-env
