@@ -79,10 +79,10 @@ orbs:
 commands:
     deploy-code:
         parameters:
-            install-python:
+            install_python:
                 type: boolean
                 default: false
-            DEPLOY-USE-ORB:
+            DEPLOY_USE_ORB:
                 type: boolean
                 default: true
         steps:
@@ -90,12 +90,12 @@ commands:
                 condition: <<pipeline.parameters.run_workflow_deploy>>
                 steps:
                 - when:
-                    condition: <<parameters.install-python>>
+                    condition: <<parameters.install_python>>
                     steps:
                     - run: sudo apt install -y python3-pip
                     - run: python3 -m pip install cloudsmith-cli
                 - when:
-                    condition: <<parameters.DEPLOY-USE-ORB>>
+                    condition: <<parameters.DEPLOY_USE_ORB>>
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
@@ -156,6 +156,7 @@ jobs:
         environment:
         - OCPN_TARGET: macos
         - CMAKE_BUILD_PARALLEL_LEVEL: 2
+        - DEPLOY_USE_ORB: true
         - WX_VER: 32
         steps:
         - checkout
