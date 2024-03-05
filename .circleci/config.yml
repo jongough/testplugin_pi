@@ -19,7 +19,7 @@ std-filters: &std-filters
         branches:
             ignore:
             - devel
-            - tmprun_workflow_deploy
+            - tmp
         tags:
             only: /.*/
 
@@ -73,7 +73,7 @@ workflows:
 #        - build-ubuntu-armhf-1804-buster:
 #            <<: *std-filters
 orbs:
-    cloudsmith: cloudsmith/cloudsmith@1.0.5
+    cloudsmith: cloudsmith/cloudsmith@1.0.4
     win: circleci/windows@5.0
 
 commands:
@@ -99,7 +99,7 @@ commands:
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
-                    - run: bash ci/cloudsmith-upload.sh
+                - run: bash ci/cloudsmith-upload.sh
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
 #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
@@ -160,20 +160,20 @@ jobs:
         steps:
         - checkout
         - run: sudo chmod go+w /usr/local
-#        - restore_cache:
-#              key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
-#          -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
-#          -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
+        - restore_cache:
+              key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
+          -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
+          -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
         - run: chmod a+x ci/*.sh
         - run: chmod a+x cmake/*.sh
         - run: ci/circleci-build-macos-universal.sh
-#        - save_cache:
-#              key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
-#          -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
-#          -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
-#              paths:
-#                  - /tmp/local.cache.tar
-#                  - /Users/distiller/project/cache
+        - save_cache:
+              key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
+          -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
+          -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
+              paths:
+                  - /tmp/local.cache.tar
+                  - /Users/distiller/project/cache
         - run: >
               sh -c "otool -L build/*.dylib"
         - run: >
