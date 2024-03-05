@@ -36,24 +36,23 @@ exec > >(tee build/build.log) 2>&1
 
 export MACOSX_DEPLOYMENT_TARGET=10.10
 
-# Return latest version of $1, optionally using option $2 install cloudsmith-cli --upgrade --user
+# Return latest version of $1, optionally using option $2
 pkg_version() { brew list --versions $2 $1 | tail -1 | awk '{print $2}'; }
 
 #
 # Check if the cache is with us. If not, re-install brew.
 brew list --versions libexif || brew update-reset
 
-# Install pyenv virtual environment
-brew install pyenv
-pyenv install 3.8.0
-pyenv virtualenv 3.8.0 my-env
-pyenv activate my-env
-
 # Install packaged dependencies
-for pkg in cmake gettext libarchive libexif python wget openssl@3 ruby ruby-dev rubygems pyenv; do
+for pkg in cmake gettext libarchive libexif python wget openssl@3 pyenv; do
     brew list --versions $pkg || brew install $pkg || brew install $pkg || :
     brew link --overwrite $pkg || brew install $pkg
 done
+
+# Install pyenv virtual environment
+pyenv install 3.8.0
+pyenv virtualenv 3.8.0 my-env
+pyenv activate my-env
 
 #Install prebuilt dependencies
 wget -q https://dl.cloudsmith.io/public/nohal/opencpn-plugins/raw/files/macos_deps_universal.tar.xz \
