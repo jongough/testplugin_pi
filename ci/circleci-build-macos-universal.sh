@@ -44,7 +44,7 @@ pkg_version() { brew list --versions $2 $1 | tail -1 | awk '{print $2}'; }
 brew list --versions libexif || brew update-reset
 
 # Install packaged dependencies
-for pkg in cmake gettext libarchive libexif python wget openssl@3; do
+for pkg in cmake gettext libarchive libexif python@3.11 wget openssl@3; do
     brew list --versions $pkg || brew install $pkg || brew install $pkg || :
     brew link --overwrite $pkg || brew install $pkg
 done
