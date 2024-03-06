@@ -50,9 +50,9 @@ for pkg in cmake gettext libarchive libexif python@3.11 wget openssl@3; do
 done
 
 # Install pyenv virtual environment
-pyenv install 3.8.0
-pyenv virtualenv 3.8.0 my-env
-pyenv activate my-env
+#pyenv install 3.8.0
+#pyenv virtualenv 3.8.0 my-env
+#pyenv activate my-env
 
 #Install prebuilt dependencies
 wget -q https://dl.cloudsmith.io/public/nohal/opencpn-plugins/raw/files/macos_deps_universal.tar.xz \
