@@ -27,10 +27,6 @@ fi
 # Set up build directory
 rm -rf build  && mkdir build
 
-# Setup privileges
-#sudo chown -R distiller /usr/local/bin /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig /usr/local/share /usr/local/share/aclocal /usr/local/share/doc /usr/local/share/locale /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
-#chmod u+w /usr/local/bin /usr/local/include /usr/local/lib /usr/local/lib/pkgconfig /usr/local/share /usr/local/share/aclocal /usr/local/share/doc /usr/local/share/locale /usr/local/share/man /usr/local/share/man/man1 /usr/local/share/man/man3 /usr/local/share/man/man5 /usr/local/share/man/man7
-
 # Create a log file.
 exec > >(tee build/build.log) 2>&1
 
@@ -48,11 +44,6 @@ for pkg in cmake gettext libarchive libexif python@3.11 wget openssl@3; do
     brew list --versions $pkg || brew install $pkg || brew install $pkg || :
     brew link --overwrite $pkg || brew install $pkg
 done
-
-# Install pyenv virtual environment
-#pyenv install 3.8.0
-#pyenv virtualenv 3.8.0 my-env
-#pyenv activate my-env
 
 #Install prebuilt dependencies
 wget -q https://dl.cloudsmith.io/public/nohal/opencpn-plugins/raw/files/macos_deps_universal.tar.xz \
