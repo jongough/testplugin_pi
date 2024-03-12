@@ -83,6 +83,9 @@ if [ "$CIRCLECI" ] || [ "$TRAVIS" ]; then
             python3 --version
             sudo python3 -m pip install cloudsmith-cli
             pyenv rehash
+        elif test -d $HOME/cs-venv; then
+            source $HOME/cs-venv/bin/activate
+            python -m pip install cloudsmith-cli
         elif dnf --version 2>&1 >/dev/null; then
             sudo dnf -y install python3-pip python3-setuptools
             sudo python3 -m pip install -q cloudsmith-cli

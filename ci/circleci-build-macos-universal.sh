@@ -45,6 +45,9 @@ for pkg in cmake gettext libarchive libexif python@3.11 wget openssl@3; do
     brew link --overwrite $pkg || brew install $pkg
 done
 
+#Install python virtual environment
+/usr/bin/python3 -m venv $HOME/cs-venv
+
 #Install prebuilt dependencies
 wget -q https://dl.cloudsmith.io/public/nohal/opencpn-plugins/raw/files/macos_deps_universal.tar.xz \
      -O /tmp/macos_deps_universal.tar.xz
