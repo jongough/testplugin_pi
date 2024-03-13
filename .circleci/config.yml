@@ -80,23 +80,23 @@ orbs:
 commands:
     deploy-code:
         parameters:
-            INSTALL_PYTHON:
-                type: boolean
-                default: false
-            DEPLOY_USE_ORB:
-                type: boolean
-                default: true
+            install_python:
+                type: env_var_name
+                default: INSTALL_PYTHON
+            deploy_use_orb:
+                type: env_var_name
+                default: DEPLOY_USE_ORB
         steps:
             - when:
                 condition: <<pipeline.parameters.run_workflow_deploy>>
                 steps:
                 - when:
-                    condition: <<parameters.INSTALL_PYTHON>>
+                    condition: <<parameters.install_python>>
                     steps:
                     - run: sudo apt install -y python3-pip
                     - run: python3 -m pip install cloudsmith-cli
                 - when:
-                    condition: <<parameters.DEPLOY_USE_ORB>>
+                    condition: <<parameters.deploy_use_orb>>
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
@@ -119,12 +119,12 @@ jobs:
         environment:
         - OCPN_TARGET:  android-arm64
         - DEPLOY_USE_ORB: true
+        - INSTALL_PYTHON: true
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-android-arm64.sh
-        - deploy-code:
-            INSTALL_PYTHON: true
+        - deploy-code
     build-android-armhf:
         docker:
         - image: cimg/android:2023.12-ndk
@@ -132,12 +132,12 @@ jobs:
         environment:
         - OCPN_TARGET:  android-armhf
         - DEPLOY_USE_ORB: true
+        - INSTALL_PYTHON: true
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-android-armhf.sh
-        - deploy-code:
-            INSTALL_PYTHON: true
+        - deploy-code
     build-macos-wx32:
         macos:
             xcode: "13.4"
@@ -145,12 +145,12 @@ jobs:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
         - WX_VER: "32"
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-macos.sh
-        - deploy-code:
-            DEPLOY_USE_ORB: false
+        - deploy-code
     build-macos-universal:
         macos:
             xcode: "13.4"
@@ -158,6 +158,7 @@ jobs:
         - OCPN_TARGET: macos
         - CMAKE_BUILD_PARALLEL_LEVEL: 2
         - WX_VER: 32
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run: sudo chmod go+w /usr/local
@@ -179,8 +180,7 @@ jobs:
               sh -c "otool -L build/*.dylib"
         - run: >
               sh -c "cat build/*.xml"
-        - deploy-code:
-            DEPLOY_USE_ORB: false
+        - deploy-code
     build-msvc-wx32-2022:
         executor:
             name: win/server-2022
@@ -195,8 +195,7 @@ jobs:
             privileged: False
             shell: cmd.exe
             command: ci\circleci-build-msvc.bat
-        - deploy-code:
-            DEPLOY_USE_ORB: false
+        - deploy-code
     build-flatpak-arm64-2208:
         machine:
             image: ubuntu-2004:202101-01
@@ -369,12 +368,12 @@ jobs:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
         - WX_VER: 315
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-macos.sh
-        - deploy-code:
-            DEPLOY_USE_ORB: false
+        - deploy-code
 
 ## Appveyor doesn't build for Windows now.
 ## If below is used, WinXT will not work.
@@ -386,14 +385,14 @@ jobs:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
         - WX_VER: 31
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run:
             privileged: False
             shell: cmd.exe
             command: ci\circleci-build-msvc.bat
-        - deploy-code:
-            DEPLOY_USE_ORB: false
+        - deploy-code
 
 ## -------------------------------------------
 ## Ubuntu OS - Generally deprecated and not used.
