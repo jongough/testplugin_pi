@@ -10,10 +10,13 @@ set -o pipefail
 # Check if the cache is with us. If not, re-install brew.
 brew list --versions libexif || brew update-reset
 
-for pkg in cairo cmake gettext libarchive libexif python@3.11 wget; do
+for pkg in cairo cmake gettext libarchive libexif python3 wget; do
     brew list --versions $pkg || brew install $pkg || brew install $pkg || :
     brew link --overwrite $pkg || brew install $pkg
 done
+
+#Install python virtual environment
+/usr/bin/python3 -m venv $HOME/cs-venv
 
 if [ -n "$WX_VER" ] && [ "$WX_VER" -eq "32" ]; then
     echo "Building for WXVERSION 32";
