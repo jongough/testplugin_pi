@@ -150,7 +150,7 @@ jobs:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-macos.sh
-        - deploy-code
+        - deploy-code:
             INSTALL_PYTHON: true
     build-macos-universal:
         macos:
