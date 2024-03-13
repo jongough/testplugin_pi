@@ -90,11 +90,11 @@ commands:
             - when:
                 condition: <<pipeline.parameters.run_workflow_deploy>>
                 steps:
-                - when:
-                    condition: <<parameters.INSTALL_PYTHON>>
-                    steps:
+#                - when:
+#                    condition: <<parameters.INSTALL_PYTHON>>
+#                    steps:
 #                    - run: sudo apt install -y python3-pip
-                    - run: python3 -m pip install cloudsmith-cli
+#                    - run: python3 -m pip install cloudsmith-cli
                 - when:
                     condition: <<parameters.DEPLOY_USE_ORB>>
                     steps:
