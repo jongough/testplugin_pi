@@ -180,7 +180,8 @@ jobs:
               sh -c "otool -L build/*.dylib"
         - run: >
               sh -c "cat build/*.xml"
-        - deploy-code
+        - deploy-code:
+            DEPLOY_USE_ORB: false
     build-msvc-wx32-2022:
         executor:
             name: win/server-2022
