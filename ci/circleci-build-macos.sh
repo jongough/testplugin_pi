@@ -15,9 +15,6 @@ for pkg in cairo cmake gettext libarchive libexif python3 wget; do
     brew link --overwrite $pkg || brew install $pkg
 done
 
-#Install python virtual environment
-/usr/bin/python3 -m venv $HOME/cs-venv
-
 if [ -n "${WX_VER}" ] && [ "${WX_VER}" -eq "32" ]; then
     echo "Building for WXVERSION 32";
     WX_URL=https://download.opencpn.org/s/Djqm4SXzYjF8nBw/download
@@ -33,6 +30,9 @@ else
     WX_CONFIG="--prefix=/tmp/wx315_opencpn50_macos1010"
     MACOSX_DEPLOYMENT_TARGET=10.10
 fi
+
+#Install python virtual environment
+/usr/bin/python3 -m venv $HOME/cs-venv
 
 # Download required binaries using wget, since curl causes an issue with Xcode 13.1 and some specific certificates.
 # Inspect the response code to see if the file is downloaded properly.
