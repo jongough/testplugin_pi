@@ -159,6 +159,7 @@ jobs:
         - CMAKE_BUILD_PARALLEL_LEVEL: 2
         - WX_VER: 32
         - DEPLOY_USE_ORB: false
+        - INSTALL_PYTHON: false
         steps:
         - checkout
         - run: sudo chmod go+w /usr/local
