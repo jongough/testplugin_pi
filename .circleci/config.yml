@@ -145,7 +145,7 @@ jobs:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
         - DEPLOY_USE_ORB: false
-        - WX_VER: 32
+        - WX_VER: "32"
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
