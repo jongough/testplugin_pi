@@ -124,7 +124,7 @@ jobs:
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-android-arm64.sh
         - deploy-code:
-            INSTALL_PYTHON: truebuild-macos-wx32
+            INSTALL_PYTHON: true
     build-android-armhf:
         docker:
         - image: cimg/android:2023.12-ndk
@@ -369,14 +369,15 @@ jobs:
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
-        - DEPLOY_USE_ORB: false
-        - INSTALL_PYTHON: true
         - WX_VER: 315
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-macos.sh
-        - deploy-code
+        - deploy-code:
+            DEPLOY_USE_ORB: false
+            INSTALL_PYTHON: true
+
 ## Appveyor doesn't build for Windows now.
 ## If below is used, WinXT will not work.
     build-msvc-2022:
