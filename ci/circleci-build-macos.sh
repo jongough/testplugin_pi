@@ -18,7 +18,7 @@ done
 #Install python virtual environment
 /usr/bin/python3 -m venv $HOME/cs-venv
 
-if [ -n "$WX_VER" ] && [ "$WX_VER" -eq "32" ]; then
+if [ -n "${WX_VER}" ] && [ "${WX_VER}" -eq "32" ]; then
     echo "Building for WXVERSION 32";
     WX_URL=https://download.opencpn.org/s/Djqm4SXzYjF8nBw/download
     WX_DOWNLOAD=/tmp/wx321_opencpn50_macos1010.tar.xz
