@@ -155,11 +155,11 @@ jobs:
         macos:
             xcode: "13.4"
         environment:
-        - OCPN_TARGET: macos
-        - CMAKE_BUILD_PARALLEL_LEVEL: 2
-        - WX_VER: 32
-        - DEPLOY_USE_ORB: false
-        - INSTALL_PYTHON: false
+            OCPN_TARGET: macos
+            CMAKE_BUILD_PARALLEL_LEVEL: 2
+            WX_VER: 32
+            DEPLOY_USE_ORB: false
+            INSTALL_PYTHON: false
         steps:
         - checkout
         - run: sudo chmod go+w /usr/local
