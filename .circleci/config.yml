@@ -83,7 +83,7 @@ commands:
             install_python:
                 type: boolean
                 default: false
-            DEPLOY_USE_ORB:
+            deploy_use_orb:
                 type: boolean
                 default: true
         steps:
@@ -96,7 +96,7 @@ commands:
                     - run: sudo apt install -y python3-pip
                     - run: python3 -m pip install cloudsmith-cli
                 - when:
-                    condition: <<parameters.DEPLOY_USE_ORB>>
+                    condition: <<parameters.deploy_use_orb>>
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
@@ -119,6 +119,7 @@ jobs:
         environment:
         - OCPN_TARGET:  android-arm64
         - DEPLOY_USE_ORB: true
+        - INSTALL_PYTHON: true
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -132,6 +133,7 @@ jobs:
         environment:
         - OCPN_TARGET:  android-armhf
         - DEPLOY_USE_ORB: true
+        - INSTALL_PYTHON: true
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
@@ -144,21 +146,23 @@ jobs:
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
-        - DEPLOY_USE_ORB: true
-        - WX_VER: 32
+        - WX_VER: "32"
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-macos.sh
-        - deploy-code
+        - deploy-code:
+            deploy_use_orb: false
     build-macos-universal:
         macos:
             xcode: "13.4"
         environment:
-        - OCPN_TARGET: macos
-        - CMAKE_BUILD_PARALLEL_LEVEL: 2
-        - DEPLOY_USE_ORB: true
-        - WX_VER: 32
+            OCPN_TARGET: macos
+            CMAKE_BUILD_PARALLEL_LEVEL: 2
+            WX_VER: 32
+            DEPLOY_USE_ORB: false
+            INSTALL_PYTHON: false
         steps:
         - checkout
         - run: sudo chmod go+w /usr/local
@@ -180,7 +184,8 @@ jobs:
               sh -c "otool -L build/*.dylib"
         - run: >
               sh -c "cat build/*.xml"
-        - deploy-code
+        - deploy-code:
+            deploy_use_orb: false
     build-msvc-wx32-2022:
         executor:
             name: win/server-2022
@@ -189,6 +194,7 @@ jobs:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
         - WX_VER: 32
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run:
@@ -196,7 +202,7 @@ jobs:
             shell: cmd.exe
             command: ci\circleci-build-msvc.bat
         - deploy-code:
-            DEPLOY_USE_ORB: false
+            deploy_use_orb: false
     build-flatpak-arm64-2208:
         machine:
             image: ubuntu-2004:202101-01
@@ -289,7 +295,7 @@ jobs:
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
-        - BUILD_FLAGS=-j3
+        - BUILD_FLbuild-debian-arm64-12-bookwormAGS=-j3
         - BUILD_ENV=debian
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
@@ -368,13 +374,15 @@ jobs:
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
-        - DEPLOY_USE_ORB: true
         - WX_VER: 315
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run: chmod a+x ci/*.sh
         - run: bash ci/circleci-build-macos.sh
-        - deploy-code
+        - deploy-code:
+            deploy_use_orb: false
+
 ## Appveyor doesn't build for Windows now.
 ## If below is used, WinXT will not work.
     build-msvc-2022:
@@ -385,6 +393,7 @@ jobs:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
         - WX_VER: 31
+        - DEPLOY_USE_ORB: false
         steps:
         - checkout
         - run:
@@ -392,7 +401,7 @@ jobs:
             shell: cmd.exe
             command: ci\circleci-build-msvc.bat
         - deploy-code:
-            DEPLOY_USE_ORB: false
+            deploy_use_orb: false
 
 ## -------------------------------------------
 ## Ubuntu OS - Generally deprecated and not used.
