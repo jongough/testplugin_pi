@@ -156,7 +156,7 @@ jobs:
             deploy_use_orb: false
     build-macos-universal:
         macos:
-            xcode: "13.4.1"
+            xcode: "14.2.0"
         resource_class: macos.m1.medium.gen1
         environment:
             OCPN_TARGET: macos
