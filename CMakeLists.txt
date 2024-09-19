@@ -45,6 +45,9 @@ if (COMMAND cmake_policy)
   endif (POLICY CMP0077)
 endif (COMMAND cmake_policy)
 
+# set for vscode/vscodium
+set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+
 # define plugin name, owner and versions
 set(VERBOSE_NAME "Testplugin")
 set(COMMON_NAME "Testplugin")
@@ -60,9 +63,9 @@ set(LONG_DESCRIPTION
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "302")
+set(VERSION_PATCH "303")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "04/06/2024") # DD/MM/YYYY format
+set(VERSION_DATE "19/09/2024") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
