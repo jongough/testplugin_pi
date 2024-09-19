@@ -129,7 +129,7 @@ jobs:
     build-android-armhf:
         docker:
         - image: cimg/android:2023.12-ndk
-        resource_class: large
+          resource_class: large
         environment:
         - OCPN_TARGET:  android-armhf
         - DEPLOY_USE_ORB: true
@@ -207,7 +207,6 @@ jobs:
         machine:
             image: ubuntu-2204:current
             resource_class: arm.medium
-        resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak-arm64
         - FLATPAK_BRANCH: stable
