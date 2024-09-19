@@ -45,6 +45,7 @@ if test -f "$EXTRA_LIBS"; then
     done < $EXTRA_LIBS
 fi
 
+git config --global protocol.file.allow always
 git submodule update --init opencpn-libs
 
 if [ -n "$CI" ]; then
