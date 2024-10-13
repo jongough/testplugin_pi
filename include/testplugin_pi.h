@@ -147,7 +147,7 @@ std::cout << x  << std::endl ; } while (0)
 
 //#define PI 3.14159265
 
-class testplugin_pi : public opencpn_plugin_117
+class testplugin_pi : public opencpn_plugin_118
 {
 public:
 
