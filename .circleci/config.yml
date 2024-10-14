@@ -139,7 +139,7 @@ jobs:
             install_python: true
     build-macos-wx32:
         macos:
-            xcode: "13.4"
+            xcode: "14.2"
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
@@ -153,7 +153,7 @@ jobs:
             deploy_use_orb: false
     build-macos-universal:
         macos:
-            xcode: "13.4"
+            xcode: "14.2"
         environment:
             OCPN_TARGET: macos
             CMAKE_BUILD_PARALLEL_LEVEL: 2
@@ -405,7 +405,7 @@ jobs:
 ## ---------------------
     build-macos:
         macos:
-            xcode: "13.4"
+            xcode: "14.2"
         environment:
         - OCPN_TARGET:  macos
         - CLOUDSMITH_PKG_EXT: pkg
