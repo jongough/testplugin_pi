@@ -151,7 +151,7 @@ jobs:
         - run: bash ci/circleci-build-macos.sh
         - deploy-code:
             deploy_use_orb: false
-            install_pythob: false
+            install_python: false
     build-macos-universal:
         macos:
             xcode: "14.2"
