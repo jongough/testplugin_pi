@@ -32,7 +32,7 @@ set(CMLOC "CMakeLists: ")
 
 # define minimum cmake version
 cmake_minimum_required(VERSION 3.5.1)
-if (COMMAND cmake_policy)
+if(COMMAND cmake_policy)
   if (POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
   endif (POLICY CMP0043)
@@ -63,13 +63,13 @@ set(LONG_DESCRIPTION
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "306")
+set(VERSION_PATCH "310")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "09/10/2024") # DD/MM/YYYY format
+set(VERSION_DATE "15/10/2024") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
-set(OCPN_API_VERSION_MINOR "17")
+set(OCPN_API_VERSION_MINOR "18")
 set(TP_COMMENT "  * Release using CI")
 
 set(PARENT "opencpn")
@@ -236,8 +236,8 @@ target_sources(${PACKAGE_NAME} PUBLIC ${SRC})
 # ==============================================================
 
 if (NOT OCPN_FLATPAK_CONFIG)
-  # Build environment not available when flatpak is being configured
-  # so following statements will not work
+  # Build environment not available when flatpak is being configured so
+  # following statements will not work
   message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
   if (WIN32)
@@ -245,7 +245,7 @@ if (NOT OCPN_FLATPAK_CONFIG)
     target_link_libraries(${PACKAGE_NAME} windows::headers)
   endif (WIN32)
 
-  add_subdirectory(opencpn-libs/api-17)
+  add_subdirectory(opencpn-libs/api-18)
   target_link_libraries(${PACKAGE_NAME} ocpn::api)
 
   add_subdirectory(opencpn-libs/tinyxml)
