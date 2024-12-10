@@ -225,7 +225,7 @@ jobs:
             resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak
-        - BUILD_ARCH: x86
+        - BUILD_ARCH: x86_64
         - FLATPAK_BRANCH: stable
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 22.08
@@ -260,7 +260,7 @@ jobs:
             resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak
-        - BUILD_ARCH: x86
+        - BUILD_ARCH: x86_64
         - FLATPAK_BRANCH: stable
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 24.08
