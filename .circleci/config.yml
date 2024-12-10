@@ -33,14 +33,14 @@ workflows:
 #             <<: *std-filters
 #        - build-android-armhf:
 #             <<: *std-filters
-        - build-flatpak-aarch64-2208:
-            <<: *std-filters
+#        - build-flatpak-aarch64-2208:
+#            <<: *std-filters
         - build-flatpak-x86-2208:
             <<: *std-filters
-        - build-flatpak-aarch64-2408:
-            <<: *std-filters
-        - build-flatpak-x86-2408:
-            <<: *std-filters
+#        - build-flatpak-aarch64-2408:
+#            <<: *std-filters
+#        - build-flatpak-x86-2408:
+#            <<: *std-filters
 #        - build-msvc-wx32-2022:
 #            <<: *std-filters
 #        - build-debian-arm64-12-bookworm:
