@@ -34,7 +34,7 @@
 #include <wx/mstream.h>
 
 #include "tpControlDialogImpl.h"
-#include "testplugin_pi.h"
+#include "crowdsource_pi.h"
 
 #include "ocpn_plugin.h"
 
@@ -46,7 +46,7 @@
 
 #include "wx/jsonwriter.h"
 
-extern testplugin_pi    *g_testplugin_pi;
+extern crowdsource_pi    *g_crowdsource_pi;
 extern bool             g_bSaveJSONOnStartup;
 extern wxString         g_ReceivedJSONMessage;
 extern wxJSONValue      g_ReceivedJSONJSONMsg;
@@ -67,10 +67,10 @@ tpControlDialogImpl::tpControlDialogImpl( wxWindow* parent ) : tpControlDialogDe
     m_bCreateBoundaryPointHasFocus = FALSE;
     m_pfdDialog = NULL;
 
-    if(!g_testplugin_pi->m_bODCreateBoundary) m_buttonCreateBoundaryODAPI->Disable();
-    if(!g_testplugin_pi->m_bODCreateBoundaryPoint) m_buttonCreateBoundaryPointODAPI->Disable();
-    if(!g_testplugin_pi->m_bODCreateTextPoint) m_buttonCreateTextPointODAPI->Disable();
-    if(g_testplugin_pi->m_fnOutputJSON == wxEmptyString) m_checkBoxSaveJSON->Disable();
+    if(!g_crowdsource_pi->m_bODCreateBoundary) m_buttonCreateBoundaryODAPI->Disable();
+    if(!g_crowdsource_pi->m_bODCreateBoundaryPoint) m_buttonCreateBoundaryPointODAPI->Disable();
+    if(!g_crowdsource_pi->m_bODCreateTextPoint) m_buttonCreateTextPointODAPI->Disable();
+    if(g_crowdsource_pi->m_fnOutputJSON == wxEmptyString) m_checkBoxSaveJSON->Disable();
     else m_checkBoxSaveJSON->Enable();
 }
 
@@ -276,8 +276,8 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryODAPI( wxCommandEvent& even
         pCB->BoundaryPointsList.insert(pCB->BoundaryPointsList.end(), pCBP5);
     }
 
-    g_testplugin_pi->CreateBoundary(pCB);
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->CreateBoundary(pCB);
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
     delete pCBP1;
     delete pCBP2;
@@ -294,7 +294,7 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryODAPI(wxCommandEvent& event
 {
     DeleteBoundary_t *pDB = new DeleteBoundary_t;
     pDB->GUID = m_textCtrDeleteBoundaryGUID->GetValue();
-    g_testplugin_pi->DeleteBoundary(pDB);
+    g_crowdsource_pi->DeleteBoundary(pDB);
 }
 
 void tpControlDialogImpl::OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event )
@@ -304,7 +304,7 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event
     wxJSONValue jMsg;
     wxString    MsgString;
 
-    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("DeleteBoundary");
     srand((unsigned)time(0));
@@ -318,7 +318,7 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteBoundary")) {
     }
 
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -338,8 +338,8 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent&
     pCBP->ringssteps = atof(m_textCtrlBoundaryPointRingStep->GetValue().mb_str());
     pCBP->ringsunits = m_choiceBoundaryPointRingUnits->GetSelection();
     pCBP->ringscolour = m_colourPickerBoundaryPointRingColour->GetColour().GetAsString();
-    bool ret = g_testplugin_pi->CreateBoundaryPoint(pCBP);
-    g_testplugin_pi->ToggleToolbarIcon();
+    bool ret = g_crowdsource_pi->CreateBoundaryPoint(pCBP);
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -347,7 +347,7 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryPointODAPI(wxCommandEvent& 
 {
     DeleteBoundaryPoint_t *pDBP = new DeleteBoundaryPoint_t;
     pDBP->GUID = m_textCtrDeleteBoundaryPointGUID->GetValue();
-    g_testplugin_pi->DeleteBoundaryPoint(pDBP);
+    g_crowdsource_pi->DeleteBoundaryPoint(pDBP);
 }
 
 void tpControlDialogImpl::OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& event )
@@ -357,7 +357,7 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& 
     wxJSONValue jMsg;
     wxString    MsgString;
 
-    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("DeleteBoundaryPoint");
     srand((unsigned)time(0));
@@ -371,7 +371,7 @@ void tpControlDialogImpl::OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& 
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteBoundaryPoint")) {
     }
 
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -393,8 +393,8 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointODAPI( wxCommandEvent& eve
     pCTP->TextFont = m_staticTextTextPointTextFontExample->GetFont();
     pCTP->TextPointDisplayTextWhen = m_radioBoxTextPointTextDisplay->GetSelection();
     pCTP->defaultRangeRings = true;
-    g_testplugin_pi->CreateTextPoint(pCTP);
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->CreateTextPoint(pCTP);
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -402,7 +402,7 @@ void tpControlDialogImpl::OnButtonClickDeleteTextPointODAPI(wxCommandEvent& even
 {
     DeleteTextPoint_t *pDTP = new DeleteTextPoint_t;
     pDTP->GUID = m_textCtrlDeleteTextPointGUID->GetValue();
-    g_testplugin_pi->DeleteTextPoint(pDTP);
+    g_crowdsource_pi->DeleteTextPoint(pDTP);
 }
 
 void tpControlDialogImpl::OnButtonClickDeleteTextPointJSON( wxCommandEvent& event )
@@ -412,7 +412,7 @@ void tpControlDialogImpl::OnButtonClickDeleteTextPointJSON( wxCommandEvent& even
     wxJSONValue jMsg;
     wxString    MsgString;
 
-    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("DeleteTextPoint");
     srand((unsigned)time(0));
@@ -426,7 +426,7 @@ void tpControlDialogImpl::OnButtonClickDeleteTextPointJSON( wxCommandEvent& even
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeleteTextPoint")) {
     }
 
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -440,14 +440,14 @@ void tpControlDialogImpl::OnButtonClickPointIconODAPI(wxCommandEvent& event)
         pAPI->PointIconName = _T("blue_anchor");
         pAPI->PointIconDescription = _("Blue Anchor");
 
-        g_testplugin_pi->AddPointIcon(pAPI);
-        g_testplugin_pi->ToggleToolbarIcon();
+        g_crowdsource_pi->AddPointIcon(pAPI);
+        g_crowdsource_pi->ToggleToolbarIcon();
         Show(false);
     } else {
         DeletePointIcon_t *pDPI = new DeletePointIcon_t;
         pDPI->PointIconName = _T("blue_anchor");
-        g_testplugin_pi->DeletePointIcon(pDPI);
-        g_testplugin_pi->ToggleToolbarIcon();
+        g_crowdsource_pi->DeletePointIcon(pDPI);
+        g_crowdsource_pi->ToggleToolbarIcon();
         Show(false);
     }
 }
@@ -473,7 +473,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     wxString    MsgString;
     wxString    l_sname;
 
-    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("CreateBoundary");
     srand((unsigned)time(0));
@@ -733,7 +733,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event
     SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
     }
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -745,7 +745,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& 
     wxJSONValue jMsgBP;
     wxString    MsgString;
 
-    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("CreateBoundaryPoint");
     srand((unsigned)time(0));
@@ -774,7 +774,7 @@ void tpControlDialogImpl::OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& 
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateBoundaryPoint")) {
     }
 
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -787,7 +787,7 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
     wxJSONWriter writer;
     wxString    MsgString;
 
-    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxS("CreateTextPoint");
     srand((unsigned)time(0));
@@ -827,7 +827,7 @@ void tpControlDialogImpl::OnButtonClickCreateTextPointJSON( wxCommandEvent& even
     if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("CreateTextPoint")) {
     }
 
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -846,7 +846,7 @@ void tpControlDialogImpl::OnButtonClickPointIconJSON(wxCommandEvent& event)
 
         wxString l_sBlueAnchor(wxBase64Encode(mb));
 
-        jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+        jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
         jMsg[wxT("Type")] = wxT("Request");
         jMsg[wxT("Msg")] = wxS("AddPointIcon");
         srand((unsigned)time(0));
@@ -863,10 +863,10 @@ void tpControlDialogImpl::OnButtonClickPointIconJSON(wxCommandEvent& event)
         if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("AddPointIcon")) {
         }
 
-        g_testplugin_pi->ToggleToolbarIcon();
+        g_crowdsource_pi->ToggleToolbarIcon();
         Show(false);
     } else {
-        jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+        jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
         jMsg[wxT("Type")] = wxT("Request");
         jMsg[wxT("Msg")] = wxS("DeletePointIcon");
         srand((unsigned)time(0));
@@ -881,7 +881,7 @@ void tpControlDialogImpl::OnButtonClickPointIconJSON(wxCommandEvent& event)
         if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxS("DeletePointIcon")) {
         }
 
-        g_testplugin_pi->ToggleToolbarIcon();
+        g_crowdsource_pi->ToggleToolbarIcon();
         Show(false);
     }
 }
@@ -894,7 +894,7 @@ void tpControlDialogImpl::OnCheckBoxSaveJSONOnStartup(wxCommandEvent& event)
 void tpControlDialogImpl::tpControlCloseClick( wxCommandEvent& event )
 {
     m_bOK = false;
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ToggleToolbarIcon();
 
     Show(false);
 }
@@ -907,19 +907,19 @@ void tpControlDialogImpl::tpControlOnClickImportJSON( wxCommandEvent& event )
             OCPNMessageBox_PlugIn(NULL, _("No file specified for output"), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
             return;
         }
-        g_testplugin_pi->m_fnOutputJSON = m_filePickerOutputJSON->GetPath();
+        g_crowdsource_pi->m_fnOutputJSON = m_filePickerOutputJSON->GetPath();
     } else {
-        g_testplugin_pi->m_fnOutputJSON = wxEmptyString;
+        g_crowdsource_pi->m_fnOutputJSON = wxEmptyString;
     }
 
-    if(g_testplugin_pi->m_fnInputJSON.GetFullPath() == wxEmptyString) {
+    if(g_crowdsource_pi->m_fnInputJSON.GetFullPath() == wxEmptyString) {
         OCPNMessageBox_PlugIn( NULL, _("No file specified for input"), _("File not found"), wxICON_EXCLAMATION | wxCANCEL );
         return;
     }
-    g_testplugin_pi->m_fnInputJSON = m_filePickerInputJSON->GetPath();
+    g_crowdsource_pi->m_fnInputJSON = m_filePickerInputJSON->GetPath();
 
-    g_testplugin_pi->ImportJSONFile();
-    g_testplugin_pi->ToggleToolbarIcon();
+    g_crowdsource_pi->ImportJSONFile();
+    g_crowdsource_pi->ToggleToolbarIcon();
     Show(false);
 }
 
@@ -976,11 +976,11 @@ void tpControlDialogImpl::SetDialogSize( void )
 
 void tpControlDialogImpl::SetPanels()
 {
-    if(g_testplugin_pi->m_bODCreateBoundary) m_buttonCreateBoundaryODAPI->Enable();
+    if(g_crowdsource_pi->m_bODCreateBoundary) m_buttonCreateBoundaryODAPI->Enable();
     else m_buttonCreateBoundaryODAPI->Disable();
-    if(g_testplugin_pi->m_bODCreateBoundaryPoint) m_buttonCreateBoundaryPointODAPI->Enable();
+    if(g_crowdsource_pi->m_bODCreateBoundaryPoint) m_buttonCreateBoundaryPointODAPI->Enable();
     else m_buttonCreateBoundaryPointODAPI->Disable();
-    if(g_testplugin_pi->m_bODCreateTextPoint) m_buttonCreateTextPointODAPI->Enable();
+    if(g_crowdsource_pi->m_bODCreateTextPoint) m_buttonCreateTextPointODAPI->Enable();
     else m_buttonCreateTextPointODAPI->Disable();
 }
 
@@ -1014,39 +1014,39 @@ void tpControlDialogImpl::SetJSONInputFile(wxString InputFile)
 
 void tpControlDialogImpl::OnFileChangeInputJSON(wxFileDirPickerEvent& event)
 {
-    g_testplugin_pi->m_fnInputJSON = m_filePickerInputJSON->GetPath();
+    g_crowdsource_pi->m_fnInputJSON = m_filePickerInputJSON->GetPath();
 }
 
 void tpControlDialogImpl::OnFileChangeOutputJSON(wxFileDirPickerEvent& event)
 {
-    g_testplugin_pi->m_fnOutputJSON = m_filePickerOutputJSON->GetPath();
+    g_crowdsource_pi->m_fnOutputJSON = m_filePickerOutputJSON->GetPath();
     if(m_filePickerOutputJSON->GetPath() != wxEmptyString) m_checkBoxSaveJSON->Enable();
     else m_checkBoxSaveJSON->Disable();
 }
 
 void tpControlDialogImpl::OnCheckBoxSaveJSON(wxCommandEvent& event)
 {
-    if(m_checkBoxSaveJSON->IsChecked()) g_testplugin_pi->m_bSaveIncommingJSONMessages = true;
-    else g_testplugin_pi->m_bSaveIncommingJSONMessages = false;
+    if(m_checkBoxSaveJSON->IsChecked()) g_crowdsource_pi->m_bSaveIncommingJSONMessages = true;
+    else g_crowdsource_pi->m_bSaveIncommingJSONMessages = false;
 }
 
 void tpControlDialogImpl::OnCheckBoxCloseSaveFileAfterEachWrite( wxCommandEvent& event )
 {
-    g_testplugin_pi->UpdateCloseAfterSave(m_checkBoxCloseAferWrite->IsChecked());
-    if(m_checkBoxCloseAferWrite->IsChecked()) g_testplugin_pi->m_bCloseSaveFileAfterEachWrite = true;
-    else g_testplugin_pi->m_bCloseSaveFileAfterEachWrite = false;
+    g_crowdsource_pi->UpdateCloseAfterSave(m_checkBoxCloseAferWrite->IsChecked());
+    if(m_checkBoxCloseAferWrite->IsChecked()) g_crowdsource_pi->m_bCloseSaveFileAfterEachWrite = true;
+    else g_crowdsource_pi->m_bCloseSaveFileAfterEachWrite = false;
 }
 
 void tpControlDialogImpl::OnCheckBoxAppendToFile(wxCommandEvent& event)
 {
-    g_testplugin_pi->UpdateAppendToFile(m_checkBoxAppendToFile->IsChecked());
-    if(m_checkBoxAppendToFile->IsChecked()) g_testplugin_pi->m_bAppendToSaveFile = true;
-    else g_testplugin_pi->m_bAppendToSaveFile = false;
+    g_crowdsource_pi->UpdateAppendToFile(m_checkBoxAppendToFile->IsChecked());
+    if(m_checkBoxAppendToFile->IsChecked()) g_crowdsource_pi->m_bAppendToSaveFile = true;
+    else g_crowdsource_pi->m_bAppendToSaveFile = false;
 }
 
 void tpControlDialogImpl::OnCheckBoxDeleteFromConfig(wxCommandEvent& event)
 {
-    g_testplugin_pi->m_bRecreateConfig = m_checkBoxRecreateConfig->IsChecked();
+    g_crowdsource_pi->m_bRecreateConfig = m_checkBoxRecreateConfig->IsChecked();
 }
 
 void tpControlDialogImpl::SetSaveJSONOnStartup(bool SaveJSONOnStartup)

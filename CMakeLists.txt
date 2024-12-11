@@ -2,7 +2,8 @@
 # Frontend2 Author:   jongough aka. Jon Gough Copyright: License:  wxWidgets
 # License
 # ---------------------------------------------------------------------------
-# - Copyright (C)  by Jon Gough                            *
+# - Copyright (C)  by Egil Moeller
+# - Copyright (C)  by Jon Gough (Template repo)                           *
 # - License:     GPLv3+
 # - This program is free software; you can redistribute it and/or modify  *
 # - it under the terms of the GNU General Public License as published by  *
@@ -19,7 +20,7 @@
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 # -----------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.314.0 24/10/2024 DD/MM/YYYY
+# Frontend2 Author: Jon Gough Crowdsource(TP) v1.0.314.0 24/10/2024 DD/MM/YYYY
 # format buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 # -- When changing this file do NOT change the order of the sections.    -- ##
@@ -49,21 +50,21 @@ endif (COMMAND cmake_policy)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
 
 # define plugin name, owner and versions
-set(VERBOSE_NAME "Testplugin")
-set(COMMON_NAME "Testplugin")
-set(TITLE_NAME "testplugin")
-set(PACKAGE_CONTACT "Jon Gough")
-set(PACKAGE "testplugin")
+set(VERBOSE_NAME "Crowdsource")
+set(COMMON_NAME "Crowdsource")
+set(TITLE_NAME "crowdsource")
+set(PACKAGE_CONTACT "Egil Moeller")
+set(PACKAGE "crowdsource")
 set(SHORT_DESCRIPTION
-    "Plugin to test examples of the ODAPI and JSON interface for ODRAW"
+    "Contribute AIS and ARPA targets to crowdsourcing for marine safety"
 )
 set(LONG_DESCRIPTION
-    "testplugin Plugin is used to test out the ODraw API and demonstrate how to use it successfully from another plugin"
+    "Upload AIS and ARPA targets (or any NMEA) to an internet server. Upload can be continuous, over intermittent internet, or scheduled, and tracks can be downsampled to fit your bandwidth."
 )
 
-set(VERSION_MAJOR "1")
-set(VERSION_MINOR "0")
-set(VERSION_PATCH "316")
+set(VERSION_MAJOR "0")
+set(VERSION_MINOR "1")
+set(VERSION_PATCH "0")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "11/12/2024") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
@@ -85,7 +86,7 @@ set(ALPHA "alpha") # Standard Repos
 # Set if  Cloudsmith Base Repository name does not match your Git Repository
 # name. set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 # set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")  #Ricks's customization
-set(CLOUDSMITH_BASE_REPOSITORY "testplugin") # without the pi
+set(CLOUDSMITH_BASE_REPOSITORY "crowdsource") # without the pi
 
 # Set the following to use OpenCPN cloudsmith repositories instead of own
 # repositories
@@ -164,11 +165,11 @@ add_definitions(-DUSE_S57)
 # ---- Section Below - Add your project SET(SRCS and SET(HDRS  etc..
 
 set(SRCS src/tpControlDialogDef.cpp src/tpControlDialogImpl.cpp src/tpicons.cpp
-         src/tpJSON.cpp src/testplugin_pi.cpp src/tpUtils.cpp
+         src/tpJSON.cpp src/crowdsource_pi.cpp src/tpUtils.cpp
 )
 
 set(HDRS
-    include/testplugin_pi.h
+    include/crowdsource_pi.h
     include/tpicons.h
     include/tpControlDialogDef.h
     include/tpControlDialogImpl.h

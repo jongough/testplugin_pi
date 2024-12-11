@@ -14,77 +14,77 @@ msgstr ""
 "X-Crowdin-Project: opencpn\n"
 "X-Crowdin-Project-ID: 49843\n"
 "X-Crowdin-Language: fil\n"
-"X-Crowdin-File: /plugins/testplugin_pi/po/testplugin_pi.pot\n"
+"X-Crowdin-File: /plugins/crowdsource_pi/po/crowdsource_pi.pot\n"
 "X-Crowdin-File-ID: 344\n"
 
 #: include/tpControlDialogDef.h:196
 msgid "Test Plugin Control Dialog"
 msgstr ""
 
-#: src/testplugin_pi.cpp:251 src/testplugin_pi.cpp:252 src/testplugin_pi.cpp:254
-#: src/testplugin_pi.cpp:255
+#: src/crowdsource_pi.cpp:251 src/crowdsource_pi.cpp:252 src/crowdsource_pi.cpp:254
+#: src/crowdsource_pi.cpp:255
 msgid "Test Plugin"
 msgstr ""
 
-#: src/testplugin_pi.cpp:345
-msgid "testplugin PlugIn for OpenCPN"
+#: src/crowdsource_pi.cpp:345
+msgid "crowdsource PlugIn for OpenCPN"
 msgstr ""
 
-#: src/testplugin_pi.cpp:350
-msgid "testplugin PlugIn for OpenCPN\n"
+#: src/crowdsource_pi.cpp:350
+msgid "crowdsource PlugIn for OpenCPN\n"
 "demonstrates PlugIn processing of NMEA messages."
 msgstr ""
 
-#: src/testplugin_pi.cpp:625
+#: src/crowdsource_pi.cpp:625
 #, c-format
 msgid "OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, Minor: %i\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:626 src/testplugin_pi.cpp:639
+#: src/crowdsource_pi.cpp:626 src/crowdsource_pi.cpp:639
 msgid "OD_FindPointInAnyBoundary\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:627 src/testplugin_pi.cpp:640
+#: src/crowdsource_pi.cpp:627 src/crowdsource_pi.cpp:640
 msgid "OD_FindClosestBoundaryLineCrossing\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:628 src/testplugin_pi.cpp:641
+#: src/crowdsource_pi.cpp:628 src/crowdsource_pi.cpp:641
 msgid "OD_FindFirstBoundaryLineCrossing\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:629 src/testplugin_pi.cpp:642
+#: src/crowdsource_pi.cpp:629 src/crowdsource_pi.cpp:642
 msgid "OD_CreateBoundary\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:630 src/testplugin_pi.cpp:643
+#: src/crowdsource_pi.cpp:630 src/crowdsource_pi.cpp:643
 msgid "OD_CreateBoundaryPoint\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:631 src/testplugin_pi.cpp:644
+#: src/crowdsource_pi.cpp:631 src/crowdsource_pi.cpp:644
 msgid "OD_CreateTextPoint\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:632 src/testplugin_pi.cpp:645
+#: src/crowdsource_pi.cpp:632 src/crowdsource_pi.cpp:645
 msgid "OD_AddPointIcon\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:633 src/testplugin_pi.cpp:646
+#: src/crowdsource_pi.cpp:633 src/crowdsource_pi.cpp:646
 msgid "OD_DeletePointIcon\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:635
+#: src/crowdsource_pi.cpp:635
 msgid "The following ODAPI's are available: \n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:648
+#: src/crowdsource_pi.cpp:648
 msgid "The following ODAPI's are not available:\n"
 msgstr ""
 
-#: src/testplugin_pi.cpp:652
-msgid "TESTPLUGIN"
+#: src/crowdsource_pi.cpp:652
+msgid "CROWDSOURCE"
 msgstr ""
 
-#: src/testplugin_pi.cpp:731 src/tpControlDialogImpl.cpp:907
+#: src/crowdsource_pi.cpp:731 src/tpControlDialogImpl.cpp:907
 #: src/tpControlDialogImpl.cpp:916 src/tpJSON.cpp:133
 msgid "File not found"
 msgstr ""
@@ -475,11 +475,11 @@ msgid "No file specified for input"
 msgstr ""
 
 #: src/tpicons.cpp:81
-msgid "testplugin_pi data location"
+msgid "crowdsource_pi data location"
 msgstr ""
 
 #: src/tpicons.cpp:101
-msgid "Failed to load all testplugin_pi icons, check OCPN log for details"
+msgid "Failed to load all crowdsource_pi icons, check OCPN log for details"
 msgstr ""
 
 #: src/tpicons.cpp:101

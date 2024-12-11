@@ -49,13 +49,13 @@ public:
     void    SetColourScheme( PI_ColorScheme cs );
     void    ChangeScheme(void);
 
-    wxBitmap    m_bm_testplugin_pi;
-    wxBitmap    m_bm_testplugin_toggled_pi;
-    wxBitmap    m_bm_testplugin_grey_pi;
+    wxBitmap    m_bm_crowdsource_pi;
+    wxBitmap    m_bm_crowdsource_toggled_pi;
+    wxBitmap    m_bm_crowdsource_grey_pi;
 
-    wxString    m_s_testplugin_pi;
-    wxString    m_s_testplugin_toggled_pi;
-    wxString    m_s_testplugin_grey_pi;
+    wxString    m_s_crowdsource_pi;
+    wxString    m_s_crowdsource_toggled_pi;
+    wxString    m_s_crowdsource_grey_pi;
 
     bool        m_bUpdateIcons;
 
@@ -68,17 +68,17 @@ private:
     wxBitmap    LoadSVG( const wxString filename, unsigned int width = -1, unsigned int height = -1 );
     wxBitmap    ScaleIcon( wxBitmap bitmap, const wxString filename, double sf );
 #endif
-    wxBitmap    m_bm_day_testplugin_pi;
-    wxBitmap    m_bm_day_testplugin_toggled_pi;
-    wxBitmap    m_bm_day_testplugin_grey_pi;
+    wxBitmap    m_bm_day_crowdsource_pi;
+    wxBitmap    m_bm_day_crowdsource_toggled_pi;
+    wxBitmap    m_bm_day_crowdsource_grey_pi;
 
-    wxBitmap    m_bm_dusk_testplugin_pi;
-    wxBitmap    m_bm_dusk_testplugin_toggled_pi;
-    wxBitmap    m_bm_dusk_testplugin_grey_pi;
+    wxBitmap    m_bm_dusk_crowdsource_pi;
+    wxBitmap    m_bm_dusk_crowdsource_toggled_pi;
+    wxBitmap    m_bm_dusk_crowdsource_grey_pi;
 
-    wxBitmap    m_bm_night_testplugin_pi;
-    wxBitmap    m_bm_night_testplugin_toggled_pi;
-    wxBitmap    m_bm_night_testplugin_grey_pi;
+    wxBitmap    m_bm_night_crowdsource_pi;
+    wxBitmap    m_bm_night_crowdsource_toggled_pi;
+    wxBitmap    m_bm_night_crowdsource_grey_pi;
 
     double          m_dScaleFactor;
     PI_ColorScheme  m_ColourScheme;

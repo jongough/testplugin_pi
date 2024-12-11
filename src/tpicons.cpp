@@ -30,7 +30,7 @@
 
 #include "tpicons.h"
 #include "ocpn_plugin.h"
-#include "testplugin_pi.h"
+#include "crowdsource_pi.h"
 
 #include <wx/mstream.h>
 #include <wx/filename.h>
@@ -69,41 +69,41 @@ void tpicons::initialize_images(void)
 //    fn.SetPath(std_path.GetUserConfigDir());  // should be ~/Library/Preferences
 //    fn.AppendDir(_T("opencpn"));
 //    fn.AppendDir( wxT("plugins") );
-//    fn.AppendDir(wxT("testplugin_pi"));
+//    fn.AppendDir(wxT("crowdsource_pi"));
 //#else
 //    fn.SetPath(*GetpSharedDataLocation());
-    //const char *sPluginName = "testplugin_pi";
+    //const char *sPluginName = "crowdsource_pi";
     //fn.SetPath(GetPluginDataDir(sPluginName));
-    //const char *sPluginName = "testplugin_pi";
-    fn.SetPath(GetPluginDataDir("testplugin_pi"));
+    //const char *sPluginName = "crowdsource_pi";
+    fn.SetPath(GetPluginDataDir("crowdsource_pi"));
     //    fn.AppendDir( wxT("plugins") );
-//    fn.AppendDir(wxT("testplugin_pi"));
+//    fn.AppendDir(wxT("crowdsource_pi"));
     fn.AppendDir(wxT("data"));
     g_SData_Locn = new wxString(fn.GetFullPath().c_str());
 //#endif
-    wxString s = _("testplugin_pi data location");
+    wxString s = _("crowdsource_pi data location");
     wxLogMessage( wxT("%s: %s"), s.c_str(), fn.GetFullPath().c_str());
 
     m_failedBitmapLoad = false;
 
 #ifdef PLUGIN_USE_SVG
-    fn.SetFullName(wxT("testplugin.svg"));
-    m_s_testplugin_pi = fn.GetFullPath();
-    m_bm_testplugin_pi = LoadSVG( fn.GetFullPath() );
-    fn.SetFullName(wxT("testplugingrey.svg"));
-    m_s_testplugin_grey_pi = fn.GetFullPath();
-    m_bm_testplugin_grey_pi = LoadSVG( fn.GetFullPath() );
-    fn.SetFullName(wxT("testplugin-toggled.svg"));
-    m_s_testplugin_toggled_pi = fn.GetFullPath();
-    m_bm_testplugin_toggled_pi = LoadSVG( fn.GetFullPath() );
+    fn.SetFullName(wxT("crowdsource.svg"));
+    m_s_crowdsource_pi = fn.GetFullPath();
+    m_bm_crowdsource_pi = LoadSVG( fn.GetFullPath() );
+    fn.SetFullName(wxT("crowdsourcegrey.svg"));
+    m_s_crowdsource_grey_pi = fn.GetFullPath();
+    m_bm_crowdsource_grey_pi = LoadSVG( fn.GetFullPath() );
+    fn.SetFullName(wxT("crowdsource-toggled.svg"));
+    m_s_crowdsource_toggled_pi = fn.GetFullPath();
+    m_bm_crowdsource_toggled_pi = LoadSVG( fn.GetFullPath() );
 #else
-    fn.SetFullName(wxT("testplugin.png"));
-    m_p_bm_testplugin_pi = new wxBitmap( fn.GetFullPath(), wxBITMAP_TYPE_PNG );
-    if(!m_p_bm_testplugin_pi->IsOk())  m_failedBitmapLoad = true;
+    fn.SetFullName(wxT("crowdsource.png"));
+    m_p_bm_crowdsource_pi = new wxBitmap( fn.GetFullPath(), wxBITMAP_TYPE_PNG );
+    if(!m_p_bm_crowdsource_pi->IsOk())  m_failedBitmapLoad = true;
 #endif
 
     if(m_failedBitmapLoad) {
-        int ret = OCPNMessageBox_PlugIn( NULL, _("Failed to load all testplugin_pi icons, check OCPN log for details"), _("OpenCPN Alert"), wxOK );
+        int ret = OCPNMessageBox_PlugIn( NULL, _("Failed to load all crowdsource_pi icons, check OCPN log for details"), _("OpenCPN Alert"), wxOK );
     } else {
         CreateSchemeIcons();
         ScaleIcons();
@@ -116,7 +116,7 @@ wxBitmap tpicons::LoadSVG( const wxString filename, unsigned int width, unsigned
     if( width == -1 ) width = m_iImageRefSize;
     if( height == -1 ) height = m_iImageRefSize;
 
-    wxString s = _("testplugin_pi LoadSVG");
+    wxString s = _("crowdsource_pi LoadSVG");
     wxLogMessage( wxT("%s: filename: %s,  width: %u, height: %u"), s.c_str(), filename, width, height);
 
     wxBitmap l__Bitmap = GetBitmapFromSVGFile(filename , width, height);
@@ -155,8 +155,8 @@ bool tpicons::ScaleIcons()
 #ifdef PLUGIN_USE_SVG
 
     // Dont scale the OD manager as that should be done by the OCPN toolbar
-    //m_bm_testplugin_pi = ScaleIcon( m_p_svgd_testplugin_pi, m_p_img_testplugin_pi, m_dScaleFactor );
-    //m_bm_testplugin_grey_pi = ScaleIcon( m_p_svgd_testplugin_grey_pi, m_p_img_testplugin_grey_pi, m_dScaleFactor );
+    //m_bm_crowdsource_pi = ScaleIcon( m_p_svgd_crowdsource_pi, m_p_img_crowdsource_pi, m_dScaleFactor );
+    //m_bm_crowdsource_grey_pi = ScaleIcon( m_p_svgd_crowdsource_grey_pi, m_p_img_crowdsource_grey_pi, m_dScaleFactor );
 
 #else
 #endif // PLUGIN_USE_SVG
@@ -190,13 +190,13 @@ void tpicons::ChangeScheme(void)
     switch(m_ColourScheme) {
         case PI_GLOBAL_COLOR_SCHEME_RGB:
         case PI_GLOBAL_COLOR_SCHEME_DAY:
-            m_bm_testplugin_grey_pi = m_bm_day_testplugin_grey_pi;
+            m_bm_crowdsource_grey_pi = m_bm_day_crowdsource_grey_pi;
             break;
         case PI_GLOBAL_COLOR_SCHEME_DUSK:
-            m_bm_testplugin_grey_pi = m_bm_dusk_testplugin_grey_pi;
+            m_bm_crowdsource_grey_pi = m_bm_dusk_crowdsource_grey_pi;
             break;
         case PI_GLOBAL_COLOR_SCHEME_NIGHT:
-            m_bm_testplugin_grey_pi = m_bm_night_testplugin_grey_pi;
+            m_bm_crowdsource_grey_pi = m_bm_night_crowdsource_grey_pi;
             break;
         default:
             break;
@@ -205,15 +205,15 @@ void tpicons::ChangeScheme(void)
 
 void tpicons::CreateSchemeIcons()
 {
-    m_bm_day_testplugin_grey_pi = m_bm_testplugin_grey_pi;
-    m_bm_day_testplugin_toggled_pi = m_bm_testplugin_toggled_pi;
-    m_bm_day_testplugin_pi = m_bm_testplugin_pi;
-    m_bm_dusk_testplugin_grey_pi = BuildDimmedToolBitmap(m_bm_testplugin_grey_pi, 128);
-    m_bm_dusk_testplugin_pi = BuildDimmedToolBitmap(m_bm_testplugin_pi, 128);
-    m_bm_dusk_testplugin_toggled_pi = BuildDimmedToolBitmap(m_bm_testplugin_toggled_pi, 128);
-    m_bm_night_testplugin_grey_pi = BuildDimmedToolBitmap(m_bm_testplugin_grey_pi, 32);
-    m_bm_night_testplugin_pi = BuildDimmedToolBitmap(m_bm_testplugin_pi, 32);
-    m_bm_night_testplugin_toggled_pi = BuildDimmedToolBitmap(m_bm_testplugin_toggled_pi, 32);
+    m_bm_day_crowdsource_grey_pi = m_bm_crowdsource_grey_pi;
+    m_bm_day_crowdsource_toggled_pi = m_bm_crowdsource_toggled_pi;
+    m_bm_day_crowdsource_pi = m_bm_crowdsource_pi;
+    m_bm_dusk_crowdsource_grey_pi = BuildDimmedToolBitmap(m_bm_crowdsource_grey_pi, 128);
+    m_bm_dusk_crowdsource_pi = BuildDimmedToolBitmap(m_bm_crowdsource_pi, 128);
+    m_bm_dusk_crowdsource_toggled_pi = BuildDimmedToolBitmap(m_bm_crowdsource_toggled_pi, 128);
+    m_bm_night_crowdsource_grey_pi = BuildDimmedToolBitmap(m_bm_crowdsource_grey_pi, 32);
+    m_bm_night_crowdsource_pi = BuildDimmedToolBitmap(m_bm_crowdsource_pi, 32);
+    m_bm_night_crowdsource_toggled_pi = BuildDimmedToolBitmap(m_bm_crowdsource_toggled_pi, 32);
 
 }
 

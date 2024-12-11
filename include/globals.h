@@ -1,5 +1,5 @@
 /******************************************************************************
- * $Id: testplugin_pi.h,v 1.0 2015/01/28 01:54:37 jongough Exp $
+ * $Id: crowdsource_pi.h,v 1.0 2015/01/28 01:54:37 jongough Exp $
  *
  * Project:  OpenCPN
  * Purpose:  OpenCPN General Drawing Plugin
@@ -31,7 +31,7 @@
 class tpicons;
 class tpControlDialogImpl;
 
-#define testplugin_POSITION -1
+#define crowdsource_POSITION -1
 #define ID_NONE -1
 //    Constants for right click menus
 

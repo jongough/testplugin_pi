@@ -31,7 +31,7 @@
 
 #include "tpUtils.h"
 #include "ocpn_plugin.h"
-#include "testplugin_pi.h"
+#include "crowdsource_pi.h"
 
 extern int      g_iLocaleDepth;
 extern wxString *g_tplocale;
