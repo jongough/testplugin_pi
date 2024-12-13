@@ -37,4 +37,10 @@ the next step, `./cloudsmith-upload.sh` (this is the case even if no account inf
 
 ## Renaming
 
-[Describe how to refactor this plugin to have a new name everywhere to use it as a basis for new plugins]
+To start a new plugin:
+
+* clone this repo
+* `git remote rm origin`
+* `git remote add origin url-to-new-repo`
+* `bash make-new-plugin.sh newname`
+* `git commit -a -m "Start of new plugin newname"`
