@@ -18,3 +18,30 @@ of the current environments supported by OpenCPN. The templated system allows fo
 developer.
 
 NOTE this is currently a work in progress and should be considered 'Alpha/Beta'. It may have issues at times as new functionality is added. It is a test tool not a production plugin.
+
+## Local build
+
+The simplest way to produce a package that can be imported with the "Import plugin..." button in the OpenCPN plugin manager is to run the following
+
+```
+rm build -rf; mkdir build; cd build; bash ../build-local-package-example.sh
+```
+
+Notice: You can of course also run the steps inside that script manually. However, in that case be aware that `make package` does not actually
+generate a file that can be used in the plugin manager. The generated `.tar.gz` gets modified (in place) to generate such a package by
+the next step, `./cloudsmith-upload.sh` (this is the case even if no account info is provided and the upload thus fails).
+
+## IDE setup & debugging
+
+[Describe how to set up your IDE to compile, install and debug the plugin in OpenCPN]
+
+## Renaming
+
+To start a new plugin, clone this repo, then run
+
+```
+git remote rm origin
+git remote add origin url-to-new-repo
+bash make-new-plugin.sh newname
+git commit -a -m "Start of new plugin newname"
+```
