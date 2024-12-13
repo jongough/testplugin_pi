@@ -5,8 +5,6 @@
 #
 # Change the exports to meet the build requirements, i.e. the values in the config.yml file relevant to the particular job
 export OCPN_TARGET=bookworm
-#export OCPN_TARGET=jammy
-export BUILD_ENV=debian
 export BUILD_GTK3=true
 export WX_VER=32
 export LOCAL_DEPLOY=true
