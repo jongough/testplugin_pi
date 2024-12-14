@@ -254,7 +254,6 @@ int crowdsource_pi::Init(void)
 void crowdsource_pi::LateInit(void)
 {
     SendPluginMessage(wxS("CROWDSOURCE_PI_READY_FOR_REQUESTS"), wxS("TRUE"));
-    m_bReadyForRequests = true;
     return;
 }
 
@@ -314,25 +313,6 @@ wxBitmap *crowdsource_pi::GetPlugInBitmap()
     return m_pdeficon;
 }
 
-int crowdsource_pi::GetToolbarToolCount(void)
-{
-      return 1;
-}
-
-void crowdsource_pi::OnToolbarToolCallback(int id)
-{
-}
-
-void crowdsource_pi::OnToolbarToolDownCallback(int id)
-{
-    return;
-}
-
-void crowdsource_pi::OnToolbarToolUpCallback(int id)
-{
-    return;
-}
-
 void crowdsource_pi::ShowPreferencesDialog( wxWindow* parent )
 {
 
@@ -365,10 +345,6 @@ void crowdsource_pi::appendOSDirSlash(wxString* pString)
 
     if (pString->Last() != sep)
         pString->Append(sep);
-}
-
-void crowdsource_pi::ToggleToolbarIcon( void )
-{
 }
 
 void crowdsource_pi::GetODAPI()

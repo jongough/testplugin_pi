@@ -176,10 +176,6 @@ public:
 
     wxBitmap *GetPlugInBitmap();
  
-    int GetToolbarToolCount(void);
-    void OnToolbarToolCallback(int id);
-    void OnToolbarToolDownCallback(int id);
-    void OnToolbarToolUpCallback(int id);
     void ShowPreferencesDialog( wxWindow* parent );
  
     void SetPluginMessage(wxString &message_id, wxString &message_body);
@@ -187,13 +183,9 @@ public:
     bool KeyboardEventHook( wxKeyEvent &event );
     bool MouseEventHook( wxMouseEvent &event );
     void SetCursorLatLon(double lat, double lon);
-
-    void ToggleToolbarIcon( void);
-
+ 
     void    GetODAPI( void );
- 
-    bool    m_bReadyForRequests;
- 
+  
 private:
     void    appendOSDirSlash(wxString* pString);
 };
