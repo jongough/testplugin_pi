@@ -235,22 +235,7 @@ int crowdsource_pi::Init(void)
     m_parent_window = GetOCPNCanvasWindow();
     m_pTPConfig = GetOCPNConfigObject();
 
-    m_tpControlDialogImpl = new tpControlDialogImpl(m_parent_window);
-    m_tpControlDialogImpl->Fit();
-    m_tpControlDialogImpl->Layout();
-    m_tpControlDialogImpl->Hide();
-    LoadConfig();
-
     g_ptpJSON = new tpJSON;
-
-
-#ifdef PLUGIN_USE_SVG
-    m_crowdsource_button_id  = InsertPlugInToolSVG(_("Test Plugin"), m_ptpicons->m_s_crowdsource_grey_pi, m_ptpicons->m_s_crowdsource_pi, m_ptpicons->m_s_crowdsource_toggled_pi, wxITEM_CHECK,
-                                                  _("Test Plugin"), wxS(""), NULL, crowdsource_POSITION, 0, this);
-#else
-    m_crowdsource_button_id  = InsertPlugInTool(_("Test Plugin"), &m_ptpicons->m_bm_crowdsource_grey_pi, &m_ptpicons->m_bm_crowdsource_pi, wxITEM_CHECK,
-                                             _("Test Plugin"), wxS(""), NULL, crowdsource_POSITION, 0, this);
-#endif
 
     //    In order to avoid an ASSERT on msw debug builds,
     //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
