@@ -86,17 +86,6 @@ ODAPI                   *g_ptpAPI;
 double                  g_dVar;
 int                     g_iLocaleDepth;
 wxString                *g_tpLocale;
-bool                    g_bSaveJSONOnStartup;
-
-wxFont                  *g_pFontTitle;
-wxFont                  *g_pFontData;
-wxFont                  *g_pFontLabel;
-wxFont                  *g_pFontSmall;
-
-wxString                g_ReceivedODAPIMessage;
-wxJSONValue             g_ReceivedODAPIJSONMsg;
-wxString                g_ReceivedJSONMessage;
-wxJSONValue             g_ReceivedJSONJSONMsg;
 
 wxBitmap *m_pdeficon;
 
