@@ -173,19 +173,8 @@ public:
     wxString GetCommonName();
     wxString GetShortDescription();
     wxString GetLongDescription();
-
     wxBitmap *GetPlugInBitmap();
- 
-    void ShowPreferencesDialog( wxWindow* parent );
- 
-    void SetPluginMessage(wxString &message_id, wxString &message_body);
-
-    bool KeyboardEventHook( wxKeyEvent &event );
-    bool MouseEventHook( wxMouseEvent &event );
-    void SetCursorLatLon(double lat, double lon);
- 
-    void    GetODAPI( void );
-  
+    
 private:
     void    appendOSDirSlash(wxString* pString);
 };

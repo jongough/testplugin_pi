@@ -313,40 +313,10 @@ wxBitmap *crowdsource_pi::GetPlugInBitmap()
     return m_pdeficon;
 }
 
-void crowdsource_pi::ShowPreferencesDialog( wxWindow* parent )
-{
-
-}
-
-void crowdsource_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
-{
-    return;
-}
-
-bool crowdsource_pi::KeyboardEventHook( wxKeyEvent &event )
-{
-    bool bret = FALSE;
-    return bret;
-}
-
-bool crowdsource_pi::MouseEventHook( wxMouseEvent &event )
-{
-    bool bret = FALSE;
-    return bret;
-}
-
-void crowdsource_pi::SetCursorLatLon(double lat, double lon)
-{
-}
-
 void crowdsource_pi::appendOSDirSlash(wxString* pString)
 {
     wxChar sep = wxFileName::GetPathSeparator();
 
     if (pString->Last() != sep)
         pString->Append(sep);
-}
-
-void crowdsource_pi::GetODAPI()
-{
 }
