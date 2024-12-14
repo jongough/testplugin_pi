@@ -51,7 +51,6 @@
 #include "wxWTranslateCatalog.h"
 
 #include "ODAPI.h"
-#include "tpJSON.h"
 #include "tpicons.h"
 #include "tpControlDialogImpl.h"
 
@@ -84,7 +83,6 @@ PlugIn_ViewPort         g_VP;
 wxString                *g_tplocale;
 void                    *g_ppimgr;
 
-tpJSON                  *g_ptpJSON;
 ODAPI                   *g_ptpAPI;
 double                  g_dVar;
 int                     g_iLocaleDepth;
