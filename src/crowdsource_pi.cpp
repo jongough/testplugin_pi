@@ -186,20 +186,13 @@ crowdsource_pi::~crowdsource_pi()
 int crowdsource_pi::Init(void)
 {
     g_tplocale = NULL;
-    m_bReadyForRequests = false;
-    m_bDoneODAPIVersionCall = false;
-    m_btpDialog = false;
 
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
 
-    eventsEnabled = true;
-
     // Get a pointer to the opencpn display canvas, to use as a parent for windows created
     m_parent_window = GetOCPNCanvasWindow();
     m_pTPConfig = GetOCPNConfigObject();
-
-    g_ptpJSON = new tpJSON;
 
 
     return (
