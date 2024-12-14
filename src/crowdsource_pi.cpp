@@ -52,7 +52,6 @@
 #include "wxWTranslateCatalog.h"
 
 #include "ODAPI.h"
-#include "tpicons.h"
 
 #include "wx/jsonwriter.h"
 
@@ -352,7 +351,6 @@ void crowdsource_pi::OnToolbarToolDownCallback(int id)
 
 void crowdsource_pi::OnToolbarToolUpCallback(int id)
 {
-    m_ptpicons->SetScaleFactor();
     return;
 }
 

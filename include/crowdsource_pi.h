@@ -139,7 +139,6 @@ std::cout << x  << std::endl ; } while (0)
 #include <wx/dynarray.h>
 
 #include "ODAPI.h"
-#include "tpicons.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
@@ -227,8 +226,6 @@ public:
     int         nBlinkerTick;
 
     void    appendOSDirSlash(wxString* pString);
-
-    tpicons *m_ptpicons;
 
     bool    eventsEnabled;
     bool    m_bReadyForRequests;
