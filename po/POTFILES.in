@@ -1,11 +1,7 @@
-src/tpControlDialogDef.cpp
-src/tpControlDialogImpl.cpp
 src/tpicons.cpp
 src/crowdsource_pi.cpp
 src/tpUtils.cpp
 include/crowdsource_pi.h
 include/tpicons.h
-include/tpControlDialogDef.h
-include/tpControlDialogImpl.h
 include/tpIconCombo.h
 include/tpUtils.h

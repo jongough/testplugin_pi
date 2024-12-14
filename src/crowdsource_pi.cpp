@@ -52,7 +52,6 @@
 
 #include "ODAPI.h"
 #include "tpicons.h"
-#include "tpControlDialogImpl.h"
 
 #include "wx/jsonwriter.h"
 
