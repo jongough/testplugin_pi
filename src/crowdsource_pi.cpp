@@ -402,10 +402,6 @@ bool crowdsource_pi::MouseEventHook( wxMouseEvent &event )
 
 void crowdsource_pi::SetCursorLatLon(double lat, double lon)
 {
-    if(m_tpControlDialogImpl->IsShown()) {
-        m_cursor_lat = lat;
-        m_cursor_lon = lon;
-    }
 }
 
 wxBitmap *crowdsource_pi::GetPlugInBitmap()
@@ -438,109 +434,55 @@ void crowdsource_pi::GetODAPI()
 
 void crowdsource_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPBLC)
 {
-    if((*m_pODFindClosestBoundaryLineCrossing)(pFCPBLC)) {
-        delete pFCPBLC;
-    }
-    delete pFCPBLC;
 }
 
 bool crowdsource_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP)
 {
-    bool l_bRet = (*m_pODCreateBoundaryPoint)(pCBP);
-    DEBUGST("Boundary Point created: ");
-    DEBUGEND(l_bRet);
-    return true;
+    return false;
 }
 
 bool crowdsource_pi::CreateBoundary(CreateBoundary_t* pCB)
 {
-    wxString l_GUID;
-    bool l_bRet = (*m_pODCreateBoundary)(pCB);
-    DEBUGST("Boundary GUID: ");
-    DEBUGEND(pCB->GUID);
-    return l_bRet;;
+    return false;
 }
 
 bool crowdsource_pi::CreateTextPoint(CreateTextPoint_t* pCTP)
 {
-    wxString l_GUID;
-    bool l_bRet = (*m_pODCreateTextPoint)(pCTP);
-    DEBUGST("Text Point GUID: ");
-    DEBUGEND(l_GUID);
     return true;
 }
 
 bool crowdsource_pi::DeleteBoundaryPoint(DeleteBoundaryPoint_t* pDBP)
 {
-    bool l_bRet = (*m_pODDeleteBoundaryPoint)(pDBP);
-    DEBUGST("Boundary Point Deleted: ");
-    DEBUGEND(l_bRet);
     return true;
 }
 
 bool crowdsource_pi::DeleteBoundary(DeleteBoundary_t* pDB)
 {
-    bool l_bRet = (*m_pODDeleteBoundary)(pDB);
-    DEBUGST("Boundary deleted: ");
-    DEBUGEND(l_bRet);
     return true;
 }
 
 bool crowdsource_pi::DeleteTextPoint(DeleteTextPoint_t* pDTP)
 {
-    bool l_bRet = (*m_pODDeleteTextPoint)(pDTP);
-    DEBUGST("Text Point created: ");
-    DEBUGEND(l_bRet);
     return true;
 }
 
 void crowdsource_pi::AddPointIcon(AddPointIcon_t* pAPI)
 {
-    (*m_pODAddPointIcon)(pAPI);
     return;
 }
 
 void crowdsource_pi::DeletePointIcon(DeletePointIcon_t* pDPI)
 {
-    (*m_pODDeletePointIcon)(pDPI);
     return;
 }
 
 bool crowdsource_pi::ImportJSONFile()
 {
     return false;
-    wxFFile l_ffile;
-    l_ffile.Open(m_fnInputJSON.GetFullPath(), "r");
-    if(!l_ffile.IsOpened()) {
-        OCPNMessageBox_PlugIn(NULL, m_fnInputJSON.GetFullPath(), _("File not found"), wxICON_EXCLAMATION | wxCANCEL);
-        return false;
-    }
-    wxString l_str;
-    l_ffile.ReadAll(&l_str);
-    wxFileInputStream l_input( m_fnInputJSON.GetFullPath() );
-    wxTextInputStream l_text( l_input );
-/*    for(size_t i = 0; i < l_str.Length();) {
-        //wxString l_ext = l_str.Mid(i, l_str_find)
-        //wxStringTokenizer tokenizer("first:second:third:fourth", ":");
-    }
-*/
-    wxJSONValue jMsg;
-    wxJSONWriter writer;
-    wxString    MsgString;
-
-    writer.Write( jMsg, MsgString );
-    SendPluginMessage( wxS("OCPN_DRAW_PI"), l_str );
-    return true;
 }
 
 void crowdsource_pi::UpdateCloseAfterSave(bool bCloseAfterSave)
 {
-    if(m_bCloseSaveFileAfterEachWrite != bCloseAfterSave) {
-        m_bCloseSaveFileAfterEachWrite = bCloseAfterSave;
-        if(bCloseAfterSave) {
-            g_ptpJSON->CloseJSONOutputFile();
-        }
-    }
 }
 
 void crowdsource_pi::UpdateAppendToFile(bool bAppendToFile)
