@@ -192,22 +192,6 @@ public:
 
     void    GetODAPI( void );
  
-    void FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPIAB);
-
-
-    bool CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP);
-    bool CreateBoundary(CreateBoundary_t *pCB);
-    bool CreateTextPoint(CreateTextPoint_t *pCTP);
-    bool DeleteBoundaryPoint(DeleteBoundaryPoint_t *pDBP);
-    bool DeleteBoundary(DeleteBoundary_t *pDB);
-    bool DeleteTextPoint(DeleteTextPoint_t *pDTP);
-    void AddPointIcon(AddPointIcon_t *API);
-    void DeletePointIcon(DeletePointIcon_t *p_DPI);
-
-    bool ImportJSONFile(void);
-    void UpdateCloseAfterSave(bool bCloseAfterSave);
-    void UpdateAppendToFile(bool bAppendToFile);
- 
     bool    m_bReadyForRequests;
  
 private:
