@@ -365,10 +365,6 @@ int crowdsource_pi::GetToolbarToolCount(void)
 
 void crowdsource_pi::OnToolbarToolCallback(int id)
 {
- /*
-    m_iCallerId = id;
-    ToggleToolbarIcon();
- */
 }
 
 void crowdsource_pi::OnToolbarToolDownCallback(int id)
@@ -389,56 +385,18 @@ void crowdsource_pi::ShowPreferencesDialog( wxWindow* parent )
 
 void crowdsource_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
 {
- /*
-    g_ptpJSON->ProcessMessage(message_id, message_body);
- */
     return;
 }
 
 bool crowdsource_pi::KeyboardEventHook( wxKeyEvent &event )
 {
     bool bret = FALSE;
-/*
-    if( event.GetKeyCode() < 128 )            //ascii
-    {
-        int key_char = event.GetKeyCode();
-
-        if ( event.ControlDown() )
-            key_char -= 64;
-
-        switch( key_char ) {
-            case WXK_CONTROL_W:                      // Ctrl W
-                if ( event.ShiftDown() ) { // Shift-Ctrl-W
-                    if(event.GetEventType() == wxEVT_KEY_DOWN) {
-                        OnToolbarToolDownCallback( m_crowdsource_button_id);
-                    }
-                    bret = TRUE;
-                } else bret = FALSE;
-                break;
-        }
-    }
-    if(bret) RequestRefresh(m_parent_window);
-*/
     return bret;
 }
 
 bool crowdsource_pi::MouseEventHook( wxMouseEvent &event )
 {
     bool bret = FALSE;
-/*
-    if(m_tpControlDialogImpl->IsVisible()) {
-        if(event.LeftDown()) {
-            m_click_lat = m_cursor_lat;
-            m_click_lon = m_cursor_lon;
-            m_tpControlDialogImpl->SetLatLon( m_cursor_lat, m_cursor_lon );
-            bret = TRUE;
-        }
-
-        if(event.LeftUp()) {
-            bret = TRUE;
-        }
-    }
-*/
     return bret;
 }
 
@@ -465,210 +423,17 @@ void crowdsource_pi::appendOSDirSlash(wxString* pString)
 
 void crowdsource_pi::ToggleToolbarIcon( void )
 {
- /*
-    if(m_btpDialog) {
-        m_btpDialog = false;
-        SetToolbarItemState( m_crowdsource_button_id, false );
-        m_tpControlDialogImpl->Hide();
-    } else {
-        m_btpDialog = true;
-        SetToolbarItemState( m_crowdsource_button_id, true  );
-        if(!m_bDoneODAPIVersionCall) GetODAPI();
-        m_tpControlDialogImpl->SetPanels();
-        m_tpControlDialogImpl->Show();
-    }
- */
 }
 
 void crowdsource_pi::SaveConfig()
 {
- /*
-    #ifndef __WXMSW__
-    wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
-    #if wxCHECK_VERSION(3,0,0)  && !defined(_WXMSW_)
-    //#if wxCHECK_VERSION(3,0,0)
-    wxSetlocale(LC_NUMERIC, "C");
-    #else
-    setlocale(LC_NUMERIC, "C");
-    #endif
-    #endif
-
-    wxFileConfig *pConf = m_pTPConfig;
-
-    if(pConf) {
-        pConf->SetPath( wxS( "/Settings/crowdsource_pi" ) );
-        if(m_bRecreateConfig) {
-            pConf->DeleteGroup( "/Settings/crowdsource_pi" );
-        } else {
-            pConf->Write( wxS( "SaveJSONOnStartup" ), g_bSaveJSONOnStartup );
-            pConf->Write( wxS( "JSONSaveFile" ), m_fnOutputJSON.GetFullPath());
-            pConf->Write( wxS( "JSONInputFile" ), m_fnInputJSON.GetFullPath());
-            pConf->Write( wxS( "CloseSaveFileAferEachWrite" ), m_bCloseSaveFileAfterEachWrite);
-            pConf->Write( wxS( "AppendToSaveFile" ), m_bAppendToSaveFile);
-            pConf->Write( wxS( "SaveIncommingJSONMessages" ), m_bSaveIncommingJSONMessages);
-        }
-    }
- */
 }
 
 void crowdsource_pi::LoadConfig()
 {
- /*
-    #ifndef __WXMSW__
-    wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
-    #if wxCHECK_VERSION(3,0,0)
-    wxSetlocale(LC_NUMERIC, "C");
-    #else
-    setlocale(LC_NUMERIC, "C");
-    #endif
-    #endif
-
-    wxFileConfig *pConf = m_pTPConfig;
-
-    if(pConf)
-    {
-        wxString val;
-        pConf->SetPath( wxS( "/Settings/crowdsource_pi" ) );
-        wxString  l_wxsColour;
-        pConf->Read( wxS( "SaveJSONOnStartup"), &g_bSaveJSONOnStartup, false );
-        if(g_bSaveJSONOnStartup) m_tpControlDialogImpl->SetSaveJSONOnStartup(g_bSaveJSONOnStartup);
-        wxString l_filepath;
-        pConf->Read( wxS("JSONSaveFile"), &l_filepath, wxEmptyString);
-        m_fnOutputJSON.Assign(l_filepath);
-        if(m_fnOutputJSON != wxEmptyString) m_tpControlDialogImpl->SetJSONSaveFile(m_fnOutputJSON.GetFullPath());
-        pConf->Read( wxS( "JSONInputFile" ), &l_filepath, wxEmptyString);
-        m_fnInputJSON.Assign(l_filepath);
-        if(m_fnInputJSON != wxEmptyString) m_tpControlDialogImpl->SetJSONInputFile(m_fnInputJSON.GetFullPath());
-        pConf->Read( wxS( "CloseSaveFileAferEachWrite" ), &m_bCloseSaveFileAfterEachWrite, true);
-        m_tpControlDialogImpl->SetCloseFileAfterEachWrite(m_bCloseSaveFileAfterEachWrite);
-        pConf->Read( wxS( "AppendToSaveFile" ), &m_bAppendToSaveFile, true);
-        m_tpControlDialogImpl->SetAppendToSaveFile(m_bAppendToSaveFile);
-        pConf->Read( wxS( "SaveIncommingJSONMessages" ), &m_bSaveIncommingJSONMessages, false);
-        m_tpControlDialogImpl->SetIncommingJSONMessages(m_bSaveIncommingJSONMessages);
-    }
- */
 }
 void crowdsource_pi::GetODAPI()
 {
-/*
-    wxJSONValue jMsg;
-    wxJSONWriter writer;
-    wxString    MsgString;
-
-    jMsg[wxT("Source")] = wxT("CROWDSOURCE_PI");
-    jMsg[wxT("Type")] = wxT("Request");
-    jMsg[wxT("Msg")] = wxT("Version");
-    jMsg[wxT("MsgId")] = wxT("Version");
-    writer.Write( jMsg, MsgString );
-    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
-    if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("Version")) {
-        m_iODVersionMajor = g_ReceivedODAPIJSONMsg[wxS("Major")].AsInt();
-        m_iODVersionMinor = g_ReceivedODAPIJSONMsg[wxS("Minor")].AsInt();
-        m_iODVersionPatch = g_ReceivedODAPIJSONMsg[wxS("Patch")].AsInt();
-    }
-    m_bDoneODAPIVersionCall = true;
-
-    wxJSONValue jMsg1;
-    jMsg1[wxT("Source")] = wxT("CROWDSOURCE_PI");
-    jMsg1[wxT("Type")] = wxT("Request");
-    jMsg1[wxT("Msg")] = wxS("GetAPIAddresses");
-    jMsg1[wxT("MsgId")] = wxS("GetAPIAddresses");
-    writer.Write( jMsg1, MsgString );
-    SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
-    if(g_ReceivedODAPIMessage != wxEmptyString &&  g_ReceivedODAPIJSONMsg[wxT("MsgId")].AsString() == wxS("GetAPIAddresses")) {
-        m_iODAPIVersionMajor = g_ReceivedODAPIJSONMsg[_T("ODAPIVersionMajor")].AsInt();
-        m_iODAPIVersionMinor = g_ReceivedODAPIJSONMsg[_T("ODAPIVersionMinor")].AsInt();
-
-        wxString sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindPointInAnyBoundary")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pOD_FindPointInAnyBoundary);
-            m_bOD_FindPointInAnyBoundary = true;
-        }
-
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindClosestBoundaryLineCrossing")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODFindClosestBoundaryLineCrossing);
-            m_bODFindClosestBoundaryLineCrossing = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindFirstBoundaryLineCrossing")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODFindFirstBoundaryLineCrossing);
-            m_bODFindFirstBoundaryLineCrossing = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateBoundary")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateBoundary);
-            m_bODCreateBoundary = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateBoundaryPoint")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateBoundaryPoint);
-            m_bODCreateBoundaryPoint = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_CreateTextPoint")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODCreateTextPoint);
-            m_bODCreateTextPoint = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeleteBoundary")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeleteBoundary);
-            m_bODDeleteBoundary = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeleteBoundaryPoint")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeleteBoundaryPoint);
-            m_bODDeleteBoundaryPoint = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeleteTextPoint")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeleteTextPoint);
-            m_bODDeleteTextPoint = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_AddPointIcon")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODAddPointIcon);
-            m_bODAddPointIcon = true;
-        }
-        sptr = g_ReceivedODAPIJSONMsg[_T("OD_DeletePointIcon")].AsString();
-        if(sptr != _T("null")) {
-            sscanf(sptr.To8BitData().data(), "%p", &m_pODDeletePointIcon);
-            m_bODDeletePointIcon = true;
-        }
-    }
-
-    wxString l_msg;
-    wxString l_avail;
-    wxString l_notavail;
-    l_msg.Printf(_("OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, Minor: %i\n"), m_iODVersionMajor, m_iODVersionMinor, m_iODVersionPatch, m_iODAPIVersionMajor, m_iODAPIVersionMinor);
-    if(m_bOD_FindPointInAnyBoundary) l_avail.Append(_("OD_FindPointInAnyBoundary\n"));
-    if(m_bODFindClosestBoundaryLineCrossing) l_avail.Append(_("OD_FindClosestBoundaryLineCrossing\n"));
-    if(m_bODFindFirstBoundaryLineCrossing) l_avail.Append(_("OD_FindFirstBoundaryLineCrossing\n"));
-    if(m_bODCreateBoundary) l_avail.Append(_("OD_CreateBoundary\n"));
-    if(m_bODCreateBoundaryPoint) l_avail.Append(_("OD_CreateBoundaryPoint\n"));
-    if(m_bODCreateTextPoint) l_avail.Append(_("OD_CreateTextPoint\n"));
-    if(m_bODAddPointIcon) l_avail.Append(_("OD_AddPointIcon\n"));
-    if(m_bODDeletePointIcon) l_avail.Append(_("OD_DeletePointIcon\n"));
-    if(l_avail.Length() > 0) {
-        l_msg.Append(_("The following ODAPI's are available: \n"));
-        l_msg.Append(l_avail);
-    }
-
-    if(!m_bOD_FindPointInAnyBoundary) l_notavail.Append(_("OD_FindPointInAnyBoundary\n"));
-    if(!m_bODFindClosestBoundaryLineCrossing) l_notavail.Append(_("OD_FindClosestBoundaryLineCrossing\n"));
-    if(!m_bODFindFirstBoundaryLineCrossing) l_notavail.Append(_("OD_FindFirstBoundaryLineCrossing\n"));
-    if(!m_bODCreateBoundary) l_notavail.Append(_("OD_CreateBoundary\n"));
-    if(!m_bODCreateBoundaryPoint) l_notavail.Append(_("OD_CreateBoundaryPoint\n"));
-    if(!m_bODCreateTextPoint) l_notavail.Append(_("OD_CreateTextPoint\n"));
-    if(!m_bODAddPointIcon) l_notavail.Append(_("OD_AddPointIcon\n"));
-    if(!m_bODDeletePointIcon) l_notavail.Append(_("OD_DeletePointIcon\n"));
-    if(l_notavail.Length() > 0) {
-        l_msg.Append(_("The following ODAPI's are not available:\n"));
-        l_msg.Append(l_notavail);
-    }
-
-    OCPNMessageBox_PlugIn( m_parent_window, l_msg, _("CROWDSOURCE"), (long) wxYES );
-*/
 }
 
 void crowdsource_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPBLC)
@@ -743,6 +508,7 @@ void crowdsource_pi::DeletePointIcon(DeletePointIcon_t* pDPI)
 
 bool crowdsource_pi::ImportJSONFile()
 {
+    return false;
     wxFFile l_ffile;
     l_ffile.Open(m_fnInputJSON.GetFullPath(), "r");
     if(!l_ffile.IsOpened()) {
