@@ -155,9 +155,8 @@ public:
 
     wxWindow            *m_parent_window;
     wxFileConfig        *m_pTPConfig;
-    wxTimer             *m_timer;
-
-
+    wxString *l_pDir;
+ 
     //    The required PlugIn Methods
     int Init(void);
     void LateInit(void);
@@ -176,7 +175,6 @@ public:
     wxBitmap *GetPlugInBitmap();
     
 private:
-    void    appendOSDirSlash(wxString* pString);
 };
 
 #endif

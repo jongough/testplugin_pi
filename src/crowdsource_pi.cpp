@@ -71,17 +71,7 @@ static const long long lNaN = 0xfff8000000000000;
 
 void                    *g_ppimgr;
 crowdsource_pi          *g_crowdsource_pi;
-
-wxString                *g_PrivateDataDir;
-wxString                *g_pHome_Locn;
-wxString                *g_pData;
-wxString                *g_SData_Locn;
-
-wxString                *g_tplocale;
-int                     g_iLocaleDepth;
-wxString                *g_tpLocale;
-
-wxBitmap *m_pdeficon;
+wxBitmap                *m_pdeficon;
 
 // Needed for ocpndc.cpp to compile. Normally would be in glChartCanvas.cpp
 float g_GLMinSymbolLineWidth;
@@ -99,47 +89,14 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
     delete p;
 }
 
-
-//---------------------------------------------------------------------------------------------------------
-//
-//    crowdsource PlugIn Implementation
-//
-//---------------------------------------------------------------------------------------------------------
-
-
-
-//---------------------------------------------------------------------------------------------------------
-//
-//          PlugIn initialization and de-init
-//
-//---------------------------------------------------------------------------------------------------------
-
 crowdsource_pi::crowdsource_pi(void *ppimgr)
 :opencpn_plugin_118(ppimgr)
 {
-    // Create the PlugIn icons
     g_ppimgr = ppimgr;
-//    g_tp_pi_manager = (PlugInManager *) ppimgr;
     g_crowdsource_pi = this;
 
-    wxString *l_pDir = new wxString(*GetpPrivateApplicationDataLocation());
-    appendOSDirSlash( l_pDir );
-    l_pDir->Append(_T("plugins"));
-    appendOSDirSlash( l_pDir );
-    if ( !wxDir::Exists(*l_pDir))
-        wxMkdir( *l_pDir );
-    l_pDir->Append(_T("crowdsource_pi"));
-    appendOSDirSlash( l_pDir );
-    if ( !wxDir::Exists(*l_pDir))
-        wxMkdir( *l_pDir );
-    g_PrivateDataDir = new wxString;
-    g_PrivateDataDir->Append(*l_pDir);
-    g_pData = new wxString(*l_pDir);
-    g_pData->append( wxS("data") );
-    appendOSDirSlash( g_pData );
-    if ( !wxDir::Exists(*g_pData))
-        wxMkdir( *g_pData );
-
+    l_pDir = new wxString(*GetpPrivateApplicationDataLocation());
+    // {l_pDir}/plugins/crowdsource_pi/data is the datadir for this plugin
 
     wxMemoryInputStream sm(
         "\211PNG\r\n\032\n\000\000\000\rIHDR\000\000\000 \000\000\000 "
@@ -210,20 +167,10 @@ crowdsource_pi::crowdsource_pi(void *ppimgr)
 
 crowdsource_pi::~crowdsource_pi()
 {
-    delete g_SData_Locn;
-    g_SData_Locn = NULL;
-
-    delete g_PrivateDataDir;
-    g_PrivateDataDir = NULL;
-
-    delete g_pData;
-    g_pData = NULL;
 }
 
 int crowdsource_pi::Init(void)
 {
-    g_tplocale = NULL;
-
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
 
@@ -311,12 +258,4 @@ wxString crowdsource_pi::GetLongDescription()
 wxBitmap *crowdsource_pi::GetPlugInBitmap()
 {
     return m_pdeficon;
-}
-
-void crowdsource_pi::appendOSDirSlash(wxString* pString)
-{
-    wxChar sep = wxFileName::GetPathSeparator();
-
-    if (pString->Last() != sep)
-        pString->Append(sep);
 }
