@@ -2,4 +2,3 @@ src/tpicons.cpp
 src/crowdsource_pi.cpp
 include/crowdsource_pi.h
 include/tpicons.h
-include/tpIconCombo.h

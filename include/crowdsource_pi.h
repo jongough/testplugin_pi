@@ -139,7 +139,7 @@ std::cout << x  << std::endl ; } while (0)
 #include <wx/dynarray.h>
 
 #include "ODAPI.h"
-#include "globals.h"
+#include "tpicons.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
@@ -229,7 +229,6 @@ public:
     void    appendOSDirSlash(wxString* pString);
 
     tpicons *m_ptpicons;
-    tpControlDialogImpl    *m_tpControlDialogImpl;
 
     bool    eventsEnabled;
     bool    m_bReadyForRequests;
