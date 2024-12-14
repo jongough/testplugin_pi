@@ -231,65 +231,13 @@ public:
     bool    m_bReadyForRequests;
     bool    m_bDoneODAPIVersionCall;
     int     m_iCallerId;
-    bool    m_btpDialog;
-    int     m_crowdsource_button_id;
     int     m_iODVersionMajor;
     int     m_iODVersionMinor;
     int     m_iODVersionPatch;
     int     m_iODAPIVersionMajor;
     int     m_iODAPIVersionMinor;
-    bool    m_bOD_FindPointInAnyBoundary;
-    bool    m_bODFindClosestBoundaryLineCrossing;
-    bool    m_bODFindFirstBoundaryLineCrossing;
-    bool    m_bODCreateBoundary;
-    bool    m_bODCreateBoundaryPoint;
-    bool    m_bODCreateTextPoint;
-    bool    m_bODDeleteBoundary;
-    bool    m_bODDeleteBoundaryPoint;
-    bool    m_bODDeleteTextPoint;
-    bool    m_bODAddPointIcon;
-    bool    m_bODDeletePointIcon;
-    wxFileName  m_fnInputJSON;
-    wxFileName  m_fnOutputJSON;
-    bool    m_bSaveIncommingJSONMessages;
-    bool    m_bRecreateConfig;
-    bool    m_bCloseSaveFileAfterEachWrite;
-    bool    m_bAppendToSaveFile;
-
 
 private:
-    void    OnTimer(wxTimerEvent& ev);
-
-    void    SaveConfig( void );
-    void    LoadConfig();
-
-    void    MenuPrepend( wxMenu *menu, int id, wxString label);
-    void    MenuAppend( wxMenu *menu, int id, wxString label);
-    void    FindSelectedObject( void );
-
-    PlugIn_ViewPort m_VP;
-
-    int     m_show_id;
-    int     m_hide_id;
-    bool    show;
-    int     m_config_button_id;
-
-    double  m_cursor_lat;
-    double  m_cursor_lon;
-    double  m_click_lat;
-    double  m_click_lon;
-
-    OD_FindPointInAnyBoundary           m_pOD_FindPointInAnyBoundary;
-    OD_FindClosestBoundaryLineCrossing  m_pODFindClosestBoundaryLineCrossing;
-    OD_FindFirstBoundaryLineCrossing    m_pODFindFirstBoundaryLineCrossing;
-    OD_CreateBoundary                   m_pODCreateBoundary;
-    OD_CreateBoundaryPoint              m_pODCreateBoundaryPoint;
-    OD_CreateTextPoint                  m_pODCreateTextPoint;
-    OD_DeleteBoundaryPoint              m_pODDeleteBoundaryPoint;
-    OD_DeleteBoundary                   m_pODDeleteBoundary;
-    OD_DeleteTextPoint                  m_pODDeleteTextPoint;
-    OD_AddPointIcon                     m_pODAddPointIcon;
-    OD_DeletePointIcon                  m_pODDeletePointIcon;
 };
 
 #endif

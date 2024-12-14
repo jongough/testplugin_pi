@@ -69,21 +69,15 @@ static const long long lNaN = 0xfff8000000000000;
 #define NAN (*(double*)&lNaN)
 #endif
 
-crowdsource_pi           *g_crowdsource_pi;
-wxString                *g_PrivateDataDir;
+void                    *g_ppimgr;
+crowdsource_pi          *g_crowdsource_pi;
 
+wxString                *g_PrivateDataDir;
 wxString                *g_pHome_Locn;
 wxString                *g_pData;
 wxString                *g_SData_Locn;
-wxString                *g_pLayerDir;
 
-PlugIn_ViewPort         *g_pVP;
-PlugIn_ViewPort         g_VP;
 wxString                *g_tplocale;
-void                    *g_ppimgr;
-
-ODAPI                   *g_ptpAPI;
-double                  g_dVar;
 int                     g_iLocaleDepth;
 wxString                *g_tpLocale;
 
@@ -145,11 +139,6 @@ crowdsource_pi::crowdsource_pi(void *ppimgr)
     appendOSDirSlash( g_pData );
     if ( !wxDir::Exists(*g_pData))
         wxMkdir( *g_pData );
-    g_pLayerDir = new wxString;
-    g_pLayerDir->Append(*l_pDir);
-    g_pLayerDir->Append( wxT("Layers") );
-    appendOSDirSlash( g_pLayerDir );
-
 
 
     wxMemoryInputStream sm(
@@ -229,10 +218,6 @@ crowdsource_pi::~crowdsource_pi()
 
     delete g_pData;
     g_pData = NULL;
-
-    delete g_pLayerDir;
-    g_pLayerDir = NULL;
-
 }
 
 int crowdsource_pi::Init(void)
@@ -386,13 +371,6 @@ void crowdsource_pi::ToggleToolbarIcon( void )
 {
 }
 
-void crowdsource_pi::SaveConfig()
-{
-}
-
-void crowdsource_pi::LoadConfig()
-{
-}
 void crowdsource_pi::GetODAPI()
 {
 }
