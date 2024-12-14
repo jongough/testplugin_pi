@@ -365,8 +365,10 @@ int crowdsource_pi::GetToolbarToolCount(void)
 
 void crowdsource_pi::OnToolbarToolCallback(int id)
 {
+ /*
     m_iCallerId = id;
     ToggleToolbarIcon();
+ */
 }
 
 void crowdsource_pi::OnToolbarToolDownCallback(int id)
@@ -387,14 +389,16 @@ void crowdsource_pi::ShowPreferencesDialog( wxWindow* parent )
 
 void crowdsource_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
 {
+ /*
     g_ptpJSON->ProcessMessage(message_id, message_body);
+ */
     return;
 }
 
 bool crowdsource_pi::KeyboardEventHook( wxKeyEvent &event )
 {
     bool bret = FALSE;
-
+/*
     if( event.GetKeyCode() < 128 )            //ascii
     {
         int key_char = event.GetKeyCode();
@@ -414,13 +418,14 @@ bool crowdsource_pi::KeyboardEventHook( wxKeyEvent &event )
         }
     }
     if(bret) RequestRefresh(m_parent_window);
+*/
     return bret;
 }
 
 bool crowdsource_pi::MouseEventHook( wxMouseEvent &event )
 {
     bool bret = FALSE;
-
+/*
     if(m_tpControlDialogImpl->IsVisible()) {
         if(event.LeftDown()) {
             m_click_lat = m_cursor_lat;
@@ -433,7 +438,7 @@ bool crowdsource_pi::MouseEventHook( wxMouseEvent &event )
             bret = TRUE;
         }
     }
-
+*/
     return bret;
 }
 
@@ -460,6 +465,7 @@ void crowdsource_pi::appendOSDirSlash(wxString* pString)
 
 void crowdsource_pi::ToggleToolbarIcon( void )
 {
+ /*
     if(m_btpDialog) {
         m_btpDialog = false;
         SetToolbarItemState( m_crowdsource_button_id, false );
@@ -471,10 +477,12 @@ void crowdsource_pi::ToggleToolbarIcon( void )
         m_tpControlDialogImpl->SetPanels();
         m_tpControlDialogImpl->Show();
     }
+ */
 }
 
 void crowdsource_pi::SaveConfig()
 {
+ /*
     #ifndef __WXMSW__
     wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
     #if wxCHECK_VERSION(3,0,0)  && !defined(_WXMSW_)
@@ -500,10 +508,12 @@ void crowdsource_pi::SaveConfig()
             pConf->Write( wxS( "SaveIncommingJSONMessages" ), m_bSaveIncommingJSONMessages);
         }
     }
+ */
 }
 
 void crowdsource_pi::LoadConfig()
 {
+ /*
     #ifndef __WXMSW__
     wxString *l_locale = new wxString(wxSetlocale(LC_NUMERIC, NULL));
     #if wxCHECK_VERSION(3,0,0)
@@ -536,9 +546,11 @@ void crowdsource_pi::LoadConfig()
         pConf->Read( wxS( "SaveIncommingJSONMessages" ), &m_bSaveIncommingJSONMessages, false);
         m_tpControlDialogImpl->SetIncommingJSONMessages(m_bSaveIncommingJSONMessages);
     }
+ */
 }
 void crowdsource_pi::GetODAPI()
 {
+/*
     wxJSONValue jMsg;
     wxJSONWriter writer;
     wxString    MsgString;
@@ -656,7 +668,7 @@ void crowdsource_pi::GetODAPI()
     }
 
     OCPNMessageBox_PlugIn( m_parent_window, l_msg, _("CROWDSOURCE"), (long) wxYES );
-
+*/
 }
 
 void crowdsource_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPBLC)
