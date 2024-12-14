@@ -309,6 +309,11 @@ wxString crowdsource_pi::GetLongDescription()
 
 }
 
+wxBitmap *crowdsource_pi::GetPlugInBitmap()
+{
+    return m_pdeficon;
+}
+
 int crowdsource_pi::GetToolbarToolCount(void)
 {
       return 1;
@@ -352,11 +357,6 @@ bool crowdsource_pi::MouseEventHook( wxMouseEvent &event )
 
 void crowdsource_pi::SetCursorLatLon(double lat, double lon)
 {
-}
-
-wxBitmap *crowdsource_pi::GetPlugInBitmap()
-{
-    return m_pdeficon;
 }
 
 void crowdsource_pi::appendOSDirSlash(wxString* pString)

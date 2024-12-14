@@ -160,6 +160,7 @@ public:
 
     //    The required PlugIn Methods
     int Init(void);
+    void LateInit(void);
     bool DeInit(void);
 
     int GetPlugInVersionMajor();
@@ -169,44 +170,31 @@ public:
 
     int GetAPIVersionMajor();
     int GetAPIVersionMinor();
-    wxBitmap *GetPlugInBitmap();
     wxString GetCommonName();
     wxString GetShortDescription();
     wxString GetLongDescription();
-//    void SetColorScheme(PI_ColorScheme cs);
-    void GetOriginalColors();
-    void SetOriginalColors();
 
-    //    The required override PlugIn Methods
-    //     bool RenderOverlay(wxMemoryDC *pmdc, PlugIn_ViewPort *vp);
-    //      void SetCursorLatLon(double lat, double lon);
-
-
+    wxBitmap *GetPlugInBitmap();
+ 
     int GetToolbarToolCount(void);
-    void ShowPreferencesDialog( wxWindow* parent );
     void OnToolbarToolCallback(int id);
     void OnToolbarToolDownCallback(int id);
     void OnToolbarToolUpCallback(int id);
+    void ShowPreferencesDialog( wxWindow* parent );
+ 
     void SetPluginMessage(wxString &message_id, wxString &message_body);
 
-    void loadLayouts(wxWindow * parent);
-//    void startLogbook();
-    void shutdown(bool menu);
-    void LateInit(void);
     bool KeyboardEventHook( wxKeyEvent &event );
     bool MouseEventHook( wxMouseEvent &event );
     void SetCursorLatLon(double lat, double lon);
 
-    // OD Methods
-    void ProcessTimerEvent(wxTimerEvent& ev);
-    void PopupMenuHandler(wxCommandEvent& ev);
-
-    void SetToolbarTool( void );
     void ToggleToolbarIcon( void);
 
     void    GetODAPI( void );
-
+ 
     void FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCrossing_t *pFCPIAB);
+
+
     bool CreateBoundaryPoint(CreateBoundaryPoint_t *pCBP);
     bool CreateBoundary(CreateBoundary_t *pCB);
     bool CreateTextPoint(CreateTextPoint_t *pCTP);
@@ -215,29 +203,15 @@ public:
     bool DeleteTextPoint(DeleteTextPoint_t *pDTP);
     void AddPointIcon(AddPointIcon_t *API);
     void DeletePointIcon(DeletePointIcon_t *p_DPI);
+
     bool ImportJSONFile(void);
     void UpdateCloseAfterSave(bool bCloseAfterSave);
     void UpdateAppendToFile(bool bAppendToFile);
-
-    wxGLContext     *m_pcontext;
-    wxMemoryDC      *pmdc;
-//    wxGLCanvas      *m_glcc;
-
-    int         nBlinkerTick;
-
-    void    appendOSDirSlash(wxString* pString);
-
-    bool    eventsEnabled;
+ 
     bool    m_bReadyForRequests;
-    bool    m_bDoneODAPIVersionCall;
-    int     m_iCallerId;
-    int     m_iODVersionMajor;
-    int     m_iODVersionMinor;
-    int     m_iODVersionPatch;
-    int     m_iODAPIVersionMajor;
-    int     m_iODAPIVersionMinor;
-
+ 
 private:
+    void    appendOSDirSlash(wxString* pString);
 };
 
 #endif
