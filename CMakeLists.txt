@@ -64,7 +64,7 @@ set(LONG_DESCRIPTION
 
 set(VERSION_MAJOR "0")
 set(VERSION_MINOR "1")
-set(VERSION_PATCH "20")
+set(VERSION_PATCH "21")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "11/12/2024") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
@@ -165,14 +165,13 @@ add_definitions(-DUSE_S57)
 # ---- Section Below - Add your project SET(SRCS and SET(HDRS  etc..
 
 set(SRCS src/tpicons.cpp
-         src/crowdsource_pi.cpp src/tpUtils.cpp
+         src/crowdsource_pi.cpp
 )
 
 set(HDRS
     include/crowdsource_pi.h
     include/tpicons.h
     include/tpIconCombo.h
-    include/tpUtils.h
 )
 
 add_definitions(-DPLUGIN_USE_SVG)
