@@ -1,2 +1,2 @@
-src/crowdsource_pi.cpp
-include/crowdsource_pi.h
+src/testplugin_pi.cpp
+include/testplugin_pi.h

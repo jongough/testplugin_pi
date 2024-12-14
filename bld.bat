@@ -1,4 +1,4 @@
-REM FE2  Crowdsource
+REM FE2  Testplugin
 
 
 REM  Requires wxWidgets setup

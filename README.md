@@ -1,8 +1,8 @@
-# crowdsource_pi
+# testplugin_pi
 Plugin to test JSON and ODAPI and develop a templated build system
 
 The idea is really to debug the process to see what happens.
-The crowdsource should 'do' what a plugin would do to create stuff,
+The testplugin should 'do' what a plugin would do to create stuff,
 
 Only ODAPI is working at the moment. JSON is being developed now.
 1. With the ODAPI select the type of object you want to create,

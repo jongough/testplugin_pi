@@ -47,7 +47,7 @@
 
 #include <wx/aui/aui.h>
 
-#include "crowdsource_pi.h"
+#include "testplugin_pi.h"
 #include "version.h"
 #include "wxWTranslateCatalog.h"
 
@@ -70,7 +70,7 @@ static const long long lNaN = 0xfff8000000000000;
 #endif
 
 void                    *g_ppimgr;
-crowdsource_pi          *g_crowdsource_pi;
+testplugin_pi          *g_testplugin_pi;
 wxBitmap                *m_pdeficon;
 
 // Needed for ocpndc.cpp to compile. Normally would be in glChartCanvas.cpp
@@ -81,7 +81,7 @@ float g_GLMinSymbolLineWidth;
 
 extern "C" DECL_EXP opencpn_plugin* create_pi(void *ppimgr)
 {
-    return new crowdsource_pi(ppimgr);
+    return new testplugin_pi(ppimgr);
 }
 
 extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
@@ -89,14 +89,14 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
     delete p;
 }
 
-crowdsource_pi::crowdsource_pi(void *ppimgr)
+testplugin_pi::testplugin_pi(void *ppimgr)
 :opencpn_plugin_118(ppimgr)
 {
     g_ppimgr = ppimgr;
-    g_crowdsource_pi = this;
+    g_testplugin_pi = this;
 
     l_pDir = new wxString(*GetpPrivateApplicationDataLocation());
-    // {l_pDir}/plugins/crowdsource_pi/data is the datadir for this plugin
+    // {l_pDir}/plugins/testplugin_pi/data is the datadir for this plugin
 
     wxMemoryInputStream sm(
         "\211PNG\r\n\032\n\000\000\000\rIHDR\000\000\000 \000\000\000 "
@@ -165,11 +165,11 @@ crowdsource_pi::crowdsource_pi(void *ppimgr)
     delete l_pDir;
 }
 
-crowdsource_pi::~crowdsource_pi()
+testplugin_pi::~testplugin_pi()
 {
 }
 
-int crowdsource_pi::Init(void)
+int testplugin_pi::Init(void)
 {
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
@@ -198,64 +198,64 @@ int crowdsource_pi::Init(void)
     );
 }
 
-void crowdsource_pi::LateInit(void)
+void testplugin_pi::LateInit(void)
 {
-    SendPluginMessage(wxS("CROWDSOURCE_PI_READY_FOR_REQUESTS"), wxS("TRUE"));
+    SendPluginMessage(wxS("TESTPLUGIN_PI_READY_FOR_REQUESTS"), wxS("TRUE"));
     return;
 }
 
-bool crowdsource_pi::DeInit(void)
+bool testplugin_pi::DeInit(void)
 {
     return true;
 }
 
-int crowdsource_pi::GetAPIVersionMajor()
+int testplugin_pi::GetAPIVersionMajor()
 {
       return OCPN_API_VERSION_MAJOR;
 }
 
-int crowdsource_pi::GetAPIVersionMinor()
+int testplugin_pi::GetAPIVersionMinor()
 {
       return OCPN_API_VERSION_MINOR;
 }
 
-int crowdsource_pi::GetPlugInVersionMajor()
+int testplugin_pi::GetPlugInVersionMajor()
 {
       return PLUGIN_VERSION_MAJOR;
 }
 
-int crowdsource_pi::GetPlugInVersionMinor()
+int testplugin_pi::GetPlugInVersionMinor()
 {
       return PLUGIN_VERSION_MINOR;
 }
 
-int crowdsource_pi::GetPlugInVersionPatch()
+int testplugin_pi::GetPlugInVersionPatch()
 {
     return PLUGIN_VERSION_PATCH;
 }
 
-int crowdsource_pi::GetPlugInVersionPost()
+int testplugin_pi::GetPlugInVersionPost()
 {
     return PLUGIN_VERSION_TWEAK;
 }
 
-wxString crowdsource_pi::GetCommonName()
+wxString testplugin_pi::GetCommonName()
 {
     return _T(PLUGIN_COMMON_NAME);
 }
 
-wxString crowdsource_pi::GetShortDescription()
+wxString testplugin_pi::GetShortDescription()
 {
     return _(PLUGIN_SHORT_DESCRIPTION);
 }
 
-wxString crowdsource_pi::GetLongDescription()
+wxString testplugin_pi::GetLongDescription()
 {
     return _(PLUGIN_LONG_DESCRIPTION);
 
 }
 
-wxBitmap *crowdsource_pi::GetPlugInBitmap()
+wxBitmap *testplugin_pi::GetPlugInBitmap()
 {
     return m_pdeficon;
 }

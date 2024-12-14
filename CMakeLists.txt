@@ -20,7 +20,7 @@
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 # -----------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough Crowdsource(TP) v1.0.314.0 24/10/2024 DD/MM/YYYY
+# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.314.0 24/10/2024 DD/MM/YYYY
 # format buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 # -- When changing this file do NOT change the order of the sections.    -- ##
@@ -50,11 +50,11 @@ endif (COMMAND cmake_policy)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
 
 # define plugin name, owner and versions
-set(VERBOSE_NAME "Crowdsource")
-set(COMMON_NAME "Crowdsource")
-set(TITLE_NAME "crowdsource")
+set(VERBOSE_NAME "Testplugin")
+set(COMMON_NAME "Testplugin")
+set(TITLE_NAME "testplugin")
 set(PACKAGE_CONTACT "Egil Moeller")
-set(PACKAGE "crowdsource")
+set(PACKAGE "testplugin")
 set(SHORT_DESCRIPTION
     "Contribute AIS and ARPA targets to crowdsourcing for marine safety"
 )
@@ -86,7 +86,7 @@ set(ALPHA "alpha") # Standard Repos
 # Set if  Cloudsmith Base Repository name does not match your Git Repository
 # name. set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
 # set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")  #Ricks's customization
-set(CLOUDSMITH_BASE_REPOSITORY "crowdsource") # without the pi
+set(CLOUDSMITH_BASE_REPOSITORY "testplugin") # without the pi
 
 # Set the following to use OpenCPN cloudsmith repositories instead of own
 # repositories
@@ -165,11 +165,11 @@ add_definitions(-DUSE_S57)
 # ---- Section Below - Add your project SET(SRCS and SET(HDRS  etc..
 
 set(SRCS
-    src/crowdsource_pi.cpp
+    src/testplugin_pi.cpp
 )
 
 set(HDRS
-    include/crowdsource_pi.h
+    include/testplugin_pi.h
 )
 
 add_definitions(-DPLUGIN_USE_SVG)

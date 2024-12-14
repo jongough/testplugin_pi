@@ -14,78 +14,78 @@ msgstr ""
 "X-Crowdin-Project: opencpn\n"
 "X-Crowdin-Project-ID: 49843\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /plugins/crowdsource_pi/po/crowdsource_pi.pot\n"
+"X-Crowdin-File: /plugins/testplugin_pi/po/testplugin_pi.pot\n"
 "X-Crowdin-File-ID: 344\n"
 
 #: include/tpControlDialogDef.h:196
 msgid "Test Plugin Control Dialog"
 msgstr "Diálogo de Control del Plugin de prueba"
 
-#: src/crowdsource_pi.cpp:251 src/crowdsource_pi.cpp:252 src/crowdsource_pi.cpp:254
-#: src/crowdsource_pi.cpp:255
+#: src/testplugin_pi.cpp:251 src/testplugin_pi.cpp:252 src/testplugin_pi.cpp:254
+#: src/testplugin_pi.cpp:255
 msgid "Test Plugin"
 msgstr "Plugin de prueba"
 
-#: src/crowdsource_pi.cpp:345
-msgid "crowdsource PlugIn for OpenCPN"
+#: src/testplugin_pi.cpp:345
+msgid "testplugin PlugIn for OpenCPN"
 msgstr "Plugin  de prueba para OpenCPN"
 
-#: src/crowdsource_pi.cpp:350
-msgid "crowdsource PlugIn for OpenCPN\n"
+#: src/testplugin_pi.cpp:350
+msgid "testplugin PlugIn for OpenCPN\n"
 "demonstrates PlugIn processing of NMEA messages."
 msgstr "PlugIn de prueba para OpenCPN\n"
 "demuestra el procesamiento de mensajes NMEA por el plugin."
 
-#: src/crowdsource_pi.cpp:625
+#: src/testplugin_pi.cpp:625
 #, c-format
 msgid "OD Version: Major: %i, Minor: %i, Patch: %i, ODAPI Version: Major: %i, Minor: %i\n"
 msgstr "Versión OD: mayor: %i, menor: %i, parche: %i, versión ODAPI: mayor: %i, menor: %i\n"
 
-#: src/crowdsource_pi.cpp:626 src/crowdsource_pi.cpp:639
+#: src/testplugin_pi.cpp:626 src/testplugin_pi.cpp:639
 msgid "OD_FindPointInAnyBoundary\n"
 msgstr "OD_FindPointInAnylimit\n"
 
-#: src/crowdsource_pi.cpp:627 src/crowdsource_pi.cpp:640
+#: src/testplugin_pi.cpp:627 src/testplugin_pi.cpp:640
 msgid "OD_FindClosestBoundaryLineCrossing\n"
 msgstr "OD_FindClosestBoundaryLineCrossing\n"
 
-#: src/crowdsource_pi.cpp:628 src/crowdsource_pi.cpp:641
+#: src/testplugin_pi.cpp:628 src/testplugin_pi.cpp:641
 msgid "OD_FindFirstBoundaryLineCrossing\n"
 msgstr "OD_FindFirstLineeCrossing\n"
 
-#: src/crowdsource_pi.cpp:629 src/crowdsource_pi.cpp:642
+#: src/testplugin_pi.cpp:629 src/testplugin_pi.cpp:642
 msgid "OD_CreateBoundary\n"
 msgstr "Crear perímetro\n"
 
-#: src/crowdsource_pi.cpp:630 src/crowdsource_pi.cpp:643
+#: src/testplugin_pi.cpp:630 src/testplugin_pi.cpp:643
 msgid "OD_CreateBoundaryPoint\n"
 msgstr "Crear punto perimetral\n"
 
-#: src/crowdsource_pi.cpp:631 src/crowdsource_pi.cpp:644
+#: src/testplugin_pi.cpp:631 src/testplugin_pi.cpp:644
 msgid "OD_CreateTextPoint\n"
 msgstr "Crear punto de texto\n"
 
-#: src/crowdsource_pi.cpp:632 src/crowdsource_pi.cpp:645
+#: src/testplugin_pi.cpp:632 src/testplugin_pi.cpp:645
 msgid "OD_AddPointIcon\n"
 msgstr "Añadir icono de punto de OD\n"
 
-#: src/crowdsource_pi.cpp:633 src/crowdsource_pi.cpp:646
+#: src/testplugin_pi.cpp:633 src/testplugin_pi.cpp:646
 msgid "OD_DeletePointIcon\n"
 msgstr "Eliminar el icono de PointIcono\n"
 
-#: src/crowdsource_pi.cpp:635
+#: src/testplugin_pi.cpp:635
 msgid "The following ODAPI's are available: \n"
 msgstr "Los siguientes ODAPI están disponibles: \n"
 
-#: src/crowdsource_pi.cpp:648
+#: src/testplugin_pi.cpp:648
 msgid "The following ODAPI's are not available:\n"
 msgstr "Los siguientes ODAPI no están disponibles:\n"
 
-#: src/crowdsource_pi.cpp:652
-msgid "CROWDSOURCE"
-msgstr "CROWDSOURCE"
+#: src/testplugin_pi.cpp:652
+msgid "TESTPLUGIN"
+msgstr "TESTPLUGIN"
 
-#: src/crowdsource_pi.cpp:731 src/tpControlDialogImpl.cpp:907
+#: src/testplugin_pi.cpp:731 src/tpControlDialogImpl.cpp:907
 #: src/tpControlDialogImpl.cpp:916 src/tpJSON.cpp:133
 msgid "File not found"
 msgstr "Archivo no encontrado"
@@ -479,12 +479,12 @@ msgid "No file specified for input"
 msgstr "Ningún archivo especificado para la entrada"
 
 #: src/tpicons.cpp:81
-msgid "crowdsource_pi data location"
-msgstr "ubicación de datos crowdsource_pi"
+msgid "testplugin_pi data location"
+msgstr "ubicación de datos testplugin_pi"
 
 #: src/tpicons.cpp:101
-msgid "Failed to load all crowdsource_pi icons, check OCPN log for details"
-msgstr "Error al cargar todos los iconos de crowdsource_pi, compruebe el registro OCPN para más detalles"
+msgid "Failed to load all testplugin_pi icons, check OCPN log for details"
+msgstr "Error al cargar todos los iconos de testplugin_pi, compruebe el registro OCPN para más detalles"
 
 #: src/tpicons.cpp:101
 msgid "OpenCPN Alert"

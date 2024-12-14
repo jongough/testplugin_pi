@@ -1,5 +1,5 @@
 /******************************************************************************
- * $Id: crowdsource_pi.h,v 1.0 2015/01/28 01:54:37 jongough Exp $
+ * $Id: testplugin_pi.h,v 1.0 2015/01/28 01:54:37 jongough Exp $
  *
  * Project:  OpenCPN
  * Purpose:  OpenCPN General Drawing Plugin
@@ -25,8 +25,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.             *
  ***************************************************************************
  */
-#ifndef _CROWDSOURCEPI_H_
-#define _CROWDSOURCEPI_H_
+#ifndef _TESTPLUGINPI_H_
+#define _TESTPLUGINPI_H_
 
 #ifdef __WXMSW__
 #ifdef _DEBUG
@@ -146,12 +146,12 @@ std::cout << x  << std::endl ; } while (0)
 
 //#define PI 3.14159265
 
-class crowdsource_pi : public opencpn_plugin_118
+class testplugin_pi : public opencpn_plugin_118
 {
 public:
 
-    crowdsource_pi(void *ppimgr);
-    ~crowdsource_pi();
+    testplugin_pi(void *ppimgr);
+    ~testplugin_pi();
 
     wxWindow            *m_parent_window;
     wxFileConfig        *m_pTPConfig;
