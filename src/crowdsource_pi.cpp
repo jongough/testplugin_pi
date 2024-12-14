@@ -189,42 +189,6 @@ int crowdsource_pi::Init(void)
     m_bReadyForRequests = false;
     m_bDoneODAPIVersionCall = false;
     m_btpDialog = false;
-    m_tpControlDialogImpl = NULL;
-    m_cursor_lat = 0.0;
-    m_cursor_lon = 0.0;
-    m_click_lat = 0.0;
-    m_click_lon = 0.0;
-    m_bOD_FindPointInAnyBoundary = false;
-    m_bODFindClosestBoundaryLineCrossing = false;
-    m_bODFindFirstBoundaryLineCrossing = false;
-    m_bODCreateBoundary = false;
-    m_bODCreateBoundaryPoint = false;
-    m_bODCreateTextPoint = false;
-    m_bODAddPointIcon = false;
-    m_bODDeletePointIcon = false;
-    m_pOD_FindPointInAnyBoundary = NULL;
-    m_pODFindClosestBoundaryLineCrossing = NULL;
-    m_pODFindFirstBoundaryLineCrossing = NULL;
-    m_pODFindFirstBoundaryLineCrossing = NULL;
-    m_pODCreateBoundary = NULL;
-    m_pODCreateBoundaryPoint = NULL;
-    m_pODCreateTextPoint = NULL;
-    m_pODDeleteBoundary = NULL;
-    m_pODDeleteBoundaryPoint = NULL;
-    m_pODDeleteTextPoint = NULL;
-    m_pODAddPointIcon = NULL;
-    m_pODDeletePointIcon = NULL;
-    m_iODVersionMajor = 0;
-    m_iODVersionMinor = 0;
-    m_iODVersionPatch = 0;
-    m_iODAPIVersionMajor = 0;
-    m_iODAPIVersionMinor = 0;
-    m_bSaveIncommingJSONMessages = false;
-    m_fnOutputJSON = wxEmptyString;
-    m_fnInputJSON = wxEmptyString;
-    m_bCloseSaveFileAfterEachWrite = true;
-    m_bAppendToSaveFile = true;
-    m_bRecreateConfig = false;
 
     // Adds local language support for the plugin to OCPN
     AddLocaleCatalog( PLUGIN_CATALOG_NAME );
@@ -237,26 +201,6 @@ int crowdsource_pi::Init(void)
 
     g_ptpJSON = new tpJSON;
 
-    //    In order to avoid an ASSERT on msw debug builds,
-    //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
-    //    The Items will be re-parented when added to the real context meenu
-    wxMenu dummy_menu;
-
-    // Create an OCPN Draw event handler
-    //g_WVEventHandler = new WVEventHandler( g_crowdsource_pi );
-
-    // Get item into font list in options/user interface
-    AddPersistentFontKey( wxT("tp_Label") );
-    AddPersistentFontKey( wxT("tp_Data") );
-    g_pFontTitle = GetOCPNScaledFont_PlugIn( wxS("tp_Title") );
-    g_pFontLabel = GetOCPNScaledFont_PlugIn( wxS("tp_Label") );
-    g_pFontData = GetOCPNScaledFont_PlugIn( wxS("tp_Data") );
-    g_pFontSmall = GetOCPNScaledFont_PlugIn( wxS("tp_Small") );
-    wxColour l_fontcolour = GetFontColour_PlugIn( wxS("tp_Label") );
-    l_fontcolour = GetFontColour_PlugIn( wxS("tp_Data") );
-
-    m_pOD_FindPointInAnyBoundary = NULL;
-    m_pODFindClosestBoundaryLineCrossing = NULL;
 
     return (
         WANTS_CURSOR_LATLON       |
@@ -286,14 +230,6 @@ void crowdsource_pi::LateInit(void)
 
 bool crowdsource_pi::DeInit(void)
 {
-    if(m_tpControlDialogImpl)
-    {
-        m_tpControlDialogImpl->Close();
-        delete m_tpControlDialogImpl;
-        m_tpControlDialogImpl = NULL;
-    }
-    if(m_pTPConfig) SaveConfig();
-
     return true;
 }
 
