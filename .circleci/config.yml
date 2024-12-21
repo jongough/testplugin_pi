@@ -43,18 +43,18 @@ workflows:
 #            <<: *std-filters
 #        - build-msvc-wx32-2022:
 #            <<: *std-filters
-        - build-debian-arm64-12-bookworm:
-            <<: *std-filters
+#        - build-debian-arm64-12-bookworm:
+#            <<: *std-filters
 #        - build-debian-armhf-12-bookworm:
 #            <<: *std-filters
         - build-debian-x86_64-12-bookworm:
             <<: *std-filters
 #        - build-debian-armhf-11-bullseye:
 #            <<: *std-filters
-        - build-debian-arm64-11-bullseye:
-            <<: *std-filters
-        - build-debian-x86_64-11-bullseye:
-            <<: *std-filters
+#        - build-debian-arm64-11-bullseye:
+#            <<: *std-filters
+#        - build-debian-x86_64-11-bullseye:
+#            <<: *std-filters
 ## KEEP needed for Jammy with wx32
 #        - build-ubuntu-x86_64-2204-jammy:
 #            <<: *std-filters
@@ -312,7 +312,7 @@ jobs:
         - deploy-code
     build-debian-x86_64-12-bookworm:
         docker:
-        - image: cimg/base:current
+        - image: cimg/base:edge
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
