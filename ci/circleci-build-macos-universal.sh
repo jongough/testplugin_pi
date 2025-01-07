@@ -40,7 +40,8 @@ pkg_version() { brew list --versions $2 $1 | tail -1 | awk '{print $2}'; }
 brew list --versions libexif || brew update-reset
 
 # Install packaged dependencies
-for pkg in cmake gettext libarchive libexif python3 wget openssl@3; do
+here=$(cd "$(dirname "$0")"; pwd)
+for pkg in $(sed '/#/d' < $here/../build-deps/macos-deps);  do
     brew list --versions $pkg || brew install $pkg || brew install $pkg || :
     brew link --overwrite $pkg || brew install $pkg
 done
@@ -74,10 +75,11 @@ fi
 # nor-reproducible error on first invocation, seemingly tarball-conf-stamp
 # is not created as required.
 #make VERBOSE=1 tarball || make VERBOSE=1 tarball
-make
-make install
-make package
-make package
+#make
+#make install
+#make package
+#make package
+make package || make package
 
 # Create the cached /usr/local archive
 if [ -n "$CI"  ]; then
