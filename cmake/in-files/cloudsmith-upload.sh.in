@@ -64,7 +64,7 @@ if [ "$CIRCLECI" ] || [ "$TRAVIS" ]; then
     if [ "$DEPLOY_USE_ORB" != "true" ]; then
         if pyenv versions 2>&1 >/dev/null; then
           pyenv versions
-          if ! pyenv global 3.13.1 2>&1 >/dev/null; then
+          if ! pyenv global 3.11.6 2>&1 >/dev/null; then
             if ! pyenv global 3.11.3 2>&1 >/dev/null; then
                 if ! pyenv global 3.11.0 2>&1 >/dev/null; then
                     if ! pyenv global 3.9.1 2>&1 >/dev/null; then
