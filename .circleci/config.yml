@@ -165,19 +165,19 @@ jobs:
         - checkout
         - run: sudo chmod go+w /usr/local
         - restore_cache:
-          key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
-            -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
-            -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
+            key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
+              -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
+              -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
         - run: chmod a+x ci/*.sh
         - run: chmod a+x cmake/*.sh
         - run: ci/circleci-build-macos-universal.sh
         - save_cache:
-          key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
-            -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
-            -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
-          paths:
-            - /tmp/local.cache.tar
-            - /Users/distiller/project/cache
+            key: "{{checksum \"build-deps/macos-cache-stamp\"}}\
+              -{{checksum \"cmake/MacosWxwidgets.cmake\"}}\
+              -{{checksum \"ci/circleci-build-macos-universal.sh\"}}"
+            paths:
+              - /tmp/local.cache.tar
+              - /Users/distiller/project/cache
         - run: >
               sh -c "otool -L build/*.dylib"
         - run: >
