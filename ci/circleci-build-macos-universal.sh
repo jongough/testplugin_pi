@@ -16,7 +16,7 @@ set -x
 # Load local environment if it exists i. e., this is a local build
 if [ -f ~/.config/local-build.rc ]; then source ~/.config/local-build.rc; fi
 
-git submodule update --init opencpn-libs
+git submodule update --init
 
 # If applicable,  restore /usr/local from cache.
 if [[ -n "$CI" && -f /tmp/local.cache.tar ]]; then
