@@ -16,7 +16,7 @@ set -x
 # Load local environment if it exists i. e., this is a local build
 if [ -f ~/.config/local-build.rc ]; then source ~/.config/local-build.rc; fi
 
-git submodule update --init opencpn-libs
+git submodule update --init
 
 # If applicable,  restore /usr/local from cache.
 if [[ -n "$CI" && -f /tmp/local.cache.tar ]]; then
@@ -74,11 +74,6 @@ fi
 
 # nor-reproducible error on first invocation, seemingly tarball-conf-stamp
 # is not created as required.
-#make VERBOSE=1 tarball || make VERBOSE=1 tarball
-#make
-#make install
-#make package
-#make package
 make package || make package
 
 # Create the cached /usr/local archive
