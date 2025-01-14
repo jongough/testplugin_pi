@@ -135,21 +135,6 @@ jobs:
         - run: bash ci/circleci-build-android-armhf.sh
         - deploy-code:
             install_python: true
-    build-macos-wx32:
-        macos:
-            xcode: "14.2"
-        environment:
-        - OCPN_TARGET:  macos
-        - CLOUDSMITH_PKG_EXT: pkg
-        - WX_VER: "32"
-        - DEPLOY_USE_ORB: false
-        steps:
-        - checkout
-        - run: chmod a+x ci/*.sh
-        - run: bash ci/circleci-build-macos.sh
-        - deploy-code:
-            deploy_use_orb: false
-            install_python: false
     build-macos-universal:
         macos:
             xcode: "15.2.0"
@@ -404,21 +389,6 @@ jobs:
 ## ---------------------
 ## OpenCPN 5.6.2 Plugins
 ## ---------------------
-    build-macos:
-        macos:
-            xcode: "14.2"
-        environment:
-        - OCPN_TARGET:  macos
-        - CLOUDSMITH_PKG_EXT: pkg
-        - WX_VER: 315
-        - DEPLOY_USE_ORB: false
-        steps:
-        - checkout
-        - run: chmod a+x ci/*.sh
-        - run: bash ci/circleci-build-macos.sh
-        - deploy-code:
-            deploy_use_orb: false
-            install_python: false
 
 ## Appveyor doesn't build for Windows now.
 ## If below is used, WinXT will not work.
