@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
-# Frontend2 Author:   jongough aka. Jon Gough Copyright: License:  wxWidgets
-# License
+# Author:  jongough aka. Jon Gough  Copyright:  2018
+# License: GPL v3+   License:  wxWidgets
 # ---------------------------------------------------------------------------
 # - Copyright (C)  by Jon Gough                            *
 # - License:     GPLv3+
@@ -64,8 +64,8 @@ set(LONG_DESCRIPTION
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "326")
-set(VERSION_TWEAK "0")
-set(VERSION_DATE "18/01/2025") # DD/MM/YYYY format
+set(VERSION_TWEAK "1")
+set(VERSION_DATE "24/01/2025") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -84,13 +84,13 @@ set(BETA "beta")   #Standard Repos
 set(ALPHA "alpha") #Standard Repos
 
 # Set if  Cloudsmith Base Repository name does not match your Git Repository name.
-#set(CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
-#set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")  #Ricks's customization
-set(CLOUDSMITH_BASE_REPOSITORY "testplugin") # without the pi
+#set (CLOUDSMITH_BASE_REPOSITORY "${GIT_REPOSITORY_NAME}")
+#set (CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins")  #Ricks's customization
+set (CLOUDSMITH_BASE_REPOSITORY "testplugin") # without the pi
 
 # Set the following to use OpenCPN cloudsmith repositories instead of own repositories
 set(CLOUDSMITH_USER "opencpn")
-# set(CLOUDSMITH_USER "jon-gough")
+# set (CLOUDSMITH_USER "jon-gough")
 
 set(XML_INFO_URL
     "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi"
@@ -156,7 +156,7 @@ include("PluginConfigure")
 
 add_definitions(-DUSE_S57)
 
-## ----- Section above - Add your project SET(SRCS and SET(HDRS  etc.-------##
+## ---- Section Below - Add your project SET(SRCS and SET(HDRS  etc..
 
 
 set(SRCS src/tpControlDialogDef.cpp src/tpControlDialogImpl.cpp src/tpicons.cpp
@@ -214,7 +214,7 @@ endif (QT_ANDROID)
 ## This add_library  can be used in conditionals below.
 ##=============================================================
 
-set(SRC ${SRCS} ${HDRS})
+set(SRC ${SRCS} ${HDRS} )
 
 ##=============================================================
 ## Modify/configure 'Include' Directories below for the Plugin
@@ -225,9 +225,8 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 ## Change target_sources to match your project needs.
 ##==============================================================
 
-target_sources(${PACKAGE_NAME} PUBLIC ${SRC})
+target_sources(${PACKAGE_NAME} PUBLIC ${SRC} )
 
-##==============================================================
 
 if (NOT OCPN_FLATPAK_CONFIG)
   # Build environment not available when flatpak is being configured so
