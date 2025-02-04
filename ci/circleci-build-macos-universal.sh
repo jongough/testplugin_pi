@@ -74,7 +74,7 @@ fi
 
 # nor-reproducible error on first invocation, seemingly tarball-conf-stamp
 # is not created as required.
-make install || make install
+make || make
 make package || make package
 
 # Create the cached /usr/local archive
