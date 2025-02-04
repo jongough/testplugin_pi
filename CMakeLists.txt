@@ -19,7 +19,7 @@
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 # -----------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.326.0 18/01/2025 DD/MM/YYYY
+# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.328.0 05/02/2025 DD/MM/YYYY
 # format buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 # -- When changing this file do NOT change the order of the sections.    -- ##
@@ -63,9 +63,9 @@ set(LONG_DESCRIPTION
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "326")
+set(VERSION_PATCH "328")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "18/01/2025") # DD/MM/YYYY format
+set(VERSION_DATE "05/02/2025") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
