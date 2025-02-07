@@ -72,9 +72,8 @@ if [[ -z "$CI" ]]; then
     exit 0
 fi
 
-# nor-reproducible error on first invocation, seemingly tarball-conf-stamp
+# non-reproducible error on first invocation, seemingly tarball-conf-stamp
 # is not created as required.
-# make package || make package
 make || make
 make install || make install
 make package || make package
