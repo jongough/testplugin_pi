@@ -27,8 +27,6 @@ fi
 #PLUGIN=bsb4
 
 #sudo apt --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages install flatpak flatpak-builder
-sudo apt update
-sudo apt upgrade
 
 # Install extra build libs
 ME=$(echo ${0##*/} | sed 's/\.sh//g')
