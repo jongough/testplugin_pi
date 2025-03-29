@@ -53,7 +53,7 @@ echo Update the submodule if needed "submod-up.bat"
 echo Use "tp-add.bat"  to git add template files
 echo .
 echo  git add 
-echo  gToit commit -am "[version] + TP[tpversion]"
+echo  git commit -am "[version] + TP[tpversion]"
 echo  git tag v[version]
 echo  git push --tags origin master
 echo
