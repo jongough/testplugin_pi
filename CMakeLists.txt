@@ -292,7 +292,7 @@ if (UNIX
     if (NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
       message(STATUS "${CMLOC}Will ensure OS/ABI is set to 0 to match OCPN")
       add_custom_command(
-        TARGET ${PACKAGE_NAME}
+        OUTPUT ${PACKAGE_NAME}
         POST_BUILD
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS ${PACKAGE_NAME}
