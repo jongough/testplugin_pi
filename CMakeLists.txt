@@ -31,7 +31,7 @@
 set(CMLOC "CMakeLists: ")
 
 # define minimum cmake version
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.10)
 if(COMMAND cmake_policy)
   if (POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
