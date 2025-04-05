@@ -283,6 +283,8 @@ add_definitions(-DTIXML_USE_STL)
 if (UNIX
     AND NOT APPLE
     AND NOT QT_ANDRIOD
+    AND NOT OCPN_FLATPAK_CONFIG
+    AND NOT OCPN_FLATPAK_BUILD
 )
   if (PI_JSON_SCHEMA_VALIDATOR)
     # Change OS/ABI to be UNIX - System V to make it run with OCPN
@@ -292,7 +294,7 @@ if (UNIX
     if (NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
       message(STATUS "${CMLOC}Will ensure OS/ABI is set to 0 to match OCPN")
       add_custom_command(
-        OUTPUT ${PACKAGE_NAME}
+        TARGET ${PACKAGE_NAME}
         POST_BUILD
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS ${PACKAGE_NAME}
