@@ -240,10 +240,10 @@ if [ ! -z ${LOCAL_DEPLOY+x} ]; then
     fi
 elif [ $LOCAL_BUILD = false ]; then
 # Only upload if the owner did the pull request. Non-owners probably don't have security to upload to the cloudsmith repository
-    echo "CIRCLECI_PROJECT_USERNAME: " $CIRCLECI_PROJECT_USERNAME
+    echo "CIRCLECI_PROJECT_USERNAME: " $CIRCLE_PROJECT_USERNAME
     echo "CIRCLE_USERNAME" $CIRCLE_USERNAME
     echo "GENERATE_INSTALLABLE_USERS" $GENERATE_INSTALLABLE_USERS
-    if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [ "$CIRCLECI_USERNAME" = *"$GENERATE_INSTALLABLE_USERS"* ]; then
+    if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [ "$CIRCLE_USERNAME" = *"$GENERATE_INSTALLABLE_USERS"* ]; then
         cloudsmith push raw --republish --no-wait-for-sync \
             --name @PACKAGE_NAME@-@PACKAGE_VERSION@-@PKG_TARGET@-@COMPOUND_ARCH_DASH@@PKG_TARGET_WX_VER@@PKG_BUILD_GTK@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
             --version ${VERSION} \

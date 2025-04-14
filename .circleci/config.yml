@@ -47,8 +47,8 @@ workflows:
 #              <<: *std-filters
 #          - build-debian-armhf-12-bookworm:
 #              <<: *std-filters
-          - build-debian-x86_64-12-bookworm:
-              <<: *std-filters
+#          - build-debian-x86_64-12-bookworm:
+#              <<: *std-filters
 #          - build-debian-armhf-11-bullseye:
 #              <<: *std-filters
 #          - build-debian-arm64-11-bullseye:
@@ -56,8 +56,8 @@ workflows:
 #          - build-debian-x86_64-11-bullseye:
 #              <<: *std-filters
 ## KEEP needed for Jammy with wx32
-#          - build-ubuntu-x86_64-2204-jammy:
-#              <<: *std-filters
+          - build-ubuntu-x86_64-2204-jammy:
+              <<: *std-filters
 #          - build-macos-universal:
 #              <<: *std-filters
 
