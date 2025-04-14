@@ -376,6 +376,7 @@ jobs:
         - BUILD_ENV=ubuntu
         steps:
         - checkout
+        - run: echo 'export COLLABORATOR="${COLLABORATOR}"' >> $BASH_ENV
         - run: >
             echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
         - run: >
