@@ -57,8 +57,6 @@ workflows:
 #              <<: *std-filters
 ## KEEP needed for Jammy with wx32
           - build-ubuntu-x86_64-2204-jammy:
-              context:
-                - testplugin
               <<: *std-filters
 #          - build-macos-universal:
 #              <<: *std-filters
@@ -376,6 +374,7 @@ jobs:
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
+        - COLLABORATOR=$GENERATE_INSTALLABLE_USERS
         steps:
         - checkout
         - run: >
