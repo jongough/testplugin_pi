@@ -374,7 +374,6 @@ jobs:
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
-        - COLLABORATOR=$GENERATE_INSTALLABLE_USERS
         steps:
         - checkout
         - run: >
