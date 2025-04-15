@@ -245,7 +245,7 @@ elif [ $LOCAL_BUILD = false ]; then
     echo "COLLABORATORS:" $COLLABORATORS
 #    if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [ "$CIRCLE_USERNAME" = *"$COLLABORATOR"* ]; then
 #    if [ "$CIRCLE_USERNAME" = *"$COLLABORATORS"* ]; then
-    if [  $COLLABORATORS = *"$CIRCLE_USERNAME"* ]; then
+    if [[ $COLLABORATORS =~ *$CIRCLE_USERNAME* ]] then
         cloudsmith push raw --republish --no-wait-for-sync \
             --name @PACKAGE_NAME@-@PACKAGE_VERSION@-@PKG_TARGET@-@COMPOUND_ARCH_DASH@@PKG_TARGET_WX_VER@@PKG_BUILD_GTK@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
             --version ${VERSION} \
