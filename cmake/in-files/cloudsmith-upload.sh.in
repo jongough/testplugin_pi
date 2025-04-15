@@ -242,7 +242,7 @@ elif [ $LOCAL_BUILD = false ]; then
 # Only upload if the owner did the pull request. Non-owners probably don't have security to upload to the cloudsmith repository
     echo "CIRCLECI_PROJECT_USERNAME: " $CIRCLE_PROJECT_USERNAME
     echo "CIRCLE_USERNAME:" $CIRCLE_USERNAME
-    echo "COLLABORATOR:" $COLLABORATOR_USER
+    echo "COLLABORATORS:" $COLLABORATORS
 #    if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [ "$CIRCLE_USERNAME" = *"$COLLABORATOR"* ]; then
     if [ "$CIRCLE_USERNAME" = *"$COLLABORATORS"* ]; then
         cloudsmith push raw --republish --no-wait-for-sync \
