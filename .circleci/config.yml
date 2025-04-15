@@ -377,7 +377,7 @@ jobs:
         steps:
         - checkout
         - run: echo "$COLLABORATOR"
-        - run: echo "${COLLABORATOR}" >> $BASH_ENV
+#        - run: echo "${COLLABORATOR}" >> $BASH_ENV
         - run: cat $BASH_ENV
 #        - run: >
 #            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
