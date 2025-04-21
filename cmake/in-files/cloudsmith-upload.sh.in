@@ -240,7 +240,8 @@ if [ ! -z ${LOCAL_DEPLOY+x} ]; then
     fi
 elif [ $LOCAL_BUILD = false ]; then
 # Only upload if the owner did the pull request or a member of $COLLABORATORS.
-    if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [[ -n "${COLLABORATORS+1}"  && -n "${CIRCLE_USERNAME+1}"  && "$COLLABORATORS" =~ "$CIRCLE_USERNAME" ]]; then
+#    if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [[ -n "${COLLABORATORS+1}"  && ! -z ${CIRCLE_USERNAME}  && "$COLLABORATORS" =~ "$CIRCLE_USERNAME" ]]; then
+    if [[ -n "${COLLABORATORS+1}"  && ! -z ${CIRCLE_USERNAME}  && "$COLLABORATORS" =~ "$CIRCLE_USERNAME" ]] || [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ]; then
         cloudsmith push raw --republish --no-wait-for-sync \
             --name @PACKAGE_NAME@-@PACKAGE_VERSION@-@PKG_TARGET@-@COMPOUND_ARCH_DASH@@PKG_TARGET_WX_VER@@PKG_BUILD_GTK@-@PKG_TARGET_VERSION@-${OCPN_TARGET}-metadata \
             --version ${VERSION} \
