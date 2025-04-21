@@ -374,7 +374,7 @@ jobs:
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
-        - GITHUB_USERNAME: << pipeline.trigger_parameters.github_app.user_name
+        - GITHUB_USERNAME: \<< pipeline.trigger_parameters.github_app.user_name
         steps:
         - checkout
         - run: >
