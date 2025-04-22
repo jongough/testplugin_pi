@@ -71,7 +71,7 @@ workflows:
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
     win: circleci/windows@5.0
-    gh: circleci/github-cli@2.6
+    gh: circleci/github-cli@2.7
 
 commands:
     deploy-code:
