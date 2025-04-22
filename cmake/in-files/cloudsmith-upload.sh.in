@@ -240,6 +240,7 @@ if [ ! -z ${LOCAL_DEPLOY+x} ]; then
     fi
 elif [ $LOCAL_BUILD = false ]; then
 # Only upload if the owner did the pull request or a member of $COLLABORATORS.
+    api_ret = gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/jongough/testplugin_pi/collaborators/rgleason
     echo "pipeline username: " $GITHUB_USERNAME
     echo "CIRCLE_PR_USERNAME: " $CIRCLE_PR_USERNAME
     if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [[ -n "${COLLABORATORS+1}"  && ! -z ${CIRCLE_USERNAME}  && "$COLLABORATORS" =~ "$CIRCLE_USERNAME" ]]; then

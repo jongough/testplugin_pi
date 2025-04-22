@@ -71,6 +71,7 @@ workflows:
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.4
     win: circleci/windows@5.0
+    gh: circleci/github-cli@2.6
 
 commands:
     deploy-code:
@@ -376,7 +377,21 @@ jobs:
         - BUILD_ENV=ubuntu
         - BUILD_USER: <<pipeline.trigger_parameters.webhook.body>>
         steps:
+        - gh/install
         - checkout
+        - run:
+          command: >
+            gh/setup
+        - run:
+          command: |
+            #!/bin/bash
+            # Check collaborators
+            gtrc = gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/collaborators/rgleason
+            if [[ $ghrc = 404 ]]; then
+              echo "Collaborator not found"
+            else
+              echo "Collaborator found"
+            ri
 #        - run: >
 #            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
 #        - run: >
