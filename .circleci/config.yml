@@ -368,30 +368,23 @@ jobs:
 ## KEEP needed for OpenCPN v5.8 Jammy wx32 build
     build-ubuntu-x86_64-2204-jammy:
         docker:
-        - image: cimg/base:edge-22.04
+          - image: cimg/base:edge-22.04
         environment:
-        - BUILD_GTK3: true
-        - WX_VER: 32
-        - OCPN_TARGET: jammy
-        - DEPLOY_USE_ORB: true
-        - BUILD_ENV=ubuntu
-#        - BUILD_USER: <<pipeline.trigger_parameters.webhook.body>>
+          - BUILD_GTK3: true
+          - WX_VER: 32
+          - OCPN_TARGET: jammy
+          - DEPLOY_USE_ORB: true
+          - BUILD_ENV=ubuntu
         steps:
-        - gh/install
-        - checkout
-        - run:
-          command: >
-            gh/setup
-        - run:
-          command: |
-            #!/bin/bash
-            # Check collaborators
-            ghrc = gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/collaborators/rgleason
-            if [[ $ghrc = 404 ]]; then
-              echo "Collaborator not found"
-            else
-              echo "Collaborator found"
-            ri
+          - gh/setup
+          - run: |
+              echo Running test
+              ghrc = gh api -H 'AcceptU+003A application/vnd.github+json' -H 'X-GitHub-Api-VersionU+003A 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators/rgleason
+              if [[ $ghrc = 404 ]]; then
+                echo "Collaborator not found"
+              else
+                echo "Collaborator found"
+              fi
 #        - run: >
 #            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
 #        - run: >
@@ -399,8 +392,8 @@ jobs:
 #        - run: >
 #            echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
 #        - run: cat /etc/apt/sources.list
-        - run: chmod a+x ci/*.sh
-        - run: ci/circleci-build-debian.sh
+#        - run: chmod a+x ci/*.sh
+#        - run: ci/circleci-build-debian.sh
 #        - deploy-code
 ## ---------------------
 ## OpenCPN 5.6.2 Plugins
