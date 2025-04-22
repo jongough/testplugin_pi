@@ -97,6 +97,15 @@ commands:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
                 - run: bash ci/cloudsmith-upload.sh
+    get-collaborators:
+      steps:
+        - gh/setup
+        - run: |
+            ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+            collab_users=$(echo $ghrc | jq '.[].login')
+            collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
+            echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
+
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
 #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
@@ -376,16 +385,17 @@ jobs:
           - DEPLOY_USE_ORB: true
           - BUILD_ENV=ubuntu
         steps:
-          - gh/setup
-          - run: |
-              echo Running test
-              ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
-              collab_users=$(echo $ghrc | jq '.[].login')
-              echo "collab_users raw: " $collab_users
-              collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
-              echo "collab_users processed: " $collab_users
-              echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
-              cat $BASH_ENV
+          - get-collaborators
+#          - gh/setup
+#          - run: |
+#              echo Running test
+#              ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+#              collab_users=$(echo $ghrc | jq '.[].login')
+#              echo "collab_users raw: " $collab_users
+#              collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
+#              echo "collab_users processed: " $collab_users
+#              echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
+#              cat $BASH_ENV
           - run: |
               echo "sourcing bash_env"
               source $BASH_ENV
