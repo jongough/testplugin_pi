@@ -5,6 +5,10 @@
 #
 set -xe
 
+echo "BUILD_USER: " $BUILD_USER
+
+exit
+
 if [ "${CIRCLECI_LOCAL,,}" = "true" ]; then
     if [[ -d ~/circleci-cache ]]; then
         if [[ -f ~/circleci-cache/apt-proxy ]]; then
