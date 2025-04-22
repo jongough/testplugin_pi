@@ -384,7 +384,7 @@ jobs:
               echo "collab_users raw: " $collab_users
               collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
               echo "collab_users processed: " $collab_users
-              echo "export collab_users=$collab_users" >> $BASH_ENV
+              echo "export 'collab_users="$collab_users"' >> $BASH_ENV
               cat $BASH_ENV
           - run: |
               echo "sourcing bash_env"
