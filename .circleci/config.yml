@@ -377,6 +377,7 @@ jobs:
         - BUILD_USER: <<pipeline.parameters.run_workflow_deploy>>
         steps:
         - checkout
+        - run: echo "BUILD_USER: " $BUILD_USER
 #        - run: >
 #            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
 #        - run: >
