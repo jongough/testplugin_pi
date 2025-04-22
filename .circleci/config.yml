@@ -374,7 +374,7 @@ jobs:
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
-        - BUILD_USER: <<pipeline.git.branch>>
+        - BUILD_USER: <<pipeline.collaborators_url>>
         steps:
         - checkout
 #        - run: >
