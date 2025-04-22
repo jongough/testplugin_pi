@@ -374,7 +374,7 @@ jobs:
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
-        - BUILD_USER: <<pipeline.collaborators_url>>
+        - BUILD_USER: <<pipeline.trigger_parameters.webhook.body>>
         steps:
         - checkout
 #        - run: >
