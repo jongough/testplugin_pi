@@ -374,7 +374,7 @@ jobs:
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
-        - BUILD_USER: <<pipeline.trigger_parameters.github_app.user_id>>
+        - BUILD_USER: <<pipeline.parameters.run_workflow_deploy>>
         steps:
         - checkout
 #        - run: >
