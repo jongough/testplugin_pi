@@ -384,10 +384,11 @@ jobs:
               echo "collab_users raw: " $collab_users
               collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g')
               echo "collab_users processed: " $collab_users
-              echo 'export collab_users="$collab_users"' >> $BASH_ENV
+              echo 'export collab_users=$collab_users' >> $BASH_ENV
           - run: |
               echo "sourcing bash_env"
               source $BASH_ENV
+              printenv
               echo "users: " $collab_users
 #        - run: >
 #            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
