@@ -380,12 +380,8 @@ jobs:
           - run: |
               echo Running test
               ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
-              echo $ghrc | jq '.[].login'
-              if [[ $ghrc = 404 ]]; then
-                echo "Collaborator not found"
-              else
-                echo "Collaborator found"
-              fi
+              collab_users=$(echo $ghrc | jq '.[].login')
+              echo "collab_users: " $collab_users
 #        - run: >
 #            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
 #        - run: >
