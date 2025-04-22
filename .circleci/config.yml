@@ -379,7 +379,8 @@ jobs:
           - gh/setup
           - run: |
               echo Running test
-              ghrc = gh api -H 'AcceptU+003A application/vnd.github+json' -H 'X-GitHub-Api-VersionU+003A 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators/rgleason
+              ghrc = gh api -H 'AcceptU+003A application/vnd.github+json' -H 'X-GitHub-Api-VersionU+003A 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct
+              echo $ghrc | jq '.[].login'
               if [[ $ghrc = 404 ]]; then
                 echo "Collaborator not found"
               else
