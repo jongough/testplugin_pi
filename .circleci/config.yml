@@ -128,6 +128,8 @@ commands:
               echo "CIRCLE_PIPELINE_ID: " $CIRCLE_PIPELINE_ID
               curlr=$(curl https://circleci.com/api/v2/pipeline/${CIRCLE_PIPELINE_ID})
               echo "curlr: " $curlr
+              git_user=$(echo $curlr | jq '.trigger.actor.login')
+              echo "git_user: " $git_user
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
 #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
