@@ -386,21 +386,12 @@ jobs:
           - BUILD_ENV=ubuntu
         steps:
           - get-collaborators
-#          - gh/setup
-#          - run: |
-#              echo Running test
-#              ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
-#              collab_users=$(echo $ghrc | jq '.[].login')
-#              echo "collab_users raw: " $collab_users
-#              collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
-#              echo "collab_users processed: " $collab_users
-#              echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
-#              cat $BASH_ENV
           - run: |
               echo "sourcing bash_env"
               source $BASH_ENV
               printenv
               echo "users: " $collab_users
+              echo "CIRCLE_USERNAME: " $CIRCLE_USERNAME
 #        - run: >
 #            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
 #        - run: >
