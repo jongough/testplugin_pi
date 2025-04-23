@@ -124,7 +124,6 @@ commands:
         - run:
             name: "Get github user"
             command: |
-              echo "pipeline.trigger_parameters.github_app.user_name: " $pipeline.trigger_parameters.github_app.user_name
               curl_resp=$(curl https://circleci.com/api/v2/pipeline/${CIRCLE_PIPELINE_ID})
               git_user=$(echo $curl_resp | jq '.trigger.actor.login')
               echo "export git_user=\"$git_user\"" >> $BASH_ENV
