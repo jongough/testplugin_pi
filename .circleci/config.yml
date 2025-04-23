@@ -131,7 +131,7 @@ commands:
     get-users-and-collaborators:
       steps:
         - get-collaborators
-        - get-git-users
+        - get-git-user
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
 #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
