@@ -5,8 +5,20 @@ parameters:
     run_workflow_deploy:
         type: boolean
         default: true
-
+    GHA_Actor:
+        type: string
+        default: ""
+    GHA_Action:
+        type: string
+        default: ""
+    GHA_Event:
+        type: string
+        default: ""
+    GHA_Meta:
+        type: string
+        default: ""
 ## Start of build control of O58 and O562 pluginsrun_workflow_deploy
+
 ## run_workflow_deploy_O58
 ##    type: boolean
 ##    default: true
@@ -107,6 +119,7 @@ commands:
               collab_users=$(echo $ghrc | jq '.[].login')
               collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
+              echo "GHA_Actor: " $GHA_Actor
 
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
@@ -389,16 +402,16 @@ jobs:
         steps:
         - checkout
         - get-collaborators
-        - run: >
-            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
-        - run: >
-            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main" | sudo tee -a /etc/apt/sources.list
-        - run: >
-            echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
+        - run:
+            name: "Update apt sources"
+            command: |
+              echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
+              echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main" | sudo tee -a /etc/apt/sources.list
+              echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
         - run: chmod a+x ci/*.sh
-        - run: ci/circleci-build-debian.sh
-        - deploy-code
+#        - run: ci/circleci-build-debian.sh
+#        - deploy-code
 ## ---------------------
 ## OpenCPN 5.6.2 Plugins
 ## ---------------------
