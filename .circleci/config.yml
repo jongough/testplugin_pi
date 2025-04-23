@@ -394,8 +394,6 @@ jobs:
         - run: >
             echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
         - run: cat /etc/apt/sources.list
-        - run: pwd
-        - run: ls -l
         - run: chmod a+x ci/*.sh
         - run: ci/circleci-build-debian.sh
         - deploy-code
