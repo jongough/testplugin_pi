@@ -17,7 +17,8 @@ parameters:
     GHA_Meta:
         type: string
         default: ""
-## Start of build control of O58 and O562 pluginsrun_workflow_deploy
+
+## Start of build control of O58 and O562 plugins
 
 ## run_workflow_deploy_O58
 ##    type: boolean
@@ -81,9 +82,10 @@ workflows:
 #              <<: *std-filters
 
 orbs:
-    cloudsmith: cloudsmith/cloudsmith@1.0.4
-    win: circleci/windows@5.0
-    gh: circleci/github-cli@2.7
+    cloudsmith: cloudsmith/cloudsmith@1.0.5
+    win: circleci/windows@5.1.0
+    gh: circleci/github-cli@2.7.0
+    jq: circleci/jq@3.0.2
 
 commands:
     deploy-code:
@@ -112,6 +114,7 @@ commands:
     get-collaborators:
       steps:
         - gh/setup
+        - jq/install
         - run:
             name: "Get github collaborators"
             command: |
@@ -121,10 +124,11 @@ commands:
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
     get-git-user:
       steps:
+        - jq/install
         - run:
             name: "Get github user"
             command: |
-              curl_resp=$(curl https://circleci.com/api/v2/pipeline/${CIRCLE_PIPELINE_ID})
+              curl_resp=$(curl -s -S https://circleci.com/api/v2/pipeline/${CIRCLE_PIPELINE_ID})
               git_user=$(echo $curl_resp | jq '.trigger.actor.login')
               echo "export git_user=\"$git_user\"" >> $BASH_ENV
     get-users-and-collaborators:
