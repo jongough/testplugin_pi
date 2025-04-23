@@ -120,7 +120,14 @@ commands:
               collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
               echo "GHA_Actor: " $GHA_Actor
-
+    get-circleci-user:
+      steps:
+        - run:
+            name: "Get Circleci username"
+            command: |
+              echo "CIRCLE_PIPELINE_ID: " $CIRCLE_PIPELINE_ID
+              curlr=$(curl https://circleci.com/api/v2/pipeline/${CIRCLE_PIPELINE_ID})
+              echo "curlr: " $curlr
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
 #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
@@ -402,14 +409,15 @@ jobs:
         steps:
         - checkout
         - get-collaborators
-        - run:
-            name: "Update apt sources"
-            command: |
-              echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
-              echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main" | sudo tee -a /etc/apt/sources.list
-              echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
-        - run: cat /etc/apt/sources.list
-        - run: chmod a+x ci/*.sh
+        - get-circleci-user
+#        - run:
+#            name: "Update apt sources"
+#            command: |
+#              echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
+#              echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main" | sudo tee -a /etc/apt/sources.list
+#              echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
+#        - run: cat /etc/apt/sources.list
+#        - run: chmod a+x ci/*.sh
 #        - run: ci/circleci-build-debian.sh
 #        - deploy-code
 ## ---------------------
