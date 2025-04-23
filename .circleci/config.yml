@@ -385,23 +385,17 @@ jobs:
           - DEPLOY_USE_ORB: true
           - BUILD_ENV=ubuntu
         steps:
-          - get-collaborators
-          - run: |
-              echo "sourcing bash_env"
-              source $BASH_ENV
-              printenv
-              echo "users: " $collab_users
-              echo "CIRCLE_USERNAME: " $CIRCLE_USERNAME
-#        - run: >
-#            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
-#        - run: >
-#            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main" | sudo tee -a /etc/apt/sources.list
-#        - run: >
-#            echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
-#        - run: cat /etc/apt/sources.list
-#        - run: chmod a+x ci/*.sh
-#        - run: ci/circleci-build-debian.sh
-#        - deploy-code
+        - get-collaborators
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb-src http://us.archive.ubuntu.com/ubuntu/ jammy-updates main" | sudo tee -a /etc/apt/sources.list
+        - run: >
+            echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu/ jammy main" | sudo tee -a /etc/apt/sources.list
+        - run: cat /etc/apt/sources.list
+        - run: chmod a+x ci/*.sh
+        - run: ci/circleci-build-debian.sh
+        - deploy-code
 ## ---------------------
 ## OpenCPN 5.6.2 Plugins
 ## ---------------------
