@@ -119,18 +119,19 @@ commands:
               collab_users=$(echo $ghrc | jq '.[].login')
               collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
-              echo "GHA_Actor: " $GHA_Actor
-    get-circleci-user:
+    get-git-user:
       steps:
         - run:
-            name: "Get Circleci username"
+            name: "Get github user"
             command: |
-              echo "CIRCLE_PIPELINE_ID: " $CIRCLE_PIPELINE_ID
-              curlr=$(curl https://circleci.com/api/v2/pipeline/${CIRCLE_PIPELINE_ID})
-              echo "curlr: " $curlr
-              git_user=$(echo $curlr | jq '.trigger.actor.login')
-              echo "git_user: " $git_user
+              echo "pipeline.trigger_parameters.github_app.user_name: " $pipeline.trigger_parameters.github_app.user_name
+              curl_resp=$(curl https://circleci.com/api/v2/pipeline/${CIRCLE_PIPELINE_ID})
+              git_user=$(echo $curl_resp | jq '.trigger.actor.login')
               echo "export git_user=\"$git_user\"" >> $BASH_ENV
+    get-users-and-collaborators:
+      steps:
+        - get-collaborators
+        - get-git-users
 
 # if you want to use a local proxy add Acquire::http::Proxy \"http://192.168.1.1:3142\"; to a file called circleci-cache/apt-proxy. This will require
 #    --volume {your local directory}/circleci-cache:/home/circleci/circleci-cache
@@ -411,8 +412,7 @@ jobs:
         - BUILD_ENV=ubuntu
         steps:
         - checkout
-        - get-collaborators
-        - get-circleci-user
+        - get-users-and-collaborators
         - run:
             name: "Update apt sources"
             command: |
