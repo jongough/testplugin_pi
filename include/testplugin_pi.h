@@ -126,6 +126,7 @@ std::cout << x  << std::endl ; } while (0)
 
 #include "wxWTranslateCatalog.h"
 
+#include <cstdint>
 #include "ocpn_plugin.h"
 
 #include <wx/string.h>
