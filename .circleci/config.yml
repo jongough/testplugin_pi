@@ -440,7 +440,7 @@ jobs:
         - DEPLOY_USE_ORB: false
         steps:
 #        - checkout
-        - run: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/main/install.sh | sudo bash
+#        - run: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/main/install.sh | sudo bash
 #        - run:
 #            privileged: False
 #            shell: cmd.exe
