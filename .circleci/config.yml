@@ -87,6 +87,9 @@ commands:
             deploy_use_orb:
                 type: boolean
                 default: true
+            use_collaborators:
+                type: boolean:
+                default: true
         steps:
             - when:
                 condition: <<pipeline.parameters.run_workflow_deploy>>
@@ -101,7 +104,10 @@ commands:
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
-                - get-users-and-collaborators
+                - when:
+                   condition: <<parameters.use_collaborators>>
+                   steps:
+                  - get-users-and-collaborators
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
@@ -435,12 +441,12 @@ jobs:
         steps:
 #        - checkout
         -run: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/main/install.sh | sudo bash
-        - get-collaborators
 #        - run:
 #            privileged: False
 #            shell: cmd.exe
 #            command: ci\circleci-build-msvc.bat
-#        - deploy-code:
-#            deploy_use_orb: false
+        - deploy-code:
+            deploy_use_orb: false
+            use_collaborators: false
 
 
