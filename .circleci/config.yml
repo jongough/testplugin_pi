@@ -105,7 +105,7 @@ commands:
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
-        - gh/setup
+#        - gh/setup
         - jq/install
         - run:
             name: "Get github collaborators"
@@ -434,11 +434,12 @@ jobs:
         - DEPLOY_USE_ORB: false
         steps:
         - checkout
-        - run:
-            privileged: False
-            shell: cmd.exe
-            command: ci\circleci-build-msvc.bat
-        - deploy-code:
-            deploy_use_orb: false
+        - get_collaborators
+#        - run:
+#            privileged: False
+#            shell: cmd.exe
+#            command: ci\circleci-build-msvc.bat
+#        - deploy-code:
+#            deploy_use_orb: false
 
 
