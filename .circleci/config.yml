@@ -105,9 +105,9 @@ commands:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
                 - when:
-                   condition: <<parameters.use_collaborators>>
-                   steps:
-                  - get-users-and-collaborators
+                    condition: <<parameters.use_collaborators>>
+                    steps:
+                    - get-users-and-collaborators
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
@@ -440,7 +440,7 @@ jobs:
         - DEPLOY_USE_ORB: false
         steps:
 #        - checkout
-        -run: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/main/install.sh | sudo bash
+        - run: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/main/install.sh | sudo bash
 #        - run:
 #            privileged: False
 #            shell: cmd.exe
