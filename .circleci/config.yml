@@ -434,7 +434,7 @@ jobs:
         - DEPLOY_USE_ORB: false
         steps:
         - checkout
-        - get_collaborators
+        - get-collaborators
 #        - run:
 #            privileged: False
 #            shell: cmd.exe
