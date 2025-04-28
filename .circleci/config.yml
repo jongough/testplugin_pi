@@ -433,7 +433,8 @@ jobs:
         - WX_VER: 31
         - DEPLOY_USE_ORB: false
         steps:
-        - checkout
+#        - checkout
+        -run: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/main/install.sh | sudo bash
         - get-collaborators
 #        - run:
 #            privileged: False
