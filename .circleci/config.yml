@@ -88,7 +88,7 @@ commands:
                 type: boolean
                 default: true
             use_collaborators:
-                type: boolean:
+                type: boolean
                 default: true
         steps:
             - when:
