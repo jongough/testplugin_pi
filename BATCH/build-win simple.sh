@@ -31,49 +31,12 @@ WXWIN="/home/fcgle/source/wxWidgets-3.2.2"
 
 # For Opencpn 5.8 and wxWidgets-3.2.2
 
-# cd build || exit
-# find the build directory whereever it is.
-BUILD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/build"
-cd "$BUILD_DIR"
-
-
-
-# Check if the first argument is provided
-if [ -z "$1" ]; then
-  echo "No argument supplied."
-  echo  "Use c to build"
-  echo  "Use t to test"
-  exit 1
-fi
-
-# Perform actions based on the first argument
-if [ "$1" == "c" ]; then
-    cmake -T v143 -A Win32 -DOCPN_TARGET=MSVC ..
-    cmake --build . --target package --config relwithdebinfo >output.txt
+cd build
+cmake -T v143 -A Win32 -DOCPN_TARGET=MSVC ..
+cmake --build . --target package --config relwithdebinfo >output.txt
 	
-elif [ "$1" == "t" ]; then
-  echo "Running tests..."
-    cmake -T v143 -A Win32 -DOCPN_BUILD_TEST=ON ..  -DOCPN_TARGET=MSVC ..
-    cmake --build . --target package --config relwithdebinfo >output.txt
-	ctest -V
-else
-  echo "Invalid argument. Use 'c' for cmake or 't' for testing."
-  exit 1
-fi
-
-# Alternative lines do the same thing.
-# if [ "$1" == "c" ]; then
-#     cmake -A Win32 -G "Visual Studio 17 2022" -DCMAKE_GENERATOR_PLATFORM=Win32 ..
-#     cmake --build . --config Release
-# fi
-
 # Bash script completes tarball prep adding metadata into it.
 bash ./cloudsmith-upload.sh
-
-# Example used to copy a plugin DLL for testing. Adjust the paths and plugin name.
-if [ "$1" == "pi" ]; then
-    cp /home/radar/AutoTrackRaymarine_pi/build/Release/autotrackraymarine_pi.dll "/home/$USER/.local/share/opencpn/plugins"
-fi
 
 # Find ${bold}"build/output.txt"${normal} file if the build is not successful.
 # Other examples below.
