@@ -72,7 +72,6 @@ workflows:
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.5
     win: circleci/windows@5.1.0
-    gh: circleci/github-cli@2.7.0
     jq: circleci/jq@3.0.2
 
 commands:
@@ -82,9 +81,6 @@ commands:
                 type: boolean
                 default: false
             deploy_use_orb:
-                type: boolean
-                default: true
-            use_collaborators:
                 type: boolean
                 default: true
         steps:
@@ -101,21 +97,17 @@ commands:
                     steps:
                     - cloudsmith/ensure-api-key
                     - cloudsmith/install-cli
-                - when:
-                    condition: <<parameters.use_collaborators>>
-                    steps:
-                    - get-users-and-collaborators
+                - get-users-and-collaborators
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
-        - gh/setup
         - jq/install
         - run:
             name: "Get github collaborators"
             command: |
-              ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+              ghrc=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
               collab_users=$(echo $ghrc | jq '.[].login')
-              collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
+              collab_users=$(echo $collab_users | sed 's/\"/;/g' | sed 's/;;/;/g' | tr -d '\n')
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
     get-git-user:
       steps:
@@ -205,7 +197,7 @@ jobs:
     build-msvc-wx32-2022:
         executor:
             name: win/server-2022
-            shell: cmd.exe
+            shell: bash.exe
         environment:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
@@ -219,7 +211,6 @@ jobs:
             command: ci\circleci-build-msvc.bat
         - deploy-code:
             deploy_use_orb: false
-            use_collaborators: false
     build-flatpak-aarch64-2208:
         machine:
             image: ubuntu-2404:current
@@ -430,7 +421,7 @@ jobs:
     build-msvc-2022:
         executor:
             name: win/server-2022
-            shell: cmd.exe
+            shell: bash.exe
         environment:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
@@ -444,6 +435,5 @@ jobs:
             command: ci\circleci-build-msvc.bat
         - deploy-code:
             deploy_use_orb: false
-            use_collaborators: false
 
 
