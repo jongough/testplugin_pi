@@ -128,6 +128,7 @@ commands:
               collab_users=$(echo $ghrc | jq '.[].login')
               collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
+              echo "export: " $collab_users
     get-git-user:
       steps:
         - jq/install
