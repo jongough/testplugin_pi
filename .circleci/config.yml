@@ -111,7 +111,7 @@ commands:
                     steps:
                     - run:
                         command: |
-                          response=$(curl -s -u $GIT_USER_TOKEN https://api.github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+                          response=$(curl -s -u $GITHUB_TOKEN https://api.github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
                           echo $respone
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
