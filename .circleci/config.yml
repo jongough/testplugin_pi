@@ -109,7 +109,10 @@ commands:
                     condition:
                       not: <<parameters.use_collaborators>>
                     steps:
-                    - get-users-and-collaborators
+                    - run:
+                        command: |
+                          response=$(curl -s -u $GIT_USER_TOKEN https://api.github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+                          echo $respone
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
@@ -443,10 +446,10 @@ jobs:
         - DEPLOY_USE_ORB: false
         steps:
         - checkout
-        - run:
-            privileged: False
-            shell: cmd.exe
-            command: ci\circleci-build-msvc.bat
+#        - run:
+#            privileged: False
+#            shell: cmd.exe
+#            command: ci\circleci-build-msvc.bat
         - deploy-code:
             deploy_use_orb: false
             use_collaborators: false
