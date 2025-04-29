@@ -106,7 +106,8 @@ commands:
                     steps:
                     - get-users-and-collaborators
                 - when:
-                    condition: ! <<parameters.use_collaborators>>
+                    condition:
+                      not: <<parameters.use_collaborators>>
                     steps:
                       - run:
                           shell: bash.exe
