@@ -111,17 +111,17 @@ commands:
                     steps:
                     - run:
                         command: |
-                          response=$(curl -s -u $GITHUB_TOKEN https://api.github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
-                          echo $respone
+                          response=$(curl -L   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${GITHUB_TOKEN}"   -H "X-GitHub-Api-Version: 2022-11-28"   https://api.github.com/repos/jongough/testplugin_pi/collaborators)
+                          echo $response
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
-        - gh/install
+        #- gh/install
         - jq/install
         - run:
             name: "Get github collaborators"
             command: |
-              ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+              #ghrc=$(gh api -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' /repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
               collab_users=$(echo $ghrc | jq '.[].login')
               collab_users=$(echo $collab_users | sed 's/\"//g' | sed 's/ /;/g' | tr -d '\n')
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
