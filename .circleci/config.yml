@@ -109,9 +109,7 @@ commands:
                     condition:
                       not: <<parameters.use_collaborators>>
                     steps:
-                      - run:
-                          shell: bash.exe
-                          command: get-users-and-collaborators
+                    - get-users-and-collaborators
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
@@ -437,7 +435,7 @@ jobs:
     build-msvc-2022:
         executor:
             name: win/server-2022
-            shell: cmd.exe
+            shell: bash.exe
         environment:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
