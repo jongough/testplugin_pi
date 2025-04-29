@@ -211,7 +211,6 @@ jobs:
             command: ci\circleci-build-msvc.bat
         - deploy-code:
             deploy_use_orb: false
-            use_collaborators: false
     build-flatpak-aarch64-2208:
         machine:
             image: ubuntu-2404:current
@@ -436,6 +435,5 @@ jobs:
 #            command: ci\circleci-build-msvc.bat
         - deploy-code:
             deploy_use_orb: false
-            use_collaborators: false
 
 
