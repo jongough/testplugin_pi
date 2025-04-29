@@ -113,7 +113,7 @@ commands:
                 - run: bash ci/cloudsmith-upload.sh
     get-collaborators:
       steps:
-        - gh/setup
+        - gh/install
         - jq/install
         - run:
             name: "Get github collaborators"
