@@ -125,8 +125,12 @@ commands:
           default: GITHUB_TOKEN1
       steps:
         - when:
-            condition: <<parameters.github_token>>
+            condition: ${GITHUB_TOKEN}
             steps:
+            - run:
+                name: "Check GITHUB_TOKEN"
+                command: |
+                  echo "GITHUB_TOKEN: " ${GITHUB_TOKEN}
             - get-collaborators
             - get-git-user
 
