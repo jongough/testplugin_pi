@@ -6,15 +6,6 @@ parameters:
         type: boolean
         default: true
 
-## Start of build control of O58 and O562 plugins
-
-## run_workflow_deploy_O58
-##    type: boolean
-##    default: true
-## run_workflow_deploy_O562
-##    type: boolean
-##    default: false
-
 std-filters: &std-filters
     filters:
         branches:
@@ -105,7 +96,11 @@ commands:
         - run:
             name: "Get github collaborators"
             command: |
-              ghrc=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+              if [ ! -z ${GITHUB_TOKEN+x} ]; then
+                ghrc=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/collaborators?affiliation=direct)
+              else
+                ghrc=""
+              fi
               collab_users=$(echo $ghrc | jq '.[].login')
               collab_users=$(echo $collab_users | sed 's/\"/;/g' | sed 's/;;/;/g' | tr -d '\n')
               echo "export collab_users=\"$collab_users\"" >> $BASH_ENV
