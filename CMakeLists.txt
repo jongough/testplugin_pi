@@ -19,7 +19,7 @@
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 # -----------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.340.0 29/04/2025 DD/MM/YYYY
+# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.344.0 03/07/2025 DD/MM/YYYY
 # format buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 # -- When changing this file do NOT change the order of the sections.    -- ##
@@ -31,7 +31,7 @@
 set(CMLOC "CMakeLists: ")
 
 # define minimum cmake version
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 if(COMMAND cmake_policy)
   if (POLICY CMP0043)
     cmake_policy(SET CMP0043 NEW)
@@ -75,9 +75,9 @@ set(LONG_DESCRIPTION
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "341")
+set(VERSION_PATCH "344")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "30/04/2025") # DD/MM/YYYY format
+set(VERSION_DATE "03/07/2025") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -86,8 +86,9 @@ set(TP_COMMENT "  * Release using CI")
 
 set(PARENT "opencpn")
 
-# Use to set up a local webserver with git installed. Default is github.com. Now
-# set in pluginconfigure.cmake set(GIT_REPOSITORY_SERVER "github.com")
+# Use to set up a local webserver with git installed. Default is github.com.
+# Now set in PluginSetup.cmake set(GIT_REPOSITORY_SERVER "github.com")
+
 
 # Specifies Cloudsmith upload repository suffix for each catalog
 set(PROD "prod") # Standard Repos
@@ -196,30 +197,31 @@ add_definitions(-DPLUGIN_USE_SVG)
 # ----- If using JSON validation in plugin section below is needed
 
 if (APPLE)
-  option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
+  option(OD_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
 else (APPLE)
-  option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
+  option(OD_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
 endif (APPLE)
 
-set(PI_JSON_SCHEMA_VALIDATOR ON)
+set(OD_JSON_SCHEMA_VALIDATOR ON)
 
-if (PI_JSON_SCHEMA_VALIDATOR)
+if (OD_JSON_SCHEMA_VALIDATOR)
   message(
     STATUS
       "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN"
   )
-  add_definitions(-DPI_JSON_SCHEMA_VALIDATOR)
+  add_definitions(-DOD_JSON_SCHEMA_VALIDATOR)
   message(STATUS "${CMLOC}Adding JSON Schema validation")
 
+# removed for testing
   add_subdirectory(opencpn-libs/json-schema-validator)
   target_link_libraries(${PACKAGE_NAME} ocpn::json-schema-validator)
 
-else (PI_JSON_SCHEMA_VALIDATOR)
+else (OD_JSON_SCHEMA_VALIDATOR)
   message(
     STATUS
       "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes"
   )
-endif (PI_JSON_SCHEMA_VALIDATOR)
+endif (OD_JSON_SCHEMA_VALIDATOR)
 
 # ----- If using JSON validation in plugin section above is needed
 
@@ -257,7 +259,7 @@ if (NOT OCPN_FLATPAK_CONFIG)
     target_link_libraries(${PACKAGE_NAME} windows::headers)
   endif (WIN32)
 
-  add_subdirectory(opencpn-libs/api-18)
+  add_subdirectory(opencpn-libs/api-${OCPN_API_VERSION_MINOR})
   target_link_libraries(${PACKAGE_NAME} ocpn::api)
 
   add_subdirectory(opencpn-libs/tinyxml)
@@ -289,7 +291,7 @@ if (UNIX
     AND NOT OCPN_FLATPAK_CONFIG
     AND NOT OCPN_FLATPAK_BUILD
 )
-  if (PI_JSON_SCHEMA_VALIDATOR)
+  if (OD_JSON_SCHEMA_VALIDATOR)
     # Change OS/ABI to be UNIX - System V to make it run with OCPN
     set(lib_name lib${PACKAGE_NAME}.so)
     message(STATUS "${CMLOC}lib-name: ${lib_name}")
@@ -312,11 +314,13 @@ if (UNIX
           "${CMLOC}Cannot correct OS/ABI to match OCPN if it is generated incorrectly. Package binutils needed"
       )
     endif (NOT (${elfedit} STREQUAL "elfedit-NOTFOUND"))
-  endif (PI_JSON_SCHEMA_VALIDATOR)
+  endif (OD_JSON_SCHEMA_VALIDATOR)
 endif (
   UNIX
   AND NOT APPLE
   AND NOT QT_ANDRIOD
+  AND NOT OCPN_FLATPAK_CONFIG
+  AND NOT OCPN_FLATPAK_BUILD
 )
 
 # ------- Change below to match project requirements

@@ -79,7 +79,8 @@ class tpControlDialogImpl : public tpControlDialogDef
         void OnCheckBoxCloseSaveFileAfterEachWrite( wxCommandEvent& event );
         void OnCheckBoxAppendToFile( wxCommandEvent& event );
         void OnCheckBoxDeleteFromConfig( wxCommandEvent& event );
-
+        void OnButtonClickGetGUIDSODAPI( wxCommandEvent& event );
+        void OnButtonClickGetGUIDSJSON( wxCommandEvent& event );
 
 	public:
         tpControlDialogImpl( wxWindow *parent );

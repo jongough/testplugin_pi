@@ -202,6 +202,7 @@ int testplugin_pi::Init(void)
     m_bODCreateTextPoint = false;
     m_bODAddPointIcon = false;
     m_bODDeletePointIcon = false;
+    m_bODFindAllPathsGUIDS = false;
     m_pOD_FindPointInAnyBoundary = NULL;
     m_pODFindClosestBoundaryLineCrossing = NULL;
     m_pODFindFirstBoundaryLineCrossing = NULL;
@@ -214,6 +215,7 @@ int testplugin_pi::Init(void)
     m_pODDeleteTextPoint = NULL;
     m_pODAddPointIcon = NULL;
     m_pODDeletePointIcon = NULL;
+    m_pODFindAllPathsGUIDS = NULL;
     m_iODVersionMajor = 0;
     m_iODVersionMinor = 0;
     m_iODVersionPatch = 0;
@@ -543,7 +545,7 @@ void testplugin_pi::GetODAPI()
     wxJSONWriter writer;
     wxString    MsgString;
 
-    jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+    jMsg[wxT("Source")] = "TESTPLUGIN_PI";
     jMsg[wxT("Type")] = wxT("Request");
     jMsg[wxT("Msg")] = wxT("Version");
     jMsg[wxT("MsgId")] = wxT("Version");
@@ -623,6 +625,16 @@ void testplugin_pi::GetODAPI()
             sscanf(sptr.To8BitData().data(), "%p", &m_pODDeletePointIcon);
             m_bODDeletePointIcon = true;
         }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindAllPathsGUIDS")].AsString();
+        if(sptr != _T("null")) {
+          sscanf(sptr.To8BitData().data(), "%p", &m_pODFindAllPathsGUIDS);
+          m_bODFindAllPathsGUIDS = true;
+        }
+        sptr = g_ReceivedODAPIJSONMsg[_T("OD_FindAllPointsGUIDS")].AsString();
+        if(sptr != _T("null")) {
+          sscanf(sptr.To8BitData().data(), "%p", &m_pODFindAllPointsGUIDS);
+          m_bODFindAllPointsGUIDS = true;
+        }
     }
 
     wxString l_msg;
@@ -637,6 +649,8 @@ void testplugin_pi::GetODAPI()
     if(m_bODCreateTextPoint) l_avail.Append(_("OD_CreateTextPoint\n"));
     if(m_bODAddPointIcon) l_avail.Append(_("OD_AddPointIcon\n"));
     if(m_bODDeletePointIcon) l_avail.Append(_("OD_DeletePointIcon\n"));
+    if(m_bODFindAllPathsGUIDS) l_avail.Append(_("OD_FindAllPathsGUIDS\n"));
+    if(m_bODFindAllPointsGUIDS) l_avail.Append(_("OD_FindAllPointsGUIDS\n"));
     if(l_avail.Length() > 0) {
         l_msg.Append(_("The following ODAPI's are available: \n"));
         l_msg.Append(l_avail);
@@ -650,6 +664,8 @@ void testplugin_pi::GetODAPI()
     if(!m_bODCreateTextPoint) l_notavail.Append(_("OD_CreateTextPoint\n"));
     if(!m_bODAddPointIcon) l_notavail.Append(_("OD_AddPointIcon\n"));
     if(!m_bODDeletePointIcon) l_notavail.Append(_("OD_DeletePointIcon\n"));
+    if(!m_bODFindAllPathsGUIDS) l_notavail.Append(_("OD_FindAllPathsGUIDS\n"));
+    if(!m_bODFindAllPointsGUIDS) l_notavail.Append(_("OD_FindAllPointsGUIDS"));
     if(l_notavail.Length() > 0) {
         l_msg.Append(_("The following ODAPI's are not available:\n"));
         l_msg.Append(l_notavail);
@@ -665,6 +681,18 @@ void testplugin_pi::FindClosestBoundaryLineCrossing(FindClosestBoundaryLineCross
         delete pFCPBLC;
     }
     delete pFCPBLC;
+}
+
+void testplugin_pi::GetGUIDList(GUIDList_t *pGL)
+{
+  if(pGL->GUIDType == "" || pGL->GUIDType == "Boundary" || pGL->GUIDType == "EBL") {
+    pGL->GUIDList = (*m_pODFindAllPathsGUIDS)(pGL);
+  }
+
+  if(pGL->GUIDType == "Boundary Point" || pGL->GUIDType == "Text Point") {
+    pGL->GUIDList = (*m_pODFindAllPointsGUIDS)(pGL);
+  }
+
 }
 
 bool testplugin_pi::CreateBoundaryPoint(CreateBoundaryPoint_t* pCBP)

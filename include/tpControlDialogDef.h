@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version 3.10.1-0-g8feb16b)
+// C++ code generated with wxFormBuilder (version 4.2.1-0-g80c4cb6)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO *NOT* EDIT THIS FILE!
@@ -29,13 +29,13 @@
 #include <wx/clrpicker.h>
 #include <wx/slider.h>
 #include <wx/radiobox.h>
+#include <wx/listbox.h>
 #include <wx/notebook.h>
 #include <wx/dialog.h>
 
 #include "wxWTranslateCatalog.h"
 
 ///////////////////////////////////////////////////////////////////////////
-
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class tpControlDialogDef
@@ -120,11 +120,6 @@ class tpControlDialogDef : public wxDialog
 		wxColourPickerCtrl* m_colourPickerBoundaryPointRingColour;
 		wxButton* m_buttonCreateBoundaryPointODAPI;
 		wxButton* m_buttonCreateBoundaryPointJSON;
-		wxPanel* m_panelDeleteBoundaryPoint;
-		wxStaticText* m_staticTextDeleteBoundaryPointGUID;
-		wxTextCtrl* m_textCtrDeleteBoundaryPointGUID;
-		wxButton* m_buttonDeleteBoundaryPointODAPI;
-		wxButton* m_buttonDeleteBoundaryPointJSON;
 		wxPanel* m_panelUICreateTextPoint;
 		wxFlexGridSizer* m_fgSizerTextPoint;
 		wxStaticText* m_staticTextTextPointName;
@@ -158,10 +153,22 @@ class tpControlDialogDef : public wxDialog
 		wxTextCtrl* m_textCtrlDeleteTextPointGUID;
 		wxButton* m_buttonDeleteTextPointODAP;
 		wxButton* m_buttonDeleteTextPointJSON;
+		wxPanel* m_panelDeleteBoundaryPoint;
+		wxStaticText* m_staticTextDeleteBoundaryPointGUID;
+		wxTextCtrl* m_textCtrDeleteBoundaryPointGUID;
+		wxButton* m_buttonDeleteBoundaryPointODAPI;
+		wxButton* m_buttonDeleteBoundaryPointJSON;
 		wxPanel* m_panelPointIcon;
 		wxRadioBox* m_radioBoxPointIcon;
 		wxButton* m_buttonPointIconODAPI;
 		wxButton* m_buttonPointIconJSON;
+		wxPanel* m_panelGetGUIDS;
+		wxFlexGridSizer* m_fgSizerGUIDS;
+		wxRadioBox* m_radioBoxGUIDTypes;
+		wxCheckBox* m_checkBoxInLayer;
+		wxButton* m_buttonGetGUIDSODAPI;
+		wxButton* m_buttonGetGUIDSJSON;
+		wxListBox* m_listBoxGUIDList;
 		wxButton* m_buttonClose;
 
 		// Virtual event handlers, override them in your derived class
@@ -179,15 +186,17 @@ class tpControlDialogDef : public wxDialog
 		virtual void OnButtonClickDeleteBoundaryJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryPointODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateBoundaryPointJSON( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnButtonClickDeleteBoundaryPointODAPI( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickFonts( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickCreateTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickDeleteTextPointODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickDeleteTextPointJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteBoundaryPointODAPI( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickDeleteBoundaryPointJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickPointIconODAPI( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClickPointIconJSON( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickGetGUIDSODAPI( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClickGetGUIDSJSON( wxCommandEvent& event ) { event.Skip(); }
 		virtual void tpControlCloseClick( wxCommandEvent& event ) { event.Skip(); }
 
 
