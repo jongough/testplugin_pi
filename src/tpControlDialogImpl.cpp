@@ -46,8 +46,9 @@
 
 #include "wx/jsonwriter.h"
 
-#include "nlohmann/json.hpp"
-using json = nlohmann::json;
+#include "nlohmann/json-schema.hpp"
+using nlohmann::json;
+using nlohmann::json_schema::json_validator;
 
 extern testplugin_pi    *g_testplugin_pi;
 extern bool             g_bSaveJSONOnStartup;
