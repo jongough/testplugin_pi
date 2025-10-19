@@ -43,17 +43,18 @@
 
 #include <stdio.h>
 
-#ifdef PI_JSON_SCHEMA_VALIDATOR
+#ifdef OD_JSON_SCHEMA_VALIDATOR
 #if defined(snprintf) && defined(_MSC_VER)
     #undef snprintf
 #endif
-#include "json-schema.hpp"
+#include "nlohmann/json-schema.hpp"
 using nlohmann::json;
 using nlohmann::json_schema::json_validator;
 #endif
 
-#ifdef PI_JSON_SCHEMA_VALIDATOR
+#ifdef OD_JSON_SCHEMA_VALIDATOR
 #include "ODJSONSchemas.h"
+#include <json.hpp>
 #endif
 
 extern testplugin_pi        *g_testplugin_pi;
@@ -64,7 +65,7 @@ extern wxJSONValue          g_ReceivedODAPIJSONMsg;
 extern wxString             g_ReceivedJSONMessage;
 extern wxJSONValue          g_ReceivedJSONJSONMsg;
 
-#ifdef PI_JSON_SCHEMA_VALIDATOR
+#ifdef OD_JSON_SCHEMA_VALIDATOR
     json_validator *gTPJSONMsgValidator;
 #endif
 
@@ -72,8 +73,22 @@ tpJSON::tpJSON()
 {
     // ctor
     m_ffOutputFile = NULL;
-#ifdef PI_JSON_SCHEMA_VALIDATOR
+#ifdef OD_JSON_SCHEMA_VALIDATOR
     gTPJSONMsgValidator = NULL;
+    DEBUGST("jSchema text: ");
+    DEBUGEND(json_text);
+    jSchema = json::parse(json_text);
+//    jSchema = jSchema_defs;
+//    json tmp = jSchema_scheme;
+//    json tmp = jSchema.flatten();
+//    DEBUGST("jSchema flatten: ");
+//    DEBUGEND(tmp);
+//    for(json::iterator it = tmp.begin(); it != tmp.end(); ++it)
+//    {
+//      jSchema += json::object_t::value_type(it.key(), it.value());
+//    }
+//    DEBUGST("jSchema full: ");
+//    DEBUGEND(jSchema);
 #endif
 }
 
@@ -88,7 +103,7 @@ tpJSON::~tpJSON()
         delete m_ffOutputFile;
     }
 
-#ifdef PI_JSON_SCHEMA_VALIDATOR
+#ifdef OD_JSON_SCHEMA_VALIDATOR
     if(gTPJSONMsgValidator) {
         delete gTPJSONMsgValidator;
         gTPJSONMsgValidator = NULL;
@@ -156,7 +171,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
 
         // now read the JSON text and store it in the 'root' structure
         // check for errors before retreiving values...
-#ifdef PI_JSON_SCHEMA_VALIDATOR
+#ifdef OD_JSON_SCHEMA_VALIDATOR
         if(!gTPJSONMsgValidator) {
             gTPJSONMsgValidator = new json_validator;
             try {
@@ -205,7 +220,7 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             return;
         }
 
-#ifndef PI_JSON_SCHEMA_VALIDATOR
+#ifndef OD_JSON_SCHEMA_VALIDATOR
         if(!root.HasMember( wxS("Source"))) {
             // Originator
             wxLogMessage( wxS("No Source found in message") );
@@ -230,7 +245,6 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
             bFail = true;
         }
 #endif
-
         if(!bFail && root[wxS("Msg")].AsString() == wxS("Version") && root[wxS("Type")].AsString() == wxS("Request")) {
             jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
             jMsg[wxT("Msg")] = root[wxT("Msg")];
@@ -255,6 +269,9 @@ void tpJSON::ProcessMessage(wxString &message_id, wxString &message_body)
         } else if(!bFail && root[wxS("Msg")].AsString() == wxS("CreateBoundaryPoint") && root[wxS("Type")].AsString() == wxS("Response")) {
             g_ReceivedJSONJSONMsg = root;
             g_ReceivedJSONMessage = message_body;
+        } else if(!bFail && root[wxS("Msg")].AsString() == wxS("GetGUID") && root[wxS("Type")].AsString() == wxS("Response")) {
+          g_ReceivedJSONJSONMsg = root;
+          g_ReceivedJSONMessage = message_body;
         }
 
     } else if(message_id == _T("WMM_VARIATION_BOAT")) {

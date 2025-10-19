@@ -46,6 +46,16 @@
 
 #include "wx/jsonwriter.h"
 
+
+#ifdef OD_JSON_SCHEMA_VALIDATOR
+#if defined(snprintf) && defined(_MSC_VER)
+#undef snprintf
+#endif
+#include "nlohmann/json-schema.hpp"
+using nlohmann::json;
+using nlohmann::json_schema::json_validator;
+#endif
+
 extern testplugin_pi    *g_testplugin_pi;
 extern bool             g_bSaveJSONOnStartup;
 extern wxString         g_ReceivedJSONMessage;
@@ -450,6 +460,106 @@ void tpControlDialogImpl::OnButtonClickPointIconODAPI(wxCommandEvent& event)
         g_testplugin_pi->ToggleToolbarIcon();
         Show(false);
     }
+}
+
+void tpControlDialogImpl::OnButtonClickGetGUIDSODAPI(wxCommandEvent& event)
+{
+  GUIDList_t *pGL = new GUIDList_t;
+  switch(m_radioBoxGUIDTypes->GetSelection())
+  {
+    case 0: // All Paths
+    {
+      pGL->GUIDType = "";
+      break;
+    }
+    case 1: // Boundaries
+    {
+      pGL->GUIDType = "Boundary";
+      break;
+    }
+    case 2:
+    {
+      pGL->GUIDType = "EBL";
+      break;
+    }
+    case 3: // Boundary Point
+    {
+      pGL->GUIDType = "Boundary Point";
+      break;
+    }
+    case 4: // Text Point
+    {
+      pGL->GUIDType = "Text Point";
+      break;
+    }
+  }
+  pGL->InLayer = m_checkBoxInLayer->IsChecked();
+  g_testplugin_pi->GetGUIDList(pGL);
+  m_listBoxGUIDList->Clear();
+  m_listBoxGUIDList->InsertItems( pGL->GUIDList, 0);
+}
+
+void tpControlDialogImpl::OnButtonClickGetGUIDSJSON(wxCommandEvent& event)
+{
+  GUIDList_t *pGL = new GUIDList_t;
+  switch(m_radioBoxGUIDTypes->GetSelection())
+  {
+    case 0: // All Paths
+    {
+      pGL->GUIDType = "";
+      break;
+    }
+    case 1: // Boundaries
+    {
+      pGL->GUIDType = "Boundary";
+      break;
+    }
+    case 2:
+    {
+      pGL->GUIDType = "EBL";
+      break;
+    }
+    case 3: // Boundary Point
+    {
+      pGL->GUIDType = "Boundary Point";
+      break;
+    }
+    case 4: // Text Point
+    {
+      pGL->GUIDType = "Text Point";
+      break;
+    }
+  }
+  pGL->InLayer = m_checkBoxInLayer->IsChecked();
+
+  m_bOK = true;
+  wxJSONWriter writer;
+  wxJSONValue jMsg;
+  wxString    MsgString;
+
+  jMsg[wxT("Source")] = wxT("TESTPLUGIN_PI");
+  jMsg[wxT("Type")] = wxT("Request");
+  jMsg[wxT("Msg")] = wxS("GetGUID");
+  srand((unsigned)time(0));
+  int l_rand = (rand()%10000) + 1;
+  jMsg[wxT("MsgId")] = wxString::Format(wxT("%i"), l_rand);
+
+  jMsg[wxT("GUIDType")] = pGL->GUIDType;
+  jMsg[wxT("InLayer")] = pGL->InLayer;
+
+  writer.Write( jMsg, MsgString );
+  SendPluginMessage( wxS("OCPN_DRAW_PI"), MsgString );
+
+  if(g_ReceivedJSONMessage != wxEmptyString &&  g_ReceivedJSONJSONMsg[wxT("Msg")].AsString() == wxS("GetGUID") && g_ReceivedJSONJSONMsg[wxT("MsgId")].AsString() == wxString::Format(wxT("%i"), l_rand)) {
+    m_listBoxGUIDList->Clear();
+    if(g_ReceivedJSONJSONMsg[wxT("GUIDS")].AsArray() != 0) {
+
+      for(int i = (int)g_ReceivedJSONJSONMsg[wxT("GUIDS")].AsArray()->size() - 1; i >= 0; i--) {
+        wxString l_string = wxString(g_ReceivedJSONJSONMsg[wxT("GUIDS")][i].AsString());
+        m_listBoxGUIDList->InsertItems(1, &l_string, 0);
+      }
+    }
+  }
 }
 
 void tpControlDialogImpl::OnButtonClickCreateBoundaryJSON( wxCommandEvent& event )
@@ -969,6 +1079,7 @@ void tpControlDialogImpl::SetDialogSize( void )
 
     m_fgSizerTextPoint->Layout();
     m_fgSizerDisplayText->Layout();
+    m_fgSizerGUIDS->Layout();
     m_SizerControl->Layout();
     this->GetSizer()->Fit( this );
     this->Layout();

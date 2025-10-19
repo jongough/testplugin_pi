@@ -220,6 +220,7 @@ public:
     bool ImportJSONFile(void);
     void UpdateCloseAfterSave(bool bCloseAfterSave);
     void UpdateAppendToFile(bool bAppendToFile);
+    void GetGUIDList(GUIDList_t *pGL);
 
     wxGLContext     *m_pcontext;
     wxMemoryDC      *pmdc;
@@ -254,6 +255,8 @@ public:
     bool    m_bODDeleteTextPoint;
     bool    m_bODAddPointIcon;
     bool    m_bODDeletePointIcon;
+    bool    m_bODFindAllPathsGUIDS;
+    bool    m_bODFindAllPointsGUIDS;
     wxFileName  m_fnInputJSON;
     wxFileName  m_fnOutputJSON;
     bool    m_bSaveIncommingJSONMessages;
@@ -295,6 +298,8 @@ private:
     OD_DeleteTextPoint                  m_pODDeleteTextPoint;
     OD_AddPointIcon                     m_pODAddPointIcon;
     OD_DeletePointIcon                  m_pODDeletePointIcon;
+    OD_FindAllPathsGUIDS                m_pODFindAllPathsGUIDS;
+    OD_FindAllPointsGUIDS               m_pODFindAllPointsGUIDS;
 };
 
 #endif
