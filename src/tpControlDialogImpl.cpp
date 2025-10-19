@@ -54,6 +54,7 @@
 #include "nlohmann/json-schema.hpp"
 using nlohmann::json;
 using nlohmann::json_schema::json_validator;
+#endif
 
 extern testplugin_pi    *g_testplugin_pi;
 extern bool             g_bSaveJSONOnStartup;
