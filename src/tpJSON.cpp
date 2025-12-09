@@ -75,8 +75,6 @@ tpJSON::tpJSON()
     m_ffOutputFile = NULL;
 #ifdef OD_JSON_SCHEMA_VALIDATOR
     gTPJSONMsgValidator = NULL;
-    DEBUGST("jSchema text: ");
-    DEBUGEND(json_text);
     jSchema = json::parse(json_text);
 //    jSchema = jSchema_defs;
 //    json tmp = jSchema_scheme;
