@@ -76,7 +76,7 @@ set(LONG_DESCRIPTION
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "353")
-set(VERSION_TWEAK "1")
+set(VERSION_TWEAK "2")
 set(VERSION_DATE "09/12/2025") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
@@ -302,7 +302,6 @@ if (UNIX
         TARGET ${PACKAGE_NAME}
         POST_BUILD
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        DEPENDS ${PACKAGE_NAME}
         COMMENT " Running post build action on ${lib_name}."
         COMMAND
           sh -c
