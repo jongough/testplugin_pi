@@ -19,7 +19,7 @@
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
 # - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 # -----------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.345.0 15/10/2025 DD/MM/YYYY
+# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.352.0 09/12/2025 DD/MM/YYYY
 # format buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 # -- When changing this file do NOT change the order of the sections.    -- ##
@@ -75,9 +75,9 @@ set(LONG_DESCRIPTION
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
-set(VERSION_PATCH "351")
+set(VERSION_PATCH "354")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "19/10/2025") # DD/MM/YYYY format
+set(VERSION_DATE "09/12/2025") # DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -302,7 +302,6 @@ if (UNIX
         TARGET ${PACKAGE_NAME}
         POST_BUILD
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        DEPENDS ${PACKAGE_NAME}
         COMMENT " Running post build action on ${lib_name}."
         COMMAND
           sh -c
