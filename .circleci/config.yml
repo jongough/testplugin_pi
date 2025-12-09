@@ -367,7 +367,7 @@ jobs:
         - deploy-code
     build-debian-x86_64-11-bullseye:
         docker:
-        - image: cimg/buildpack-deps:bullseye-scm
+        - image: cimg/base:current
         environment:
         - OCPN_TARGET:  bullseye
         - BUILD_GTK3: true
