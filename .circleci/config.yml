@@ -221,7 +221,7 @@ jobs:
         - BUILD_ARCH: aarch64
         - FLATPAK_BRANCH: stable
         - CLOUDSMITH_PKG_EXT: gz
-        - SDK_VER: 22.08
+        - SDK_VER: 24.08
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
@@ -237,7 +237,7 @@ jobs:
         - BUILD_ARCH: x86_64
         - FLATPAK_BRANCH: stable
         - CLOUDSMITH_PKG_EXT: gz
-        - SDK_VER: 22.08
+        - SDK_VER: 24.08
         - DEPLOY_USE_ORB: true
         steps:
         - checkout
