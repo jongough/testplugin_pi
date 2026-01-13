@@ -70,7 +70,7 @@ python -m pip install -q cryptography
 :: Install pre-compiled wxWidgets and other DLL; add required paths.
 ::
 set SCRIPTDIR=%~dp0
-set WX_VER=%1%
+set WX_VER=%1
 set WX_VER_SHORT=%WX_VER:~0,4%
 if "%WX_VER_SHORT%"=="wx32" (
   set PATCH=%WX_VER:~4,1%
