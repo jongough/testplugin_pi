@@ -168,7 +168,6 @@ jobs:
         environment:
             OCPN_TARGET: macos
             CMAKE_BUILD_PARALLEL_LEVEL: 2
-            WX_VER: 322
             DEPLOY_USE_ORB: false
             INSTALL_PYTHON: false
         steps:
@@ -202,7 +201,6 @@ jobs:
         environment:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
-        - WX_VER: 322
         - DEPLOY_USE_ORB: false
         steps:
         - checkout
@@ -289,7 +287,6 @@ jobs:
         - DOCKER_IMAGE=arm64v8/debian:trixie
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
-        - WX_VER: 322
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -308,7 +305,6 @@ jobs:
         - DOCKER_IMAGE=arm32v7/debian:trixie
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
-        - WX_VER: 322
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -324,7 +320,6 @@ jobs:
         environment:
         - OCPN_TARGET: trixie
         - BUILD_GTK3: true
-        - WX_VER: 322
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
         - DOCKER_IMAGE=debian:trixie
@@ -344,7 +339,6 @@ jobs:
         - DOCKER_IMAGE=arm64v8/debian:bookworm
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
-        - WX_VER: 322
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -363,7 +357,6 @@ jobs:
         - DOCKER_IMAGE=arm32v7/debian:bookworm
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
-        - WX_VER: 322
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
@@ -379,7 +372,6 @@ jobs:
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
-        - WX_VER: 32
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
         - DOCKER_IMAGE=debian:bookworm
@@ -452,7 +444,6 @@ jobs:
         - image: cimg/base:edge-22.04
         environment:
         - BUILD_GTK3: true
-        - WX_VER: 322
         - OCPN_TARGET: jammy
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
@@ -481,7 +472,8 @@ jobs:
         environment:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
-        - WX_VER: 312
+        - WX_VER: 31
+        - WX_VER_PATCH: 2
         - DEPLOY_USE_ORB: false
         steps:
         - checkout

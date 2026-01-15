@@ -82,6 +82,10 @@ set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "18")
+
+set(WX_VER "32")
+set(WX_VER_PATCH "1")
+
 set(TP_COMMENT "  * Release using CI")
 
 set(PARENT "opencpn")
