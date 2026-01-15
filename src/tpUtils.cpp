@@ -29,9 +29,9 @@
 #include "wx/wx.h"
 #endif //precompiled headers
 
+#include "testplugin_pi.h"
 #include "tpUtils.h"
 #include "ocpn_plugin.h"
-#include "testplugin_pi.h"
 
 extern int      g_iLocaleDepth;
 extern wxString *g_tplocale;
