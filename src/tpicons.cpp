@@ -28,9 +28,9 @@
 #include <wx/wx.h>
 #endif
 
+#include "testplugin_pi.h"
 #include "tpicons.h"
 #include "ocpn_plugin.h"
-#include "testplugin_pi.h"
 
 #include <wx/mstream.h>
 #include <wx/filename.h>

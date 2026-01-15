@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 #include <sstream>
+#include <cstdint>
 #  define DEBUGSL(x) do { \
 std::ostringstream oss; \
 oss << x; \
@@ -127,6 +128,7 @@ std::cout << x  << std::endl ; } while (0)
 #include "wxWTranslateCatalog.h"
 
 #include <cstdint>
+#include <stdint.h>
 #include "ocpn_plugin.h"
 
 #include <wx/string.h>
