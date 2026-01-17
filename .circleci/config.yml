@@ -431,7 +431,6 @@ jobs:
         - OCPN_TARGET:  bullseye
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
-        - WX_VER: 32
         - BUILD_ENV=debian
         steps:
         - checkout
