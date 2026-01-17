@@ -70,21 +70,15 @@ python -m pip install -q cryptography
 :: Install pre-compiled wxWidgets and other DLL; add required paths.
 ::
 set SCRIPTDIR=%~dp0
-set WX_VER=%1
-set "WX_VER_SHORT=%WX_VER:~0,4%"
-if "!WX_VER_SHORT!"=="wx32" (
-  set "PATCH=%WX_VER:~4,1%"
-  if "!PATCH!"=="" (
-    set /A PATCH=0
-  )
-  set "WXWIN=%SCRIPTDIR%..\cache\wxWidgets-%WX_VER:~2,1%.%WX_VER:~3,1%.!PATCH!"
+if "%~1"=="wx32" (
+  set "WXWIN=%SCRIPTDIR%..\cache\wxWidgets-3.2.1"
   set "wxWidgets_ROOT_DIR=!WXWIN!"
   set "wxWidgets_LIB_DIR=!WXWIN!\lib\vc14x_dll"
   set "TARGET_TUPLE=msvc-wx32"
 ) else (
-  set WXWIN=%SCRIPTDIR%..\cache\wxWidgets-3.1.2
-  set wxWidgets_ROOT_DIR=!WXWIN!
-  set wxWidgets_LIB_DIR=!WXWIN!\lib\vc_dll
+  set "WXWIN=%SCRIPTDIR%..\cache\wxWidgets-3.1.2"
+  set "wxWidgets_ROOT_DIR=!WXWIN!"
+  set "wxWidgets_LIB_DIR=!WXWIN!\lib\vc_dll"
   set "TARGET_TUPLE=msvc"
 )
 
