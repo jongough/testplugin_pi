@@ -168,6 +168,7 @@ jobs:
         environment:
             OCPN_TARGET: macos
             CMAKE_BUILD_PARALLEL_LEVEL: 2
+            WX_VER: 32
             DEPLOY_USE_ORB: false
             INSTALL_PYTHON: false
         steps:
@@ -201,6 +202,7 @@ jobs:
         environment:
         - OCPN_TARGET: MSVC
         - MSVC_VERSION: 2022
+        - WX_VER: 32
         - DEPLOY_USE_ORB: false
         steps:
         - checkout
@@ -322,8 +324,8 @@ jobs:
         environment:
         - OCPN_TARGET: trixie
         - BUILD_GTK3: true
-        - DEPLOY_USE_ORB: true
         - WX_VER: 32
+        - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
         - DOCKER_IMAGE=debian:trixie
         steps:
@@ -377,8 +379,8 @@ jobs:
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
-        - DEPLOY_USE_ORB: true
         - WX_VER: 32
+        - DEPLOY_USE_ORB: true
         - BUILD_ENV=debian
         - DOCKER_IMAGE=debian:bookworm
         steps:
@@ -431,8 +433,6 @@ jobs:
         - OCPN_TARGET:  bullseye
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
-        - WX_VER: 30
-        - WX_VER_PATCH: 5
         - BUILD_ENV=debian
         steps:
         - checkout
@@ -453,6 +453,7 @@ jobs:
         environment:
         - BUILD_GTK3: true
         - OCPN_TARGET: jammy
+        - WX_VER: 32
         - DEPLOY_USE_ORB: true
         - BUILD_ENV=ubuntu
         steps:
