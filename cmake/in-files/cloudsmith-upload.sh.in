@@ -238,7 +238,7 @@ if [ ! -z ${LOCAL_DEPLOY+x} ]; then
     else
         echo "Directory ~/circleci-output not found"
     fi
-elif [ $LOCAL_BUILD = faraw lse ]; then
+elif [ $LOCAL_BUILD = false ]; then
 # Only upload if the owner did the pull request or a member of $COLLABORATORS.
     if [ "$CIRCLE_PROJECT_USERNAME" = "$CIRCLE_USERNAME" ] || [[ -n "${collab_users+1}"  && ! -z ${CIRCLE_USERNAME}  && "$collab_users" =~ "$git_user" ]]; then
         cloudsmith push files $REPO --republish --no-wait-for-sync \
