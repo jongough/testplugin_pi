@@ -60,6 +60,7 @@ workflows:
 #          - build-msvc-2022:
 #              <<: *std-filters
           - build-msvc-wx33-win64:
+              <<: *std-filters
 
 orbs:
     cloudsmith: cloudsmith/cloudsmith@1.0.5
