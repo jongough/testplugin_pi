@@ -15,7 +15,7 @@ echo SCRIPTDIR: %SCRIPTDIR%
 dir %SCRIPTDIR%
 dir %SCRIPTDIR%..
 dir %SCRIPTDIR%..\msvc
-call %SCRIPTDIR%..\msvc\win_deps_x64.bat %wx_vers%
+call %SCRIPTDIR%..\msvc\win_deps.bat %wx_vers%
 path %SCRIPTDIR%.local\bin;%PATH%;"C:\Program Files\CMake\bin"
 call "%SCRIPTDIR%..\cache\wx-config.bat"
 set PATH=%EXTRA_PATH%;%PATH%
