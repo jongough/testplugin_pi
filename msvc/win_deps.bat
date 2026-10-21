@@ -80,7 +80,7 @@ if "%~1"=="wx33" (
   set "wxWidgets_ROOT_DIR=!WXWIN!"
   set "wxWidgets_LIB_DIR=!WXWIN!\lib\vc14x_dll"
   set "TARGET_TUPLE=msvc-wx32"
-) else ()
+) else (
   set "WXWIN=%SCRIPTDIR%..\cache\wxWidgets-3.1.2"
   set "wxWidgets_ROOT_DIR=!WXWIN!"
   set "wxWidgets_LIB_DIR=!WXWIN!\lib\vc_dll"
