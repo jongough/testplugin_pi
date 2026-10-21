@@ -9,7 +9,7 @@ if not exist "%CACHE_DIR%" mkdir "%CACHE_DIR%"
 
 :: Install choco cmake and add it's persistent user path element
 ::
-cmake --version > nul 2>&1
+cmake --version >nul 2>&1
 if errorlevel 1 (
   set "CMAKE_HOME=C:\Program Files\CMake"
   choco install -y --no-progress cmake
