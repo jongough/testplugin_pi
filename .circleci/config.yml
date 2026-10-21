@@ -33,10 +33,10 @@ workflows:
 #              <<: *std-filters
 #          - build-flatpak-x86-2408:
 #              <<: *std-filters
-          - build-msvc-wx32-2022:
-              <<: *std-filters
-#          - build-msvc-wx33-win64:
+#          - build-msvc-wx32-2022:
 #              <<: *std-filters
+          - build-msvc-wx33-win64:
+              <<: *std-filters
 #          - build-debian-armhf-13-trixie:
 #              <<: *std-filters
 #          - build-debian-arm64-13-trixie:
