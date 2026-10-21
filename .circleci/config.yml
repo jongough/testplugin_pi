@@ -61,7 +61,7 @@ workflows:
 #              <<: *std-filters
 
 orbs:
-    cloudsmith: cloudsmith/cloudsmith@2.1
+    cloudsmith: cloudsmith/cloudsmith@2.0.0
     win: circleci/windows@5.1.0
     jq: circleci/jq@3.0.2
 
