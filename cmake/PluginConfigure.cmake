@@ -731,6 +731,7 @@ if (NOT QT_ANDROID)
   set(WXWIDGETS_FORCE_VERSION
       CACHE STRING "Force usage of a specific wxWidgets version."
   )
+  message(STATUS "${CMLOC}WX_VER: $ENV{WX_VER}")
   if (NOT "$ENV{WX_VER}" STREQUAL "")
     string(LENGTH $ENV{WX_VER} WX_VER_LEN)
     string(SUBSTRING $ENV{WX_VER} 0 1 MAJOR)
