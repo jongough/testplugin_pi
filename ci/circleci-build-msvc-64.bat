@@ -51,7 +51,6 @@ echo Done check
 echo Create build environment
 
 cmake -A x64 -G "Visual Studio 17 2022" ^
-    -DCMAKE_GENERATOR_PLATFORM=Win64 ^
     -DCMAKE_BUILD_TYPE=%CONFIGURATION% ^
     -DwxWidgets_LIB_DIR=%wxWidgets_LIB_DIR% ^
     -DwxWidgets_ROOT_DIR=%wxWidgets_ROOT_DIR% ^
