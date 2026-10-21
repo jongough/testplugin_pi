@@ -7,6 +7,14 @@ set "CACHE_DIR=%~dp0..\cache"
 if not defined OCPN_VCPKG_ROOT set "OCPN_VCPKG_ROOT=%CACHE_DIR%\vcpkg"
 if not exist "%CACHE_DIR%" mkdir "%CACHE_DIR%"
 
+:: Install choco cmake and add it's persistent user path element
+::
+cmake --version > nul 2>&1
+if errorlevel 1 (
+  set "CMAKE_HOME=C:\Program Files\CMake"
+  choco install -y --no-progress cmake
+  set "EXTRA_PATH=%CMAKE_HOME%\bin;%EXTRA_PATH%"
+
 :: Install Poedit if required
 msgmerge --version >nul 2>&1
 if errorlevel 1 (
