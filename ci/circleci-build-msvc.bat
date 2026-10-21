@@ -49,6 +49,8 @@ poedit -version
 echo Done check
 
 echo Create build environment
+type %CONFIG_FILE%
+%CONFIG_FILE%
 
 if "%MSVC_VERSION%" == "2019" (
 cmake -T v141_xp -G "Visual Studio 16 2019" ^
