@@ -35,6 +35,8 @@ workflows:
 #              <<: *std-filters
 #          - build-msvc-wx32-2022:
 #              <<: *std-filters
+          - build-msvc-wx33-win64:
+              <<: *std-filters
 #          - build-debian-armhf-13-trixie:
 #              <<: *std-filters
 #          - build-debian-arm64-13-trixie:
@@ -48,8 +50,8 @@ workflows:
 #          - build-debian-x86_64-12-bookworm:
 #              <<: *std-filters
 ## KEEP needed for Jammy with wx32
-          - build-ubuntu-x86_64-2204-jammy:
-              <<: *std-filters
+#          - build-ubuntu-x86_64-2204-jammy:
+#              <<: *std-filters
 #          - build-macos-universal:
 #              <<: *std-filters
 
@@ -213,6 +215,7 @@ jobs:
         environment:
         - OCPN_TARGET: MSVC
         - BUILD_ARCH: x86_64
+        - OCPN_ARCH: "x64"
         - MSVC_VERSION: 2022
         - WX_VER: 33
         - DEPLOY_USE_ORB: false
