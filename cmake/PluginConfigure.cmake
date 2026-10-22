@@ -434,9 +434,13 @@ endif ()
 message(STATUS "${CMLOC}PACKAGING_NAME: ${PACKAGING_NAME}")
 message(STATUS "${CMLOC}PACKAGING_NAME_XML: ${PACKAGING_NAME_XML}")
 
-if ((PKG_TARGET MATCHES "MSVC") AND (ENV{OCPN_ARCH} MATCHES "x64"))
-    set(PKG_TARGET_FULL "${PKG_TARGET}${PKG_TARGET_ARCH}")
+message(STATUS "${CMLOC}PKG_TARGET: ${PKG_TARGET}, OCPN_ARCH: $ENV{OCPN_ARCH}")
+#if (PKG_TARGET MATCHES "MSVC" AND ENV{OCPN_ARCH} MATCHES "x64")
+if (MSVC AND $ENV{OCPN_ARCH} STREQUAL "x64")
+    message(STATUS "${CMLOC}Setting PKG_TARGET_FULL for x64")
+    set(PKG_TARGET_FULL "${PKG_TARGET}-$ENV{OCPN_ARCH}")
 else ()
+    message(STATUS "${CMLOC}Setting PKG_TARGET_FULL for non x64")
     set(PKG_TARGET_FULL "${PKG_TARGET}${PKG_TARGET_GTK}${PKG_TARGET_WX_VER}${PKG_TARGET_ARCH}")
 endif ()
 message(STATUS "${CMLOC}PKG_TARGET_FULL: ${PKG_TARGET_FULL}")
@@ -456,6 +460,7 @@ configure_file(
   ${PROJECT_SOURCE_DIR}/cmake/in-files/cloudsmith-upload.sh.in
   ${CMAKE_CURRENT_BINARY_DIR}/cloudsmith-upload.sh @ONLY
 )
+
 configure_file(
   ${PROJECT_SOURCE_DIR}/cmake/in-files/PluginCPackOptions.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/PluginCPackOptions.cmake @ONLY
