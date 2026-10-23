@@ -215,7 +215,7 @@ jobs:
         environment:
         - OCPN_TARGET: MSVC
         - BUILD_ARCH: x86_64
-        - OCPN_ARCH: "x64"
+        - OCPN_ARCH: "64"
         - MSVC_VERSION: 2022
         - WX_VER: 33
         - DEPLOY_USE_ORB: false
