@@ -124,7 +124,7 @@ elseif (MSVC)
     unset(PKG_TARGET_WX_VER)
   endif ()
   if ("$ENV{OCPN_ARCH}" STREQUAL "64")
-    set(PKG_BUILD_TARGET "-$ENV{OCPN_ARCH}")
+    set(PKG_BUILD_TARGET "msvc-$ENV{OCPN_ARCH}")
   endif ()
   message(
     STATUS
