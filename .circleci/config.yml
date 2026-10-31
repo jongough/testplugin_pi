@@ -50,8 +50,8 @@ workflows:
 #          - build-debian-x86_64-12-bookworm:
 #              <<: *std-filters
 ## KEEP needed for Jammy with wx32
-#          - build-ubuntu-x86_64-2204-jammy:
-#              <<: *std-filters
+          - build-ubuntu-x86_64-2204-jammy:
+              <<: *std-filters
 #          - build-macos-universal:
 #              <<: *std-filters
 
@@ -378,7 +378,7 @@ jobs:
         - DOCKER_IMAGE=arm32v7/debian:bookworm
         - BUILD_FLAGS=-j3
         - BUILD_ENV=debian
-        - WX_VER: 32
+        - WX_VER: 33
         - BUILD_GTK3: true
         - DEPLOY_USE_ORB: true
         steps:
