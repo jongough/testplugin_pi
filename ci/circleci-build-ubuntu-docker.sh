@@ -144,6 +144,16 @@ EOF$delimstrnum
             apt-get -y --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF$delimstrnum
             $delimstrnum = $delimstrnum + 1
+        elif [ "$WX_VER" = "33" ]; then
+            echo "building for WX33"
+            if [ "$OCPN_TARGET" = "trixie" ] || [ "$OCPN_TARGET" = "bookworm" ]; then
+                cat >> build.sh << EOF$delimstrnum
+                echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu noble main" | tee -a /etc/apt/sources.list
+                echo "deb-src [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu noble main" | tee -a /etc/apt/sources.list
+                apt-get -y --allow-unauthenticated update
+EOF$delimstrnum
+                $delimstrnum = $delimstrnum + 1
+            fi
         fi
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
             cat >> build.sh << EOF$delimstrnum
