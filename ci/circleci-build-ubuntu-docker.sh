@@ -55,12 +55,12 @@ if [ "$BUILD_ENV" = "raspbian" ]; then
         # cmake 3.16 has a bug that stops the build to use an older version
         install_packages cmake=3.13.4-1 cmake-data=3.13.4-1
 EOF$delimstrnum
-$delimstrnum = $delimstrnum + 1
+$delimstrnum=$(($delimstrnum + 1))
     else
         cat >> build.sh << EOF$delimstrnum
         install_packages cmake cmake-data
 EOF$delimstrnum
-$delimstrnum = $delimstrnum + 1
+        $delimstrnum=$(($delimstrnum + 1))
     fi
     if [ "$OCPN_TARGET" = "bullseye-armhf" ]; then
         cat >> build.sh << EOF$delimstrnum
@@ -71,12 +71,12 @@ $delimstrnum = $delimstrnum + 1
         sudo mk-build-deps -ir ci-source/ci/control
         sudo apt-get --allow-unauthenticated install -f
 EOF$delimstrnum
-        $delimstrnum = $delimstrnum + 1
+        $delimstrnum=$(($delimstrnum + 1))
     else
         cat >> build.sh << EOF$delimstrnum
         install_packages git build-essential devscripts equivs gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF$delimstrnum
-        $delimstrnum = $delimstrnum + 1
+        $delimstrnum=$(($delimstrnum + 1))
     fi
 else
     if [ "$OCPN_TARGET" = "bullseye-armhf" ] ||
@@ -94,7 +94,7 @@ else
         apt-get -y --fix-missing install --allow-change-held-packages --allow-unauthenticated  \
         devscripts equivs wget git build-essential gettext wx-common libgtk2.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release openssl libssl-dev
 EOF$delimstrnum
-        $delimstrnum = $delimstrnum + 1
+        $delimstrnum=$(($delimstrnum + 1))
         if [ "$OCPN_TARGET" = "bullseye-armhf" ] ||
            [ "$OCPN_TARGET" = "bullseye-arm64" ] ||
            [ "$OCPN_TARGET" = "bookworm-armhf" ] ||
@@ -104,7 +104,7 @@ EOF$delimstrnum
                 cat >> build.sh << EOF$delimstrnum
                 apt-get -y --fix-missing --allow-change-held-packages --allow-unauthenticated install software-properties-common
 EOF$delimstrnum
-           $delimstrnum = $delimstrnum + 1
+            $delimstrnum=$(($delimstrnum + 1))
         fi
         if [ "$OCPN_TARGET" = "buster-armhf" ] ||
            [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
@@ -114,13 +114,13 @@ EOF$delimstrnum
                 cat >> build.sh << EOF$delimstrnum
                 apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.0-dev
 EOF$delimstrnum
-                $delimstrnum = $delimstrnum + 1
+                $delimstrnum=$(($delimstrnum + 1))
             else
                 echo "Building for GTK3"
                 cat >> build.sh << EOF$delimstrnum
                 apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.0-gtk3-dev
 EOF$delimstrnum
-                $delimstrnum = $delimstrnum + 1
+                $delimstrnum=$(($delimstrnum + 1))
             fi
         fi
         echo "WX_VER: $WX_VER"
@@ -129,7 +129,7 @@ EOF$delimstrnum
             cat >> build.sh << EOF$delimstrnum
             apt-get -y --no-install-recommends --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxbase3.0-dev
 EOF$delimstrnum
-            $delimstrnum = $delimstrnum + 1
+            $delimstrnum=$(($delimstrnum + 1))
         elif [ "$WX_VER" = "32" ]; then
             echo "Building for WX32"
             if [ "$OCPN_TARGET" = "bullseye-armhf" ] || [ "$OCPN_TARGET" = "bullseye-arm64" ]; then
@@ -138,12 +138,25 @@ EOF$delimstrnum
                 echo "deb-src [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu jammy main" | tee -a /etc/apt/sources.list
                 apt-get -y --allow-unauthenticated update
 EOF$delimstrnum
-                $delimstrnum = $delimstrnum + 1
+                $delimstrnum=$(($delimstrnum + 1))
             fi
             cat >> build.sh << EOF$delimstrnum
             apt-get -y --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.2-dev
 EOF$delimstrnum
-            $delimstrnum = $delimstrnum + 1
+            $delimstrnum=$(($delimstrnum + 1))
+        elif [ "$WX_VER" = "33" ]; then
+            echo "building for WX33"
+            if [ "$OCPN_TARGET" = "trixie" ] || [ "$OCPN_TARGET" = "bookworm" ]; then
+                cat >> build.sh << EOF$delimstrnum
+                echo "deb [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu noble main" | tee -a /etc/apt/sources.list
+                echo "deb-src [trusted=yes] https://ppa.launchpadcontent.net/opencpn/opencpn/ubuntu noble main" | tee -a /etc/apt/sources.list
+                apt-get -y --allow-unauthenticated update
+EOF$delimstrnum
+                $delimstrnum=$(($delimstrnum + 1))
+            fi
+            cat >> build.sh << EOF$delimstrnum
+            apt-get -y --fix-missing --allow-change-held-packages --allow-unauthenticated install libwxgtk3.3-dev
+EOF$delimstrnum
         fi
         if [ "$OCPN_TARGET" = "focal-armhf" ]; then
             cat >> build.sh << EOF$delimstrnum
@@ -153,12 +166,12 @@ EOF$delimstrnum
             apt-get --allow-unauthenticated update
             apt --allow-unauthenticated install cmake=$CMAKE_VERSION cmake-data=$CMAKE_VERSION
 EOF$delimstrnum
-            $delimstrnum = $delimstrnum + 1
+            $delimstrnum=$(($delimstrnum + 1))
         else
             cat >> build.sh << EOF$delimstrnum
             apt install -y --allow-unauthenticated cmake
 EOF$delimstrnum
-            $delimstrnum = $delimstrnum + 1
+            $delimstrnum=$(($delimstrnum + 1))
         fi
     else
         cat > build.sh << EOF$delimstrnum
@@ -166,7 +179,7 @@ EOF$delimstrnum
         apt-get -y --no-install-recommends --allow-change-held-packages --allow-unauthenticated install \
         git cmake build-essential gettext wx-common libgtk2.0-dev libwxbase3.0-dev libwxgtk3.0-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev libcairo2-dev libarchive-dev liblzma-dev libexif-dev lsb-release
 EOF$delimstrnum
-        $delimstrnum = $delimstrnum + 1
+        $delimstrnum=$(($delimstrnum + 1))
     fi
 fi
 

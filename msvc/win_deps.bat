@@ -70,7 +70,12 @@ python -m pip install -q cryptography
 :: Install pre-compiled wxWidgets and other DLL; add required paths.
 ::
 set SCRIPTDIR=%~dp0
-if "%~1"=="wx32" (
+if "%~1"=="wx33" (
+  set "WXWIN=%SCRIPTDIR%..\cache\wxWidgets-3.3.4"
+  set "wxWidgets_ROOT_DIR=!WXWIN!"
+  set "wxWidgets_LIB_DIR=!WXWIN!\lib\vc14x_x64_dll"
+  set "TARGET_TUPLE=msvc-wx33-x64"
+) else if "%~1"=="wx32" (
   set "WXWIN=%SCRIPTDIR%..\cache\wxWidgets-3.2.1"
   set "wxWidgets_ROOT_DIR=!WXWIN!"
   set "wxWidgets_LIB_DIR=!WXWIN!\lib\vc14x_dll"
@@ -90,9 +95,19 @@ echo set "TARGET_TUPLE=%TARGET_TUPLE%" >> %CONFIG_FILE%
 
 if not exist "%WXWIN%" (
   wget --version > nul 2>&1 || choco install -y wget
-  if  "%~1"=="wx32" (
+  if  "%~1"=="wx33" (
+      echo Downloading 3.3.4
+      if not exist "%SCRIPTDIR%..\cache\wxWidgets-3.3.4" (
+          mkdir %SCRIPTDIR%..\cache\wxWidgets-3.3.4
+      )
+      set "GITHUB_DL=https://github.com/wxWidgets/wxWidgets/releases/download"
+      wget -nv --no-check-certificate !GITHUB_DL!/v3.3.4/wxMSW-3.3.4_vc14x_x64_Dev.7z
+      7z x -o%SCRIPTDIR%..\cache\wxWidgets-3.3.4 wxMSW-3.3.4_vc14x_x64_Dev.7z
+      wget -nv --no-check-certificate !GITHUB_DL!/v3.3.4/wxWidgets-3.3.4-headers.7z
+      7z x -o%SCRIPTDIR%..\cache\wxWidgets-3.3.4 wxWidgets-3.3.4-headers.7z
+  ) else if  "%~1"=="wx32" (
       echo Downloading 3.2.1
-      if not exist  %SCRIPTDIR%..\cache\wxWidgets-3.2.1 (
+      if not exist "%SCRIPTDIR%..\cache\wxWidgets-3.2.1" (
           mkdir %SCRIPTDIR%..\cache\wxWidgets-3.2.1
       )
       set "GITHUB_DL=https://github.com/wxWidgets/wxWidgets/releases/download"
@@ -108,6 +123,5 @@ if not exist "%WXWIN%" (
       7z x wxWidgets-3.1.2.7z -o%WXWIN%
   )
 )
-dir cache
-type "%CONFIG_FILE%"
+dir %SCRIPTDIR%..\cache
 refreshenv
